@@ -12,6 +12,7 @@
 		047B445E10FAFA41007B9236 /* HomeScreenBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 047B445D10FAFA41007B9236 /* HomeScreenBackground.png */; };
 		047B448B10FB7B07007B9236 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 047B448A10FB7B07007B9236 /* Default.png */; };
 		04C40DEE10FCF184001251C2 /* dist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04C40DED10FCF184001251C2 /* dist.plist */; };
+		04C40F1210FD0B79001251C2 /* essai1.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C40F1110FD0B79001251C2 /* essai1.png */; };
 		1D3623260D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -30,6 +31,7 @@
 		047B445D10FAFA41007B9236 /* HomeScreenBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeScreenBackground.png; sourceTree = "<group>"; };
 		047B448A10FB7B07007B9236 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		04C40DED10FCF184001251C2 /* dist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dist.plist; sourceTree = SOURCE_ROOT; };
+		04C40F1110FD0B79001251C2 /* essai1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = essai1.png; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Learn_Navi_iPhone_AppAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Learn_Navi_iPhone_AppAppDelegate.m; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				04C40F1110FD0B79001251C2 /* essai1.png */,
 				047B448A10FB7B07007B9236 /* Default.png */,
 				047B445D10FAFA41007B9236 /* HomeScreenBackground.png */,
 				047B445110FAF558007B9236 /* HomeScreenBackground.psd */,
@@ -186,6 +189,7 @@
 				047B445E10FAFA41007B9236 /* HomeScreenBackground.png in Resources */,
 				047B448B10FB7B07007B9236 /* Default.png in Resources */,
 				04C40DEE10FCF184001251C2 /* dist.plist in Resources */,
+				04C40F1210FD0B79001251C2 /* essai1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +237,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_OUTPUT_FORMAT = xml;
 				PREBINDING = NO;
+				PRODUCT_NAME = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos3.1.2;
 			};
@@ -285,7 +290,9 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_OUTPUT_FORMAT = xml;
 				PREBINDING = NO;
+				PRODUCT_NAME = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "73547239-EC60-4849-94AD-87F935761271";
 				SDKROOT = iphoneos3.1.2;
 			};
@@ -299,7 +306,9 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_OUTPUT_FORMAT = xml;
 				PREBINDING = NO;
+				PRODUCT_NAME = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "73547239-EC60-4849-94AD-87F935761271";
 				SDKROOT = iphoneos3.1.2;
 			};

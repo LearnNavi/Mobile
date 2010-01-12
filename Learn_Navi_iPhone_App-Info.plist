@@ -5,11 +5,11 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>Learn Na&apos;vi</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
-	<string></string>
+	<string>essai1.png</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.learnnavi.languageleaningtool</string>
 	<key>CFBundleInfoDictionaryVersion</key>
