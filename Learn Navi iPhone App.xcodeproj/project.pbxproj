@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		047B445210FAF558007B9236 /* HomeScreenBackground.psd in Resources */ = {isa = PBXBuildFile; fileRef = 047B445110FAF558007B9236 /* HomeScreenBackground.psd */; };
+		047B445810FAF5D1007B9236 /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047B445710FAF5D1007B9236 /* HomeView.xib */; };
+		047B445E10FAFA41007B9236 /* HomeScreenBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 047B445D10FAFA41007B9236 /* HomeScreenBackground.png */; };
+		047B448B10FB7B07007B9236 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 047B448A10FB7B07007B9236 /* Default.png */; };
+		04C40DEE10FCF184001251C2 /* dist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04C40DED10FCF184001251C2 /* dist.plist */; };
 		1D3623260D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -20,6 +25,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		047B445110FAF558007B9236 /* HomeScreenBackground.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = HomeScreenBackground.psd; sourceTree = "<group>"; };
+		047B445710FAF5D1007B9236 /* HomeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeView.xib; sourceTree = "<group>"; };
+		047B445D10FAFA41007B9236 /* HomeScreenBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeScreenBackground.png; sourceTree = "<group>"; };
+		047B448A10FB7B07007B9236 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		04C40DED10FCF184001251C2 /* dist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dist.plist; sourceTree = SOURCE_ROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Learn_Navi_iPhone_AppAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Learn_Navi_iPhone_AppAppDelegate.m; sourceTree = "<group>"; };
@@ -57,6 +67,7 @@
 			children = (
 				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
 				28C286E00D94DF7D0034E888 /* RootViewController.m */,
+				04C40DED10FCF184001251C2 /* dist.plist */,
 				1D3623240D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.h */,
 				1D3623250D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m */,
 			);
@@ -95,10 +106,14 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				047B448A10FB7B07007B9236 /* Default.png */,
+				047B445D10FAFA41007B9236 /* HomeScreenBackground.png */,
+				047B445110FAF558007B9236 /* HomeScreenBackground.psd */,
 				28860B760F44E54D00985440 /* Learn_Navi_iPhone_App.xcdatamodel */,
 				2899E55F0DE3E45000AC0155 /* RootViewController.xib */,
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Learn_Navi_iPhone_App-Info.plist */,
+				047B445710FAF5D1007B9236 /* HomeView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -124,6 +139,7 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				04C40E2010FCF5C6001251C2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -165,10 +181,31 @@
 			files = (
 				28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */,
 				2899E5600DE3E45000AC0155 /* RootViewController.xib in Resources */,
+				047B445210FAF558007B9236 /* HomeScreenBackground.psd in Resources */,
+				047B445810FAF5D1007B9236 /* HomeView.xib in Resources */,
+				047B445E10FAFA41007B9236 /* HomeScreenBackground.png in Resources */,
+				047B448B10FB7B07007B9236 /* Default.png in Resources */,
+				04C40DEE10FCF184001251C2 /* dist.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		04C40E2010FCF5C6001251C2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /usr/bin/perl;
+			shellScript = "# Xcode auto-versioning script for Subversion\n# by Axel Andersson, modified by Daniel Jalkut to add\n# \"--revision HEAD\" to the svn info line, which allows\n# the latest revision to always be used.\n\nuse strict;\n\ndie \"$0: Must be run from Xcode\" unless $ENV{\"BUILT_PRODUCTS_DIR\"};\n\n# Get the current subversion revision number and use it to set the CFBundleVersion value\nmy $REV = `/usr/bin/svnversion -n /Users/mgillogly/Coding/Learn\\\\ Navi\\\\ iPhone\\\\ App/`;\nmy $INFO = \"Learn_Navi_iPhone_App-Info.plist\";\n\nmy $version = $REV;\nprint $version;\n\n# (Match the last group of digits and optional letter M/S):\n\n# ugly yet functional (barely) regex by Daniel Jalkut:\n#$version =~ s/([\\d]*:)(\\d+[M|S]*).*/$2/;\n\n# better yet still functional regex via Kevin \"Regex Nerd\" Ballard\n($version =~ m/\\d+[MS]*$/) && ($version = $&);\n\ndie \"$0: No Subversion revision found\" unless $version;\n\nopen(FH, \"$INFO\") or die \"$0: $INFO: $!\";\nmy $info = join(\"\", <FH>);\nclose(FH);\n\n$info =~ s/([\\t ]+<key>CFBundleVersion<\\/key>\\n[\\t ]+<string>).*?(<\\/string>)/$1$version$2/;\n\nopen(FH, \">$INFO\") or die \"$0: $INFO: $!\";\nprint FH $info;\nclose(FH);";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
@@ -185,6 +222,34 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		04C40DF710FCF243001251C2 /* Beta Build */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_ENTITLEMENTS = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos3.1.2;
+			};
+			name = "Beta Build";
+		};
+		04C40DF810FCF243001251C2 /* Beta Build */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = dist.plist;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Learn_Navi_iPhone_App_Prefix.pch;
+				INFOPLIST_FILE = "Learn_Navi_iPhone_App-Info.plist";
+				PRODUCT_NAME = "Learn Navi iPhone App";
+			};
+			name = "Beta Build";
+		};
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -215,11 +280,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Gillogly";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "73547239-EC60-4849-94AD-87F935761271";
 				SDKROOT = iphoneos3.1.2;
 			};
 			name = Debug;
@@ -228,11 +294,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Gillogly";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "73547239-EC60-4849-94AD-87F935761271";
 				SDKROOT = iphoneos3.1.2;
 			};
 			name = Release;
@@ -245,6 +312,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+				04C40DF810FCF243001251C2 /* Beta Build */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -254,6 +322,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+				04C40DF710FCF243001251C2 /* Beta Build */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

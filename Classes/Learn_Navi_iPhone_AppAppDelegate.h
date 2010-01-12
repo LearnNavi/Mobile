@@ -14,6 +14,9 @@
 
     UIWindow *window;
     UINavigationController *navigationController;
+	UIView *homeView;
+	UILabel *betaText;
+	
 }
 
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
@@ -21,9 +24,14 @@
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, retain) IBOutlet UIView *homeView;
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
+@property (nonatomic, retain) IBOutlet UILabel *betaText;
 
 - (NSString *)applicationDocumentsDirectory;
+- (NSString *)versionString;
+- (NSString *)bundleShortVersionString;
+- (NSString *)bundleVersionNumber;
 
 @end
 

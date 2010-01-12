@@ -13,7 +13,9 @@
 @implementation Learn_Navi_iPhone_AppAppDelegate
 
 @synthesize window;
+@synthesize homeView;
 @synthesize navigationController;
+@synthesize betaText;
 
 
 #pragma mark -
@@ -22,11 +24,14 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
     
     // Override point for customization after app launch    
-
+	
+	[betaText setText:[self versionString]];
+	
 	RootViewController *rootViewController = (RootViewController *)[navigationController topViewController];
 	rootViewController.managedObjectContext = self.managedObjectContext;
 	
-	[window addSubview:[navigationController view]];
+	//[window addSubview:[navigationController view]];
+	[window addSubview:homeView];
     [window makeKeyAndVisible];
 }
 
@@ -127,6 +132,21 @@
  */
 - (NSString *)applicationDocumentsDirectory {
 	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+}
+
+- (NSString *)bundleVersionNumber {
+	return [[[NSBundle mainBundle] infoDictionary]
+			valueForKey:@"CFBundleVersion"];
+}
+
+- (NSString *)bundleShortVersionString {
+	return [[[NSBundle mainBundle] infoDictionary]
+			valueForKey:@"CFBundleShortVersionString"];
+}
+
+- (NSString *)versionString {
+	
+	return [NSString stringWithFormat:@"Version %@ (%@)",[self bundleShortVersionString] ,[self bundleVersionNumber]];
 }
 
 

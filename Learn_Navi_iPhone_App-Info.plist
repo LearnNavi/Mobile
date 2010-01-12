@@ -11,7 +11,7 @@
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>org.learnnavi.languageleaningtool</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -21,10 +21,12 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>2M</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.1</string>
 </dict>
 </plist>
