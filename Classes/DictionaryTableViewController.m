@@ -160,13 +160,15 @@
 	if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
         entry = [self.filteredDictionaryContent objectAtIndex:indexPath.row];
+		
     }
 	else
 	{
         entry = [self.dictionaryContent objectAtIndex:indexPath.row];
+		
     }
 	//detailsViewController.title = entry.entryName;
-    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
     [(DictionaryViewController *)[self viewController] dictionaryEntrySelected:entry];
     //[detailsViewController release];

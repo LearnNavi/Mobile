@@ -59,8 +59,11 @@
 }
 
 - (void) dictionaryEntrySelected:(DictionaryEntry *)entry {
-	NSLog([entry entryName]);
-	
+	//NSLog([entry entryName]);
+	UIViewController *detailsViewController = [[UIViewController alloc] init];
+	detailsViewController.title = entry.entryName;
+	[[self navigationController] pushViewController:detailsViewController animated:YES];
+	[detailsViewController release];
 }
 
 
