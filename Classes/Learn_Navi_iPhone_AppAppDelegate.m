@@ -6,15 +6,16 @@
 //  Copyright __MyCompanyName__ 2010. All rights reserved.
 //
 
-#import "Learn_Navi_iPhone_AppAppDelegate.h"
 #import "RootViewController.h"
 #import "Root.h"
-#import "WelcomeScreenController.h"
+#import "DictionaryViewController.h"
+#import "Learn_Navi_iPhone_AppAppDelegate.h"
+#import "AppViewController.h"
 
 @implementation Learn_Navi_iPhone_AppAppDelegate
 
 @synthesize window;
-@synthesize navigationController;
+
 
 
 #pragma mark -
@@ -23,16 +24,28 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
     
     // Override point for customization after app launch    
-	
-	
-	
+		
+	theRect = [[self window] frame];
+	theRect = CGRectOffset(theRect, 0.0, 20.0);
 	//RootViewController *rootViewController = (RootViewController *)[navigationController topViewController];
 	//rootViewController.managedObjectContext = self.managedObjectContext;
 	
 	//[window addSubview:[navigationController view]];
 	//[window addSubview:[[WelcomeScreenController alloc] initWithNibName:@"WelcomeScreenController" bundle:[NSBundle mainBundle]]];
-    [Root viewWithParent:window];
+    //[Root viewWithParent:window];
+	
+	
+	AppViewController *rootViewController = [[AppViewController alloc] initWithNibName:@"AppViewController" bundle:[NSBundle mainBundle]];
+	rootViewController.view.frame = theRect;
+	//rootViewController.view.autoresizesSubviews = NO;
+	UINavigationController *thisNavigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
+	thisNavigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
+	thisNavigationController.navigationBar.autoresizesSubviews = NO;
+	[thisNavigationController setNavigationBarHidden:YES];
+	rootViewController.navController = thisNavigationController;
+	[window addSubview:rootViewController.navigationController.view];
 	[window makeKeyAndVisible];
+	
 }
 
 /**
@@ -144,7 +157,6 @@
     [managedObjectModel release];
     [persistentStoreCoordinator release];
     
-	[navigationController release];
 	[window release];
 	[super dealloc];
 }

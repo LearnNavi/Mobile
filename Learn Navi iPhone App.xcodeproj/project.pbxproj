@@ -7,13 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		041A660110FE927E0009CEC2 /* WelcomeScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A65FF10FE927E0009CEC2 /* WelcomeScreenController.m */; };
 		041A660210FE927E0009CEC2 /* WelcomeScreenController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041A660010FE927E0009CEC2 /* WelcomeScreenController.xib */; };
 		041A664910FE988C0009CEC2 /* UIViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A664810FE988C0009CEC2 /* UIViewAdditions.m */; };
 		041A664F10FE9BF00009CEC2 /* Root.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A664E10FE9BF00009CEC2 /* Root.m */; };
 		041A66AB10FEB19A0009CEC2 /* DictionaryMainScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 041A66A910FEB19A0009CEC2 /* DictionaryMainScreen.png */; };
 		041A66AC10FEB19A0009CEC2 /* DictionaryMainScreen.psd in Resources */ = {isa = PBXBuildFile; fileRef = 041A66AA10FEB19A0009CEC2 /* DictionaryMainScreen.psd */; };
 		041A66C810FEB7990009CEC2 /* DictionaryMainScreen2.png in Resources */ = {isa = PBXBuildFile; fileRef = 041A66C710FEB7990009CEC2 /* DictionaryMainScreen2.png */; };
+		041A66ED110374410009CEC2 /* blackButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 041A66EC110374410009CEC2 /* blackButton.png */; };
+		041A66EF110377380009CEC2 /* dictionaryButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 041A66EE110377380009CEC2 /* dictionaryButton.png */; };
+		041A66F31103795B0009CEC2 /* dictionaryButton_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 041A66F21103795B0009CEC2 /* dictionaryButton_highlighted.png */; };
+		041A674A110384890009CEC2 /* phraseBookButton_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 041A6747110384890009CEC2 /* phraseBookButton_highlighted.png */; };
+		041A674B110384890009CEC2 /* phraseBookButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 041A6748110384890009CEC2 /* phraseBookButton.png */; };
+		041A674C110384890009CEC2 /* phraseBookButton.psd in Resources */ = {isa = PBXBuildFile; fileRef = 041A6749110384890009CEC2 /* phraseBookButton.psd */; };
+		041A67501103855B0009CEC2 /* practiceButton_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 041A674D1103855B0009CEC2 /* practiceButton_highlighted.png */; };
+		041A67511103855B0009CEC2 /* practiceButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 041A674E1103855B0009CEC2 /* practiceButton.png */; };
+		041A67521103855B0009CEC2 /* practiceButton.psd in Resources */ = {isa = PBXBuildFile; fileRef = 041A674F1103855B0009CEC2 /* practiceButton.psd */; };
+		041A677B1103D8730009CEC2 /* DictionaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A67791103D8730009CEC2 /* DictionaryViewController.m */; };
+		041A677C1103D8730009CEC2 /* DictionaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041A677A1103D8730009CEC2 /* DictionaryViewController.xib */; };
+		0443E7C611069B8000CEAB58 /* DictionaryEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 0443E7C511069B8000CEAB58 /* DictionaryEntry.m */; };
+		0443E8661107D9D000CEAB58 /* AppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0443E8641107D9D000CEAB58 /* AppViewController.m */; };
+		0443E8671107D9D000CEAB58 /* AppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0443E8651107D9D000CEAB58 /* AppViewController.xib */; };
+		0443E90F1107EDBB00CEAB58 /* DictionaryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0443E90E1107EDBB00CEAB58 /* DictionaryTableViewController.m */; };
+		0443E9A71107F9A700CEAB58 /* DictionaryTable.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0443E9A61107F9A700CEAB58 /* DictionaryTable.xib */; };
 		047B445210FAF558007B9236 /* HomeScreenBackground.psd in Resources */ = {isa = PBXBuildFile; fileRef = 047B445110FAF558007B9236 /* HomeScreenBackground.psd */; };
 		047B445810FAF5D1007B9236 /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047B445710FAF5D1007B9236 /* HomeView.xib */; };
 		047B445E10FAFA41007B9236 /* HomeScreenBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 047B445D10FAFA41007B9236 /* HomeScreenBackground.png */; };
@@ -35,9 +50,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		041A65FE10FE927E0009CEC2 /* WelcomeScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeScreenController.h; sourceTree = "<group>"; };
-		041A65FF10FE927E0009CEC2 /* WelcomeScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeScreenController.m; sourceTree = "<group>"; };
-		041A660010FE927E0009CEC2 /* WelcomeScreenController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WelcomeScreenController.xib; sourceTree = "<group>"; };
+		041A660010FE927E0009CEC2 /* WelcomeScreenController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = WelcomeScreenController.xib; path = Classes/WelcomeScreenController.xib; sourceTree = "<group>"; };
 		041A664710FE988C0009CEC2 /* UIViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewAdditions.h; sourceTree = "<group>"; };
 		041A664810FE988C0009CEC2 /* UIViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewAdditions.m; sourceTree = "<group>"; };
 		041A664D10FE9BF00009CEC2 /* Root.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Root.h; sourceTree = "<group>"; };
@@ -45,6 +58,26 @@
 		041A66A910FEB19A0009CEC2 /* DictionaryMainScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DictionaryMainScreen.png; sourceTree = "<group>"; };
 		041A66AA10FEB19A0009CEC2 /* DictionaryMainScreen.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = DictionaryMainScreen.psd; sourceTree = "<group>"; };
 		041A66C710FEB7990009CEC2 /* DictionaryMainScreen2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DictionaryMainScreen2.png; sourceTree = "<group>"; };
+		041A66EC110374410009CEC2 /* blackButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackButton.png; sourceTree = "<group>"; };
+		041A66EE110377380009CEC2 /* dictionaryButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dictionaryButton.png; sourceTree = "<group>"; };
+		041A66F21103795B0009CEC2 /* dictionaryButton_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dictionaryButton_highlighted.png; sourceTree = "<group>"; };
+		041A6747110384890009CEC2 /* phraseBookButton_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = phraseBookButton_highlighted.png; sourceTree = "<group>"; };
+		041A6748110384890009CEC2 /* phraseBookButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = phraseBookButton.png; sourceTree = "<group>"; };
+		041A6749110384890009CEC2 /* phraseBookButton.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = phraseBookButton.psd; sourceTree = "<group>"; };
+		041A674D1103855B0009CEC2 /* practiceButton_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = practiceButton_highlighted.png; sourceTree = "<group>"; };
+		041A674E1103855B0009CEC2 /* practiceButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = practiceButton.png; sourceTree = "<group>"; };
+		041A674F1103855B0009CEC2 /* practiceButton.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = practiceButton.psd; sourceTree = "<group>"; };
+		041A67781103D8730009CEC2 /* DictionaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DictionaryViewController.h; path = ../DictionaryViewController.h; sourceTree = "<group>"; };
+		041A67791103D8730009CEC2 /* DictionaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DictionaryViewController.m; path = ../DictionaryViewController.m; sourceTree = "<group>"; };
+		041A677A1103D8730009CEC2 /* DictionaryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DictionaryViewController.xib; sourceTree = "<group>"; };
+		0443E7C411069B8000CEAB58 /* DictionaryEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryEntry.h; sourceTree = "<group>"; };
+		0443E7C511069B8000CEAB58 /* DictionaryEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryEntry.m; sourceTree = "<group>"; };
+		0443E8631107D9D000CEAB58 /* AppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppViewController.h; sourceTree = "<group>"; };
+		0443E8641107D9D000CEAB58 /* AppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppViewController.m; sourceTree = "<group>"; };
+		0443E8651107D9D000CEAB58 /* AppViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppViewController.xib; sourceTree = "<group>"; };
+		0443E90D1107EDBB00CEAB58 /* DictionaryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryTableViewController.h; sourceTree = "<group>"; };
+		0443E90E1107EDBB00CEAB58 /* DictionaryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryTableViewController.m; sourceTree = "<group>"; };
+		0443E9A61107F9A700CEAB58 /* DictionaryTable.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DictionaryTable.xib; sourceTree = "<group>"; };
 		047B445110FAF558007B9236 /* HomeScreenBackground.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = HomeScreenBackground.psd; sourceTree = "<group>"; };
 		047B445710FAF5D1007B9236 /* HomeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeView.xib; sourceTree = "<group>"; };
 		047B445D10FAFA41007B9236 /* HomeScreenBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeScreenBackground.png; sourceTree = "<group>"; };
@@ -88,11 +121,10 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				041A67781103D8730009CEC2 /* DictionaryViewController.h */,
+				041A67791103D8730009CEC2 /* DictionaryViewController.m */,
 				041A664710FE988C0009CEC2 /* UIViewAdditions.h */,
 				041A664810FE988C0009CEC2 /* UIViewAdditions.m */,
-				041A65FE10FE927E0009CEC2 /* WelcomeScreenController.h */,
-				041A65FF10FE927E0009CEC2 /* WelcomeScreenController.m */,
-				041A660010FE927E0009CEC2 /* WelcomeScreenController.xib */,
 				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
 				28C286E00D94DF7D0034E888 /* RootViewController.m */,
 				041A664D10FE9BF00009CEC2 /* Root.h */,
@@ -100,6 +132,13 @@
 				04C40DED10FCF184001251C2 /* dist.plist */,
 				1D3623240D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.h */,
 				1D3623250D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m */,
+				0443E7C411069B8000CEAB58 /* DictionaryEntry.h */,
+				0443E7C511069B8000CEAB58 /* DictionaryEntry.m */,
+				0443E8631107D9D000CEAB58 /* AppViewController.h */,
+				0443E8641107D9D000CEAB58 /* AppViewController.m */,
+				0443E8651107D9D000CEAB58 /* AppViewController.xib */,
+				0443E90D1107EDBB00CEAB58 /* DictionaryTableViewController.h */,
+				0443E90E1107EDBB00CEAB58 /* DictionaryTableViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -120,6 +159,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				041A677A1103D8730009CEC2 /* DictionaryViewController.xib */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -136,6 +176,16 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				041A660010FE927E0009CEC2 /* WelcomeScreenController.xib */,
+				041A674D1103855B0009CEC2 /* practiceButton_highlighted.png */,
+				041A674E1103855B0009CEC2 /* practiceButton.png */,
+				041A674F1103855B0009CEC2 /* practiceButton.psd */,
+				041A6747110384890009CEC2 /* phraseBookButton_highlighted.png */,
+				041A6748110384890009CEC2 /* phraseBookButton.png */,
+				041A6749110384890009CEC2 /* phraseBookButton.psd */,
+				041A66F21103795B0009CEC2 /* dictionaryButton_highlighted.png */,
+				041A66EE110377380009CEC2 /* dictionaryButton.png */,
+				041A66EC110374410009CEC2 /* blackButton.png */,
 				041A66C710FEB7990009CEC2 /* DictionaryMainScreen2.png */,
 				041A66A910FEB19A0009CEC2 /* DictionaryMainScreen.png */,
 				041A66AA10FEB19A0009CEC2 /* DictionaryMainScreen.psd */,
@@ -150,6 +200,7 @@
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Learn_Navi_iPhone_App-Info.plist */,
 				047B445710FAF5D1007B9236 /* HomeView.xib */,
+				0443E9A61107F9A700CEAB58 /* DictionaryTable.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -229,6 +280,18 @@
 				041A66AB10FEB19A0009CEC2 /* DictionaryMainScreen.png in Resources */,
 				041A66AC10FEB19A0009CEC2 /* DictionaryMainScreen.psd in Resources */,
 				041A66C810FEB7990009CEC2 /* DictionaryMainScreen2.png in Resources */,
+				041A66ED110374410009CEC2 /* blackButton.png in Resources */,
+				041A66EF110377380009CEC2 /* dictionaryButton.png in Resources */,
+				041A66F31103795B0009CEC2 /* dictionaryButton_highlighted.png in Resources */,
+				041A674A110384890009CEC2 /* phraseBookButton_highlighted.png in Resources */,
+				041A674B110384890009CEC2 /* phraseBookButton.png in Resources */,
+				041A674C110384890009CEC2 /* phraseBookButton.psd in Resources */,
+				041A67501103855B0009CEC2 /* practiceButton_highlighted.png in Resources */,
+				041A67511103855B0009CEC2 /* practiceButton.png in Resources */,
+				041A67521103855B0009CEC2 /* practiceButton.psd in Resources */,
+				041A677C1103D8730009CEC2 /* DictionaryViewController.xib in Resources */,
+				0443E8671107D9D000CEAB58 /* AppViewController.xib in Resources */,
+				0443E9A71107F9A700CEAB58 /* DictionaryTable.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,9 +322,12 @@
 				1D3623260D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m in Sources */,
 				28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */,
 				28860B770F44E54D00985440 /* Learn_Navi_iPhone_App.xcdatamodel in Sources */,
-				041A660110FE927E0009CEC2 /* WelcomeScreenController.m in Sources */,
 				041A664910FE988C0009CEC2 /* UIViewAdditions.m in Sources */,
 				041A664F10FE9BF00009CEC2 /* Root.m in Sources */,
+				041A677B1103D8730009CEC2 /* DictionaryViewController.m in Sources */,
+				0443E7C611069B8000CEAB58 /* DictionaryEntry.m in Sources */,
+				0443E8661107D9D000CEAB58 /* AppViewController.m in Sources */,
+				0443E90F1107EDBB00CEAB58 /* DictionaryTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
