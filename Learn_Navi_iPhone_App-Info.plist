@@ -27,6 +27,6 @@
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.1</string>
+	<string>0.1.1</string>
 </dict>
 </plist>
