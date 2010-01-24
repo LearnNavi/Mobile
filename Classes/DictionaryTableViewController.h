@@ -16,12 +16,14 @@
 	NSInteger savedScopeButtonIndex;
 	BOOL searchWasActive;
 	UIViewController *viewController;
-	
+	UISegmentedControl *segmentedControl;
+	NSMutableArray *listOfItems;
 }
 
 @property (nonatomic, retain) NSArray *dictionaryContent;
 @property (nonatomic, retain) NSMutableArray *filteredDictionaryContent;
 @property (nonatomic, retain) UIViewController *viewController;
+@property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
 
 @property (nonatomic, copy) NSString *savedSearchTerm;
 @property (nonatomic) NSInteger savedScopeButtonIndex;

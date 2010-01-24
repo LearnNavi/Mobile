@@ -40,6 +40,7 @@
 	//rootViewController.view.autoresizesSubviews = NO;
 	UINavigationController *thisNavigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
 	thisNavigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
+	thisNavigationController.toolbar.barStyle = UIBarStyleBlackOpaque;
 	thisNavigationController.navigationBar.autoresizesSubviews = NO;
 	[thisNavigationController setNavigationBarHidden:YES];
 	rootViewController.navController = thisNavigationController;

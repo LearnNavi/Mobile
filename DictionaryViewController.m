@@ -30,8 +30,14 @@
 - (void)viewDidLoad {
     self.title = @"Na'vi Dictionary";
 	self.tableController = [[DictionaryTableViewController alloc] initWithNibName:@"DictionaryTable" bundle:[NSBundle mainBundle]];
+	//[self.tableController.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+	
+	
 	[self.tableController addViewController:self];
-	[self.tableView addSubview:self.tableController.view];
+	self.tableView = self.tableController.view;
+	//[self.tableView bringSubviewToFront:self.tableController.view];
+	 
+	//self.tableController.tableView.scrollEnabled = YES;
 	
 }
 

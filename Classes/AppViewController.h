@@ -14,11 +14,13 @@
 	UILabel *betaText;
 	UINavigationController *navController;
 	DictionaryViewController *dictionaryViewController;
+	DictionaryTableViewController *dictionaryTableViewController;
 }
 
 @property (nonatomic, retain) IBOutlet UINavigationController *navController;
 @property (nonatomic, retain) IBOutlet UILabel *betaText;
 @property (nonatomic, retain) IBOutlet UIViewController *dictionaryViewController;
+@property (nonatomic, retain) IBOutlet UIViewController *dictionaryTableViewController;
 
 - (NSString *)versionString;
 - (NSString *)bundleShortVersionString;
