@@ -6,7 +6,6 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import "DictionaryViewController.h"
 #import "DictionaryTableViewController.h"
 #import "AppViewController.h"
 
@@ -15,7 +14,6 @@
 
 @synthesize navController;
 @synthesize betaText;
-@synthesize dictionaryViewController;
 @synthesize dictionaryTableViewController;
 
 - (NSString *)bundleVersionNumber {
@@ -49,8 +47,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	
-	
+	//Update the App version string
 	[betaText setText:[self versionString]];
 
 }
@@ -79,28 +76,12 @@
 -(void)viewWillDisappear:(BOOL)animated { 
 	[super viewWillDisappear:animated];
 	[navController setNavigationBarHidden:NO animated:YES];
-	//dictionaryViewController.view.frame = CGRectOffset([UIScreen mainScreen].applicationFrame, 0, -64.0);
 }
-
-/*
--(void)viewDidAppear:(BOOL)animated { 
-	[super viewDidAppear:animated];
-	[navController setNavigationBarHidden:YES animated:YES];
-	//dictionaryViewController.view.frame = CGRectOffset([UIScreen mainScreen].applicationFrame, 0, -64.0);
-
-}
--(void)viewDidDisappear:(BOOL)animated { 
-	[super viewDidDisappear:animated];
-	[navController setNavigationBarHidden:NO animated:YES];
-	//dictionaryViewController.view.frame = CGRectOffset([UIScreen mainScreen].applicationFrame, 0, -64.0);
-}*/
 
 -(void)viewWillAppear:(BOOL)animated { 
 	[super viewWillAppear:animated];
 	[navController setNavigationBarHidden:YES animated:YES];
 	[navController setToolbarHidden:YES animated:YES];
-	//dictionaryViewController.view.frame = CGRectOffset([UIScreen mainScreen].applicationFrame, 0, -64.0);
-
 }
 
 
@@ -112,17 +93,11 @@
 
 - (IBAction) launchDictionary:(id)sender {
 	NSLog(@"Start the Dictionary");
-	if([self dictionaryViewController] == nil) {
-		dictionaryViewController = [[DictionaryViewController alloc] initWithNibName:@"DictionaryViewController" bundle:[NSBundle mainBundle]];
+	if([self dictionaryTableViewController] == nil) {
 		dictionaryTableViewController = [[DictionaryTableViewController alloc] initWithNibName:@"DictionaryTable" bundle:[NSBundle mainBundle]];
-		//dictionaryViewController.view.frame = CGRectOffset([UIScreen mainScreen].applicationFrame, 0, -64.0);
-		//[dictionaryViewController loadData];
+		
 	}
-	//
-	//dictionaryViewController.view.frame = theRect;
-	//[window addSubview:dictionaryViewController.navController.view];
-	//[[self navigationController] ]
-	//
+	
 	[[self navController] pushViewController:dictionaryTableViewController animated:YES];
 	
 	

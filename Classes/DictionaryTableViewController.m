@@ -7,7 +7,6 @@
 //
 
 #import "DictionaryEntry.h"
-#import "DictionaryViewController.h"
 #import "DictionaryTableViewController.h"
 
 
