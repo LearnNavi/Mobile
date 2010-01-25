@@ -10,12 +10,17 @@
 #import "DictionaryTableViewController.h"
 #import "Learn_Navi_iPhone_AppAppDelegate.h"
 #import "AppViewController.h"
+#import "MMTrackingMgr.h"
 
 @implementation Learn_Navi_iPhone_AppAppDelegate
 
 @synthesize window;
 
++(void)initialize { 
+	
+	[[MMTrackingMgr sharedInstance] startDefaultTracking];
 
+}
 
 #pragma mark -
 #pragma mark Application lifecycle

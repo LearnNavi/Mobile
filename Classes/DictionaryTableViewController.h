@@ -11,6 +11,7 @@
 
 @interface DictionaryTableViewController : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate> {
 	NSArray *dictionaryContent;
+	NSArray *dictionarySections;
 	NSMutableArray *filteredDictionaryContent;
 	NSString *savedSearchTerm;
 	NSInteger savedScopeButtonIndex;
@@ -20,7 +21,7 @@
 	NSMutableArray *listOfItems;
 }
 
-@property (nonatomic, retain) NSArray *dictionaryContent;
+@property (nonatomic, retain) NSArray *dictionaryContent, *dictionarySections;
 @property (nonatomic, retain) NSMutableArray *filteredDictionaryContent;
 @property (nonatomic, retain) UIViewController *viewController;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;

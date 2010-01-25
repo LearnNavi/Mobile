@@ -74,7 +74,11 @@
 	if([self dictionaryTableViewController] == nil) {
 		dictionaryTableViewController = [[DictionaryTableViewController alloc] initWithNibName:@"DictionaryTable" bundle:[NSBundle mainBundle]];
 	}	
-	
+	self.navigationItem.backBarButtonItem =
+	[[UIBarButtonItem alloc] initWithTitle:@"Kelutral"
+									 style: UIBarButtonItemStyleBordered
+									target:nil
+									action:nil];
 	[[self navController] pushViewController:dictionaryTableViewController animated:YES];
 	
 }

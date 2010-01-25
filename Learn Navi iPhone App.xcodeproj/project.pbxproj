@@ -23,6 +23,14 @@
 		0443E90F1107EDBB00CEAB58 /* DictionaryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0443E90E1107EDBB00CEAB58 /* DictionaryTableViewController.m */; };
 		0443E9A71107F9A700CEAB58 /* DictionaryTable.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0443E9A61107F9A700CEAB58 /* DictionaryTable.xib */; };
 		0443EE83110CA7AB00CEAB58 /* dictionaryButton.psd in Resources */ = {isa = PBXBuildFile; fileRef = 0443EE82110CA7AB00CEAB58 /* dictionaryButton.psd */; };
+		0443EECF110CACB600CEAB58 /* DictionarySection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0443EECE110CACB600CEAB58 /* DictionarySection.m */; };
+		0443EFBC110D11B600CEAB58 /* DictionaryEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0443EFBA110D11B600CEAB58 /* DictionaryEntryViewController.m */; };
+		0443EFBD110D11B600CEAB58 /* DictionaryEntryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0443EFBB110D11B600CEAB58 /* DictionaryEntryViewController.xib */; };
+		0443F0BE110E2C2300CEAB58 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F0BD110E2C2300CEAB58 /* CoreLocation.framework */; };
+		0443F0C2110E2C2C00CEAB58 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F0C1110E2C2C00CEAB58 /* SystemConfiguration.framework */; };
+		0443F0C6110E2C3F00CEAB58 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F0C5110E2C3F00CEAB58 /* libsqlite3.0.dylib */; };
+		0443F0C8110E2C5300CEAB58 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F0C7110E2C5300CEAB58 /* libz.1.2.3.dylib */; };
+		0443F0FA110E2E2200CEAB58 /* libMMTracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F0F9110E2E2200CEAB58 /* libMMTracking.a */; };
 		047B445210FAF558007B9236 /* HomeScreenBackground.psd in Resources */ = {isa = PBXBuildFile; fileRef = 047B445110FAF558007B9236 /* HomeScreenBackground.psd */; };
 		047B445E10FAFA41007B9236 /* HomeScreenBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 047B445D10FAFA41007B9236 /* HomeScreenBackground.png */; };
 		047B448B10FB7B07007B9236 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 047B448A10FB7B07007B9236 /* Default.png */; };
@@ -60,6 +68,18 @@
 		0443E90E1107EDBB00CEAB58 /* DictionaryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DictionaryTableViewController.m; path = Classes/DictionaryTableViewController.m; sourceTree = "<group>"; };
 		0443E9A61107F9A700CEAB58 /* DictionaryTable.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DictionaryTable.xib; sourceTree = "<group>"; };
 		0443EE82110CA7AB00CEAB58 /* dictionaryButton.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = dictionaryButton.psd; sourceTree = "<group>"; };
+		0443EECD110CACB600CEAB58 /* DictionarySection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionarySection.h; sourceTree = "<group>"; };
+		0443EECE110CACB600CEAB58 /* DictionarySection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionarySection.m; sourceTree = "<group>"; };
+		0443EFB9110D11B600CEAB58 /* DictionaryEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryEntryViewController.h; sourceTree = "<group>"; };
+		0443EFBA110D11B600CEAB58 /* DictionaryEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryEntryViewController.m; sourceTree = "<group>"; };
+		0443EFBB110D11B600CEAB58 /* DictionaryEntryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DictionaryEntryViewController.xib; sourceTree = "<group>"; };
+		0443F0BD110E2C2300CEAB58 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		0443F0C1110E2C2C00CEAB58 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		0443F0C5110E2C3F00CEAB58 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		0443F0C7110E2C5300CEAB58 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
+		0443F0F7110E2E1700CEAB58 /* MMEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMEvent.h; sourceTree = "<group>"; };
+		0443F0F8110E2E1700CEAB58 /* MMTrackingMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTrackingMgr.h; sourceTree = "<group>"; };
+		0443F0F9110E2E2200CEAB58 /* libMMTracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMTracking.a; sourceTree = "<group>"; };
 		047B445110FAF558007B9236 /* HomeScreenBackground.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = HomeScreenBackground.psd; sourceTree = "<group>"; };
 		047B445D10FAFA41007B9236 /* HomeScreenBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeScreenBackground.png; sourceTree = "<group>"; };
 		047B448A10FB7B07007B9236 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -87,6 +107,11 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
+				0443F0BE110E2C2300CEAB58 /* CoreLocation.framework in Frameworks */,
+				0443F0C2110E2C2C00CEAB58 /* SystemConfiguration.framework in Frameworks */,
+				0443F0C6110E2C3F00CEAB58 /* libsqlite3.0.dylib in Frameworks */,
+				0443F0C8110E2C5300CEAB58 /* libz.1.2.3.dylib in Frameworks */,
+				0443F0FA110E2E2200CEAB58 /* libMMTracking.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +127,8 @@
 				0443E90E1107EDBB00CEAB58 /* DictionaryTableViewController.m */,
 				1D3623240D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.h */,
 				1D3623250D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m */,
+				0443EFB9110D11B600CEAB58 /* DictionaryEntryViewController.h */,
+				0443EFBA110D11B600CEAB58 /* DictionaryEntryViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -122,6 +149,8 @@
 			children = (
 				0443E7C411069B8000CEAB58 /* DictionaryEntry.h */,
 				0443E7C511069B8000CEAB58 /* DictionaryEntry.m */,
+				0443EECD110CACB600CEAB58 /* DictionarySection.h */,
+				0443EECE110CACB600CEAB58 /* DictionarySection.m */,
 			);
 			name = Models;
 			path = Classes;
@@ -151,6 +180,8 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				0443F0F7110E2E1700CEAB58 /* MMEvent.h */,
+				0443F0F8110E2E1700CEAB58 /* MMTrackingMgr.h */,
 				0443EEC6110CAB6500CEAB58 /* Prototyping Classes */,
 				28A0AAE50D9B0CCF005BE974 /* Learn_Navi_iPhone_App_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
@@ -161,6 +192,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0443EFBB110D11B600CEAB58 /* DictionaryEntryViewController.xib */,
 				04C40DED10FCF184001251C2 /* dist.plist */,
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
 				0443E8651107D9D000CEAB58 /* AppViewController.xib */,
@@ -188,9 +220,14 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0443F0F9110E2E2200CEAB58 /* libMMTracking.a */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
+				0443F0BD110E2C2300CEAB58 /* CoreLocation.framework */,
+				0443F0C1110E2C2C00CEAB58 /* SystemConfiguration.framework */,
+				0443F0C5110E2C3F00CEAB58 /* libsqlite3.0.dylib */,
+				0443F0C7110E2C5300CEAB58 /* libz.1.2.3.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -264,6 +301,7 @@
 				0443E8671107D9D000CEAB58 /* AppViewController.xib in Resources */,
 				0443E9A71107F9A700CEAB58 /* DictionaryTable.xib in Resources */,
 				0443EE83110CA7AB00CEAB58 /* dictionaryButton.psd in Resources */,
+				0443EFBD110D11B600CEAB58 /* DictionaryEntryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +335,8 @@
 				0443E7C611069B8000CEAB58 /* DictionaryEntry.m in Sources */,
 				0443E8661107D9D000CEAB58 /* AppViewController.m in Sources */,
 				0443E90F1107EDBB00CEAB58 /* DictionaryTableViewController.m in Sources */,
+				0443EECF110CACB600CEAB58 /* DictionarySection.m in Sources */,
+				0443EFBC110D11B600CEAB58 /* DictionaryEntryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +370,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Learn_Navi_iPhone_App_Prefix.pch;
 				INFOPLIST_FILE = "Learn_Navi_iPhone_App-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "Learn Navi iPhone App";
 			};
 			name = "Beta Build";
@@ -344,6 +388,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Learn_Navi_iPhone_App_Prefix.pch;
 				INFOPLIST_FILE = "Learn_Navi_iPhone_App-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "Learn Navi iPhone App";
 			};
 			name = Debug;
@@ -356,6 +404,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Learn_Navi_iPhone_App_Prefix.pch;
 				INFOPLIST_FILE = "Learn_Navi_iPhone_App-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "Learn Navi iPhone App";
 			};
 			name = Release;
