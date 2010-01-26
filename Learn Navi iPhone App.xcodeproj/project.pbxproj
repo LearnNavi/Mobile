@@ -30,7 +30,10 @@
 		0443F0C2110E2C2C00CEAB58 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F0C1110E2C2C00CEAB58 /* SystemConfiguration.framework */; };
 		0443F0C6110E2C3F00CEAB58 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F0C5110E2C3F00CEAB58 /* libsqlite3.0.dylib */; };
 		0443F0C8110E2C5300CEAB58 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F0C7110E2C5300CEAB58 /* libz.1.2.3.dylib */; };
-		0443F0FA110E2E2200CEAB58 /* libMMTracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F0F9110E2E2200CEAB58 /* libMMTracking.a */; };
+		0443F165110E3D5600CEAB58 /* libFlurryWithLocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F164110E3D5600CEAB58 /* libFlurryWithLocation.a */; };
+		0443F204110E5ED100CEAB58 /* Refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 0443F202110E5ED100CEAB58 /* Refresh.png */; };
+		0443F205110E5ED100CEAB58 /* Refresh.psd in Resources */ = {isa = PBXBuildFile; fileRef = 0443F203110E5ED100CEAB58 /* Refresh.psd */; };
+		0443F546110F717F00CEAB58 /* texParser.pl in Resources */ = {isa = PBXBuildFile; fileRef = 0443F545110F717F00CEAB58 /* texParser.pl */; };
 		047B445210FAF558007B9236 /* HomeScreenBackground.psd in Resources */ = {isa = PBXBuildFile; fileRef = 047B445110FAF558007B9236 /* HomeScreenBackground.psd */; };
 		047B445E10FAFA41007B9236 /* HomeScreenBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 047B445D10FAFA41007B9236 /* HomeScreenBackground.png */; };
 		047B448B10FB7B07007B9236 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 047B448A10FB7B07007B9236 /* Default.png */; };
@@ -77,9 +80,11 @@
 		0443F0C1110E2C2C00CEAB58 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0443F0C5110E2C3F00CEAB58 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		0443F0C7110E2C5300CEAB58 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
-		0443F0F7110E2E1700CEAB58 /* MMEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMEvent.h; sourceTree = "<group>"; };
-		0443F0F8110E2E1700CEAB58 /* MMTrackingMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTrackingMgr.h; sourceTree = "<group>"; };
-		0443F0F9110E2E2200CEAB58 /* libMMTracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMTracking.a; sourceTree = "<group>"; };
+		0443F163110E3D5600CEAB58 /* FlurryAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAPI.h; sourceTree = "<group>"; };
+		0443F164110E3D5600CEAB58 /* libFlurryWithLocation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryWithLocation.a; path = FlurryLibWithLocation/libFlurryWithLocation.a; sourceTree = "<group>"; };
+		0443F202110E5ED100CEAB58 /* Refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Refresh.png; sourceTree = "<group>"; };
+		0443F203110E5ED100CEAB58 /* Refresh.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Refresh.psd; sourceTree = "<group>"; };
+		0443F545110F717F00CEAB58 /* texParser.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = texParser.pl; sourceTree = "<group>"; };
 		047B445110FAF558007B9236 /* HomeScreenBackground.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = HomeScreenBackground.psd; sourceTree = "<group>"; };
 		047B445D10FAFA41007B9236 /* HomeScreenBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeScreenBackground.png; sourceTree = "<group>"; };
 		047B448A10FB7B07007B9236 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -111,7 +116,7 @@
 				0443F0C2110E2C2C00CEAB58 /* SystemConfiguration.framework in Frameworks */,
 				0443F0C6110E2C3F00CEAB58 /* libsqlite3.0.dylib in Frameworks */,
 				0443F0C8110E2C5300CEAB58 /* libz.1.2.3.dylib in Frameworks */,
-				0443F0FA110E2E2200CEAB58 /* libMMTracking.a in Frameworks */,
+				0443F165110E3D5600CEAB58 /* libFlurryWithLocation.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,6 +147,14 @@
 				041A664D10FE9BF00009CEC2 /* Root.h */,
 			);
 			name = "Prototyping Classes";
+			sourceTree = "<group>";
+		};
+		0443F162110E3D5600CEAB58 /* FlurryLibWithLocation */ = {
+			isa = PBXGroup;
+			children = (
+				0443F163110E3D5600CEAB58 /* FlurryAPI.h */,
+			);
+			path = FlurryLibWithLocation;
 			sourceTree = "<group>";
 		};
 		080E96DDFE201D6D7F000001 /* Models */ = {
@@ -180,8 +193,8 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				0443F0F7110E2E1700CEAB58 /* MMEvent.h */,
-				0443F0F8110E2E1700CEAB58 /* MMTrackingMgr.h */,
+				0443F545110F717F00CEAB58 /* texParser.pl */,
+				0443F162110E3D5600CEAB58 /* FlurryLibWithLocation */,
 				0443EEC6110CAB6500CEAB58 /* Prototyping Classes */,
 				28A0AAE50D9B0CCF005BE974 /* Learn_Navi_iPhone_App_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
@@ -192,6 +205,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0443F202110E5ED100CEAB58 /* Refresh.png */,
+				0443F203110E5ED100CEAB58 /* Refresh.psd */,
 				0443EFBB110D11B600CEAB58 /* DictionaryEntryViewController.xib */,
 				04C40DED10FCF184001251C2 /* dist.plist */,
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
@@ -220,7 +235,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0443F0F9110E2E2200CEAB58 /* libMMTracking.a */,
+				0443F164110E3D5600CEAB58 /* libFlurryWithLocation.a */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
@@ -302,6 +317,9 @@
 				0443E9A71107F9A700CEAB58 /* DictionaryTable.xib in Resources */,
 				0443EE83110CA7AB00CEAB58 /* dictionaryButton.psd in Resources */,
 				0443EFBD110D11B600CEAB58 /* DictionaryEntryViewController.xib in Resources */,
+				0443F204110E5ED100CEAB58 /* Refresh.png in Resources */,
+				0443F205110E5ED100CEAB58 /* Refresh.psd in Resources */,
+				0443F546110F717F00CEAB58 /* texParser.pl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,6 +391,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/FlurryLib\"",
+					"\"$(SRCROOT)/FlurryLibWithLocation\"",
 				);
 				PRODUCT_NAME = "Learn Navi iPhone App";
 			};
@@ -391,6 +411,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/FlurryLib\"",
+					"\"$(SRCROOT)/FlurryLibWithLocation\"",
 				);
 				PRODUCT_NAME = "Learn Navi iPhone App";
 			};
@@ -407,6 +429,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/FlurryLib\"",
+					"\"$(SRCROOT)/FlurryLibWithLocation\"",
 				);
 				PRODUCT_NAME = "Learn Navi iPhone App";
 			};

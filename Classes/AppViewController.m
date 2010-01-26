@@ -8,6 +8,7 @@
 
 #import "DictionaryTableViewController.h"
 #import "AppViewController.h"
+#import "FlurryAPI.h"
 
 
 @implementation AppViewController
@@ -71,24 +72,35 @@
 
 - (IBAction) launchDictionary:(id)sender {
 	
+	[FlurryAPI logEvent:@"Dictionary_Selected"];
+	
 	if([self dictionaryTableViewController] == nil) {
 		dictionaryTableViewController = [[DictionaryTableViewController alloc] initWithNibName:@"DictionaryTable" bundle:[NSBundle mainBundle]];
+		self.navigationItem.backBarButtonItem =
+		[[UIBarButtonItem alloc] initWithTitle:@"Kelutral"
+										 style: UIBarButtonItemStyleBordered
+										target:nil
+										action:nil];
 	}	
-	self.navigationItem.backBarButtonItem =
-	[[UIBarButtonItem alloc] initWithTitle:@"Kelutral"
-									 style: UIBarButtonItemStyleBordered
-									target:nil
-									action:nil];
+	
+	
+	
 	[[self navController] pushViewController:dictionaryTableViewController animated:YES];
 	
 }
 
 - (IBAction) launchPhraseBook:(id)sender {
+	
+	[FlurryAPI logEvent:@"PhraseBook_Selected"];
+	
 	NSLog(@"Start the Phrase Book");
 	
 }
 
 - (IBAction) launchPractice:(id)sender {
+	
+	[FlurryAPI logEvent:@"Practice_Selected"];
+	
 	NSLog(@"Start the Practice");
 	
 }

@@ -11,7 +11,8 @@
 
 @interface DictionaryTableViewController : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate> {
 	NSArray *dictionaryContent;
-	NSArray *dictionarySections;
+	NSArray *dictionaryTranslatedContent;
+	NSMutableArray *dictionaryActiveContent;
 	NSMutableArray *filteredDictionaryContent;
 	NSString *savedSearchTerm;
 	NSInteger savedScopeButtonIndex;
@@ -19,20 +20,24 @@
 	UIViewController *viewController;
 	UISegmentedControl *segmentedControl;
 	NSMutableArray *listOfItems;
+	BOOL currentMode;	//YES: Na'vi to English, NO: English to Na'vi
 }
 
-@property (nonatomic, retain) NSArray *dictionaryContent, *dictionarySections;
-@property (nonatomic, retain) NSMutableArray *filteredDictionaryContent;
+@property (nonatomic, retain) NSArray *dictionaryContent, *dictionaryTranslatedContent;
+@property (nonatomic, retain) NSMutableArray *filteredDictionaryContent, *dictionaryActiveContent;
 @property (nonatomic, retain) UIViewController *viewController;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
 
 @property (nonatomic, copy) NSString *savedSearchTerm;
 @property (nonatomic) NSInteger savedScopeButtonIndex;
 @property (nonatomic) BOOL searchWasActive;
+@property (nonatomic) BOOL currentMode;
 
 - (void) loadData;
 
 - (void) addViewController:(UIViewController *)controller;
+
+- (IBAction) swapDictionaryMode:(id)sender;
 
 
 @end

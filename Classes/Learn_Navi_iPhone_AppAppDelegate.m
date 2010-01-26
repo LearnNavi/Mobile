@@ -10,7 +10,7 @@
 #import "DictionaryTableViewController.h"
 #import "Learn_Navi_iPhone_AppAppDelegate.h"
 #import "AppViewController.h"
-#import "MMTrackingMgr.h"
+#import "FlurryAPI.h"
 
 @implementation Learn_Navi_iPhone_AppAppDelegate
 
@@ -18,8 +18,12 @@
 
 +(void)initialize { 
 	
-	[[MMTrackingMgr sharedInstance] startDefaultTracking];
+	//[[MMTrackingMgr sharedInstance] startDefaultTracking];
 
+}
+
+void uncaughtExceptionHandler(NSException *exception) {
+    [FlurryAPI logError:@"Uncaught" message:@"Crash!" exception:exception];
 }
 
 #pragma mark -
@@ -29,6 +33,11 @@
     
     // Override point for customization after app launch    
 		
+	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+	//Tracking Code
+	[FlurryAPI startSessionWithLocationServices:@"AIUXWAWDAFLHEUHXPUCC"];
+	[FlurryAPI setSessionReportsOnCloseEnabled:YES];
+	
 	theRect = [[self window] frame];
 	theRect = CGRectOffset(theRect, 0.0, 20.0);
 	
@@ -45,6 +54,8 @@
 	[window makeKeyAndVisible];
 	
 }
+
+
 
 /**
  applicationWillTerminate: saves changes in the application's managed object context before the application terminates.

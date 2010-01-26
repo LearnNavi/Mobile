@@ -10,11 +10,12 @@
 #import "DictionaryTableViewController.h"
 #import "DictionarySection.h"
 #import "DictionaryEntryViewController.h"
+#import "UIViewAdditions.h"
 
 @implementation DictionaryTableViewController
 
 
-@synthesize dictionaryContent, dictionarySections, filteredDictionaryContent, savedSearchTerm, savedScopeButtonIndex, searchWasActive, viewController, segmentedControl;
+@synthesize dictionaryContent, dictionaryActiveContent, filteredDictionaryContent, savedSearchTerm, savedScopeButtonIndex, searchWasActive, viewController, segmentedControl, currentMode, dictionaryTranslatedContent;
 
 /*
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -32,16 +33,16 @@
 
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    
 	//listOfItems = [[NSMutableArray alloc] init];
 	[self loadData];
+	[super viewDidLoad];
+	currentMode = YES;
 	
-	/*
+	self.title = @"Products";
 	
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	// create a filtered list that will contain products for the search results table.
-	self.filteredDictionaryContent = [NSMutableArray arrayWithCapacity:[self.dictionarySections count]];
+	self.filteredDictionaryContent = [NSMutableArray arrayWithCapacity:10];
 	
 	// restore search settings if they were saved in didReceiveMemoryWarning.
     if (self.savedSearchTerm)
@@ -52,11 +53,10 @@
         
         self.savedSearchTerm = nil;
     }
-	*/
-	 
+	
 	[self.tableView reloadData];
 	self.tableView.scrollEnabled = YES;
-	self.title = @"Na'vi Dictionary";
+	self.title = @"Na'vi > 'ìnglìsì";
 	
 	
 	
@@ -78,8 +78,77 @@
 	[segmentBarItem release];
 	[flexibleSpaceButtonItem release];
 	//self.tableView.contentOffset = CGPointMake(0, self.searchDisplayController.searchBar.frame.size.height);
+	
+	UIButton* modalViewButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	[modalViewButton addTarget:self action:@selector(swapDictionaryMode:) forControlEvents:UIControlEventTouchUpInside];
+	[modalViewButton setImage:[UIImage imageNamed:@"Refresh.png"] forState:UIControlStateNormal];
+	[modalViewButton setSize:[[UIImage imageNamed:@"Refresh.png"] size]];
+	UIBarButtonItem *modalBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:modalViewButton];
+	self.navigationItem.rightBarButtonItem = modalBarButtonItem;
+	[modalBarButtonItem release];
+	
+	//self.navigationItem.rightBarButtonItem = 
+	//[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Refresh.png"] style:UIBarButtonItemStylePlain target:nil action:nil];
 }
 
+- (IBAction) swapDictionaryMode:(id)sender {
+	NSInteger nSections = [self.tableView numberOfSections];
+	for (int j=nSections-1; j>=0; j--) {
+		NSInteger nRows = [self.tableView numberOfRowsInSection:j];
+		for (int i=nRows-1; i>=0; i--) {
+			
+
+			DictionarySection *dictSection = [dictionaryActiveContent objectAtIndex:[NSIndexPath indexPathForRow:i inSection:j].section];
+			NSMutableArray *temp = [NSMutableArray arrayWithArray:dictSection.entries];
+			[temp removeObjectAtIndex:[NSIndexPath indexPathForRow:i inSection:j].row];
+			
+			dictSection.entries = temp;
+			[[self tableView] deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:j]] withRowAnimation:YES];
+			//[indexPath addObject:[NSIndexPath indexPathForRow:i inSection:j]];
+			//Do something with your indexPath. Maybe you want to get your cell,
+			// like this:
+			//UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+		}
+		//[dictionaryActiveContent removeLastObject];
+		//[[self tableView] deleteSections:[NSIndexSet indexSetWithIndex:j] withRowAnimation:YES];
+	}
+	[dictionaryActiveContent removeAllObjects];
+	[self.tableView reloadData];
+	if(currentMode) {
+		//self.title = @"English > Na'vi";
+		[[self navigationItem] setTitle:@"English > Na'vi"];
+		/*[[[[self navigationController] topViewController] navigationItem] setBackBarButtonItem:
+		[[UIBarButtonItem alloc] initWithTitle:@"Home"
+										 style: UIBarButtonItemStyleBordered
+										target:nil
+										action:nil]];*/
+		
+		NSArray *vcs = [[self navigationController] viewControllers];
+		[[[vcs objectAtIndex:0] navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Home"
+																									   style: UIBarButtonItemStyleBordered
+																									  target:nil
+																									  action:nil]];
+		
+		
+		[[self navigationController] setViewControllers:vcs];
+		//[[self navigationController] pushViewController:self animated:YES];
+	} else {
+		//self.title = @"Na'vi > 'ìnglìsì";
+		[[self navigationItem] setTitle:@"Na'vi > 'ìnglìsì"];
+		NSArray *vcs = [[self navigationController] viewControllers];
+		[[[vcs objectAtIndex:0] navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Kelutral"
+																									  style: UIBarButtonItemStyleBordered
+																									 target:nil
+																									 action:nil]];
+		[[self navigationController] setViewControllers:vcs];
+		
+		
+	}	
+	[self loadData];
+	
+	[self.tableView reloadData];
+	currentMode = !currentMode;
+}
 
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -100,6 +169,7 @@
 	[[self navigationController] setToolbarHidden:NO animated:YES];
 	
 }
+
 
 
 // Override to allow orientations other than the default portrait orientation.
@@ -130,14 +200,30 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	
 	// The header for the section is the region name -- get this from the region at the section index.
-	DictionarySection *dictSection = [dictionaryContent objectAtIndex:section];
-	return [dictSection sectionHeader];	
+		
+	
+	if (tableView == self.searchDisplayController.searchResultsTableView)
+	{
+		return @"";
+    }
+	else
+	{
+		DictionarySection *dictSection = [dictionaryActiveContent objectAtIndex:section];
+		return [dictSection sectionHeader];
+	}
 	
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Number of sections is the number of regions.
-	return [dictionaryContent count];
+	if (tableView == self.searchDisplayController.searchResultsTableView)
+	{
+		return 0;
+    }
+	else
+	{
+		return [dictionaryActiveContent count];
+	}
 }
 
 #pragma mark Table view methods
@@ -147,14 +233,17 @@
 	/*
 	 If the requesting table view is the search display controller's table view, return the count of the filtered list, otherwise return the count of the main list.
 	 */
-	if (tableView == self.searchDisplayController.searchResultsTableView)
+	if (self.tableView == self.searchDisplayController.searchResultsTableView)
 	{
+		NSLog(@"Rows: %d", [self.filteredDictionaryContent count]);
+
 		return [self.filteredDictionaryContent count];
     }
 	else
 	{
         // Number of rows is the number of time zones in the region for the specified section.
-		DictionarySection *dictSection = [dictionaryContent objectAtIndex:section];
+		DictionarySection *dictSection = [dictionaryActiveContent objectAtIndex:section];
+		NSLog(@"Normal Rows: %d", [dictSection.entries count]);
 		return [dictSection.entries count];
 		
     }
@@ -180,13 +269,14 @@
 	DictionaryEntry *entry = nil;
 	if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
-        entry = [self.filteredDictionaryContent objectAtIndex:indexPath.row];
+        NSLog(@"Hello");
+		entry = [self.filteredDictionaryContent objectAtIndex:indexPath.row];
     }
 	else
 	{
         
 		// Get the section index, and so the region for that section.
-		DictionarySection *dictSection = [dictionaryContent objectAtIndex:indexPath.section];
+		DictionarySection *dictSection = [dictionaryActiveContent objectAtIndex:indexPath.section];
 		entry = [dictSection.entries objectAtIndex:indexPath.row];
 		
 		
@@ -213,10 +303,10 @@
     }
 	else
 	{
-		DictionarySection *dictSection = [dictionaryContent objectAtIndex:indexPath.section];
+		DictionarySection *dictSection = [dictionaryActiveContent objectAtIndex:indexPath.section];
 		entry = [dictSection.entries objectAtIndex:indexPath.row];
     }
-	detailsViewController.title = entry.entryName;
+	//detailsViewController.title = entry.entryName;
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	//[(DictionaryViewController *)[self viewController] dictionaryEntrySelected:entry];
@@ -225,8 +315,15 @@
 									 style: UIBarButtonItemStyleBordered
 									target:nil
 									action:nil];
+	[detailsViewController setEntry:entry];
 	[[self navigationController] pushViewController:detailsViewController animated:YES];
     [detailsViewController release];
+}
+
+- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
+	NSLog(@"Setup Delegate");
+	[self.searchDisplayController.searchResultsTableView setDelegate:self];
+	
 }
 
 
@@ -246,19 +343,18 @@
 	 */
 	
 	
-	for (NSDictionary *dict in listOfItems)
+	for (DictionarySection *sect in dictionaryActiveContent)
 	{
 		
-		for (DictionaryEntry *entry in [dict objectForKey:@"entries"]) {
+		for (DictionaryEntry *entry in sect.entries) {
 			
-			if ([scope isEqualToString:@"All"] || [entry.type isEqualToString:scope])
+			NSComparisonResult result = [entry.entryName compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
+			if (result == NSOrderedSame)
 			{
-				NSComparisonResult result = [entry.entryName compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
-				if (result == NSOrderedSame)
-				{
-					[self.filteredDictionaryContent addObject:entry];
-				}
+				[self.filteredDictionaryContent addObject:entry];
+				NSLog(@"Count should ++: %d", [self.filteredDictionaryContent count]);
 			}
+			
 		}
 	}
 }
@@ -287,27 +383,39 @@
 }
 
 - (void)loadData {
-	NSLog(@"Loading Data");
 	
 	//Need to load data in from a file
-	DictionarySection *section = [DictionarySection sectionWithHeader:@"I" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"ikran" type:@"Noun" andDefinition:@"banshee"],
-																						   [DictionaryEntry entryWithName:@"irayo" type:@"Noun" andDefinition:@"thank you"], nil]];
-	DictionarySection *section1 = [DictionarySection sectionWithHeader:@"S" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"seze" type:@"Noun" andDefinition:@"blue flower"], nil]];
-	DictionarySection *section2 = [DictionarySection sectionWithHeader:@"T" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"taronyu" type:@"Noun" andDefinition:@"hunter"],
-																						   [DictionaryEntry entryWithName:@"tsamsiyu" type:@"Noun" andDefinition:@"warrior"], nil]];
-
-		
-	[self setDictionaryContent:[NSArray arrayWithObjects:section, section1, section2, nil]];
+			
 			//[navigationController release];
-	
-	NSLog(@"Loading Data Complete");
+	if(currentMode){
+		DictionarySection *tsection = [DictionarySection sectionWithHeader:@"B" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"banshee" type:@"Noun" andDefinition:@"ikran"],
+																							[DictionaryEntry entryWithName:@"blue flower" type:@"Noun" andDefinition:@"seze"], nil]];
+		DictionarySection *tsection1 = [DictionarySection sectionWithHeader:@"H" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"hunter" type:@"Noun" andDefinition:@"taronyu"], nil]];
+		DictionarySection *tsection2 = [DictionarySection sectionWithHeader:@"T" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"thank you" type:@"Noun" andDefinition:@"irayo"], nil]];
+		DictionarySection *tsection3 = [DictionarySection sectionWithHeader:@"W" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"warrior" type:@"Noun" andDefinition:@"tsamsiyu"], nil]];
+		
+		[self setDictionaryTranslatedContent:[NSArray arrayWithObjects:tsection, tsection1, tsection2, tsection3, nil]];
+		
+		[self setDictionaryActiveContent:[dictionaryTranslatedContent mutableCopy]];
+	} else {
+		DictionarySection *section = [DictionarySection sectionWithHeader:@"I" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"ikran" type:@"Noun" andDefinition:@"banshee"],
+																						   [DictionaryEntry entryWithName:@"irayo" type:@"Noun" andDefinition:@"thank you"], nil]];
+		DictionarySection *section1 = [DictionarySection sectionWithHeader:@"S" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"seze" type:@"Noun" andDefinition:@"blue flower"], nil]];
+		DictionarySection *section2 = [DictionarySection sectionWithHeader:@"T" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"taronyu" type:@"Noun" andDefinition:@"hunter"],
+																							[DictionaryEntry entryWithName:@"tsamsiyu" type:@"Noun" andDefinition:@"warrior"], nil]];
+		[self setDictionaryContent:[NSArray arrayWithObjects:section, section1, section2, nil]];
+		
+		[self setDictionaryActiveContent:[dictionaryContent mutableCopy]];
+	}
+	//[[self tableView] reloadData];
 }
 
 
 - (void)dealloc {
 	[dictionaryContent dealloc];
 	[filteredDictionaryContent dealloc];
-	
+	[dictionaryTranslatedContent dealloc];
+	 
     [super dealloc];
 }
 

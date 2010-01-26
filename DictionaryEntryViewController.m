@@ -6,22 +6,22 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
+#import "DictionaryEntry.h"
 #import "DictionaryEntryViewController.h"
-
 
 @implementation DictionaryEntryViewController
 
-@synthesize segmentedControl;
+@synthesize segmentedControl, entry, definition;
 
-/*
+
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        // Custom initialization
+        
     }
     return self;
 }
-*/
+
 
 - (IBAction)playAudioFile:(id)sender {
 	NSLog(@"Play File");
@@ -31,32 +31,19 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 	[[self navigationController] setToolbarHidden:NO animated:YES];
-	
-	//UIBarButtonItem *flexibleSpaceButtonItem = [[UIBarButtonItem alloc]
-	//											initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-	//											target:nil action:nil];
-	
-	UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Play" style:UIBarButtonItemStyleBordered target:self action:@selector(playAudioFile:)];
-	self.navigationItem.rightBarButtonItem = addButton;
-	//[self.navigationItem.rightBarButtonItem ];
-	[addButton release];
-	
-	//self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
-	//[segmentedControl release];
-	
-	//self.navigationItem.rightBarButtonItem = segmentBarItem;
-	//self.toolbarItems = [NSArray arrayWithObjects:
-    //                     flexibleSpaceButtonItem,
-	//					 segmentBarItem,
-	//                   nil];
-	//[segmentBarItem release];
-	//[flexibleSpaceButtonItem release];
-	
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 	[[self navigationController] setToolbarHidden:NO animated:YES];
+	
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+	[[self navigationItem] setTitle:[self.entry entryName]];
+	[definition setText:[self.entry definition]];
+	[[self navigationController] setNavigationBarHidden:NO animated:YES];
 	
 }
 
@@ -66,7 +53,26 @@
     
 	[super viewDidLoad];
 	
+	UIBarButtonItem *flexibleSpaceButtonItem = [[UIBarButtonItem alloc]
+												initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+												target:nil action:nil];
 	
+	//UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Play" style:UIBarButtonItemStyleBordered target:self action:@selector(playAudioFile:)];
+	//self.navigationItem.rightBarButtonItem = addButton;
+	//[self.navigationItem.rightBarButtonItem ];
+	//[addButton release];
+	
+	UIBarButtonItem *segmentBarItem = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
+	//[segmentedControl release];
+	
+	//self.navigationItem.rightBarButtonItem = segmentBarItem;
+	[self  setToolbarItems:[NSArray arrayWithObjects:
+							flexibleSpaceButtonItem,
+							segmentBarItem,
+							nil] animated:YES];
+	//self.toolbarItems ;
+	[segmentBarItem release];
+	[flexibleSpaceButtonItem release];
 	
 }
 
