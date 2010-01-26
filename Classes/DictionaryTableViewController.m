@@ -41,6 +41,7 @@
 	
 	self.title = @"Products";
 	
+	
 	// create a filtered list that will contain products for the search results table.
 	self.filteredDictionaryContent = [NSMutableArray arrayWithCapacity:10];
 	
@@ -204,7 +205,7 @@
 	
 	if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
-		return @"";
+		return @"Search Results";
     }
 	else
 	{
@@ -218,7 +219,7 @@
     // Number of sections is the number of regions.
 	if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
-		return 0;
+		return 1;
     }
 	else
 	{
@@ -233,9 +234,8 @@
 	/*
 	 If the requesting table view is the search display controller's table view, return the count of the filtered list, otherwise return the count of the main list.
 	 */
-	if (self.tableView == self.searchDisplayController.searchResultsTableView)
+	if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
-		NSLog(@"Rows: %d", [self.filteredDictionaryContent count]);
 
 		return [self.filteredDictionaryContent count];
     }
@@ -243,7 +243,6 @@
 	{
         // Number of rows is the number of time zones in the region for the specified section.
 		DictionarySection *dictSection = [dictionaryActiveContent objectAtIndex:section];
-		NSLog(@"Normal Rows: %d", [dictSection.entries count]);
 		return [dictSection.entries count];
 		
     }
@@ -269,7 +268,6 @@
 	DictionaryEntry *entry = nil;
 	if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
-        NSLog(@"Hello");
 		entry = [self.filteredDictionaryContent objectAtIndex:indexPath.row];
     }
 	else
@@ -299,7 +297,6 @@
 	if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
         entry = [self.filteredDictionaryContent objectAtIndex:indexPath.row];
-		
     }
 	else
 	{
@@ -320,11 +317,7 @@
     [detailsViewController release];
 }
 
-- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
-	NSLog(@"Setup Delegate");
-	[self.searchDisplayController.searchResultsTableView setDelegate:self];
-	
-}
+
 
 
 #pragma mark -
@@ -348,11 +341,11 @@
 		
 		for (DictionaryEntry *entry in sect.entries) {
 			
-			NSComparisonResult result = [entry.entryName compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
-			if (result == NSOrderedSame)
+			//NSComparisonResult result = [entry.entryName compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
+			//if (result == NSOrderedSame)
+			if( [entry.entryName rangeOfString:searchText].location != NSNotFound )
 			{
 				[self.filteredDictionaryContent addObject:entry];
-				NSLog(@"Count should ++: %d", [self.filteredDictionaryContent count]);
 			}
 			
 		}

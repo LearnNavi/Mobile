@@ -34,6 +34,7 @@
 		0443F204110E5ED100CEAB58 /* Refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 0443F202110E5ED100CEAB58 /* Refresh.png */; };
 		0443F205110E5ED100CEAB58 /* Refresh.psd in Resources */ = {isa = PBXBuildFile; fileRef = 0443F203110E5ED100CEAB58 /* Refresh.psd */; };
 		0443F546110F717F00CEAB58 /* texParser.pl in Resources */ = {isa = PBXBuildFile; fileRef = 0443F545110F717F00CEAB58 /* texParser.pl */; };
+		0443F54B110F769600CEAB58 /* NaviDictionary.tex in Resources */ = {isa = PBXBuildFile; fileRef = 0443F54A110F769600CEAB58 /* NaviDictionary.tex */; };
 		047B445210FAF558007B9236 /* HomeScreenBackground.psd in Resources */ = {isa = PBXBuildFile; fileRef = 047B445110FAF558007B9236 /* HomeScreenBackground.psd */; };
 		047B445E10FAFA41007B9236 /* HomeScreenBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 047B445D10FAFA41007B9236 /* HomeScreenBackground.png */; };
 		047B448B10FB7B07007B9236 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 047B448A10FB7B07007B9236 /* Default.png */; };
@@ -85,6 +86,7 @@
 		0443F202110E5ED100CEAB58 /* Refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Refresh.png; sourceTree = "<group>"; };
 		0443F203110E5ED100CEAB58 /* Refresh.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Refresh.psd; sourceTree = "<group>"; };
 		0443F545110F717F00CEAB58 /* texParser.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = texParser.pl; sourceTree = "<group>"; };
+		0443F54A110F769600CEAB58 /* NaviDictionary.tex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NaviDictionary.tex; sourceTree = "<group>"; };
 		047B445110FAF558007B9236 /* HomeScreenBackground.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = HomeScreenBackground.psd; sourceTree = "<group>"; };
 		047B445D10FAFA41007B9236 /* HomeScreenBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeScreenBackground.png; sourceTree = "<group>"; };
 		047B448A10FB7B07007B9236 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				0443F54A110F769600CEAB58 /* NaviDictionary.tex */,
 				0443F545110F717F00CEAB58 /* texParser.pl */,
 				0443F162110E3D5600CEAB58 /* FlurryLibWithLocation */,
 				0443EEC6110CAB6500CEAB58 /* Prototyping Classes */,
@@ -205,6 +208,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8D1107310486CEB800E47090 /* Learn_Navi_iPhone_App-Info.plist */,
 				0443F202110E5ED100CEAB58 /* Refresh.png */,
 				0443F203110E5ED100CEAB58 /* Refresh.psd */,
 				0443EFBB110D11B600CEAB58 /* DictionaryEntryViewController.xib */,
@@ -227,7 +231,6 @@
 				047B448A10FB7B07007B9236 /* Default.png */,
 				047B445D10FAFA41007B9236 /* HomeScreenBackground.png */,
 				047B445110FAF558007B9236 /* HomeScreenBackground.psd */,
-				8D1107310486CEB800E47090 /* Learn_Navi_iPhone_App-Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				0443F204110E5ED100CEAB58 /* Refresh.png in Resources */,
 				0443F205110E5ED100CEAB58 /* Refresh.psd in Resources */,
 				0443F546110F717F00CEAB58 /* texParser.pl in Resources */,
+				0443F54B110F769600CEAB58 /* NaviDictionary.tex in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

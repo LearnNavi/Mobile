@@ -1,0 +1,902 @@
+\documentclass[12pt]{amsart}
+\usepackage[left=4cm,top=3cm,right=3cm,left=3cm]{geometry} 
+\geometry{a4paper}     
+\usepackage{fullpage}
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{tipa}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{epstopdf}
+\usepackage{setspace}
+\usepackage{palatino, url, multicol}
+\usepackage{hanging}
+
+\newcommand{\word}[5]{\par\textbf{#1}: [\textipa{#2}] $_{#5}$ #3 \textit{#4}}
+\newcommand{\lenite}[6]{\par\textbf{#1}: [\textipa{#2}] $_{#6}$ #3 \textit{#4} allomorph of \textbf{#5}}
+\newcommand{\marker}[4]{\par\textbf{#1}: [\textipa{#2}] $_{#4}$ #3}
+\newcommand{\cw}[9]{\par\textbf{#1}: [\textipa{#2}] $_{#9}$ #3 \textit{#4} (c.w. from \textbf{#5} \textit{#6} and \textbf{#7} \textit{#8})}
+\newcommand{\cww}[7]{\par\textbf{#1}: [\textipa{#2}] $_{#7}$ #3 \textit{#4} (c.w. from \textbf{#5} \textit{#6})}
+\newcommand{\loan}[6]{\par\textbf{#1}: [\textipa{#2}] $_{#6}$ #3 \textit{#4} (loaned from Eng. \textit{#5})}
+\newcommand{\note}[8]{\par\textbf{#1}: [\textipa{#2}] $_{#8}$ #3 \textit{#4} (#5 \textbf{#6} \textit{#7})}
+
+\newcommand{\derive}[9]{\par\textbf{#1}: [\textipa{#2}] $_{#9}$ #3 \textit{#4} derived from \textbf{#5} \textit{#6} and \textbf{#7} \textit{#8}}
+\newcommand{\derives}[7]{\par\textbf{#1}: [\textipa{#2}] $_{#7}$ #3 \textit{#4} derived from \textbf{#5} \textit{#6}}
+\newcommand{\deriveall}[8]{\par\textbf{#1}: [\textipa{#2}] $_{#8}$ #3 contraction of \textbf{#4} \textit{#5}, derived from \textbf{#6} \textit{#7}}
+
+\newcommand{\infix}[5]{\par\textbf{#1}: [\textipa{#2}] $_{#5}$ #3 verbal infix in position #4}
+\newcommand{\affect}[4]{\par\textbf{#1}: [\textipa{#2}] $_{#4}$ #3 affect verbal infix in position 3}
+\newcommand{\affix}[5]{\par\textbf{#1}: [\textipa{#2}] $_{#5}$ #3 affix for #4}
+\newcommand{\alloffix}[6]{\par\textbf{#1}: [\textipa{#2}] $_{#6}$ #4 suffix for nouns ending in a #5 (allomorph of \textbf{#3})}
+\newcommand{\alloffixx}[6]{\par\textbf{#1}: [\textipa{#2}] $_{#6}$ #4 suffix for #5 (allomorph of \textbf{#3})}
+\newcommand{\derivingaffix}[4]{\par\textbf{#1}: [\textipa{#2}] $_{#4}$ #3 deriving affix}
+\newcommand{\infixcw}[7]{\par\textbf{#1}: [\textipa{#2}] $_{#7}$ #3 verbal infix in position #4, derived from \textbf{#5} + \textbf{#6}}
+
+
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+
+\title{Na'vi - English Dictionary $v.$ 7.55}
+\author{Compiled by Taronyu (Richard Littauer)\\ \href{www.LearnNavi.org}{www.LearnNavi.org}}
+\date{Last updated: January 26$^{th}$, 2010}
+
+\begin{document}
+\newpage
+\singlespacing
+\maketitle
+Having been disappointed by the paucity of collated and collected data, I have worked all of the available sources I could find into one dictionary here. Thanks are certainly to be given to the following people for their monumental efforts: Dr. Frommer, Karyu Amawey, all the people in the change log, and everyone on IRC, Skype, and the \href{http://forum.learnnavi.org}{Learn Na'vi} site.
+
+Where appropriate, extra notes have been included for the entries below. Compound non-inflected words and loan words from English have been noted. I have on several occasions derived non-attested root forms: these are marked by a *, and should list sources. The traditional Na'vi transcription in use by Frommer has been maintained throughout: the IPA transcription is given as well. Some, if not many, parts of speech may be erroneous - many have been excluded entirely. Where suitable, lenited words have been included. Some words found elsewhere are not included here, as all affixes and infixes have been avoided, unless their inclusion is deemed particularly useful.  Forms that are inflected have been included if their uninflected form is not attested.\par \textbf{Bold} indicates Na'vi word. {\sl Italics} indicate English definition. \underline{Underlining} indicates where Frommer has given us stress information, which is not otherwise predictable: I have included this in the IPA transcriptions instead of using normal IPA \textipa{"}, because syllable boundaries are often hard to place - any fault in underlining, unless a typing error, can be laid at Frommer's door. Plain text indicates grammatical categorisation: parentheses indicate further notes. $<$x$>$ represents an infix, where {\it t}$<$1$>$$<$2$>${\it ar}$<$3$>${\it on} are the positions. Proper nouns have been capitalised. -- and + indicates that an affix or adposition can fall on either side. Knowledge of lenition processes will be assumed. Elision sometimes occurs, but only in song.For more on inflections, see \href{http://www.talknavi.com/taronyu/Inflections.pdf}{this document.}\\ \\
+{\bf Abbreviations:}
+\begin{multicols}{2}{\noindent
+-- = morpheme boundary\\
++ = leniting morpheme boundary\\
+= = eliding boundary\\
+$< >$ = infix morpheme\\
+` = ejective [in IPA]\\
+adj. = adjective\\
+adp. = adpositional affix\\
+adv. = adverb\\
+conj. = conjunction\\
+c.w. = compound word\\
+intj. = interjection\\
+inter. = interrogative\\
+lit. = literally\\
+n. = noun\\
+num. = number\\
+part. = particle\\
+prep. = preposition\\
+pn. = pronoun\\
+prop.n. = proper noun\\
+v. = verb\\
+$\phi$ = illegal phonotactics}
+\end{multicols}
+
+For those of you wishing for an English - Na'vi dictionary, use \href{http://content.learnnavi.org/taronyu/NaviEnglish.pdf}{this document}, or use the find function, normally Ctrl + F. 
+\section*{Sources}
+I have sourced every word as best as I could. This sourcing is placed in a subscript after the IPA transcription, and tells where I, or the source from which I received a word, initially got their word from Frommer. In order of validity, from most to least:\begin{itemize}
+\item F = Frommer himself.
+\item FE = Frommer's personal emails
+\item MS = the movie script
+\item S = the list at the end of the Survival Guide
+\item W = Wikipedia (which has received Frommer's blessing)
+\item SG = the Survival Guide main text (flora and songs)
+\item M = transcriptions or scripts from the Avatar movie
+\item C = Cameron himself (from the 2007 script)
+\item T = Taronyu
+\item D  = words not derived by Taronyu.
+\item G = the Avatar games (which have illegal names)
+\item SG = the Survival Guide main text (everything else)
+
+\end{itemize}
+
+Frommerian words have the highest worth. The Activists Survival Guide contains a list at the end of Na'vi words, which is the main source of all present dictionaries. Words not in this list but still within the Guide often have illegal phonotactic entries. I have attached the $\phi$ character to each such word, and put them in their own section in the appendix. There are also spelling mistakes: {\it Omaticaya} and {\it skx'awng} are obvious. However, the plant names look distinctly Frommerian: they have the \`i in some names, and exhibit compounding, unlike the rest of the words in the SG text. Somewhat humorously, I've noticed that all but one word from the Guide that doesn't concern Pandoran flora have illegal combinations (the word is {\bf u'imi} {\it streamers}) . I have therefore left this word, and all botanical terms, in the dictionary.
+
+Words from the game are listed \href{http://forum.learnnavi.org/index.php?topic=412.0}{here}. Some words have been derived from the Movie alone. \href{http://en.wikipedia.org/wiki/Na\%27vi_language}{Wikipedia}, as a general grammatical deriving source, has been used for most grammatical items included here. I myself have derived several words: I have marked those here. Trust them at your own risk. Many notes or derivations that I have made with some guesswork are noted with a $_T$. Where MS is given, assume either same stress patterns in S, or MS stress, unless I have created a new entry for inflected words. For more on proper sources, and their history, go \href{http://forum.learnnavi.org/index.php?topic=727.0}{here}.\\
+
+I have edited this dictionary too many times not to assume that it will have errors. {\bf Please}, if you note any, let me know \href{http://forum.learnnavi.org/index.php?topic=341.0}{here}, and I will change them. As for version number, I'll change the first digit when there is a big change. I'll update .0x0 when I make a significant, but not large change. Finally, I'll edit the .00x number when I've made tiny edits. Refer to the Change Log for explanation. Version 2 sourced every word. Version 3 involved adding words from the Guide's main text. Version 4 took illegal words and put them in a separate appendix. Version 5 added an appendix for inflectional endings, with examples, as well as a change log. Version 6 added all original Cameronian words. Version 7 is {\it ta fyapo s\`i ne fyapo}, and has a lot of new Frommerian words.
+
+\newpage
+\noindent{\bf \textipa{\large{P}}}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\word{'ampi}{Pampi}{}{touch}{S}
+\word{'angts\`ik\"a}{PaN\texttslig Ik\ae}{n.}{hammerhead (Pandora fauna)}{G}
+\word{'aw}{Paw}{num.}{one}{S}
+\word{'aw--}{Paw}{third person neutral pronoun}{one}{T}
+\word{'awkx}{Pawk'}{n.}{cliff}{S}
+\word{'awpo}{Pawpo}{pn.}{one individual}{S} $_{T}$
+\word{'awsiteng}{Pawsi\underline{tEN}}{adv.}{together}{S}
+\word{'awve}{PawvE}{adj.}{first}{S} %note n“awve
+\word{'e'al}{P\underline{E}Pal}{}{worst}{S}
+\word{'efu}{PEfu}{v.}{feel}{F}
+\word{'eko}{P\underline{E}ko}{}{attack}{S}
+\word{'ekong}{P\underline{E}koN}{}{beat (rhythmic)}{S}
+\word{'engeng}{P\underline{E}NEN}{n.}{level, floor $_{T}$}{S}
+\word{'eveng}{P\underline{E}vEN}{n.}{child}{S}
+\note{'evi}{P\underline{E}vi}{n.}{kid}{affectionate form of}{'eveng}{child}{S}
+\word{'ewan}{PEwan}{adj.}{young}{F}
+\word{'eylan}{PEjlan}{n.}{friend}{F}
+\word{'eyng}{PEjN}{v.}{answer}{F}
+\word{'\`i'awn}{PI\underline{Pawn}}{v.}{remain, stay}{S, MS}
+\word{'\`iheyu}{PIhEju}{}{spiral}{SG} %from the songs
+\loan{'\`ingl\`is\`i}{P\underline{IN}lIsI}{n.}{English language}{English}{S}
+\word{'it}{P\underline{i}t}{n.}{bit, a small amount}{S}
+\derive{*'it}{Pit}{n.}{progeny}{'itan}{son}{'ite}{daughter}{T}
+\word{'itan}{Pitan}{n.}{son}{S}
+\word{'ite}{P\underline{i}tE}{n.}{daughter}{S}
+\word{'ok}{Pok}{n.}{remembrance}{S}
+\word{'ong}{PoN}{v.}{unfold, blossom}{S}
+\derive{*'u}{Pu}{n.}{thing}{f\`i'u}{this thing}{tsa'u}{that thing}{T}
+\cw{'upe}{P\underline{u}pE}{n.}{what (thing)}{*'u}{thing}{pe}{inter. marker}{S}
+\word{'upxare}{Pup'aRE}{}{message}{S}
+\end{hangparas} }\end{multicols}
+
+\noindent \textbf{A}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\word{a}{a}{pn.}{which, that}{S}
+\marker{--a--}{a}{adjectival attributive marker}{F}
+\alloffix{--\"a}{\ae}{y\"a, ey\"a}{genitive}{consonant}{W}
+\word{\"aie}{\ae iE}{n.}{vision}{S}
+\word{alaks\`i}{al\underline{ak}sI}{adj.}{ready}{S}
+\word{Amhul}{amhul}{prop.n.}{child's name}{S}
+\word{\"Ans\`it}{\underline{\ae n}sIt}{prop.n.}{child's name}{S}
+\word{Anurai}{anurai}{prop.n.}{clan name}{G}
+\word{al\`im}{alIm}{}{far, far away, at a distance}{?}
+\infix{$<$am$>$}{am}{past tense}{2}{W}
+\marker{--an}{an}{masculine suffix for certain nouns}{W}
+\affect{$<$\"ang$>$}{\ae N}{pejorative}{W}
+\word{apxa}{ap'a}{adj.}{large}{S}
+\infixcw{$<$arm$>$}{aRm}{imperfective past tense}{2}{am}{er}{W}
+\word{atan}{atan}{}{light}{S}
+\derive{Ateyitan}{atEjitan}{prop.n.}{son of Ateyo}{Ateyo}{man's name}{'itan}{son}{C}
+\derives{*atoki}{atoki}{n.}{sacred tree (Pandoran flora)}{atokirina'}{seeds of the great tree}{T}
+\cww{atokirina'}{atokiRi\underline{na}P}{n.}{seeds of the great tree}{rina'}{seed}{C,S}
+\word{\"atx\"ale}{\ae \underline{t'\ae}lE}{}{request}{S, MS}
+\word{atxkxe}{at'k'E}{n.}{land}{S}
+\word{au}{au}{n.}{drum (made of skin)}{S}
+\word{aungia}{auNia}{n.}{sign, omen}{S}
+\word{awaiei}{awaiEi}{n.}{banshee of paradise (Pandoran flora)}{SG}
+\affix{ay+}{aj}{plural}{nouns}{F}
+\infix{$<$ay$>$}{aj}{future tense}{2}{W}
+\word{ayfo}{ayfo}{pn.}{they}{S}
+\word{aynga}{ayNa}{pn.}{you all}{S}
+\word{ayoe}{ayoE}{pn.}{we (exclusive)}{S}
+\word{ayoeng}{ay\underline{oEN}}{pn.}{we (inlcusive)}{S,MS}
+\word{ayskxe}{aj\underline{sk'E}}{n.}{stones}{MS}
+\end{hangparas} }\end{multicols}
+\newpage
+\noindent\textbf{E}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\marker{--e}{E}{feminine suffix for certain nouns}{F}
+\word{ean}{\underline{E}an}{adj.}{blue}{S}
+\affect{$<$ei$>$}{Ei}{laudative}{F}
+\word{eltu}{\underline{El}tu}{n.}{brain}{S}
+\word{eltu si}{\underline{El}tu si}{v.}{listen, pay attention}{S}
+\cw{eltungawng}{\underline{El}tuNawN}{n.}{brainworm (Pandoran fauna)}{eltu}{brain}{ngawng}{worm}{S} $_T$
+\derive{*(')em}{(P)Em}{prep.}{above}{ta'em}{from above}{emza'u}{pass}{T}
+\derive{emza'u}{Emz\underline{a}Pu}{v.}{pass (a test)}{em}{over}{za'u}{come}{S,MS}
+\word{eo}{\underline{E}o}{prep.}{before, in front of}{S}
+\infix{$<$er$>$}{ER}{Imperfective aspect}{2}{D}
+\alloffixx{=ey\"a}{Ej\ae}{\"a, y\"a}{genitive}{pronouns}{W}
+\word{eyaye}{EjajE}{n.}{warbonnet (Pandoran flora)}{SG}
+\word{eyk}{Ejk}{v.}{lead}{S}
+\word{eyktan}{\underline{Ejk}tan}{n.}{leader}{S}
+\word{Eytukan}{\underline{Ej}tukan}{prop.n.}{man's name}{C,MS}
+\word{Eywa}{\underline{Ej}wa}{prop.n.}{world spirit, guiding force and deity (equivalent to Gaia)}{C} \textbf{\underline{Ey}wa \underline{nga}hu} intj. {\it good-bye, ... be with you} $_S$
+\derive{Eywa'eveng}{EjwaPEvEN}{n.}{Pandora}{Eywa}{Gaia}{'eveng}{child}{F}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{F}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\word{fa}{fa}{prep.}{with, by means of}{S}
+\word{fahew}{fa\underline{hEw}}{n.}{smell}{F}
+\word{faketuan}{fakEtuan}{n.}{alien, non-Na'vi}{?} (might be poor transcription of {\bf fa} + {\bf ketuan}) $_{T}$
+\derive{fay+}{faj}{adp.}{these}{f\`i}{this}{ay+}{plural}{D}
+\cw{fayvrrtep}{fajv\textsyllabic{r}tEp}{n.}{these demons}{fay}{this plural}{vrrtep}{demon}{F} $_T$
+\derive{f\`i=}{fI}{adp.}{this}{f\`ipo}{this one}{f\`i'u}{this thing}{F}
+\word{f\`ifya}{fIfja}{pn.}{this, this way, like this}{S} %fja'o
+\word{f\`ikem}{fIkEm}{pn.}{this (action)}{S}
+\word{f\`ipo}{\underline{fI}po}{pn.}{this one (person or thing)}{S}
+\derive{f\`itxan}{fIt'an}{adv.}{so}{f\`i}{this}{txan}{much}{F}
+\word{f\`itseng(e)}{fI\underline{\texttslig EN}(E)}{pn.}{this, here, this place}{S,MS}
+\word{f\`i'u}{fIPu}{pn.}{this, this thing}{S}
+\word{fkarut}{\underline{fka}Rut}{}{peel}{S}
+\word{fkeu}{fkEu}{adj.}{mighty}{S} (might be {\bf fkew}) $_D$
+\word{fko}{fko}{}{one}{S} (might be from {\bf po}) $_{T}$ 
+\word{fl\"a}{fl\ae}{v.}{succeed}{F}
+\word{fmawn}{fmawn}{n.}{news, something to report}{S}
+\word{fmetok}{fm\underline{E}tok}{v.}{test}{S}
+\word{fmi}{fmi}{v.}{try}{S}
+\word{fngap}{fNap}{n.}{metal}{F}
+\word{fngapsutxwll}{fNapsut'w\textsyllabic{l}:}{n.}{metal-following plant (Pandoran flora)}{SG}
+\word{fnu}{fnu}{v.}{quiet, be quiet}{S}
+\derive{fo}{fo}{pn.}{they}{ay+}{deleted plural leniting morpheme}{po}{he/she}{S} $_T$ %make normal text?
+\word{fpak}{fpak}{v.}{hold off, suspend action}{S}
+\word{fpe'}{fpEP}{v.}{send}{S}
+\word{fpeio}{fpE\underline{i}o}{}{challenge (ceremonial)}{S}
+\word{fpi}{fpi}{}{for the sake of}{S}
+\word{fp\`il}{fpIl}{v.}{think}{FE}
+\word{fpom}{fpom}{}{well-being, peace}{S}
+\word{fpxafaw}{fp'afaw}{n.}{medusa (Pandoran fauna)}{S}
+\word{fpx\"ak\`im}{fp'\ae kIm}{v.}{enter}{S}
+\derive{*fra--}{fRa}{adp.}{every}{frapo}{everyone}{fra'u}{everything $_D$}{T}
+\cww{fra'u}{fRaPu}{n.}{everything}{'u}{thing}{S}
+\cww{frapo}{\underline{fRa}po}{n.}{everyone}{po}{he/she}{S,MS}
+\word{ftang}{ftaN}{v.}{stop}{S}
+\word{fte}{ftE}{conj.}{so that}{S}
+\cw{fteke}{ftEkE}{conj.}{so that not, lest}{fte}{so that}{ke}{not}{S}
+\word{ftia}{fti\underline{a}}{v.}{study}{F}
+\word{ftxoz\"a}{ft'oz\ae}{n.}{holiday}{FE}
+\word{ftu+}{ftu}{prep.}{from (direction)}{S}
+\word{ftue}{ftuE}{adj.}{easy}{S}
+\derives{*ftxavang}{ft'avaN}{adj.}{passionate}{n\`iftxavang}{passionately}{T}
+\word{ftxey}{ft'Ej}{v.}{choose}{S}
+\word{fu}{fu}{conj.}{or}{S}
+\derive{futa}{futa}{conj.}{that (subjunctive marker)}{f\`iu-t}{this accusative}{a}{that}{FE}
+\derive{fwa}{fwa}{conj.}{that which}{f“'u}{this}{a}{relative clause marker}{F}
+\derive{*fya--}{fja}{n.}{path, direction}{fya'o}{path}{fyape}{how}{T}
+\word{fya'o}{fjaPo}{n.}{path, way}{S}
+\lenite{fyape}{fjapE}{conj.}{how}{fyape}{S}
+\cw{fyaw\`intxu}{fjawIn\underline{t'u}}{v.}{guide}{*fya}{path}{w\`intxu}{show}{S} $_T$
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{H}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\word{ha}{ha}{conj.}{so, in that case}{S}
+\word{hahaw}{hahaw}{v.}{sleep}{F}
+\word{hapx\`i}{ha\underline{p'I}}{}{part}{S,MS}
+\word{hasey}{hasEj}{adj.}{done, finished}{S}
+\word{hawnu}{hawnu}{v.}{protect, shelter}{S}
+\word{h\`i'i}{\underline{hI}Pi}{adj.}{small}{S}
+\word{hiy\`ik}{\underline{hi}jIk}{adj.}{funny, strange}{S}
+\word{hrrap}{h\textsyllabic{r}ap}{n.}{danger}{S}
+\word{hu}{hu}{adp.}{with (accompaniment)}{S}
+\word{hufwe}{hufwE}{n.}{wind}{S}
+\word{hum}{hum}{v.}{leave, depart}{S}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{I}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\word{i'en}{iPEn}{n.}{stringed instrument}{S}
+\derive{*ik}{ik}{n.}{heaven, sky, mountain}{ik-ni-maya}{stairway to heaven}{ikran}{walks the sky}{D}
+\word{Iknimaya}{\underline{ik}ni\underline{ma}ja}{prop.n.}{Stairway to Heaven, the rite of passage for young Na'vi}{C,S}
+\word{ikran}{\underline{ik}Ran}{n.}{banshee}{C} ({\it mountain banshee}) $_{SG}$
+\word{ikranay}{ikRanaj}{n.}{forest banshee}{SG} (dubious: +ay would make {\it banshees}) $_T$
+\alloffix{--\`il}{Il}{l}{ergative case}{consonant}{W}
+\word{\`il\"a}{Il\ae] or [\underline{I}l\ae}{prep.}{by, via, following}{S}
+\derives{*\`im}{Im}{prep.}{behind, back}{ne'\`im}{back}{T}
+\infix{$<$\`im$>$}{Im}{recent past}{2}{W}
+\word{ioang}{ioaN}{n.}{animal, beast}{S}
+\word{irayo}{iRajo}{n., intj.}{thank you}{F} (also {\bf ireiyo}) $_{MS}$
+\alloffix{--\`iri}{IRi}{ri}{topical}{consonant}{W}
+\infixcw{$<$\`irm$>$}{IRm}{imperfective recent past tense}{2}{\`im}{er}{W}
+\alloffix{--it}{it}{t, ti}{accusative}{consonant}{W}
+\infix{$<$iv$>$}{iv}{subjunctive mood}{2}{W}
+\infix{$<$\`iy$>$}{Ij}{immediate future tense}{2}{W}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{K}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\word{ka}{ka}{prep.}{across}{S}
+\word{k\"a}{k\ae}{v.}{go}{S}
+\word{kali'weya}{kaliPwEja}{n.}{species of poisonous arachnid (Pandoran fauna)}{SG}
+\word{kaltx\`i}{kalt'I}{intj.}{hello}{S}
+\cw{k\"amakto}{k\ae\underline{mak}to}{v.}{ride out}{k\"a}{go}{makto}{ride $_T$}{S}
+\word{kame}{\underline{ka}mE}{v.}{see, see into, understand, know}{S}
+\word{kangay}{kaNaj}{adj.}{valid}{S}
+%\word{*kangkem}{kaNkEm}{v.}{work}{D}
+\derives{*kar}{kar}{v.}{teach}{karyu}{teacher}{T}
+\word{karyu}{kaRju}{n.}{teacher}{S}
+\word{kato}{\underline{ka}to}{n.}{rhythm}{S}
+\deriveall{*kaw--}{kaw}{adp.}{ke aw}{not one}{kawkrr}{never}{T}
+\cww{kawkrr}{\underline{kaw}k\textsyllabic{r}}{adv.}{never}{krr}{time}{S}
+\cw{kawng}{kawN}{adj.}{bad, evil}{*kaw--}{not}{--ng}{inclusive}{S} $_T$
+\cww{kawtu}{kawtu}{pn.}{no-one}{tu}{person}{S}
+\word{ke}{kE}{adv., adj.}{not}{S}
+\word{ke--}{kE}{adp.}{no, not}{T}
+\cw{ke'u}{\underline{kE}Pu}{pn.}{nothing}{ke}{not}{'u}{thing}{S}
+\word{kehe}{\underline{kE}hE}{part.}{no}{S}
+\word{kelku}{\underline{kEl}ku}{n.}{home}{S}
+\word{kelku si}{kElku si}{v.}{live, dwell}{S}
+\word{Kelutral}{\underline{kE}lutRal}{prop.n.}{Hometree (Pandoran flora)}{S,MS}
+\derive{*kem}{kEm}{}{action}{f\`ikem}{this action}{kempe}{what action}{T}
+\word{kempe}{kEmpE}{pn.}{what (action)}{S}
+\word{kenong}{\underline{kE}noN}{v.}{model, represent, exemplify}{S}
+\cw{kerusey}{\underline{kE}RusEj}{adj.}{dead}{ke}{not}{r$<$us$>$ey}{living}{S} $_D$
+\word{ketuwong}{\underline{kE}tuwoN}{n.}{alien}{S}
+\word{kewong}{\underline{kE}woN}{adj.}{alien}{S}
+\word{keye'ung}{kE\underline{jE}PuN}{n.}{insanity}{S}
+\word{k\`i'ong}{kIPoN}{n.}{kind of fruit or vegetable (Pandoran flora)}{S}
+\word{kifkey}{kifkEj}{n.}{world (solid)}{F}
+\word{kilvan}{kilvan}{n.}{river}{F}
+\word{k\`im}{kIM}{v.}{spin}{S}
+\word{kin}{kin}{}{need}{S}
+\word{kin\"a}{\underline{ki}n\ae}{num.}{seven}{S}
+\word{kinam}{kinam}{n.}{leg}{S}
+\word{kinamtil}{ki\underline{nam}til}{n.}{knee}{S}
+\word{k\`ing}{kIN}{}{thread}{S}
+\word{kip}{kip}{prep.}{among}{S}
+\word{k\`ite'e}{kI\underline{tE}PE}{}{service}{S}
+\cww{k\`iyevame}{kIjE\underline{va}mE}{v.}{good-bye, see you soon}{kame}{see}{S}
+\derive{*kll--}{k\textsyllabic{l}:}{}{ground}{kllkulat}{dig up}{kllkxem}{stand}{T}
+\word{kllfrivo'}{k\textsyllabic{l}:fRi\underline{vo}P}{v.}{be responsible}{S}
+\word{kllkulat}{k\textsyllabic{l}:\underline{ku}lat}{v.}{dig up}{S}
+\word{kllkxem}{k\textsyllabic{l}:k'Em}{v.}{stand}{S}
+\word{kllpx\`iltu}{k\textsyllabic{l}:\underline{p'Il}tu}{n.}{territory}{S}
+\word{kllte}{k\textsyllabic{l}:tE}{n.}{ground}{S}
+\word{ko}{ko}{part.}{solicit agreement}{FE}
+\word{kop}{kop}{part.}{too, also}{F}
+\word{koren}{koREn}{n.}{rule}{F}
+\word{krr}{k\textsyllabic{r}}{n.}{time}{S}
+\word{*krr}{k\textsyllabic{r}}{adv.}{ever, time}{M} (derived from direct transcription)
+\word{krrnekx}{k\textsyllabic{r}nEk'}{v.}{take/consume time}{S}
+\word{krrpe}{k\textsyllabic{r}pE}{adv.}{when}{S}
+\word{Kyuna}{kjuna}{prop.n}{girl's name}{G}
+\loan{kuns\`ip}{\underline{kun}sIp}{n.}{gunship}{gunship}{S}
+\word{kurakx}{kuRak'}{v.}{drive out}{S}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{Kx}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\word{kxam}{k'am}{n.}{middle, midpoint}{S}
+\cw{kxamtseng}{\underline{k'am}\texttslig EN}{n.}{center-place}{kxam}{center}{tseng}{place}{S}
+\word{kxangangang}{\underline{k'aN}aNaN}{n.}{boom (onomatopoeia)}{S}
+\word{kxan\`i}{k'anI}{adj.}{forbidden}{S}
+\word{kxawm}{k'awm}{adv.}{perhaps, maybe}{S}
+\word{kxener}{\underline{k'E}nER}{n.}{kind of fruit or vegetable (Pandoran flora)}{S}
+\word{kxetse}{\underline{k'E}\texttslig E}{n.}{tail}{S}
+\word{kxeyey}{k'EjEj}{n.}{error, mistake}{F}
+\word{kxll}{k'\textsyllabic{l}:}{}{charge}{G}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{L}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\affix{--l}{l}{ergative case}{nouns ending in a vowel}{W}
+\derive{*la--}{la}{adp.}{other, otherness}{lapo}{other one}{aylahe}{others}{T}
+\derive{*lay+}{laj}{adp.}{others}{*la}{other}{ay+}{plural}{D}
+\word{lahe}{\underline{la}hE}{pn.}{other}{S}
+\word{lam}{lam}{v.}{seem, appear}{S}
+\cww{lapo}{\underline{la}po}{pn.}{other one}{po}{he/she}{S}
+\word{latem}{\underline{la}tEm}{v.}{change}{S}
+\word{law}{law}{adj.}{clear, certain}{S}
+\derivingaffix{le--}{lE}{adjective}{F}
+\derives{*ler}{lER}{}{work?}{lertu}{colleague}{T}
+\word{lertu}{lERtu}{n.}{colleague}{S}
+\word{letrr}{lEt\textsyllabic{r}}{adj.}{daily}{T,F}
+\derive{*l\`i(')}{lI(P)}{}{speak}{l\`i'u}{word}{l\`i'fya}{language}{W}
+\word{l\`i'u}{\underline{lI}Pu}{n.}{word}{S,MS}
+\derive{l\`i'fya}{lIfja}{n.}{language}{l\`i'u}{word}{fya}{way $_W$}{F}
+\word{Li'ona}{liPona}{prop.n}{clan name}{G}
+\derive{l$<$iv$>$u}{li\underline{vu}}{v.}{be (subjnuctive)}{lu}{be}{$<$iv$>$}{subjunctive infix}{MS}
+\word{lok}{lok}{prep., v.}{close, close to}{S}
+\word{lonataya}{lonataja}{n.}{medusa (Pandoran Fauna)}{SG}
+\word{lonu}{lonu}{v.}{release, let go}{S}
+\word{lor}{loR}{adj.}{beautiful (non-human)}{F}
+\derive{loreyu}{loREju}{n.}{helicoradium spirale, beautiful spiral (Pandoran Flora)}{lor}{beautiful}{\`ireyu}{spiral}{SG} $_T$
+\derives{*lrr}{l\textsyllabic{r}}{}{smile, happy}{lrrtok}{smile exists}{T}
+\word{lrrtok}{\underline{l\textsyllabic{r}}tok}{}{smile}{S}
+\word{lu=}{lu}{v.}{be (predicative copula, existential verb)}{S}
+\derive{*lun}{lun}{n.}{reason}{lumpe}{why}{pelun}{why}{T}
+\lenite{lumpe}{lumpE}{adv.}{why}{pelun}{S}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{M}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\marker{ma}{ma}{adp. vocative marker}{M}
+\word{makto}{makto}{v.}{ride}{S}
+\word{mawey}{mawEj}{adj.}{calm}{S}
+\affix{me+}{mE}{dual}{nouns}{W}
+\cw{mefo}{\underline{mE}fo}{pn.}{they, those two}{me+}{dual marker}{po}{he/she}{S}
+\cw{menari}{mE\underline{na}Ri}{n.}{eyes}{me+}{dual}{nari}{eye}{S}
+\word{meoauniaea}{mEoauniaEa}{}{Frommer's favourite word, currently undefined}{F}
+\word{meuia}{mE\underline{u}ia}{}{honour}{S}
+\word{meyp}{mEjp}{adj.}{weak}{S}
+\word{m\`i+}{mI}{prep.}{in}{S}
+\word{mikyun}{\underline{mik}jun}{n.}{ear}{C,S}
+\word{m\`in}{mIn}{}{turn}{S}
+\word{mip}{mip}{adj.}{new}{FE}
+\derives{m\`iso}{mIso}{prep.}{away (position)}{*to}{away}{S}
+\word{mllte}{m\textsyllabic{l}:\underline{tE}}{v.}{agree}{S}
+\word{Mo'at}{\underline{mo}Pat}{prop.n.}{woman's name}{C}
+\derive{Mo'at'ite}{moPatPitE}{prop.n.}{daughter of Mo'at}{Mo'at}{woman}{ite}{daughter}{C}
+\cw{moe}{moE}{pn.}{we, we two (exclusive)}{me+}{dual}{oe}{I}{S} $_T$
+\word{mokri}{mokRi}{}{voice}{S}
+\word{mui\"a}{mui\ae}{adj.}{proper, fair, right}{S}
+\word{mun'i}{munP\underline{i}}{}{cut}{S}
+\word{mun(e)}{\underline{mu}nE}{num.}{two}{S} (possible as {\bf mun}) $_T$
+\word{munge}{\underline{mu}NE}{v.}{take, bring}{S}
+\word{muntxa}{munt'a}{adj.}{mated}{S}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{N}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\word{na}{na}{conj.}{like, as}{S}
+\word{na'r\`ing}{\underline{na}PRIN}{n.}{forest}{S}
+\word{Na'vi}{\underline{na}Pvi}{prop.n.}{the People, indigenous Pandoran sentient race}{C,S,MS}
+\word{nang}{naN}{part.}{surprise, exclamation}{S}
+\word{nantang}{\underline{nan}taN}{n.}{viperwolf {Caniferratus costatus}, striped armored wolf (Pandoran fauna)}{S}
+\word{nari}{\underline{na}Ri}{n.}{eye}{C,S}
+\word{nari si}{naRi si}{v.}{watch out, be careful}{S}
+\word{nawm}{nawm}{adj.}{great, noble}{S}
+\word{ne}{nE}{prep.}{to, towards}{S}
+\cw{ne kllte}{nE \underline{k\textsyllabic{l}:}tE}{intj.}{get down}{ne}{to}{kllte}{the ground}{S}
+\word{ne'\`im}{nEP\underline{Im}}{prep.}{back (direction)}{S}
+\word{nekx}{nEk'}{v.}{burn, consume}{S}
+\derive{neto}{nEto}{prep.}{away (direction)}{ne}{to}{*to}{away}{S}
+\word{new}{nEw}{v.}{want}{F} (changed from $_S$ {\bf neu})
+\word{Neyt\`iri}{nEjtIRi}{prop.n.}{woman's name}{C}
+\derivingaffix{n\`i=}{nI}{adverbial}{W}
+\word{n\`i'aw}{nIPaw}{adv.}{only}{S}
+\word{n\`i'awtu}{nIP\underline{aw}tu}{adv.}{alone}{S}
+\word{n\`i'awve}{nIP\underline{aw}vE}{adv.}{first}{S}
+\derives{n\`i'it}{nIPit}{adv.}{bit, a small amount (abstract)}{'it}{bit, a small amount}{S}
+\word{n\`i'ul}{nIPul}{adv.}{more}{S} 
+\word{ni\"a}{ni\ae}{v.}{grab}{S}
+\word{n\`iayoeng}{nIaojoEN] or [naj\underline{wEN}}{adv.}{like us}{S} (corrected from {\bf -eg}) $_T$
+\word{n\`iftue}{nI\underline{ftu}E}{adv.}{easily}{S}
+\word{n\`iftxavang}{nI\underline{ft'a}vaN}{adv.}{passionately, with all heart}{S}
+\word{n\`ihawng}{nIhawN}{adv.}{too, excessively}{S}
+\word{n\`iltsan}{nIl\texttslig an}{adv.}{well}{S}
+\word{n\`imun}{nImun}{adv.}{again}{S}
+\word{n\`in}{nIn}{v.}{look, look at}{S}
+\word{Ninat}{nInat}{prop.n.}{woman's name, good singer}{C}
+\word{n\`ingay}{nINaj}{adv.}{truly}{S} %pronounce?
+\word{n\`itam}{nItam}{adv.}{enough}{S} %tam
+\word{n\`iteng}{nItEN}{adv.}{too, also}{F}
+\word{n\`itut}{nItut}{adv.}{continually}{S}
+\derives{n\`itxan}{nIt'an}{adv.}{much (abstract)}{txan}{much}{S}
+\word{n\`iwin}{nIwin}{adv.}{fast}{S}
+\word{n\`iwotx}{nIwot'}{adv.}{all (of), in toto, completely}{S}
+\derive{*nul}{nul}{adp.}{comparitive adjectival marker}{n\`i'ul}{more}{nulkrr}{longer}{T,D}
+\word{nulkrr}{\underline{nu}lk\textsyllabic{r}}{}{longer (time)}{S} %nul?
+\word{nume}{numE}{v.}{learn}{S}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{Ng}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\affix{--ng}{N}{clusivity, contraction of nga}{pronouns}{W}
+\word{nga}{Na}{pn.}{you}{S}
+\word{nga-}{\underline{Na}-}{pn.}{you}{MS}
+\word{ngawng}{NawN}{n.}{worm (Pandoran fauna)}{S}
+\word{ngay}{Naj}{adj.}{true}{S}
+\word{ngenga}{NENa}{pn.}{you (honorific form)}{S}
+\word{ngim}{Nim}{adj.}{long}{F}
+\word{ngop}{Nop}{v.}{create}{S}
+\word{nguway}{Nuwaj}{n.}{howl}{G}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{O}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\word{oe}{\underline{o}E}{pn.}{I, me}{S}
+\word{oe-}{\underline{oE}-}{pn.}{I}{MS}
+\word{oeng}{oEN}{pn. dual inclusive}{we two}{S}
+\word{ohe}{\underline{o}hE}{pn.}{I (deferential or ceremonial form)}{S, MS}
+\word{ohe-}{o\underline{he}-}{pn.}{I}{MS}
+\infix{$<$ol$>$}{ol}{perfective aspect}{2}{W}
+\word{olo'}{oloP}{n.}{clan}{S}
+\cw{olo'eyktan}{\underline{o}loP\underline{Ejk}tan}{n.}{clan leader}{olo'}{clan}{eyktan}{leader}{C,S} (male clan leader) $_{SG}$
+\word{Omatikaya}{omati\underline{ka}ja}{prop.n.}{Blue Flute Clan}{C,S}
+\word{omum}{\underline{o}mum}{v.}{know}{S}
+\word{ontu}{\underline{o}ntu}{n.}{nose}{C,S}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{P}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\word{p\"ahem}{\underline{p\ae}hEm}{v.}{arrive}{S}
+\marker{pak}{pak}{part. for disparagement}{S}
+\word{pa'li}{paPli}{n.}{direhorse (Pandoran fauna)}{S}
+\word{palulukan}{\underline{pa}lu\underline{lu}kan}{n.}{Thanator}{S}
+\word{pam}{pam}{n.}{sound}{S}
+\derive{pamtseo}{\underline{pam}\texttslig Eo}{n.}{music}{pam}{sound}{tseo}{art}{S}
+\word{pamtseowll}{pam\texttslig Eow\textsyllabic{l}:}{n.}{cat ear, music plant (Pandoran flora)}{SG}
+\word{p\"angkxo}{pANk'o}{v.}{chat}{F}
+\derives{*p\"anu}{p\ae nu}{n.}{oath, word, promise}{p\"anut\`ing}{promise}{D}
+\derives{p\"anut\`ing}{\underline{p\ae}nutIN}{v.}{promise}{t\`ing}{give}{S}
+\word{p\"ats\`i}{\underline{p\ae}\texttslig I}{n.}{badge}{S}
+\word{pawm}{pawm}{v.}{ask}{S}
+\derive{*pay}{paj}{n.}{water}{paywll}{water plant}{txumpaywll}{poison water plant}{T}
+\word{paywll}{pajw\textsyllabic{l}:}{n.}{water plant, dapophet (Pandoran flora)}{SG}
+\word{pe+}{pE}{affix inter. marker}{what}{W}
+\word{pe'un}{pEPun}{v.}{decide}{F}
+\lenite{pefya}{pEfja}{adv.}{how}{fyape}{S}
+\lenite{pehem}{pEhEm}{adv.}{what (action)}{kempe}{S}
+\lenite{pehrr}{pEh\textsyllabic{r}}{adv.}{when}{krrpe}{S}
+\lenite{pelun}{pElun}{adv.}{why}{lumpe}{S}
+\word{peng}{pEN}{v.}{tell}{S}
+\cw{penghrrap}{pENh\textsyllabic{r}ap}{n.}{binary sunshine, fringed lamp (Pandoran flora)}{peng}{tell}{hrrap}{danger}{SG}
+\lenite{peseng}{pEsEN}{adv.}{where}{tsengpe}{S}
+\lenite{pesu}{pEsu}{pn.}{who}{tupe}{S}
+\lenite{peu}{pE\underline{u}}{pn.}{what (thing)}{'upe}{S}
+\word{pey}{pEj}{v.}{wait}{S}
+\word{Peyral}{pEjRal}{prop.n}{name }{C, M}
+\derive{pizayu}{\underline{pi}zaju}{n.}{ancestor}{*za}{come}{yu}{noun deriving affix $_T$}{S}
+\word{plltxe}{p\textsyllabic{l}:t'E}{v.}{speak}{S}
+\word{po}{po}{pn.}{he, she}{S}
+\word{poan}{poan}{pn.}{he}{S}
+\word{poe}{po\underline{E}}{pn.}{she}{S}
+\word{pongu}{\underline{po}Nu}{pn.}{group, party}{S}
+\word{prrte'}{p\textsyllabic{r}tEP}{n.}{pleasure}{F}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{Px}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\word{pxan}{p'an}{adj.}{worthy}{S}
+\word{pxasik}{p'asik}{intj.}{screw that!}{F}
+\word{pxasul}{\underline{p'a}sul}{adj.}{fresh, appealing as food}{S}
+\word{pxay}{p'aj}{adj., pn.}{many}{S}
+\affix{pxe+}{p'E}{trial}{nouns and pronouns}{F}
+\word{pxel}{p'El}{conj.}{like, as}{S}
+\word{pxi}{p'i}{adj.}{sharp}{S}
+\word{pxiut}{p'iut}{n.}{razor palm, sharp tree (Pandoran flora)}{SG}
+\cww{pxorna'}{p'ornaP}{n.}{episoth, exploding seed (Pandoran flora)}{rina'}{seed}{SG} $_T$
+\word{pxun}{p'un}{n.}{arm}{S}
+\word{pxuntil}{p'until}{n.}{elbow}{S}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{R}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\word{r\"a'\"a}{R\ae P\ae}{part.}{do not (for negative imperatives)}{S}
+\word{Rai'uk}{raiPuk}{prop.n}{name}{G}
+\word{ral}{Ral}{n.}{meaning}{S}
+\derive{ralpeng}{RalpEN}{v.}{interpret}{ral}{meaning}{peng}{tell}{S}
+\word{Ralu}{\underline{Ra}lu}{prop.n.}{child's name}{S}
+\derive{*ran}{Ran}{v.}{contracted form of walk}{t\`iran}{walk}{ikran}{walks-the-heavens}{D}
+\word{rawke}{RawkE}{n.}{alarm cry}{S}
+\word{rel}{rEl}{n.}{image, picture}{F}
+\word{reltseo}{rEl\texttslig Eo}{n.}{visual art}{rel}{image}{tseo}{art}{F}
+\word{renu}{\underline{RE}nu}{n.}{pattern}{S}
+\word{rey}{REj}{v.}{live}{S}
+\affix{--ri}{Ri}{topical}{nouns ending with a vowel}{F}
+\word{rikx}{Rik'}{v.}{move, shift position}{S}
+\word{rim}{Rim}{adj.}{yellow}{S}
+\word{rina'}{RinaP}{n.}{seed}{S}
+\word{riti}{Riti}{n.}{stingbat (Pandoran fauna)}{S}
+\word{rol}{Rol}{v.}{sing}{S}
+\word{Rongloa}{RoNloa}{prop.n}{assumed clan name}{C}
+\word{ronsem}{\underline{Ron}sEm}{n.}{mind}{S}
+\alloffix{--ru}{Ru}{--ur}{dative}{vowel}{W}
+\derives{*rum}{Rum}{n.}{ball}{rumut}{ball tree}{T}
+\word{rumut}{Rumut}{n.}{ball tree (Pandoran flora)}{SG}
+\word{rutxe}{Rut'E}{part.}{please}{S}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{S}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\derives{*s\"a--}{s\ae}{adp.}{instrumental noun}{s\"anume}{teaching}{T}
+\word{sa'nok}{saPnok}{n.}{mother}{S} (from {\bf sa'atenuk} $_C$)
+\note{sa'nu}{saPnu}{n.}{mum}{affectionate form of}{sa'nok}{mother}{S}
+\word{saleu}{sa\underline{lE}u}{v.}{go}{MS} (might be from {\bf za'u}) $_T$
+\word{san}{san}{part.}{saying, quote}{S}
+\word{s\"anume}{s\ae\underline{nu}mE}{n.}{teaching, instruction}{S}
+\note{sempu}{sEmpu}{n.}{dad}{affectionate form of}{sempul}{father}{S}
+\word{sempul}{\underline{sEm}pul}{n.}{father}{S}
+\word{set}{sEt}{adv.}{now}{S}
+\word{sevin}{sEvin}{adj.}{pretty}{S} (only for people) $_F$
+\word{seyri}{sEjRi}{n.}{lip}{C,S}
+\word{seze}{\underline{sE}zE}{n.}{blue flower (Pandoran flora)}{S}
+\word{si}{si}{v.}{do, make}{S}
+\derivingaffix{si}{si}{verb}{W}
+\note{s\`i=}{sI}{conj.}{and}{connects two things: for clauses use}{ulte}{and}{S}
+\word{s\`ik}{sIk}{part.}{unquote}{S}
+\word{s\`ilpey}{sIlpEj}{v.}{hope}{F}
+\derive{s\`ilronsem}{sIl\underline{Ron}sEm}{adj.}{clever (thing)}{s\`iltsan}{good}{ronsem}{mind}{S}
+\word{s\`iltsan}{sIl\texttslig an}{adj.}{good}{S}
+\word{Silwanin}{silwanin}{prop.n.}{Neytiri's sister}{C,G}
+\derive{*s\`ip}{sIp}{n.}{ship}{taws\`ip}{sky-ship}{kuns\`ip}{gunship}{T}
+\word{ska'a}{skaP\underline{a}}{v.}{destroy}{S}
+\word{skxawng}{sk'awN}{n.}{moron}{S}
+\word{sl\"a}{sl\ae}{conj.}{but}{S}
+\word{slu}{slu}{v.}{become}{S}
+\word{sng\"a'i}{sN\ae Pi}{v.}{begin, start}{S}
+\cw{sng\"a'ikrr}{\underline{sN\ae}Pik\textsyllabic{r}}{n.}{beginning, starting time}{sng\"a'i}{begin}{krr}{time}{S}
+\word{sngel}{sNEl}{n.}{garbage}{F}
+\cw{sngeltseng}{sNEl\texttslig EN}{n.}{garbage place}{sngel}{garbage}{tseng}{place}{F}
+\word{snum\`ina}{\underline{snu}mIna}{adj.}{dim (of a person)}{S}
+\word{som}{som}{adj.}{hot}{S}
+\cw{somt\`ilor}{somtIlor}{n.}{popsicle, hot beauty (Pandoran flora)}{som}{hot}{t\`ilor}{beauty}{SG}
+\word{spaw}{spaw}{v.}{believe}{F}
+\derives{*spxam}{sp'am}{n.}{mushroom}{torukspxam}{octoshroom}{T}
+\word{spe'e}{spEP\underline{E}}{v.}{capture}{S}
+\cw{spe'etu}{spEP\underline{E}tu}{n.}{captive}{spe'e}{capture}{tu}{person}{S}
+\word{srak(e)}{\underline{sRak}(E)}{part. for}{yes or no questions}{S}
+\word{srane}{sRanE}{part.}{yes}{S}
+\word{sreu}{sREu}{v.}{dance}{S} (might be {\bf srew}) $_D$
+\word{srung}{sRuN}{n.}{help, assistance}{S}
+\word{stawm}{stawm}{v.}{hear}{F}
+\word{steftxaw}{stEft'aw}{v.}{examine}{S}
+\word{stum}{stum}{adv.}{almost}{S}
+\word{sutx}{sut'}{v.}{track, lock up}{S} % should be trap?
+\word{swaw}{swaw}{n.}{moment}{S}
+\word{swey}{swEj}{adj.}{best}{F}
+\word{swir\"a}{swiR\ae}{n.}{creature}{S}
+\word{swizaw}{swizaw}{n.}{arrow}{S}
+\word{swok}{swok}{adj.}{sacred}{S}
+\word{swotu}{swotu}{n.}{sacred place}{S}
+\word{swotulu}{swotulu}{n.}{sacred river}{G}
+\word{syaw}{sjaw}{v.}{call}{S}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{T}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\alloffix{--t}{t}{it, ti}{accusative}{vowel}{W}
+\word{ta}{ta}{prep.}{from (various uses)}{S}
+\word{ta'em}{taPEm}{prep.}{from above}{S}
+\word{t\"aftxu}{t\ae ft'u}{v.}{weave}{S}
+\cw{t\"aftxuyu}{t\ae\underline{ft'u}ju}{n.}{weaver}{t\"aftxu}{weave}{--yu}{agent suffix}{S}
+\word{takuk}{\underline{ta}kuk}{v.}{strike}{SG}
+\cww{talioang}{\underline{tal}i\underline{o}aN}{n.}{sturmbeest (Pandoran fauna)}{ioang}{animal}{S}
+\word{tam}{tam}{v.}{suffice, "do"}{S}
+\word{tam tam}{tam tam}{intj.}{calm, be content, there there}{M, T}
+\word{tangek}{taNEk}{n.}{trunk (of a tree)}{S}
+\word{tanh\`i}{tan\underline{hI}}{n.}{star}{S}
+\word{taron}{\underline{ta}Ron}{v.}{hunt}{S}
+\cw{taronyu}{\underline{ta}Ronju}{n.}{hunter}{taron}{hunt}{--yu}{agent suffix}{C,S}
+\word{Tasun}{tasun}{prop.n}{name}{G}
+\derive{tautral}{tautRal}{n.}{sky tree (Pandoran flora)}{taw}{sky}{utral}{tree}{SG} $_T$
+\word{taw}{taw}{n.}{sky}{F}
+\loan{taws\`ip}{tawsIp}{n.}{sky-ship}{ship}{F}
+\word{tawng}{tawN}{v.}{duck, dive}{S} %eliminated duck n.
+\cww{tawtsngal}{taw\texttslig Nal}{n.}{panopyra, sky cup (Pandoran flora)}{taw}{sky}{SG}
+\cw{Tawtute}{\underline{taw}tutE}{prop.n.}{Sky-person, human}{taw}{sky}{tute}{person}{S,MS}
+\word{te(')}{tE(P)}{part.}{used in Cameronian full names}{C}
+\word{tei}{tEi}{n.}{plains}{G}
+\word{tel}{tEl}{v.}{receive}{F}
+\word{telem}{tElEm}{n.}{cord}{S} (could be {\it chord}) $_T$
+\derive{*teng--}{tEN}{adp.}{like, same as}{tengfya}{same way as}{tengkrr}{while}{T}
+\derive{tengfya}{tENfja}{conj.}{as, same way as}{*teng}{the same way as}{*fya}{path}{S}
+\cww{tengkrr}{tEN\underline{k\textsyllabic{r}}}{conj.}{while, same time as}{krr}{time}{S}
+\cww{teng'u}{tENPu}{pn.}{same thing}{'u}{thing}{?}
+\word{terkup}{\underline{tER}kup}{v.}{die}{S}
+\derives{teswot\`ing}{tE\underline{swo}tIN}{v.}{grant}{t\`ing}{give}{S}
+\word{teya}{tEja}{adj.}{full}{S}
+\word{teylu}{tEjlu}{n.}{beetle larva (Pandoran fauna)}{C,S}
+\word{tewti}{tEwti}{intj.}{wow}{FE}
+\affix{--ti}{ti}{accusative}{pronouns and nouns}{W}
+\derivingaffix{t\`i--}{tI}{noun}{W}
+\word{t\`i'eyng}{tIPEjN}{n.}{answer}{F}
+\word{t\`ifmetok}{tIf\underline{mE}tok}{n.}{test}{S, MS}
+\word{t\`iftang}{tIftaN}{n.}{stopping}{S}
+\word{t\`ifyaw\`intxu}{tIfjawInt'u}{n.}{guidance}{F}
+\word{t\`ihawnu}{tI\underline{haw}nu}{n.}{protection}{S}
+\word{t\`ikangkem}{tIkaNkEm}{n.}{work}{F}
+\word{t\`ikawng}{tI\underline{kawN}}{n.}{evil}{S,MS}
+\word{t\`ikenong}{tI\underline{kE}noN}{n.}{example}{S}
+\word{t\`ikin}{tIkin}{n.}{need}{S}
+\word{til}{til}{n}{joint, hinge}{S}
+\derives{t\`ilor}{tIlor}{n.}{beauty}{somt\`ilor}{hot beauty (Pandoran flora)}{SG}
+\word{t\`ing}{tIN}{v.}{give}{S}
+\word{t\`ing mikyun}{tIm \underline{mik}jun}{v.}{listen, lit. give an ear}{S}
+\word{t\`ing nari}{tIn \underline{na}Ri}{v.}{look, lit. give an eye}{S}
+\word{t\`ingay}{tINaj}{n.}{truth}{S}
+\derives{t\`ipawm}{tIpawm}{n.}{question}{pawm}{ask}{FE}
+\word{Tipnai}{tipnai}{prop.n.}{a Na'vi clan name}{G}
+\word{t\`iran}{tIRan}{v.}{walk}{S}
+\derives{t\`iyawn}{tIjawn}{n.}{love}{yawne}{beloved}{F}
+\word{tirea}{ti\underline{RE}a}{n.}{spirit}{S}
+\cw{tireafya'o}{tiR\underline{E}a\underline{fja}Po}{n.}{spirit path}{tirea}{spirit}{fya'o}{path}{S}
+\cw{tireaioang}{tiR\underline{E}ai\underline{o}aN}{n.}{spirit animal}{tirea}{spirit}{ioang}{animal}{S}
+\word{t\`irey}{tIREj}{n.}{life}{S}
+\word{t\`irol}{tIRol}{n.}{song}{S}
+\word{t\`itakuk}{titakuk}{n.}{strike}{G}
+\word{t\`itxur}{tIt'uR}{n.}{strength}{S}
+%\word{t\`iyawn}{tIjawn}{n.}{love}{F}
+\marker{to}{to}{conj. {\it than}, comparative marker}{S}
+\derive{*to}{to}{prep.}{away from}{neto}{away (direction)}{m\`iso}{away (direction)}{T}
+\word{tok}{tok}{v.}{be at, occupy, exist}{S}
+\loan{toktor}{\underline{tok}toR}{n.}{doctor}{doctor}{S}
+\word{tokx}{\underline{tok'}}{n.}{body}{S, MS}
+\word{tompa}{tompa}{n.}{rain}{S}
+\word{toruk}{\underline{to}Ruk}{n.}{great leonopteryx, last shadow}{C,S}
+\derive{toruk makto}{toRuk makto}{n.}{toruk rider}{toruk}{leonopteryx}{makto}{ride}{C}
+\word{torukspxam}{toRuksp'am}{n.}{octoshroom, great leonopteryx fungus (Pandoran flora)}{SG}
+\word{trr}{t\textsyllabic{r}}{n.}{day}{S}
+\word{trram}{t\textsyllabic{r}am}{adv.}{yesterday}{F}
+\derivingaffix{--tu}{tu}{direct object noun}{}, as in {\bf spe'etu} {\it captive} $_T$ %fix
+\word{*tu}{tu}{n.}{person, personage marker}{T}
+\word{tukru}{tuk\underline{Ru}}{n.}{spear}{S}
+\word{tul}{tul}{v.}{run}{S}
+\word{tung}{tuN}{v.}{allow}{S}
+\lenite{tupe}{\underline{tu}pE}{pn.}{who}{pesu}{S}
+\word{tute}{\underline{tu}tE}{n.}{person}{F}
+\word{tute}{tut\underline{E}}{n.}{female}{F}
+\word{tutean}{tutE\underline{an}}{n.}{male}{S}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{Ts}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\word{tsa}{\texttslig a}{pn.}{that}{S}
+\derive{*tsa--}{\texttslig a}{adp.}{that}{tsakem}{that action}{tsakrr}{that time}{T}
+\cw{tsa'u}{\texttslig aPu}{pn.}{that (thing)}{tsa}{that}{*'u}{thing}{S} $_T$
+\word{tsahaylu}{\texttslig a\underline{hEj}lu}{n.}{bond}{C,S} (changed prnounciation for phonetic reasons) $_T$
+\word{Tsah\`ik}{\underline{\texttslig a}hIk}{prop.n.}{matriarch, high priestess, interpreter}{S}
+\word{tsakem}{\texttslig akEm}{that action}{pn.}{M}
+\word{tsam}{\texttslig am}{n.}{war}{S}
+\cw{tsampongu}{\underline{\texttslig am}poNu}{n.}{war party}{tsam}{war}{pongu}{party}{S}
+\cw{tsamsiyu}{\underline{\texttslig am}siju}{n.}{warrior}{tsam si}{make war}{--yu}{agent suffix}{S}
+\word{tsap'alute}{\texttslig apP\underline{a}lutE}{n.}{apology}{S}
+\cw{tsatseng}{\texttslig a\texttslig EN}{pn.}{there, that place}{tsa}{that}{tseng}{place}{S}
+\cw{tsatu}{\texttslig atu}{pn.}{that person}{tsa}{that}{tu}{person}{S}
+\word{tsawke}{\texttslig awkE}{n.}{sun}{S}
+\word{tsawl}{\texttslig awl}{adj.}{big (in stature), tall}{S}
+\word{tsawlapxangrr}{\texttslig awlap'aN\textsyllabic{r}}{n.}{unidelta tree, lit. tall large root (Pandoran flora)}{SG} (for short, {\bf tsawlapx})
+\derive{*tsay+}{\texttslig aj}{adp.}{those}{*tsa--}{that}{ay+}{plural}{D}
+\word{tse'a}{\texttslig EPa}{v.}{see (physical sense)}{S}
+\word{tseng(e)}{\texttslig EN(E)}{n.}{place}{S}
+\lenite{tsengpe}{\texttslig ENpE}{adv.}{where}{peseng}{S}
+\word{tseo}{\texttslig Eo}{n.}{art}{S}
+\word{ts\`ing}{\texttslig IN}{num.}{four}{S}
+\word{ts\`ivol}{\underline{\texttslig I}vol}{num.}{thirty-two (octal: 40)}{S}
+\word{Tskaha}{\texttslig kaha}{n.}{tribe name}{C, M}
+\word{tskalep}{\texttslig kalEp}{n.}{crossbow}{G}
+\word{tsko}{\texttslig ko}{n.}{bow (weapon)}{S}
+\word{tsko swizaw}{\texttslig ko swizaw}{n.}{bow and arrows}{S}
+\word{tskxe}{\texttslig k'E}{n.}{rock, stone}{S}
+\word{tskxekeng}{\texttslig k'EkEN}{n.}{training, exercise}{S}
+\word{tslam}{\texttslig lam}{v.}{understand}{S}
+\word{tsleng}{\texttslig lEN}{adj.}{false}{S}
+\derives{tslolam}{\texttslig lolam}{intj.}{got it, I understand}{tsl$<$ol$>$am}{understand}{S} with perfective aspect infix $_T$
+\word{tsmuk}{\texttslig muk}{n.}{sibling}{S}
+\word{tsmuktu}{\underline{\texttslig muk}tu}{n.}{sibling}{S} (allomorph of {\bf tsmuk} {\it sibling}) $_T$
+\word{tsmukan}{\underline{\texttslig muk}an}{n.}{brother}{S,MS}
+\word{tsmuke}{\texttslig mukE}{n.}{sister}{S}
+\word{tsn\`i}{\texttslig nI}{}{that (function word)}{S}
+\derives{*tsngal}{\texttslig Nal}{n.}{cup}{tawtsngal}{sky cup}{T}
+\word{tspang}{\texttslig paN}{v.}{kill}{S}
+\word{tsranten}{\texttslig RantEn}{v.}{matter, be of importance}{S}
+\word{tsteu}{\texttslig etEu}{adj.}{brave}{S} (might be {\bf tstew})$_D$
+\word{tsun}{\texttslig un}{v.}{can, be able}{S}
+\word{Tsu'tey}{\texttslig uP\underline{tEj}}{prop.n.}{man's name}{C}
+\word{tswon}{\texttslig won}{v.}{fly}{S} (Corrected from {\bf tsw$<$ay$>$on}) $_T$
+\word{tsyal}{\texttslig jal}{n.}{wing}{S}
+\derives{*tsyo}{\texttslig jo}{n.}{flour}{tsyorina'wll}{flour seed plant}{T}
+\cw{tsyorina'wll}{\texttslig jorinaPw\textsyllabic{l}:}{n.}{cycad, flour seed plant (Pandoran flora)}{rina'}{seed}{*wll}{plant}{SG} $_T$
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{Tx}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\word{txan}{t'an}{adj.}{great, much, many}{S}
+\word{txan-}{\underline{t'an}}{adj.}{great}{MS}
+\cw{txantslusam}{\underline{t'an}\texttslig lusam}{adj.}{wise}{txan}{much}{tsl$<$us$>$am}{understand}{S}
+\word{txe'lan}{t'EP\underline{lan}}{n.}{heart}{S,MS}
+\word{txele}{t'ElE}{n.}{matter (subject)}{S}
+\word{txen}{t'En}{adj.}{awake}{S}
+\word{txep}{t'Ep}{n.}{fire}{S}
+\word{txewk}{t'Ewk}{n.}{club (weapon)}{G}
+\word{txey}{t'Ej}{v.}{halt, stop}{S}
+\word{tx\`im}{t'Im}{n.}{butt, rear end}{S}
+\word{tx\`ing}{t'IN}{v.}{leave, abandon}{S}
+\word{txll'u}{t'\textsyllabic{l}:Pu}{n.}{hookagourd (Pandoran flora)}{SG}
+\word{txo}{t'o}{conj.}{if}{S}
+\word{txoa}{t'oa}{n.}{forgiveness}{S}
+\cww{txokefyaw}{\underline{t'ok}Efjaw}{conj.}{if not, or else}{txo-ke-fya-aw}{if not one path}{S}
+\word{txon}{t'on}{n.}{night}{S}
+\word{txopu}{t'opu}{}{fear}{S}
+\word{txum}{t'um}{n.}{poison}{S}
+\cw{txumpaywll}{t'umpayw\textsyllabic{l}:}{n.}{scorpion thistle, poison water plant (Pandoran flora)}{txum}{poison}{paywll}{water plant}{SG}
+\word{txumts\"a'wll}{t'um\texttslig\ae Pw\textsyllabic{l}:}{n.}{reclining flask (Pandoran flora)}{SG}
+\word{txur}{t'uR}{adj.}{strong}{S}
+\end{hangparas} }\end{multicols}
+\newpage
+\noindent\textbf{U}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\word{u'imi}{uPimi}{n.}{streamers}{SG}
+\word{ulte}{\underline{u}ltE}{conj.}{and (connects two clauses)}{S}
+\word{ultxa}{ult'a}{n.}{meeting}{S}
+\word{unil}{\underline{u}nil}{n.}{dream}{S}
+\word{Uniltaron}{\underline{u}nil\underline{ta}Ron}{prop.n.}{Dream Hunt}{C,S,MS}
+\word{unilt\`irantokx}{uniltI\underline{Ran}tok'}{n.}{avatar, dreamwalker body}{S}
+\word{unilt\`iranyu}{unitI\underline{Ran}ju}{n.}{dreamwalker}{S}
+\alloffix{--ur}{ur}{--ru}{dative}{consonant}{W}
+\infix{$<$us$>$}{us}{participle}{1}{W}
+\derive{*--ut}{ut}{n.}{tree}{pxiut}{sharp tree}{rumut}{ball tree}{SG} (compound-word allomorph of {\bf utral}) $_T$
+\word{utral}{utRal}{n.}{tree}{S}
+\word{Utral Aymokriy\"a}{\underline{u}tRal aj\underline{mok}Rij\ae}{prop.n.}{Tree of Voices (Pandoran flora)}{S} (from {\bf utraya mokri} $_C$)
+\word{utral utu mauti}{utral utu mauti}{n.}{push fruit tree (Pandoran flora)}{SG}
+\word{utu mauti}{utu mauti}{n.}{banana fruit, push fruit (Pandoran flora)}{SG}
+\infix{$<$uy$>$}{uj}{honorific or ceremonial}{3}{F}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{V}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\word{vay}{vaj}{part.}{up to}{F}
+\word{vir\"a}{viR\ae}{v.}{spread, proliferate}{S} (possible loan from English {\it virus}) $_T$
+\word{Vitraya Ramunong}{vitraja RamunoN}{prop.n}{Well of Souls}{C}
+\derive{*vo}{vo}{num.}{eight}{vofu}{sixteen}{ts\`ivol}{thirty-two}{D}
+\word{vofu}{vofu}{num.}{sixteen}{S}
+\word{vrrtep}{\underline{v\textsyllabic{r}}tEp}{n.}{demon}{S}
+\word{vul}{vul}{n.}{branch (of a tree)}{S}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{W}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\word{way}{waj}{n.}{song}{S}
+\word{waytelem}{\underline{waj}tElEm}{n.}{song chord}{S}
+\word{win}{win}{adj.}{fast}{SG}
+\word{w\`intxu}{wInt'u}{v.}{show}{S}
+\derive{*wll}{w\textsyllabic{l}:}{n.}{plant}{pamtseowll}{music plant}{txumts\"a'wll}{poison-squirting plant}{T}
+\derive{*wong}{woN}{n.}{sameness, the same}{kewong}{alien}{ketuwong}{alien}{T}
+\word{wrrpa}{w\textsyllabic{r}pa}{adj.}{outside}{S}
+\word{wutso}{wu\texttslig o}{n.}{dinner, served meal}{S}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{Y}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\alloffix{--y\"a}{j\ae}{\"a, ey\"a}{genitive}{vowel}{W}
+\word{yawne}{jawnE}{n.}{beloved}{F}
+\word{ye'r\`in}{\underline{jE}PRIn}{adv.}{soon}{S,MS}
+\word{yerik}{\underline{jE}Rik}{n.}{hexapede (Pandoran fauna)}{S}
+\word{yey}{jEj}{adj.}{straight}{S}
+\word{y\`im}{jIm}{v.}{bind}{S}
+\word{yol}{jol}{adj.}{long (period of time)}{S}
+\word{yom}{jom}{v.}{eat}{S}
+\derive{yomh\`i'ang}{jomhIPaN}{n.}{small animal/insect eater, dakteron (Pandoran flora)}{h\`i'i}{small}{ioang}{animal}{SG} $_T$
+\cw{yomioang}{jomioaN}{n.}{chalice plant (Pandoran flora)}{yom}{eat}{iaong}{animal $_T$}{SG}
+\cw{yomt\`ing}{\underline{jom}tIN}{v.}{feed}{yom}{eat}{t\`ing}{give}{S}
+\derivingaffix{--yu}{ju}{nominative agent noun}{W}, as in {\bf taron-yu} {\it hunter}
+\word{yur}{juR}{v.}{wash}{S}
+\end{hangparas} }\end{multicols}
+\newpage
+\noindent\textbf{Z}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\derive{*za}{za}{v.}{go, movement}{za'u}{come}{za'\"ar\`ip}{pull}{T}
+\word{za'\"ar\`ip}{zaP\underline{\ae}RIp}{v.}{pull}{S}\
+\word{za'u}{\underline{za}Pu}{v.}{come}{S}
+\derive{zamunge}{za\underline{mu}NE}{v.}{bring}{*za}{go}{munge}{bring}{S}
+\word{zawng}{zawN}{n.}{shriek}{G}
+\word{zekw\"a}{zEkw\ae}{n.}{finger}{S}
+\word{zene}{zEnE}{v.}{must}{S}
+\word{z\`is\`it}{\underline{zI}sIt}{n.}{year}{S}
+\word{zong}{zoN}{v.}{save}{S}
+\cw{zongtseng}{zoN\texttslig EN}{n.}{safe place, refuge}{zong}{save}{tseng}{place}{S}
+\word{zoplo}{zop\underline{lo}}{n.}{offence, insult}{S}
+\end{hangparas} }\end{multicols}
+
+\newpage
+
+\renewcommand{\infix}[7]{\par\textbf{#1}: [\textipa{#2}] $_{#5}$ #3 verbal infix in position #4: \textbf{#6} \textit{#7}}
+\renewcommand{\affect}[6]{\par\textbf{#1}: [\textipa{#2}] $_{#4}$ #3 affect verbal infix in position 3: \textbf{#5} \textit{#6}}
+\renewcommand{\infixcw}[9]{\par\textbf{#1}: [\textipa{#2}] $_{#7}$ #3 verbal infix in position #4, derived from \textbf{#5} + \textbf{#6}: \textbf{#8} \textit{#9}}
+\renewcommand{\affix}[7]{\par\textbf{#1}: [\textipa{#2}] $_{#5}$ #3 adp. for #4: \textbf{#6} \textit{#7}}
+\renewcommand{\alloffix}[8]{\par\textbf{#1}: [\textipa{#2}] $_{#6}$ #4 suffix for nouns ending in a #5 (allomorph of \textbf{#3}): \textbf{#7} \textit{#8}}
+\renewcommand{\alloffixx}[8]{\par\textbf{#1}: [\textipa{#2}] $_{#6}$ #4 suffix for #5 (allomorph of \textbf{#3}): \textbf{#7} \textit{#8}}
+\renewcommand{\derivingaffix}[6]{\par\textbf{#1}: [\textipa{#2}] $_{#4}$ #3 deriving affix: \textbf{#5} \textit{#6}}
+\renewcommand{\marker}[6]{\par\textbf{#1}: [\textipa{#2}] $_{#4}$ #3: \textbf{#5} \textit{#6}}
+
+\end{hangparas} }\end{multicols}
+\newpage
+\section*{Inflections}
+
+\noindent\textbf{Verb Infixes}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\infix{$<$am$>$}{am}{past tense}{2}{W}{Oe tamaron.}{I hunted.}
+\affect{$<$\"ang$>$}{\ae N}{pejorative}{W}{Oe tar\"angon.}{I hunted (ugh!).}
+\infixcw{$<$arm$>$}{aRm}{imperfective past tense}{2}{am}{er}{W}{Oe tarmaron.}{I was hunting.}
+\infix{$<$ay$>$}{aj}{future tense}{2}{W}{Oe tayaron.}{I will hunt.}
+\affect{$<$ei$>$}{Ei}{laudative}{F}{Oe tareion.}{I hunt (hooray!).}
+\infix{$<$er$>$}{ER}{imperfective aspect}{2}{D}{Oe teraron.}{I am hunting.}
+\infix{$<$\`im$>$}{Im}{recent past}{2}{W}{Oe t\`imaron.}{I just hunted.}
+\infixcw{$<$\`irm$>$}{IRm}{imperfective recent past tense}{2}{\`im}{er}{W}{Oe t\`irmaron.}{I was just hunting.}
+\infix{$<$iv$>$}{iv}{subjunctive mood}{2}{W}{Nga kame futa oe tivaron.}{You see that I hunt}
+\infix{$<$\`iy$>$}{Ij}{immediate future tense}{2}{W}{Oe t\`iyaron.}{I am about to hunt.}
+\infix{$<$ol$>$}{ol}{perfective aspect}{2}{W}{Oe tolaron.}{I hunted (finished action).}
+\infix{$<$us$>$}{us}{participle}{1}{W}{Oe tusaron-a tute lu.}{I am a hunting person.} (Not sure) $_T$ 
+\infix{$<$uy$>$}{uj}{honorific or ceremonial}{3}{F}{Na'viy\"a, l$<$uy$>$u hapx\`i.}{You are part of The People.}
+\end{hangparas} }\end{multicols}
+\noindent\textbf{Noun Inflections}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\alloffix{--\"a}{\ae}{ey\"a, y\"a}{genitive}{consonant}{W}{Oel yom ikran\underline{--\"a} yerikit.}{I eat the ikran's yerik.}
+\marker{--an}{an}{masculine suffix for certain nouns}{W}{Oe tute\underline{--an} lu.}{I am a male dude.}
+\affix{ay+}{aj}{plural}{nouns}{F}{\underline{Ay--}oe taron.}{We hunt.}
+\marker{--e}{E}{feminine suffix for certain nouns}{F}{Oe tut\underline{--e} ke lu.}{I am not a girl}
+\alloffixx{=ey\"a}{Ej\ae}{\"a, y\"a}{genitive}{pronouns}{W}{Oel yom o\underline{ey\"a} yerikit.}{I eat my yerik}
+\alloffix{--\`il}{Il}{l}{ergative case}{consonant}{W}{Ikran\underline{--\`il} taron yerikit.}{The ikran hunts.}
+\alloffix{--\`iri}{IRi}{ri}{topical}{consonant}{W}{Ikran\underline{--\`iri} taron yerikit.}{The \underline{ikran} hunts a yerik.}
+\alloffix{--it}{it}{t, ti}{accusative}{consonant}{W}{Oel taron yerik\underline{--it}.}{I hunt the yerik.}
+\affix{--l}{l}{ergative case}{nouns ending in a vowel}{W}{Oe\underline{--l} taron yerikit.}{I hunt the yerik.}
+\marker{ma}{ma}{adp. vocative marker}{M}{\underline{Ma} tsmukan, kaltx\`i!}{Yo brother, hello!}
+\affix{me+}{mE}{dual}{nouns}{W}{Oel new \underline{me+}narit.}{I want eyes.}
+\affix{--ng}{N}{clusivity}{pronouns}{W}{Ayoe\underline{--ng} taron.}{We all hunt.}
+\marker{pe+}{pE}{affix inter. marker \textit{what}}{W}{\underline{pe+}hrr nga tayaron.}{What time will you hunt?}
+\affix{pxe+}{p'E}{trial}{nouns and pronouns}{F}{Ayoeng \underline{Pxe}veng lu.}{We are three children.}
+\affix{--ri}{Ri}{topical}{nouns ending with a vowel}{F}{Oe\underline{--ri} taron yerikit.}{\underline{I} hunt the yerik.}
+\alloffix{--ru}{Ru}{--ur}{dative}{vowel}{W}{Oel kxenerit nga\underline{--ru} t\`ing.}{I give fruit to you.}
+\alloffix{--t}{t}{it, ti}{accusative}{vowel}{W}{Oe\underline{--l} t\`irey\underline{--t} tslam.}{I understand life.}
+\affix{--ti}{ti}{accusative}{pronouns and nouns}{W}{Nga\underline{--ti} taron toruk\`il.}{The toruk hunts you.}
+\alloffix{--ur}{ur}{--ru}{dative}{consonant}{W}{Ayeylanur oey\"a.}{To my friends.}
+\alloffix{--y\"a}{j\ae}{\"a, ey\"a}{genitive}{vowel}{W}{Oel yom Neytiri\underline{-y\"a} yerikit.}{I eat Neytiri's yerik.}
+\end{hangparas} }\end{multicols}
+
+\noindent\textbf{Other}\begin{multicols}{2}{\begin{hangparas}{.5cm}{1}\noindent
+\marker{--a--}{a}{adjectival attributive marker}{F}{Oel ikranit \underline{a--}ean tswon.}{I fly the blue ikran.}
+\derivingaffix{le--}{lE}{adjective}{F}{Poan \underline{le--}hrapp lu.}{He is dangerous.}
+\derivingaffix{n\`i--}{nI}{adverbial}{W}{Oe \underline{n\`i--}Na'vi plltxe.}{I speak na'vi-ly. (Like a Na'vi.)}
+\derivingaffix{*s\"a--}{s\ae}{instrumental noun}{T}{Oel ay\underline{s\"a--}numet nume.}{I learn the teachings.}
+\derivingaffix{si}{si}{postpositional verb}{W}{Oe kelku \underline{si}.}{I live. (lit. I home make.)}
+\derivingaffix{t\`i--}{tI}{noun}{W}{\underline{T\`i--}ngay s\`iltsan lu.}{The truth is good.}
+\derivingaffix{--tu}{tu}{direct object noun}{T}{Oe taron\underline{--tu} lu.}{I am prey.}
+\derivingaffix{--yu}{ju}{nominative agent noun}{W}{Oe ska'a\underline{--yu} ke lu.}{I am not a destroyer.}
+\end{hangparas} }\end{multicols}
+\newpage
+\section*{The Change Log}
+Subscript indicate who helpfully pointed out errors. Old logs versions are \href{http://forum.learnnavi.org/intermediate/my-dictionary/}{here}.
+\begin{itemize}
+\item 7 - changed the name to reflect the fact that this really isn't my project anymore. It's all of the \href{www.learnnavi.org}{www.LearnNavi.org} member's project. Noted by {\it Na'r\`ighawnu}, changed spelling error in the preamble, recoded {\bf zamunge}, edited {\bf r\"a'\"a, n\`itxan}, added the nouns {\bf 'eylan} {\it friend}, {\bf t\`iyawn} {\it love}, {\bf Eywa'eveng} {\it Pandora}, {\bf koren} {\it rule}, {\bf t“kangkem} {\it work}, {\bf t“'eyng} {\it answer}, the verbs {\bf stawm} {\it to hear}, {\bf 'efu} {\it to feel}, {\bf spaw} {\it to believe}, {\bf 'eyng} {\it to answer}, {\bf tel} {\it to receive}, {\bf pe'un} {\it to decide}, {\bf s“lpey} {\it to hope}, the adjectives {\bf swey} {\it best}, {\bf 'ewan} {\it young}, the adverbs {\bf n\`iteng} {\it too/also}, {\bf f\`itxan} {\it so, exceedingly}, and the particle {\bf vay} {\it up to}, and the trial form {\bf pxe=} {\it three of something}.
+\item 7.007 - removed *t\`iyawn and *kangkem. Perhaps temporarily. Added {\bf Kyuna, *tsay+, *fay+, *lay+}, edited {\bf *la--}
+\item 7.026 - fixed formatting, added {\bf t\`iyawn} (n.), edited {\bf yawne} (n.), edited {\bf fyaw\`intxu}, added {\bf t\`ifyaw\`intxu}, added {\bf fl\"a}, $_{roger}$ fixed IPA in {\bf s\`ilpey} $_{okristi}$, fixed {\bf *vo} and repositioned {\bf pxe=} $_{kiliya}$, changed derivation for {\bf pamtseo} $_{kawnga}$ $_{mungeyu}$, edited {\bf pxe+}, added {\bf $<$uy$>$}, and examples for both. Moved {\bf 'ewan}, edited IPA of {\bf t\`ikangkem}, added {\bf letrr} {\it daily}
+\item 7.055 - fixed pos for {\bf fahew, n\`i'aw, san, s\`ik, rutxe, txele, ean, ftia, kehe, sran, n\`i'aw}, changed adp. to affix for many adp., changed def. of {\bf ts\`ivol, fyaw\`intxu}, added {\bf trram, -ur} and relavent entries, edited {\bf --ru} $_{Lance}$, changed pos for {\bf lok, n“'it} $_{roger}$, $_{omangi}$ $_{frauti}$, added {\bf rel, reltseo} {\it image, picture \& visual art,} {\bf fwa} {\it that which} $_{Skxawng}$, added {\bf kxeyey} {\it error}, added {\bf mip, t\`ipawm} {\it new, question} $_{Lance}$, added {\bf kop} {\it too, also} $_{tikawnga}$ $_{mungeyu}$
+
+\end{itemize}
+\end{document}  
