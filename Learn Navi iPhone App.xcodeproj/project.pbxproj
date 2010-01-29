@@ -70,7 +70,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 1D6058900D05DD3D006BFB54 /* Learn Navi iPhone App */;
+			remoteGlobalIDString = 1D6058900D05DD3D006BFB54;
 			remoteInfo = "Learn Navi iPhone App";
 		};
 /* End PBXContainerItemProxy section */
@@ -381,7 +381,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"$BUILD_STYLE\" != \"Beta Build\" ]; then\nexit 0\nfi\n# compress application.\n/bin/mkdir \"$CONFIGURATION_BUILD_DIR/Payload\"\n/bin/cp -R \"$CONFIGURATION_BUILD_DIR/Learn Navi iPhone App.app\" \"$CONFIGURATION_BUILD_DIR/Payload\"\n\n/bin/cp Icon.png \"$CONFIGURATION_BUILD_DIR/iTunesArtwork\"\n\ncd \"$CONFIGURATION_BUILD_DIR\"\n\n# zip up the Payload directory\n/usr/bin/zip -r LearnNavi.ipa Payload iTunesArtwork\n\n# delete Payload folder\n/bin/rm -r Payload\n\nprofile_dir=\"/Users/mgillogly/Library/MobileDevice/Provisioning Profiles\"\nfilename=$profile_dir/`ls -c1 \"$profile_dir\" | head -n 1`\n\n/bin/mkdir \"AdHoc\"\n\n/bin/cp \"$filename\" \"AdHoc/LearnNavi_Beta_Testers.mobileprovision\"\n/bin/mv \"LearnNavi.ipa\" \"AdHoc/\"\n/usr/bin/zip -r AdHoc.zip AdHoc\n/bin/rm -r \"AdHoc\"\n/bin/rm iTunesArtwork\n";
+			shellScript = "if [ \"$BUILD_STYLE\" != \"Beta Build\" ]; then\nexit 0\nfi\n# compress application.\n/bin/mkdir \"$CONFIGURATION_BUILD_DIR/Payload\"\n/bin/cp -R \"$CONFIGURATION_BUILD_DIR/Learn Navi iPhone App.app\" \"$CONFIGURATION_BUILD_DIR/Payload\"\n\n/bin/cp Icon.png \"$CONFIGURATION_BUILD_DIR/iTunesArtwork\"\n\ncd \"$CONFIGURATION_BUILD_DIR\"\n\n# zip up the Payload directory\n/usr/bin/zip -r LearnNavi.ipa Payload iTunesArtwork\n\n# delete Payload folder\n/bin/rm -r Payload\n\nprofile_dir=\"/Users/mgillogly/Library/MobileDevice/Provisioning Profiles\"\nfilename=$profile_dir/`ls -t1 \"$profile_dir\" | head -n 1`\necho \"$filename\"\n/bin/mkdir \"AdHoc\"\n\n/bin/cp \"$filename\" \"AdHoc/\"\n/bin/mv \"LearnNavi.ipa\" \"AdHoc/\"\n/usr/bin/zip -r AdHoc.zip AdHoc\n/bin/rm -r \"AdHoc\"\n/bin/rm iTunesArtwork\n";
 		};
 		04C40E2010FCF5C6001251C2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
