@@ -38,6 +38,7 @@
     [super viewDidLoad];
 	
 	//Update the App version string
+	NSLog(@"Version: %@", [self versionString]);
 	[betaText setText:[self versionString]];
 
 }
