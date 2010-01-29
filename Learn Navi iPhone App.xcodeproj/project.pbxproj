@@ -6,6 +6,21 @@
 	objectVersion = 45;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		044FAA66111267DB004E58A6 /* AdHoc */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 044FAA7511126811004E58A6 /* Build configuration list for PBXAggregateTarget "AdHoc" */;
+			buildPhases = (
+				044FAA6B111267E3004E58A6 /* ShellScript */,
+			);
+			dependencies = (
+				044FAA6D111267F4004E58A6 /* PBXTargetDependency */,
+			);
+			name = AdHoc;
+			productName = AdHoc;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		041A664910FE988C0009CEC2 /* UIViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A664810FE988C0009CEC2 /* UIViewAdditions.m */; };
 		041A664F10FE9BF00009CEC2 /* Root.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A664E10FE9BF00009CEC2 /* Root.m */; };
@@ -49,6 +64,16 @@
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		044FAA6C111267F4004E58A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1D6058900D05DD3D006BFB54 /* Learn Navi iPhone App */;
+			remoteInfo = "Learn Navi iPhone App";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		041A664710FE988C0009CEC2 /* UIViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIViewAdditions.h; path = Classes/UIViewAdditions.h; sourceTree = "<group>"; };
@@ -292,6 +317,7 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* Learn Navi iPhone App */,
+				044FAA66111267DB004E58A6 /* AdHoc */,
 			);
 		};
 /* End PBXProject section */
@@ -342,6 +368,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
+			shellScript = "";
+		};
+		044FAA6B111267E3004E58A6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
 			shellScript = "if [ \"$BUILD_STYLE\" != \"Beta Build\" ]; then\nexit 0\nfi\n# compress application.\n/bin/mkdir \"$CONFIGURATION_BUILD_DIR/Payload\"\n/bin/cp -R \"$CONFIGURATION_BUILD_DIR/Learn Navi iPhone App.app\" \"$CONFIGURATION_BUILD_DIR/Payload\"\n\n/bin/cp Icon.png \"$CONFIGURATION_BUILD_DIR/iTunesArtwork\"\n\ncd \"$CONFIGURATION_BUILD_DIR\"\n\n# zip up the Payload directory\n/usr/bin/zip -r LearnNavi.ipa Payload iTunesArtwork\n\n# delete Payload folder\n/bin/rm -r Payload\n\nprofile_dir=\"/Users/mgillogly/Library/MobileDevice/Provisioning Profiles\"\nfilename=$profile_dir/`ls -c1 \"$profile_dir\" | head -n 1`\n\n/bin/mkdir \"AdHoc\"\n\n/bin/cp \"$filename\" \"AdHoc/LearnNavi_Beta_Testers.mobileprovision\"\n/bin/mv \"LearnNavi.ipa\" \"AdHoc/\"\n/usr/bin/zip -r AdHoc.zip AdHoc\n/bin/rm -r \"AdHoc\"\n/bin/rm iTunesArtwork\n";
 		};
 		04C40E2010FCF5C6001251C2 /* ShellScript */ = {
@@ -378,7 +417,43 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		044FAA6D111267F4004E58A6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1D6058900D05DD3D006BFB54 /* Learn Navi iPhone App */;
+			targetProxy = 044FAA6C111267F4004E58A6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		044FAA67111267DB004E58A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = AdHoc;
+			};
+			name = Debug;
+		};
+		044FAA68111267DB004E58A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = AdHoc;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		044FAA69111267DB004E58A6 /* Beta Build */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = AdHoc;
+			};
+			name = "Beta Build";
+		};
 		04C40DF710FCF243001251C2 /* Beta Build */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -492,6 +567,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		044FAA7511126811004E58A6 /* Build configuration list for PBXAggregateTarget "AdHoc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				044FAA67111267DB004E58A6 /* Debug */,
+				044FAA68111267DB004E58A6 /* Release */,
+				044FAA69111267DB004E58A6 /* Beta Build */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Learn Navi iPhone App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
