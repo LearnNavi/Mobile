@@ -53,6 +53,7 @@
 		047B445210FAF558007B9236 /* HomeScreenBackground.psd in Resources */ = {isa = PBXBuildFile; fileRef = 047B445110FAF558007B9236 /* HomeScreenBackground.psd */; };
 		047B445E10FAFA41007B9236 /* HomeScreenBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 047B445D10FAFA41007B9236 /* HomeScreenBackground.png */; };
 		047B448B10FB7B07007B9236 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 047B448A10FB7B07007B9236 /* Default.png */; };
+		0495B0A111130B9B002B7BCA /* NaviEnglish.tex in Resources */ = {isa = PBXBuildFile; fileRef = 0495B0A011130B9B002B7BCA /* NaviEnglish.tex */; };
 		04C40DEE10FCF184001251C2 /* dist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04C40DED10FCF184001251C2 /* dist.plist */; };
 		04C40F1210FD0B79001251C2 /* essai1.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C40F1110FD0B79001251C2 /* essai1.png */; };
 		04C40F3610FD2FA6001251C2 /* essai1.psd in Resources */ = {isa = PBXBuildFile; fileRef = 04C40F3410FD2FA6001251C2 /* essai1.psd */; };
@@ -115,6 +116,7 @@
 		047B445110FAF558007B9236 /* HomeScreenBackground.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = HomeScreenBackground.psd; sourceTree = "<group>"; };
 		047B445D10FAFA41007B9236 /* HomeScreenBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeScreenBackground.png; sourceTree = "<group>"; };
 		047B448A10FB7B07007B9236 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		0495B0A011130B9B002B7BCA /* NaviEnglish.tex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NaviEnglish.tex; sourceTree = "<group>"; };
 		04C40DED10FCF184001251C2 /* dist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dist.plist; sourceTree = "<group>"; };
 		04C40F1110FD0B79001251C2 /* essai1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = essai1.png; sourceTree = "<group>"; };
 		04C40F3410FD2FA6001251C2 /* essai1.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = essai1.psd; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				0495B0A011130B9B002B7BCA /* NaviEnglish.tex */,
 				0443F54A110F769600CEAB58 /* NaviDictionary.tex */,
 				0443F545110F717F00CEAB58 /* texParser.pl */,
 				0443F162110E3D5600CEAB58 /* FlurryLibWithLocation */,
@@ -286,7 +289,6 @@
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				04C40E2010FCF5C6001251C2 /* ShellScript */,
-				044FA9A711125967004E58A6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -351,25 +353,13 @@
 				0443F205110E5ED100CEAB58 /* Refresh.psd in Resources */,
 				0443F546110F717F00CEAB58 /* texParser.pl in Resources */,
 				0443F54B110F769600CEAB58 /* NaviDictionary.tex in Resources */,
+				0495B0A111130B9B002B7BCA /* NaviEnglish.tex in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		044FA9A711125967004E58A6 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "";
-		};
 		044FAA6B111267E3004E58A6 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -381,7 +371,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"$BUILD_STYLE\" != \"Beta Build\" ]; then\nexit 0\nfi\n# compress application.\n/bin/mkdir \"$CONFIGURATION_BUILD_DIR/Payload\"\n/bin/cp -R \"$CONFIGURATION_BUILD_DIR/Learn Navi iPhone App.app\" \"$CONFIGURATION_BUILD_DIR/Payload\"\n\n/bin/cp Icon.png \"$CONFIGURATION_BUILD_DIR/iTunesArtwork\"\n\ncd \"$CONFIGURATION_BUILD_DIR\"\n\n# zip up the Payload directory\n/usr/bin/zip -r LearnNavi.ipa Payload iTunesArtwork\n\n# delete Payload folder\n/bin/rm -r Payload\n\nprofile_dir=\"/Users/mgillogly/Library/MobileDevice/Provisioning Profiles\"\nfilename=$profile_dir/`ls -t1 \"$profile_dir\" | head -n 1`\necho \"$filename\"\n/bin/mkdir \"AdHoc\"\n\n/bin/cp \"$filename\" \"AdHoc/\"\n/bin/mv \"LearnNavi.ipa\" \"AdHoc/\"\n/usr/bin/zip -r AdHoc.zip AdHoc\n/bin/rm -r \"AdHoc\"\n/bin/rm iTunesArtwork\n";
+			shellScript = "if [ \"$BUILD_STYLE\" != \"Beta Build\" ]; then\nexit 0\nfi\n# compress application.\n/bin/mkdir \"$CONFIGURATION_BUILD_DIR/Payload\"\n/bin/cp -R \"$CONFIGURATION_BUILD_DIR/Learn Navi iPhone App.app\" \"$CONFIGURATION_BUILD_DIR/Payload\"\n\n/bin/cp Icon.png \"$CONFIGURATION_BUILD_DIR/iTunesArtwork\"\n\ncd \"$CONFIGURATION_BUILD_DIR\"\n\n# zip up the Payload directory\n/usr/bin/zip -r LearnNavi.ipa Payload iTunesArtwork\n\n# delete Payload folder\n/bin/rm -r Payload\n\nprofile_dir=\"$HOME/Library/MobileDevice/Provisioning Profiles\"\nfilename=$profile_dir/`ls -t1 \"$profile_dir\" | head -n 1`\necho \"$filename\"\n/bin/mkdir \"AdHoc\"\n\n/bin/cp \"$filename\" \"AdHoc/\"\n/bin/mv \"LearnNavi.ipa\" \"AdHoc/\"\n/usr/bin/zip -r AdHoc.zip AdHoc\n/bin/rm -r \"AdHoc\"\n/bin/rm iTunesArtwork\n";
 		};
 		04C40E2010FCF5C6001251C2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -394,7 +384,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /usr/bin/perl;
-			shellScript = "# Xcode auto-versioning script for Subversion\n# by Axel Andersson, modified by Daniel Jalkut to add\n# \"--revision HEAD\" to the svn info line, which allows\n# the latest revision to always be used.\n\nuse strict;\n\ndie \"$0: Must be run from Xcode\" unless $ENV{\"BUILT_PRODUCTS_DIR\"};\n\n# Get the current subversion revision number and use it to set the CFBundleVersion value\nmy $REV = `/usr/bin/svnversion -n /Users/mgillogly/Coding/Learn\\\\ Navi\\\\ iPhone\\\\ App/`;\nmy $INFO = \"$ENV{BUILT_PRODUCTS_DIR}/$ENV{WRAPPER_NAME}/Info.plist\";\nprint $INFO;\nprint \"\\n\";\nmy $version = $REV;\n\n# (Match the last group of digits and optional letter M/S):\n\n# ugly yet functional (barely) regex by Daniel Jalkut:\n#$version =~ s/([\\d]*:)(\\d+[M|S]*).*/$2/;\n\n# better yet still functional regex via Kevin \"Regex Nerd\" Ballard\n($version =~ m/\\d+[MS]*$/) && ($version = $&);\nprint $version;\ndie \"$0: No Subversion revision found\" unless $version;\n\nopen(FH, \"$INFO\") or die \"$0: $INFO: $!\";\nmy $info = join(\"\", <FH>);\nclose(FH);\n\n$info =~ s/([\\t ]+<key>CFBundleVersion<\\/key>\\n[\\t ]+<string>).*?(<\\/string>)/$1$version$2/;\n\nopen(FH, \">$INFO\") or die \"$0: $INFO: $!\";\nprint FH $info;\nclose(FH);\n";
+			shellScript = "# Xcode auto-versioning script for Subversion\n# by Axel Andersson, modified by Daniel Jalkut to add\n# \"--revision HEAD\" to the svn info line, which allows\n# the latest revision to always be used.\n\nuse strict;\n\ndie \"$0: Must be run from Xcode\" unless $ENV{\"BUILT_PRODUCTS_DIR\"};\n\n# Get the current subversion revision number and use it to set the CFBundleVersion value\nmy $REV = `/usr/bin/svnversion -n ./`;\nmy $INFO = \"$ENV{BUILT_PRODUCTS_DIR}/$ENV{WRAPPER_NAME}/Info.plist\";\nprint $INFO;\nprint \"\\n\";\nmy $version = $REV;\n\n# (Match the last group of digits and optional letter M/S):\n\n# ugly yet functional (barely) regex by Daniel Jalkut:\n#$version =~ s/([\\d]*:)(\\d+[M|S]*).*/$2/;\n\n# better yet still functional regex via Kevin \"Regex Nerd\" Ballard\n($version =~ m/\\d+[MS]*$/) && ($version = $&);\nprint $version;\ndie \"$0: No Subversion revision found\" unless $version;\n\nopen(FH, \"$INFO\") or die \"$0: $INFO: $!\";\nmy $info = join(\"\", <FH>);\nclose(FH);\n\n$info =~ s/([\\t ]+<key>CFBundleVersion<\\/key>\\n[\\t ]+<string>).*?(<\\/string>)/$1$version$2/;\n\nopen(FH, \">$INFO\") or die \"$0: $INFO: $!\";\nprint FH $info;\nclose(FH);\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
