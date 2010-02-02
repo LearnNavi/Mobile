@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="4"/>
+			<integer value="5"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -52,6 +52,10 @@
 								<int key="NSvFlags">256</int>
 								<string key="NSFrame">{{0, -20}, {320, 480}}</string>
 								<reference key="NSSuperview" ref="426341928"/>
+								<object class="NSColor" key="IBUIBackgroundColor">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MCAwAA</bytes>
+								</object>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIAutoresizesSubviews">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -66,11 +70,11 @@
 							<object class="IBUILabel" id="951363760">
 								<reference key="NSNextResponder" ref="426341928"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{0, 149}, {320, 23}}</string>
+								<string key="NSFrame">{{74, 122}, {171, 23}}</string>
 								<reference key="NSSuperview" ref="426341928"/>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MCAwIDAgMAA</bytes>
+									<bytes key="NSRGB">MC4xNDEzMDQzNDc4IDAuMTQxMzA0MzQ3OCAwLjE0MTMwNDM0NzggMC40MwA</bytes>
 								</object>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -98,7 +102,7 @@
 							<object class="IBUIButton" id="15260161">
 								<reference key="NSNextResponder" ref="426341928"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{55, 223}, {210, 44}}</string>
+								<string key="NSFrame">{{55, 170}, {210, 44}}</string>
 								<reference key="NSSuperview" ref="426341928"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -135,7 +139,7 @@
 							<object class="IBUIButton" id="56801825">
 								<reference key="NSNextResponder" ref="426341928"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{55, 275}, {210, 44}}</string>
+								<string key="NSFrame">{{55, 222}, {210, 44}}</string>
 								<reference key="NSSuperview" ref="426341928"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -162,7 +166,7 @@
 							<object class="IBUIButton" id="516802521">
 								<reference key="NSNextResponder" ref="426341928"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{55, 327}, {210, 44}}</string>
+								<string key="NSFrame">{{55, 274}, {210, 44}}</string>
 								<reference key="NSSuperview" ref="426341928"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -292,10 +296,10 @@
 						<reference key="object" ref="426341928"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="133018482"/>
-							<reference ref="516802521"/>
 							<reference ref="15260161"/>
+							<reference ref="516802521"/>
 							<reference ref="951363760"/>
+							<reference ref="133018482"/>
 							<reference ref="56801825"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
@@ -372,7 +376,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">13</int>
+			<int key="maxID">14</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

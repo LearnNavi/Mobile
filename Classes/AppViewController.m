@@ -58,7 +58,6 @@
 
 -(void)viewWillAppear:(BOOL)animated { 
 	[super viewWillAppear:animated];
-	
 	//Whenever this view shows up, we hide the navigationbar and the toolbar
 	[navController setNavigationBarHidden:YES animated:YES];
 	[navController setToolbarHidden:YES animated:YES];
