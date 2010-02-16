@@ -1,12 +1,20 @@
 #!/usr/bin/perl
 
-open(MYINPUTFILE, "<NaviDictionary.tex");
+open(NAVIDICTIONARYFILE, "<NaviDictionary.tex");
+open(ENGLISHDICTIONARYFILE, "<NaviEnglish.tex");
 
-while(<MYINPUTFILE>)
+open(NAVICSVFILE, ">NaviDictionary.tsv");
+open(ENGLISHCSVFILE, ">NaviEnglish.tsv");
+
+
+while(<NAVIDICTIONARYFILE>)
 {
 	my($line) = $_;
 	chomp($line);
-
+	
+	$line =~ s/\\\`i/ì/gi;
+	$line =~ s/\\\"a/ä/gi;
+	
 	if (
 	$line =~ /\\(?:word|cww?|lenite|loan|derives)\{(.+?)\}\{(.+?)\}\{(.*?)\}\{(.+?)\}/
 	#~ \note{s\`i}{sI}{conj.}{and}{connects two things: for clauses use}{ulte}{and}{S}
@@ -14,7 +22,30 @@ while(<MYINPUTFILE>)
 		#my ($navi, $ipa, $gender, $eng) = (quotemeta($1), $2, $3, quotemeta($4));
 		my ($navi, $ipa, $gender, $eng) = ($1, $2, $3, $4);
 		
-		print "$navi,$gender,$eng\n";
+		print NAVICSVFILE "$navi<|>$gender<|>$eng\n";
 	}
 	
 }
+
+while(<ENGLISHDICTIONARYFILE>)
+{
+	my($line) = $_;
+	chomp($line);
+	
+	$line =~ s/\\\`i/ì/gi;
+	$line =~ s/\\\"a/ä/gi;
+	
+	if (
+		$line =~ /\\(?:word|cww?|lenite|loan|derives)\{(.+?)\}\{(.+?)\}\{(.*?)\}\{(.+?)\}/
+	#~ \note{s\`i}{sI}{conj.}{and}{connects two things: for clauses use}{ulte}{and}{S}
+	|| $line =~/\\note\{(.+?)\}\{(.+?)\}\{(.+?)\}\{(.+?)\}\{(.+?)\}/) {
+		#my ($navi, $ipa, $gender, $eng) = (quotemeta($1), $2, $3, quotemeta($4));
+		my ($navi, $ipa, $gender, $eng) = ($1, $2, $3, $4);
+		
+		print ENGLISHCSVFILE "$navi<|>$gender<|>$eng\n";
+	}
+	
+}
+
+close (NAVICSVFILE);
+close (ENGLISHCSVFILE);

@@ -13,11 +13,16 @@
 
 @synthesize sectionHeader, entries;
 
-+ (id)sectionWithHeader:(NSString *)header andEntries:(NSArray *)dictEntries {
++ (id)sectionWithHeader:(NSString *)header andEntries:(NSMutableArray *)dictEntries {
 	DictionarySection *newSection = [[[self alloc] init] autorelease];
 	newSection.sectionHeader = header;
 	newSection.entries = dictEntries;
 	return newSection;
+}
+
+- (void)addEntry:(id)entry {
+	[entries addObject:entry];
+	
 }
 
 - (void) dealloc {

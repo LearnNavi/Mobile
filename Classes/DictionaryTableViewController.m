@@ -93,7 +93,7 @@
 }
 
 - (IBAction) swapDictionaryMode:(id)sender {
-	NSInteger nSections = [self.tableView numberOfSections];
+	/*NSInteger nSections = [self.tableView numberOfSections];
 	for (int j=nSections-1; j>=0; j--) {
 		NSInteger nRows = [self.tableView numberOfRowsInSection:j];
 		for (int i=nRows-1; i>=0; i--) {
@@ -115,6 +115,7 @@
 	}
 	[dictionaryActiveContent removeAllObjects];
 	[self.tableView reloadData];
+	 */
 	if(currentMode) {
 		//self.title = @"English > Na'vi";
 		[[self navigationItem] setTitle:@"English > Na'vi"];
@@ -379,7 +380,15 @@
 	//Need to load data in from a file
 			
 			//[navigationController release];
+	
+	
+	
 	if(currentMode){
+		//English Mode
+		[self loadEnglishData];
+		
+		/*
+		
 		DictionarySection *tsection = [DictionarySection sectionWithHeader:@"B" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"banshee" type:@"Noun" andDefinition:@"ikran"],
 																							[DictionaryEntry entryWithName:@"blue flower" type:@"Noun" andDefinition:@"seze"], nil]];
 		DictionarySection *tsection1 = [DictionarySection sectionWithHeader:@"H" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"hunter" type:@"Noun" andDefinition:@"taronyu"], nil]];
@@ -389,7 +398,12 @@
 		[self setDictionaryTranslatedContent:[NSArray arrayWithObjects:tsection, tsection1, tsection2, tsection3, nil]];
 		
 		[self setDictionaryActiveContent:[dictionaryTranslatedContent mutableCopy]];
+		 */
 	} else {
+		//Na'vi Mode
+		
+		[self loadNaviData];
+		/*
 		DictionarySection *section = [DictionarySection sectionWithHeader:@"I" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"ikran" type:@"Noun" andDefinition:@"banshee"],
 																						   [DictionaryEntry entryWithName:@"irayo" type:@"Noun" andDefinition:@"thank you"], nil]];
 		DictionarySection *section1 = [DictionarySection sectionWithHeader:@"S" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"seze" type:@"Noun" andDefinition:@"blue flower"], nil]];
@@ -398,8 +412,137 @@
 		[self setDictionaryContent:[NSArray arrayWithObjects:section, section1, section2, nil]];
 		
 		[self setDictionaryActiveContent:[dictionaryContent mutableCopy]];
+		 */
 	}
 	//[[self tableView] reloadData];
+}
+
+- (void)loadEnglishData {
+	//NSURL * url = [NSURL fileURLWithPath:@"NaviDictionary.tsv"];
+	if(!dictionaryTranslatedContent){
+		NSLog(@"Loading English");
+		NSString *path = [[NSBundle mainBundle] pathForResource:@"NaviEnglish" ofType:@"tsv"];
+		
+		// Do something with the filename.
+		NSError *error;
+		NSString * fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error ];
+		NSCharacterSet *newlineSet;
+		NSCharacterSet *splitSet;
+		NSScanner *scanner;
+		scanner = [NSScanner scannerWithString:fileContents];
+		[scanner setCharactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
+		newlineSet = [NSCharacterSet characterSetWithCharactersInString:@"\n"];
+		splitSet = [NSCharacterSet characterSetWithCharactersInString:@"<|>"];
+		NSMutableArray *sections = [NSMutableArray arrayWithCapacity:30];
+		DictionarySection *section = [DictionarySection sectionWithHeader:@"A" andEntries:[NSMutableArray arrayWithCapacity:20]];
+		while ( ![scanner isAtEnd] ) {
+			
+			NSString *line = nil;
+			NSScanner *lineScanner = nil;
+			NSString *term = nil;
+			NSString *partOfSpeech = nil;
+			NSString *definition = nil;
+			NSString *thisSection;
+			if ( ![scanner scanUpToCharactersFromSet:newlineSet intoString:&line] ) {
+				//line = @"";
+			}
+			[scanner scanString:@"\n" intoString:NULL];
+			lineScanner = [NSScanner scannerWithString:line]; // Create scanner for scanning line content
+			[lineScanner setCharactersToBeSkipped:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+			
+			// Now scan symbol and coords, if they exist
+			//record = 
+			[lineScanner scanUpToCharactersFromSet:splitSet intoString:&definition]; 
+			[lineScanner scanString:@"<|>" intoString:NULL]; 
+			[lineScanner scanUpToCharactersFromSet:splitSet intoString:&partOfSpeech]; 
+			[lineScanner scanString:@"<|>" intoString:NULL]; 
+			[lineScanner scanUpToCharactersFromSet:splitSet intoString:&term]; 
+			//NSLog(@"%@ ||| %@ ||| %@", term, partOfSpeech, definition);
+			thisSection = [term substringWithRange:NSMakeRange(0, 1)];
+			if([thisSection compare:@"*"] == 0){
+				//Pesky *
+				thisSection = [term substringWithRange:NSMakeRange(1, 1)];
+			}
+			if( [[thisSection uppercaseString] compare:[section sectionHeader]] != 0){
+				//create new section
+				[sections addObject:section];
+				//[entries release];
+				//entries = ;
+				//[section release];
+				section = [DictionarySection sectionWithHeader:[thisSection uppercaseString] andEntries:[NSMutableArray arrayWithCapacity:20]];
+			}
+			[section addEntry:[DictionaryEntry entryWithName:term type:partOfSpeech andDefinition:definition]];
+		}
+		[sections addObject:section];
+		[self setDictionaryTranslatedContent:sections];
+	}
+	[self setDictionaryActiveContent:[NSArray arrayWithArray:dictionaryTranslatedContent]];
+}
+
+- (void)loadNaviData {
+	//NSURL * url = [NSURL fileURLWithPath:@"NaviDictionary.tsv"];
+	if(!dictionaryContent){
+		NSLog(@"Loading Na'vi");
+		NSString *path = [[NSBundle mainBundle] pathForResource:@"NaviDictionary" ofType:@"tsv"];
+		
+		// Do something with the filename.
+		NSError *error;
+		NSString * fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error ];
+		NSCharacterSet *newlineSet;
+		NSCharacterSet *splitSet;
+		NSScanner *scanner;
+		scanner = [NSScanner scannerWithString:fileContents];
+		[scanner setCharactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
+		newlineSet = [NSCharacterSet characterSetWithCharactersInString:@"\n"];
+		splitSet = [NSCharacterSet characterSetWithCharactersInString:@"<|>"];
+		//NSMutableArray *sections = [NSMutableArray arrayWithCapacity:30];
+		NSMutableArray *sections = [NSMutableArray arrayWithCapacity:30];
+		DictionarySection *section = [DictionarySection sectionWithHeader:@"'" andEntries:[NSMutableArray arrayWithCapacity:20]];
+		while ( ![scanner isAtEnd] ) {
+
+			NSString *line = nil;
+			NSScanner *lineScanner = nil;
+			NSString *term = nil;
+			NSString *partOfSpeech = nil;
+			NSString *definition = nil;
+			NSString *thisSection;
+
+			if ( ![scanner scanUpToCharactersFromSet:newlineSet intoString:&line] ) {
+				//line = @"";
+			}
+			[scanner scanString:@"\n" intoString:NULL];
+			lineScanner = [NSScanner scannerWithString:line]; // Create scanner for scanning line content
+			[lineScanner setCharactersToBeSkipped:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+			
+			// Now scan symbol and coords, if they exist
+			//record = 
+			[lineScanner scanUpToCharactersFromSet:splitSet intoString:&term]; 
+			[lineScanner scanString:@"<|>" intoString:NULL]; 
+			[lineScanner scanUpToCharactersFromSet:splitSet intoString:&partOfSpeech]; 
+			[lineScanner scanString:@"<|>" intoString:NULL]; 
+			[lineScanner scanUpToCharactersFromSet:splitSet intoString:&definition]; 
+			//NSLog(@"%@ ||| %@ ||| %@", term, partOfSpeech, definition);
+			thisSection = [term substringWithRange:NSMakeRange(0, 1)];
+			if([thisSection compare:@"*"] == 0){
+				//Pesky *
+				thisSection = [term substringWithRange:NSMakeRange(1, 1)];
+			}
+			
+			if( [[thisSection uppercaseString] compare:[section sectionHeader]] != 0){
+				//create new section
+				[sections addObject:section];
+				//[entries release];
+				//entries = ;
+				//[section release];
+				section = [DictionarySection sectionWithHeader:[thisSection uppercaseString] andEntries:[NSMutableArray arrayWithCapacity:20]];
+			}
+			[section addEntry:[DictionaryEntry entryWithName:term type:partOfSpeech andDefinition:definition]];
+		}
+		[sections addObject:section];
+		
+		[self setDictionaryContent:sections];
+	}
+	[self setDictionaryActiveContent:[NSArray arrayWithArray:dictionaryContent]];
 }
 
 

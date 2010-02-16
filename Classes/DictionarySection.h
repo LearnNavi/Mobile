@@ -11,12 +11,12 @@
 
 @interface DictionarySection : NSObject {
 	NSString *sectionHeader;
-	NSArray *entries;
+	NSMutableArray *entries;
 }
 
 @property (nonatomic, copy) NSString *sectionHeader;
-@property (nonatomic, copy) NSArray *entries;
+@property (nonatomic, retain) NSMutableArray *entries;
 
-+ (id)sectionWithHeader:(NSString *)header andEntries:(NSArray *)dictEntries;
-
++ (id)sectionWithHeader:(NSString *)header andEntries:(NSMutableArray *)dictEntries;
+- (void)addEntry:(id)entry;
 @end
