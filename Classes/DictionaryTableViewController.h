@@ -16,8 +16,8 @@
 	NSArray *dictionaryTranslatedContent;
 	NSMutableArray *dictionaryTranslatedContentIndex;
 	
-	NSMutableArray *dictionaryActiveContent;
-	NSMutableArray *dictionaryActiveContentIndex;
+	NSArray *dictionaryActiveContent;
+	NSArray *dictionaryActiveContentIndex;
 	
 	NSMutableArray *filteredDictionaryContent;
 	NSString *savedSearchTerm;
@@ -29,8 +29,8 @@
 	BOOL currentMode;	//YES: Na'vi to English, NO: English to Na'vi
 }
 
-@property (nonatomic, retain) NSArray *dictionaryContent, *dictionaryTranslatedContent;
-@property (nonatomic, retain) NSMutableArray *filteredDictionaryContent, *dictionaryActiveContent, *dictionaryActiveContentIndex;
+@property (nonatomic, retain) NSArray *dictionaryContent, *dictionaryTranslatedContent, *dictionaryActiveContent, *dictionaryActiveContentIndex;
+@property (nonatomic, retain) NSMutableArray *filteredDictionaryContent;
 @property (nonatomic, retain) UIViewController *viewController;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
 
