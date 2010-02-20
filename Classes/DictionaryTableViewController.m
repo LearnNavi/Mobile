@@ -775,10 +775,16 @@
 	for(int i=0; i <[dictionaryTranslatedContentProNouns count]; i++){
 		
 		NSString *uniChar = [[[dictionaryTranslatedContentProNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 1)];
-		
+		NSString *uniChar2 = @"";
+		if([[[dictionaryTranslatedContentProNouns objectAtIndex:i] entryName] length] > 1){
+			uniChar2 = [[[dictionaryTranslatedContentProNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+		}
 		if([uniChar compare:@"*"] == 0){
 			//Pesky *
-			uniChar = [[[dictionaryTranslatedContentProNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+			uniChar = uniChar2;
+		} else if(([uniChar compare:@"p"] == 0 || [uniChar compare:@"k"] == 0 || [uniChar compare:@"t"] == 0) && ([uniChar2 compare:@"x"] == 0)){
+			//Pesky *
+			uniChar = [[[dictionaryTranslatedContentProNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 2)];
 		}
 		
 		if(![dictionaryTranslatedContentProNounsIndex containsObject:[uniChar uppercaseString]]){
@@ -790,10 +796,16 @@
 	for(int i=0; i <[dictionaryTranslatedContentNouns count]; i++){
 		
 		NSString *uniChar = [[[dictionaryTranslatedContentNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 1)];
-		
+		NSString *uniChar2 = @"";
+		if([[[dictionaryTranslatedContentNouns objectAtIndex:i] entryName] length] > 1){
+			uniChar2 = [[[dictionaryTranslatedContentNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+		}
 		if([uniChar compare:@"*"] == 0){
 			//Pesky *
-			uniChar = [[[dictionaryTranslatedContentNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+			uniChar = uniChar2;
+		} else if(([uniChar compare:@"p"] == 0 || [uniChar compare:@"k"] == 0 || [uniChar compare:@"t"] == 0) && ([uniChar2 compare:@"x"] == 0)){
+			//Pesky *
+			uniChar = [[[dictionaryTranslatedContentNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 2)];
 		}
 		
 		if(![dictionaryTranslatedContentNounsIndex containsObject:[uniChar uppercaseString]]){
@@ -805,10 +817,16 @@
 	for(int i=0; i <[dictionaryTranslatedContentVerbs count]; i++){
 		
 		NSString *uniChar = [[[dictionaryTranslatedContentVerbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 1)];
-		
+		NSString *uniChar2 = @"";
+		if([[[dictionaryTranslatedContentVerbs objectAtIndex:i] entryName] length] > 1){
+			uniChar2 = [[[dictionaryTranslatedContentVerbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+		}
 		if([uniChar compare:@"*"] == 0){
 			//Pesky *
-			uniChar = [[[dictionaryTranslatedContentVerbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+			uniChar = uniChar2;
+		} else if(([uniChar compare:@"p"] == 0 || [uniChar compare:@"k"] == 0 || [uniChar compare:@"t"] == 0) && ([uniChar2 compare:@"x"] == 0)){
+			//Pesky *
+			uniChar = [[[dictionaryTranslatedContentVerbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 2)];
 		}
 		
 		if(![dictionaryTranslatedContentVerbsIndex containsObject:[uniChar uppercaseString]]){
@@ -820,10 +838,16 @@
 	for(int i=0; i <[dictionaryTranslatedContentAdjectives count]; i++){
 		
 		NSString *uniChar = [[[dictionaryTranslatedContentAdjectives objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 1)];
-		
+		NSString *uniChar2 = @"";
+		if([[[dictionaryTranslatedContentAdjectives objectAtIndex:i] entryName] length] > 1){
+			uniChar2 = [[[dictionaryTranslatedContentAdjectives objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+		}
 		if([uniChar compare:@"*"] == 0){
 			//Pesky *
-			uniChar = [[[dictionaryTranslatedContentAdjectives objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+			uniChar = uniChar2;
+		} else if(([uniChar compare:@"p"] == 0 || [uniChar compare:@"k"] == 0 || [uniChar compare:@"t"] == 0) && ([uniChar2 compare:@"x"] == 0)){
+			//Pesky *
+			uniChar = [[[dictionaryTranslatedContentAdjectives objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 2)];
 		}
 		
 		if(![dictionaryTranslatedContentAdjectivesIndex containsObject:[uniChar uppercaseString]]){
@@ -835,10 +859,16 @@
 	for(int i=0; i <[dictionaryTranslatedContent count]; i++){
 		
 		NSString *uniChar = [[[dictionaryTranslatedContent objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 1)];
-		
+		NSString *uniChar2 = @"";
+		if([[[dictionaryTranslatedContent objectAtIndex:i] entryName] length] > 1){
+			uniChar2 = [[[dictionaryTranslatedContent objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+		}
 		if([uniChar compare:@"*"] == 0){
 			//Pesky *
-			uniChar = [[[dictionaryTranslatedContent objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+			uniChar = uniChar2;
+		} else if(([uniChar compare:@"p"] == 0 || [uniChar compare:@"k"] == 0 || [uniChar compare:@"t"] == 0) && ([uniChar2 compare:@"x"] == 0)){
+			//Pesky *
+			uniChar = [[[dictionaryTranslatedContent objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 2)];
 		}
 		
 		if(![dictionaryTranslatedContentIndex containsObject:[uniChar uppercaseString]]){
@@ -850,10 +880,16 @@
 	for(int i=0; i <[dictionaryTranslatedContentAdverbs count]; i++){
 		
 		NSString *uniChar = [[[dictionaryTranslatedContentAdverbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 1)];
-		
+		NSString *uniChar2 = @"";
+		if([[[dictionaryTranslatedContentAdverbs objectAtIndex:i] entryName] length] > 1){
+			uniChar2 = [[[dictionaryTranslatedContentAdverbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+		}
 		if([uniChar compare:@"*"] == 0){
 			//Pesky *
-			uniChar = [[[dictionaryTranslatedContentAdverbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+			uniChar = uniChar2;
+		} else if(([uniChar compare:@"p"] == 0 || [uniChar compare:@"k"] == 0 || [uniChar compare:@"t"] == 0) && ([uniChar2 compare:@"x"] == 0)){
+			//Pesky *
+			uniChar = [[[dictionaryTranslatedContentAdverbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 2)];
 		}
 		
 		if(![dictionaryTranslatedContentAdverbsIndex containsObject:[uniChar uppercaseString]]){
@@ -1069,10 +1105,16 @@
 	for(int i=0; i <[dictionaryContentProNouns count]; i++){
 		
 		NSString *uniChar = [[[dictionaryContentProNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 1)];
-		
+		NSString *uniChar2 = @"";
+		if([[[dictionaryContentProNouns objectAtIndex:i] entryName] length] > 1){
+			uniChar2 = [[[dictionaryContentProNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+		}
 		if([uniChar compare:@"*"] == 0){
 			//Pesky *
-			uniChar = [[[dictionaryContentProNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+			uniChar = uniChar2;
+		} else if(([uniChar compare:@"p"] == 0 || [uniChar compare:@"k"] == 0 || [uniChar compare:@"t"] == 0) && ([uniChar2 compare:@"x"] == 0)){
+			//Pesky *
+			uniChar = [[[dictionaryContentProNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 2)];
 		}
 		
 		if(![dictionaryContentProNounsIndex containsObject:[uniChar uppercaseString]]){
@@ -1084,10 +1126,16 @@
 	for(int i=0; i <[dictionaryContentNouns count]; i++){
 		
 		NSString *uniChar = [[[dictionaryContentNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 1)];
-		
+		NSString *uniChar2 = @"";
+		if([[[dictionaryContentNouns objectAtIndex:i] entryName] length] > 1){
+			uniChar2 = [[[dictionaryContentNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+		}
 		if([uniChar compare:@"*"] == 0){
 			//Pesky *
-			uniChar = [[[dictionaryContentNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+			uniChar = uniChar2;
+		} else if(([uniChar compare:@"p"] == 0 || [uniChar compare:@"k"] == 0 || [uniChar compare:@"t"] == 0) && ([uniChar2 compare:@"x"] == 0)){
+			//Pesky *
+			uniChar = [[[dictionaryContentNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 2)];
 		}
 		
 		if(![dictionaryContentNounsIndex containsObject:[uniChar uppercaseString]]){
@@ -1099,10 +1147,16 @@
 	for(int i=0; i <[dictionaryContentVerbs count]; i++){
 		
 		NSString *uniChar = [[[dictionaryContentVerbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 1)];
-		
+		NSString *uniChar2 = @"";
+		if([[[dictionaryContentVerbs objectAtIndex:i] entryName] length] > 1){
+			uniChar2 = [[[dictionaryContentVerbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+		}
 		if([uniChar compare:@"*"] == 0){
 			//Pesky *
 			uniChar = [[[dictionaryContentVerbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+		} else if(([uniChar compare:@"p"] == 0 || [uniChar compare:@"k"] == 0 || [uniChar compare:@"t"] == 0) && ([uniChar2 compare:@"x"] == 0)){
+			//Pesky *
+			uniChar = [[[dictionaryContentVerbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 2)];
 		}
 		
 		if(![dictionaryContentVerbsIndex containsObject:[uniChar uppercaseString]]){
@@ -1114,10 +1168,16 @@
 	for(int i=0; i <[dictionaryContentAdjectives count]; i++){
 		
 		NSString *uniChar = [[[dictionaryContentAdjectives objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 1)];
-		
+		NSString *uniChar2 = @"";
+		if([[[dictionaryContentAdjectives objectAtIndex:i] entryName] length] > 1){
+			uniChar2 = [[[dictionaryContentAdjectives objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+		}
 		if([uniChar compare:@"*"] == 0){
 			//Pesky *
-			uniChar = [[[dictionaryContentAdjectives objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+			uniChar = uniChar2;
+		} else if(([uniChar compare:@"p"] == 0 || [uniChar compare:@"k"] == 0 || [uniChar compare:@"t"] == 0) && ([uniChar2 compare:@"x"] == 0)){
+			//Pesky *
+			uniChar = [[[dictionaryContentAdjectives objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 2)];
 		}
 		
 		if(![dictionaryContentAdjectivesIndex containsObject:[uniChar uppercaseString]]){
@@ -1129,10 +1189,16 @@
 	for(int i=0; i <[dictionaryContent count]; i++){
 		
 		NSString *uniChar = [[[dictionaryContent objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 1)];
-		
+		NSString *uniChar2 = @"";
+		if([[[dictionaryContent objectAtIndex:i] entryName] length] > 1){
+			uniChar2 = [[[dictionaryContent objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+		}
 		if([uniChar compare:@"*"] == 0){
 			//Pesky *
-			uniChar = [[[dictionaryContent objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+			uniChar = uniChar2;
+		} else if(([uniChar compare:@"p"] == 0 || [uniChar compare:@"k"] == 0 || [uniChar compare:@"t"] == 0) && ([uniChar2 compare:@"x"] == 0)){
+			//Pesky *
+			uniChar = [[[dictionaryContent objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 2)];
 		}
 		
 		if(![dictionaryContentIndex containsObject:[uniChar uppercaseString]]){
@@ -1144,10 +1210,16 @@
 	for(int i=0; i <[dictionaryContentAdverbs count]; i++){
 		
 		NSString *uniChar = [[[dictionaryContentAdverbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 1)];
-		
+		NSString *uniChar2 = @"";
+		if([[[dictionaryContentAdverbs objectAtIndex:i] entryName] length] > 1){
+			uniChar2 = [[[dictionaryContentAdverbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+		}
 		if([uniChar compare:@"*"] == 0){
 			//Pesky *
-			uniChar = [[[dictionaryContentAdverbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+			uniChar = uniChar2;
+		} else if(([uniChar compare:@"p"] == 0 || [uniChar compare:@"k"] == 0 || [uniChar compare:@"t"] == 0) && ([uniChar2 compare:@"x"] == 0)){
+			//Pesky *
+			uniChar = [[[dictionaryContentAdverbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 2)];
 		}
 		
 		if(![dictionaryContentAdverbsIndex containsObject:[uniChar uppercaseString]]){
