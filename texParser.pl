@@ -14,6 +14,9 @@ while(<NAVIDICTIONARYFILE>)
 	
 	$line =~ s/\\\`i/ì/gi;
 	$line =~ s/\\\"a/ä/gi;
+	$line =~ s/\$_\{T\}\$//g;
+	$line =~ s/\$<\$//g;
+	$line =~ s/\$>\$//g;
 	
 	if (
 	$line =~ /\\(?:word|cww?|lenite|loan|derives)\{(.+?)\}\{(.+?)\}\{(.*?)\}\{(.+?)\}/
@@ -25,6 +28,11 @@ while(<NAVIDICTIONARYFILE>)
 		print NAVICSVFILE "$navi<|>$gender<|>$eng\n";
 	}
 	
+	if ( $line =~ /\\section\{Illegal Words\}/ ){
+		print "Illegal Found\n";
+		last;
+	}
+	
 }
 
 while(<ENGLISHDICTIONARYFILE>)
@@ -34,6 +42,9 @@ while(<ENGLISHDICTIONARYFILE>)
 	
 	$line =~ s/\\\`i/ì/gi;
 	$line =~ s/\\\"a/ä/gi;
+	$line =~ s/\$_\{T\}\$//g;
+	$line =~ s/\$<\$//g;
+	$line =~ s/\$>\$//g;
 	
 	if (
 		$line =~ /\\(?:word|cww?|lenite|loan|derives)\{(.+?)\}\{(.+?)\}\{(.*?)\}\{(.+?)\}/

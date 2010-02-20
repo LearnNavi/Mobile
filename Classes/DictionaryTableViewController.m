@@ -15,7 +15,7 @@
 @implementation DictionaryTableViewController
 
 
-@synthesize dictionaryContent, dictionaryActiveContent, filteredDictionaryContent, savedSearchTerm, savedScopeButtonIndex, searchWasActive, viewController, segmentedControl, currentMode, dictionaryTranslatedContent;
+@synthesize dictionaryContent, dictionaryActiveContent, dictionaryActiveContentIndex, filteredDictionaryContent, savedSearchTerm, savedScopeButtonIndex, searchWasActive, viewController, segmentedControl, currentMode, dictionaryTranslatedContent;
 
 /*
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -39,7 +39,7 @@
 	[super viewDidLoad];
 	currentMode = YES;
 	
-	self.title = @"Products";
+	//self.title = @"Products";
 	
 	
 	// create a filtered list that will contain products for the search results table.
@@ -343,12 +343,22 @@
 			
 			//NSComparisonResult result = [entry.entryName compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
 			//if (result == NSOrderedSame)
-			if( [entry.entryName rangeOfString:searchText].location != NSNotFound )
+			if( [entry.entryName rangeOfString:searchText options:NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch].location != NSNotFound )
 			{
 				[self.filteredDictionaryContent addObject:entry];
 			}
 			
 		}
+	}
+}
+
+//---set the index for the table---
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+	{
+		return nil;
+	} else {
+		return dictionaryActiveContentIndex;
 	}
 }
 
@@ -381,40 +391,19 @@
 			
 			//[navigationController release];
 	
-	
-	
+	[self loadEnglishData];
+	[self loadNaviData];
+
 	if(currentMode){
 		//English Mode
-		[self loadEnglishData];
-		
-		/*
-		
-		DictionarySection *tsection = [DictionarySection sectionWithHeader:@"B" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"banshee" type:@"Noun" andDefinition:@"ikran"],
-																							[DictionaryEntry entryWithName:@"blue flower" type:@"Noun" andDefinition:@"seze"], nil]];
-		DictionarySection *tsection1 = [DictionarySection sectionWithHeader:@"H" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"hunter" type:@"Noun" andDefinition:@"taronyu"], nil]];
-		DictionarySection *tsection2 = [DictionarySection sectionWithHeader:@"T" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"thank you" type:@"Noun" andDefinition:@"irayo"], nil]];
-		DictionarySection *tsection3 = [DictionarySection sectionWithHeader:@"W" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"warrior" type:@"Noun" andDefinition:@"tsamsiyu"], nil]];
-		
-		[self setDictionaryTranslatedContent:[NSArray arrayWithObjects:tsection, tsection1, tsection2, tsection3, nil]];
-		
-		[self setDictionaryActiveContent:[dictionaryTranslatedContent mutableCopy]];
-		 */
+		[self setDictionaryActiveContent:[NSArray arrayWithArray:dictionaryTranslatedContent]];
+		[self setDictionaryActiveContentIndex:[NSArray arrayWithArray:dictionaryTranslatedContentIndex]];
 	} else {
 		//Na'vi Mode
-		
-		[self loadNaviData];
-		/*
-		DictionarySection *section = [DictionarySection sectionWithHeader:@"I" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"ikran" type:@"Noun" andDefinition:@"banshee"],
-																						   [DictionaryEntry entryWithName:@"irayo" type:@"Noun" andDefinition:@"thank you"], nil]];
-		DictionarySection *section1 = [DictionarySection sectionWithHeader:@"S" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"seze" type:@"Noun" andDefinition:@"blue flower"], nil]];
-		DictionarySection *section2 = [DictionarySection sectionWithHeader:@"T" andEntries:[NSArray arrayWithObjects:[DictionaryEntry entryWithName:@"taronyu" type:@"Noun" andDefinition:@"hunter"],
-																							[DictionaryEntry entryWithName:@"tsamsiyu" type:@"Noun" andDefinition:@"warrior"], nil]];
-		[self setDictionaryContent:[NSArray arrayWithObjects:section, section1, section2, nil]];
-		
-		[self setDictionaryActiveContent:[dictionaryContent mutableCopy]];
-		 */
+		[self setDictionaryActiveContent:[NSArray arrayWithArray:dictionaryContent]];
+		[self setDictionaryActiveContentIndex:[NSArray arrayWithArray:dictionaryContentIndex]];
 	}
-	//[[self tableView] reloadData];
+	[[self tableView] reloadData];
 }
 
 - (void)loadEnglishData {
@@ -476,7 +465,17 @@
 		[sections addObject:section];
 		[self setDictionaryTranslatedContent:sections];
 	}
-	[self setDictionaryActiveContent:[NSArray arrayWithArray:dictionaryTranslatedContent]];
+	dictionaryTranslatedContentIndex = [[NSMutableArray alloc] init];
+	
+	for(int i=0; i <[dictionaryTranslatedContent count]; i++){
+		NSString *uniChar = [[[dictionaryTranslatedContent objectAtIndex:i] sectionHeader] substringWithRange:NSMakeRange(0, 1)];
+		
+		if(![dictionaryTranslatedContentIndex containsObject:uniChar]){
+			[dictionaryTranslatedContentIndex addObject:uniChar];
+		}
+		
+	}
+	
 }
 
 - (void)loadNaviData {
@@ -542,7 +541,16 @@
 		
 		[self setDictionaryContent:sections];
 	}
-	[self setDictionaryActiveContent:[NSArray arrayWithArray:dictionaryContent]];
+	dictionaryContentIndex = [[NSMutableArray alloc] init];
+	
+	for(int i=0; i <[dictionaryContent count]; i++){
+		NSString *uniChar = [[[dictionaryContent objectAtIndex:i] sectionHeader] substringWithRange:NSMakeRange(0, 1)];
+		
+		if(![dictionaryContentIndex containsObject:uniChar]){
+			[dictionaryContentIndex addObject:uniChar];
+		}
+		
+	}
 }
 
 

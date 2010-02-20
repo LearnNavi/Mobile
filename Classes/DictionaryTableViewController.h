@@ -11,8 +11,14 @@
 
 @interface DictionaryTableViewController : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate> {
 	NSArray *dictionaryContent;
+	NSMutableArray *dictionaryContentIndex;
+	
 	NSArray *dictionaryTranslatedContent;
+	NSMutableArray *dictionaryTranslatedContentIndex;
+	
 	NSMutableArray *dictionaryActiveContent;
+	NSMutableArray *dictionaryActiveContentIndex;
+	
 	NSMutableArray *filteredDictionaryContent;
 	NSString *savedSearchTerm;
 	NSInteger savedScopeButtonIndex;
@@ -24,7 +30,7 @@
 }
 
 @property (nonatomic, retain) NSArray *dictionaryContent, *dictionaryTranslatedContent;
-@property (nonatomic, retain) NSMutableArray *filteredDictionaryContent, *dictionaryActiveContent;
+@property (nonatomic, retain) NSMutableArray *filteredDictionaryContent, *dictionaryActiveContent, *dictionaryActiveContentIndex;
 @property (nonatomic, retain) UIViewController *viewController;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
 
@@ -34,6 +40,8 @@
 @property (nonatomic) BOOL currentMode;
 
 - (void) loadData;
+- (void)loadEnglishData;
+- (void)loadNaviData;
 
 - (void) addViewController:(UIViewController *)controller;
 
