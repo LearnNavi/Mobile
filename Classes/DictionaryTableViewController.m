@@ -8,7 +8,7 @@
 
 #import "DictionaryEntry.h"
 #import "DictionaryTableViewController.h"
-#import "DictionarySection.h"
+//#import "DictionarySection.h"
 #import "DictionaryEntryViewController.h"
 #import "UIViewAdditions.h"
 
@@ -93,49 +93,25 @@
 }
 
 - (IBAction) swapDictionaryMode:(id)sender {
-	/*NSInteger nSections = [self.tableView numberOfSections];
-	for (int j=nSections-1; j>=0; j--) {
-		NSInteger nRows = [self.tableView numberOfRowsInSection:j];
-		for (int i=nRows-1; i>=0; i--) {
-			
+	
+	[UIView beginAnimations:@"Swap Dictionary" context:nil];
+	[UIView setAnimationDuration:0.75];
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.navigationController.view cache:YES];
 
-			DictionarySection *dictSection = [dictionaryActiveContent objectAtIndex:[NSIndexPath indexPathForRow:i inSection:j].section];
-			NSMutableArray *temp = [NSMutableArray arrayWithArray:dictSection.entries];
-			[temp removeObjectAtIndex:[NSIndexPath indexPathForRow:i inSection:j].row];
-			
-			dictSection.entries = temp;
-			[[self tableView] deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:j]] withRowAnimation:YES];
-			//[indexPath addObject:[NSIndexPath indexPathForRow:i inSection:j]];
-			//Do something with your indexPath. Maybe you want to get your cell,
-			// like this:
-			//UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-		}
-		//[dictionaryActiveContent removeLastObject];
-		//[[self tableView] deleteSections:[NSIndexSet indexSetWithIndex:j] withRowAnimation:YES];
-	}
-	[dictionaryActiveContent removeAllObjects];
-	[self.tableView reloadData];
-	 */
 	if(currentMode) {
-		//self.title = @"English > Na'vi";
 		[[self navigationItem] setTitle:@"English > Na'vi"];
-		/*[[[[self navigationController] topViewController] navigationItem] setBackBarButtonItem:
-		[[UIBarButtonItem alloc] initWithTitle:@"Home"
-										 style: UIBarButtonItemStyleBordered
-										target:nil
-										action:nil]];*/
-		
+				
 		NSArray *vcs = [[self navigationController] viewControllers];
 		[[[vcs objectAtIndex:0] navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Home"
 																									   style: UIBarButtonItemStyleBordered
 																									  target:nil
 																									  action:nil]];
-		
-		
 		[[self navigationController] setViewControllers:vcs];
-		//[[self navigationController] pushViewController:self animated:YES];
+		
+		[self setTableView:englishTableView];
+		
 	} else {
-		//self.title = @"Na'vi > 'ìnglìsì";
 		[[self navigationItem] setTitle:@"Na'vi > 'ìnglìsì"];
 		NSArray *vcs = [[self navigationController] viewControllers];
 		[[[vcs objectAtIndex:0] navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Kelutral"
@@ -144,12 +120,14 @@
 																									 action:nil]];
 		[[self navigationController] setViewControllers:vcs];
 		
+		[self setTableView:naviTableView];
 		
 	}	
 	[self loadData];
 	
 	[self.tableView reloadData];
 	currentMode = !currentMode;
+	[UIView commitAnimations];
 }
 
 
@@ -209,8 +187,7 @@
     }
 	else
 	{
-		DictionarySection *dictSection = [dictionaryActiveContent objectAtIndex:section];
-		return [dictSection sectionHeader];
+		return [dictionaryActiveContentIndex objectAtIndex:section];
 	}
 	
 }
@@ -223,7 +200,7 @@
     }
 	else
 	{
-		return [dictionaryActiveContent count];
+		return [dictionaryActiveContentIndex count];
 	}
 }
 
@@ -242,8 +219,19 @@
 	else
 	{
         // Number of rows is the number of time zones in the region for the specified section.
-		DictionarySection *dictSection = [dictionaryActiveContent objectAtIndex:section];
-		return [dictSection.entries count];
+		//DictionarySection *dictSection = [dictionaryActiveContent objectAtIndex:section];
+		//return [dictSection.entries count];
+		
+		//---get the letter in each section; e.g., A, B, C, etc.---
+		NSString *alphabet = [dictionaryActiveContentIndex objectAtIndex:section];
+		
+		//---get all states beginning with the letter---
+		NSPredicate *predicate = 
+        [NSPredicate predicateWithFormat:@"SELF.entryName beginswith[c] %@", alphabet];
+		NSArray *entries = [dictionaryActiveContent filteredArrayUsingPredicate:predicate];
+		
+		//---return the number of states beginning with the letter---
+		return [entries count];    		
 		
     }
 	
@@ -274,8 +262,32 @@
 	{
         
 		// Get the section index, and so the region for that section.
-		DictionarySection *dictSection = [dictionaryActiveContent objectAtIndex:indexPath.section];
-		entry = [dictSection.entries objectAtIndex:indexPath.row];
+		//DictionarySection *dictSection = [dictionaryActiveContent objectAtIndex:indexPath.section];
+		//entry = [dictSection.entries objectAtIndex:indexPath.row];
+		
+		
+		static NSString *CellIdentifier = @"Cell";
+		
+		UITableViewCell *cell = 
+        [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+		if (cell == nil) {
+			cell = [[[UITableViewCell alloc] 
+					 initWithStyle:UITableViewCellStyleDefault 
+					 reuseIdentifier:CellIdentifier] autorelease];
+		}
+		
+		//---get the letter in the current section---
+		NSString *alphabet = [dictionaryActiveContentIndex objectAtIndex:[indexPath section]];
+		
+		//---get all states beginning with the letter---
+		NSPredicate *predicate = 
+        [NSPredicate predicateWithFormat:@"SELF.entryName beginswith[c] %@", alphabet];
+		NSArray *entries = [dictionaryActiveContent filteredArrayUsingPredicate:predicate];
+		
+		if ([entries count]>0) {
+			//---extract the relevant state from the states object---
+			entry = [entries objectAtIndex:indexPath.row];
+		}
 		
 		
     }
@@ -300,8 +312,22 @@
     }
 	else
 	{
-		DictionarySection *dictSection = [dictionaryActiveContent objectAtIndex:indexPath.section];
-		entry = [dictSection.entries objectAtIndex:indexPath.row];
+		//DictionarySection *dictSection = ;
+		//entry = [dictSection.entries objectAtIndex:indexPath.row];
+		
+		//---get the letter in the current section---
+		NSString *alphabet = [dictionaryActiveContentIndex objectAtIndex:[indexPath section]];
+		
+		//---get all states beginning with the letter---
+		NSPredicate *predicate = 
+        [NSPredicate predicateWithFormat:@"SELF.entryName beginswith[c] %@", alphabet];
+		NSArray *entries = [dictionaryActiveContent filteredArrayUsingPredicate:predicate];
+		
+		if ([entries count]>0) {
+			//---extract the relevant state from the states object---
+			entry = [entries objectAtIndex:indexPath.row];
+		}
+		
     }
 	//detailsViewController.title = entry.entryName;
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -336,20 +362,17 @@
 	 */
 	
 	
-	for (DictionarySection *sect in dictionaryActiveContent)
-	{
+	for (DictionaryEntry *entry in dictionaryActiveContent) {
 		
-		for (DictionaryEntry *entry in sect.entries) {
-			
-			//NSComparisonResult result = [entry.entryName compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
-			//if (result == NSOrderedSame)
-			if( [entry.entryName rangeOfString:searchText options:NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch].location != NSNotFound )
-			{
-				[self.filteredDictionaryContent addObject:entry];
-			}
-			
+		//NSComparisonResult result = [entry.entryName compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
+		//if (result == NSOrderedSame)
+		if( [entry.entryName rangeOfString:searchText options:NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch].location != NSNotFound )
+		{
+			[self.filteredDictionaryContent addObject:entry];
 		}
+		
 	}
+	
 }
 
 //---set the index for the table---
@@ -390,167 +413,186 @@
 	//Need to load data in from a file
 			
 			//[navigationController release];
+	if(!dictionaryTranslatedContent){
+		[self loadEnglishData];
+	}
 	
-	[self loadEnglishData];
-	[self loadNaviData];
+	if(!dictionaryContent){
+		[self loadNaviData];
+	}
 
 	if(currentMode){
 		//English Mode
-		[self setDictionaryActiveContent:[NSArray arrayWithArray:dictionaryTranslatedContent]];
-		[self setDictionaryActiveContentIndex:[NSArray arrayWithArray:dictionaryTranslatedContentIndex]];
+		dictionaryActiveContent = dictionaryTranslatedContent;
+		dictionaryActiveContentIndex = dictionaryTranslatedContentIndex;
 	} else {
 		//Na'vi Mode
-		[self setDictionaryActiveContent:[NSArray arrayWithArray:dictionaryContent]];
-		[self setDictionaryActiveContentIndex:[NSArray arrayWithArray:dictionaryContentIndex]];
+		dictionaryActiveContent = dictionaryContent;
+		dictionaryActiveContentIndex = dictionaryContentIndex;
 	}
-	[[self tableView] reloadData];
+	//[[self tableView] reloadData];
 }
 
 - (void)loadEnglishData {
 	//NSURL * url = [NSURL fileURLWithPath:@"NaviDictionary.tsv"];
-	if(!dictionaryTranslatedContent){
-		NSLog(@"Loading English");
-		NSString *path = [[NSBundle mainBundle] pathForResource:@"NaviEnglish" ofType:@"tsv"];
+	
+	NSLog(@"Loading English");
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"NaviEnglish" ofType:@"tsv"];
+	
+	// Do something with the filename.
+	NSError *error;
+	NSString * fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error ];
+	NSCharacterSet *newlineSet;
+	NSCharacterSet *splitSet;
+	NSScanner *scanner;
+	scanner = [NSScanner scannerWithString:fileContents];
+	[scanner setCharactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
+	newlineSet = [NSCharacterSet characterSetWithCharactersInString:@"\n"];
+	splitSet = [NSCharacterSet characterSetWithCharactersInString:@"<|>"];
+	NSMutableArray *entries = [NSMutableArray arrayWithCapacity:150];
+	//DictionarySection *section = [DictionarySection sectionWithHeader:@"A" andEntries:[NSMutableArray arrayWithCapacity:20]];
+	while ( ![scanner isAtEnd] ) {
 		
-		// Do something with the filename.
-		NSError *error;
-		NSString * fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error ];
-		NSCharacterSet *newlineSet;
-		NSCharacterSet *splitSet;
-		NSScanner *scanner;
-		scanner = [NSScanner scannerWithString:fileContents];
-		[scanner setCharactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
-		newlineSet = [NSCharacterSet characterSetWithCharactersInString:@"\n"];
-		splitSet = [NSCharacterSet characterSetWithCharactersInString:@"<|>"];
-		NSMutableArray *sections = [NSMutableArray arrayWithCapacity:30];
-		DictionarySection *section = [DictionarySection sectionWithHeader:@"A" andEntries:[NSMutableArray arrayWithCapacity:20]];
-		while ( ![scanner isAtEnd] ) {
-			
-			NSString *line = nil;
-			NSScanner *lineScanner = nil;
-			NSString *term = nil;
-			NSString *partOfSpeech = nil;
-			NSString *definition = nil;
-			NSString *thisSection;
-			if ( ![scanner scanUpToCharactersFromSet:newlineSet intoString:&line] ) {
-				//line = @"";
-			}
-			[scanner scanString:@"\n" intoString:NULL];
-			lineScanner = [NSScanner scannerWithString:line]; // Create scanner for scanning line content
-			[lineScanner setCharactersToBeSkipped:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-			
-			// Now scan symbol and coords, if they exist
-			//record = 
-			[lineScanner scanUpToCharactersFromSet:splitSet intoString:&definition]; 
-			[lineScanner scanString:@"<|>" intoString:NULL]; 
-			[lineScanner scanUpToCharactersFromSet:splitSet intoString:&partOfSpeech]; 
-			[lineScanner scanString:@"<|>" intoString:NULL]; 
-			[lineScanner scanUpToCharactersFromSet:splitSet intoString:&term]; 
-			//NSLog(@"%@ ||| %@ ||| %@", term, partOfSpeech, definition);
-			thisSection = [term substringWithRange:NSMakeRange(0, 1)];
-			if([thisSection compare:@"*"] == 0){
-				//Pesky *
-				thisSection = [term substringWithRange:NSMakeRange(1, 1)];
-			}
-			if( [[thisSection uppercaseString] compare:[section sectionHeader]] != 0){
-				//create new section
-				[sections addObject:section];
-				//[entries release];
-				//entries = ;
-				//[section release];
-				section = [DictionarySection sectionWithHeader:[thisSection uppercaseString] andEntries:[NSMutableArray arrayWithCapacity:20]];
-			}
-			[section addEntry:[DictionaryEntry entryWithName:term type:partOfSpeech andDefinition:definition]];
+		NSString *line = nil;
+		NSScanner *lineScanner = nil;
+		NSString *term = nil;
+		NSString *partOfSpeech = nil;
+		NSString *definition = nil;
+		//NSString *thisSection;
+		if ( ![scanner scanUpToCharactersFromSet:newlineSet intoString:&line] ) {
+			//line = @"";
 		}
-		[sections addObject:section];
-		[self setDictionaryTranslatedContent:sections];
+		[scanner scanString:@"\n" intoString:NULL];
+		lineScanner = [NSScanner scannerWithString:line]; // Create scanner for scanning line content
+		[lineScanner setCharactersToBeSkipped:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		
+		// Now scan symbol and coords, if they exist
+		//record = 
+		[lineScanner scanUpToCharactersFromSet:splitSet intoString:&definition]; 
+		[lineScanner scanString:@"<|>" intoString:NULL]; 
+		[lineScanner scanUpToCharactersFromSet:splitSet intoString:&partOfSpeech]; 
+		[lineScanner scanString:@"<|>" intoString:NULL]; 
+		[lineScanner scanUpToCharactersFromSet:splitSet intoString:&term]; 
+		//NSLog(@"%@ ||| %@ ||| %@", term, partOfSpeech, definition);
+		//thisSection = [term substringWithRange:NSMakeRange(0, 1)];
+		//if([thisSection compare:@"*"] == 0){
+		//	//Pesky *
+		//	thisSection = [term substringWithRange:NSMakeRange(1, 1)];
+		//}
+		//if( [[thisSection uppercaseString] compare:[section sectionHeader]] != 0){
+			//create new section
+			//[sections addObject:section];
+			//[entries release];
+			//entries = ;
+			//[section release];
+			//section = [DictionarySection sectionWithHeader:[thisSection uppercaseString] andEntries:[NSMutableArray arrayWithCapacity:20]];
+		//}
+		[entries addObject:[DictionaryEntry entryWithName:term type:partOfSpeech andDefinition:definition]];
 	}
+	//[sections addObject:section];
+	[self setDictionaryTranslatedContent:entries];
+	
 	dictionaryTranslatedContentIndex = [[NSMutableArray alloc] init];
 	
 	for(int i=0; i <[dictionaryTranslatedContent count]; i++){
-		NSString *uniChar = [[[dictionaryTranslatedContent objectAtIndex:i] sectionHeader] substringWithRange:NSMakeRange(0, 1)];
 		
-		if(![dictionaryTranslatedContentIndex containsObject:uniChar]){
-			[dictionaryTranslatedContentIndex addObject:uniChar];
+		NSString *uniChar = [[[dictionaryTranslatedContent objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 1)];
+		
+		if([uniChar compare:@"*"] == 0){
+			//Pesky *
+			uniChar = [[[dictionaryTranslatedContent objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+		}
+		
+		if(![dictionaryTranslatedContentIndex containsObject:[uniChar uppercaseString]]){
+			[dictionaryTranslatedContentIndex addObject:[uniChar uppercaseString]];
 		}
 		
 	}
+
+
 	
 }
 
 - (void)loadNaviData {
 	//NSURL * url = [NSURL fileURLWithPath:@"NaviDictionary.tsv"];
-	if(!dictionaryContent){
-		NSLog(@"Loading Na'vi");
-		NSString *path = [[NSBundle mainBundle] pathForResource:@"NaviDictionary" ofType:@"tsv"];
-		
-		// Do something with the filename.
-		NSError *error;
-		NSString * fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error ];
-		NSCharacterSet *newlineSet;
-		NSCharacterSet *splitSet;
-		NSScanner *scanner;
-		scanner = [NSScanner scannerWithString:fileContents];
-		[scanner setCharactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
-		newlineSet = [NSCharacterSet characterSetWithCharactersInString:@"\n"];
-		splitSet = [NSCharacterSet characterSetWithCharactersInString:@"<|>"];
-		//NSMutableArray *sections = [NSMutableArray arrayWithCapacity:30];
-		NSMutableArray *sections = [NSMutableArray arrayWithCapacity:30];
-		DictionarySection *section = [DictionarySection sectionWithHeader:@"'" andEntries:[NSMutableArray arrayWithCapacity:20]];
-		while ( ![scanner isAtEnd] ) {
+	
+	NSLog(@"Loading Na'vi");
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"NaviDictionary" ofType:@"tsv"];
+	
+	// Do something with the filename.
+	NSError *error;
+	NSString * fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error ];
+	NSCharacterSet *newlineSet;
+	NSCharacterSet *splitSet;
+	NSScanner *scanner;
+	scanner = [NSScanner scannerWithString:fileContents];
+	[scanner setCharactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
+	newlineSet = [NSCharacterSet characterSetWithCharactersInString:@"\n"];
+	splitSet = [NSCharacterSet characterSetWithCharactersInString:@"<|>"];
+	//NSMutableArray *sections = [NSMutableArray arrayWithCapacity:30];
+	NSMutableArray *entries = [NSMutableArray arrayWithCapacity:150];
+	//DictionarySection *section = [DictionarySection sectionWithHeader:@"'" andEntries:[NSMutableArray arrayWithCapacity:20]];
+	while ( ![scanner isAtEnd] ) {
 
-			NSString *line = nil;
-			NSScanner *lineScanner = nil;
-			NSString *term = nil;
-			NSString *partOfSpeech = nil;
-			NSString *definition = nil;
-			NSString *thisSection;
+		NSString *line = nil;
+		NSScanner *lineScanner = nil;
+		NSString *term = nil;
+		NSString *partOfSpeech = nil;
+		NSString *definition = nil;
+		//NSString *thisSection;
 
-			if ( ![scanner scanUpToCharactersFromSet:newlineSet intoString:&line] ) {
-				//line = @"";
-			}
-			[scanner scanString:@"\n" intoString:NULL];
-			lineScanner = [NSScanner scannerWithString:line]; // Create scanner for scanning line content
-			[lineScanner setCharactersToBeSkipped:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-			
-			// Now scan symbol and coords, if they exist
-			//record = 
-			[lineScanner scanUpToCharactersFromSet:splitSet intoString:&term]; 
-			[lineScanner scanString:@"<|>" intoString:NULL]; 
-			[lineScanner scanUpToCharactersFromSet:splitSet intoString:&partOfSpeech]; 
-			[lineScanner scanString:@"<|>" intoString:NULL]; 
-			[lineScanner scanUpToCharactersFromSet:splitSet intoString:&definition]; 
-			//NSLog(@"%@ ||| %@ ||| %@", term, partOfSpeech, definition);
-			thisSection = [term substringWithRange:NSMakeRange(0, 1)];
-			if([thisSection compare:@"*"] == 0){
-				//Pesky *
-				thisSection = [term substringWithRange:NSMakeRange(1, 1)];
-			}
-			
-			if( [[thisSection uppercaseString] compare:[section sectionHeader]] != 0){
-				//create new section
-				[sections addObject:section];
-				//[entries release];
-				//entries = ;
-				//[section release];
-				section = [DictionarySection sectionWithHeader:[thisSection uppercaseString] andEntries:[NSMutableArray arrayWithCapacity:20]];
-			}
-			[section addEntry:[DictionaryEntry entryWithName:term type:partOfSpeech andDefinition:definition]];
+		if ( ![scanner scanUpToCharactersFromSet:newlineSet intoString:&line] ) {
+			//line = @"";
 		}
-		[sections addObject:section];
+		[scanner scanString:@"\n" intoString:NULL];
+		lineScanner = [NSScanner scannerWithString:line]; // Create scanner for scanning line content
+		[lineScanner setCharactersToBeSkipped:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 		
-		[self setDictionaryContent:sections];
+		// Now scan symbol and coords, if they exist
+		//record = 
+		[lineScanner scanUpToCharactersFromSet:splitSet intoString:&term]; 
+		[lineScanner scanString:@"<|>" intoString:NULL]; 
+		[lineScanner scanUpToCharactersFromSet:splitSet intoString:&partOfSpeech]; 
+		[lineScanner scanString:@"<|>" intoString:NULL]; 
+		[lineScanner scanUpToCharactersFromSet:splitSet intoString:&definition]; 
+		//NSLog(@"%@ ||| %@ ||| %@", term, partOfSpeech, definition);
+		//thisSection = [term substringWithRange:NSMakeRange(0, 1)];
+		//if([thisSection compare:@"*"] == 0){
+			//Pesky *
+		//	thisSection = [term substringWithRange:NSMakeRange(1, 1)];
+		//}
+		
+		//if( [[thisSection uppercaseString] compare:[section sectionHeader]] != 0){
+		//	//create new section
+		//	[entries addObject:section];
+			//[entries release];
+			//entries = ;
+			//[section release];
+		//	section = [DictionarySection sectionWithHeader:[thisSection uppercaseString] andEntries:[NSMutableArray arrayWithCapacity:20]];
+		//}
+		[entries addObject:[DictionaryEntry entryWithName:term type:partOfSpeech andDefinition:definition]];
 	}
+	//[entries addObject:section];
+	
+	[self setDictionaryContent:entries];
+	
 	dictionaryContentIndex = [[NSMutableArray alloc] init];
 	
 	for(int i=0; i <[dictionaryContent count]; i++){
-		NSString *uniChar = [[[dictionaryContent objectAtIndex:i] sectionHeader] substringWithRange:NSMakeRange(0, 1)];
+		NSString *uniChar = [[[dictionaryContent objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 1)];
 		
-		if(![dictionaryContentIndex containsObject:uniChar]){
-			[dictionaryContentIndex addObject:uniChar];
+		if([uniChar compare:@"*"] == 0){
+			//Pesky *
+			uniChar = [[[dictionaryContent objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+		}
+		
+		if(![dictionaryContentIndex containsObject:[uniChar uppercaseString]]){
+			[dictionaryContentIndex addObject:[uniChar uppercaseString]];
 		}
 		
 	}
+	
+	
 }
 
 

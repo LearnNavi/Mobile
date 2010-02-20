@@ -29,7 +29,7 @@
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.2.0</string>
+	<string>0.2.1</string>
 	<key>MMAppID</key>
 	<string>c142bc99fd6aa1eda1a3f17b6d9b09621589dc49</string>
 </dict>
