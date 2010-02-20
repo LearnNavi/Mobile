@@ -109,8 +109,6 @@
 																									  action:nil]];
 		[[self navigationController] setViewControllers:vcs];
 		
-		[self setTableView:englishTableView];
-		
 	} else {
 		[[self navigationItem] setTitle:@"Na'vi > 'ìnglìsì"];
 		NSArray *vcs = [[self navigationController] viewControllers];
@@ -119,8 +117,6 @@
 																									 target:nil
 																									 action:nil]];
 		[[self navigationController] setViewControllers:vcs];
-		
-		[self setTableView:naviTableView];
 		
 	}	
 	[self loadData];
