@@ -17,6 +17,7 @@ while(<NAVIDICTIONARYFILE>)
 	$line =~ s/\$_\{T\}\$//g;
 	$line =~ s/\$<\$//g;
 	$line =~ s/\$>\$//g;
+	$line =~ s/=//g;
 	
 	if (
 	$line =~ /\\(?:word|cww?|lenite|loan|derives)\{(.+?)\}\{(.+?)\}\{(.*?)\}\{(.+?)\}/
@@ -45,6 +46,7 @@ while(<ENGLISHDICTIONARYFILE>)
 	$line =~ s/\$_\{T\}\$//g;
 	$line =~ s/\$<\$//g;
 	$line =~ s/\$>\$//g;
+	$line =~ s/=//g;
 	
 	if (
 		$line =~ /\\(?:word|cww?|lenite|loan|derives)\{(.+?)\}\{(.+?)\}\{(.*?)\}\{(.+?)\}/

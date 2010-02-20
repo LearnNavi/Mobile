@@ -6,6 +6,7 @@
 //  Copyright 2010 LearnNa'vi.org Community. All rights reserved.
 //
 
+#import "ResourcesViewController.h"
 #import "DictionaryTableViewController.h"
 #import "AppViewController.h"
 #import "FlurryAPI.h"
@@ -15,7 +16,7 @@
 
 @synthesize navController;
 @synthesize betaText;
-@synthesize dictionaryTableViewController;
+@synthesize dictionaryTableViewController, resources;
 
 - (NSString *)bundleVersionNumber {
 	return [[[NSBundle mainBundle] infoDictionary]
@@ -103,6 +104,18 @@
 	
 	NSLog(@"Start the Practice");
 	
+}
+
+- (IBAction) launchResources:(id)sender {
+	
+	[FlurryAPI logEvent:@"Resources_Selected"];
+	
+	if([self resources] == nil) {
+		resources = [[ResourcesViewController alloc] initWithNibName:@"ResourcesViewController" bundle:[NSBundle mainBundle]];
+		
+	}
+	
+	[[self navController] pushViewController:resources animated:YES];
 }
 
 

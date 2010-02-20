@@ -13,10 +13,11 @@
 	NSString *entryName;
 	NSString *definition;
 	NSString *type;
+	NSString *fancyType;
 }
 
-@property (nonatomic, copy) NSString *entryName, *definition, *type;
+@property (nonatomic, copy) NSString *entryName, *definition, *type, *fancyType;
 
-+ (id)entryWithName:(NSString *)entryName type:(NSString *)type andDefinition:(NSString *)definition;
++ (id)entryWithName:(NSString *)entryName type:(NSString *)type definition:(NSString *)definition andFancyType:(NSString *)fancyType;
 
 @end

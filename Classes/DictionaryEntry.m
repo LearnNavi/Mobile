@@ -11,13 +11,14 @@
 
 @implementation DictionaryEntry
 
-@synthesize entryName, definition, type;
+@synthesize entryName, definition, type, fancyType;
 
-+ (id)entryWithName:(NSString *)entryName type:(NSString *)type andDefinition:(NSString *)definition {
++ (id)entryWithName:(NSString *)entryName type:(NSString *)type definition:(NSString *)definition andFancyType:(NSString *)fancyType {
 	DictionaryEntry *newEntry = [[[self alloc] init] autorelease];
 	newEntry.entryName = entryName;
 	newEntry.type = type;
 	newEntry.definition = definition;
+	newEntry.fancyType = fancyType;
 	return newEntry;
 }
 

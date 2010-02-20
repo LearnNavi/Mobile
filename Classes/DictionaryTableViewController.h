@@ -13,11 +13,41 @@
 	NSArray *dictionaryContent;
 	NSMutableArray *dictionaryContentIndex;
 	
+	NSArray *dictionaryContentNouns;
+	NSMutableArray *dictionaryContentNounsIndex;
+	
+	NSArray *dictionaryContentVerbs;
+	NSMutableArray *dictionaryContentVerbsIndex;
+	
+	NSArray *dictionaryContentAdjectives;
+	NSMutableArray *dictionaryContentAdjectivesIndex;
+	
+	NSArray *dictionaryContentAdverbs;
+	NSMutableArray *dictionaryContentAdverbsIndex;
+	
+	NSArray *dictionaryContentProNouns;
+	NSMutableArray *dictionaryContentProNounsIndex;
+	
 	NSArray *dictionaryTranslatedContent;
 	NSMutableArray *dictionaryTranslatedContentIndex;
 	
+	NSArray *dictionaryTranslatedContentNouns;
+	NSMutableArray *dictionaryTranslatedContentNounsIndex;
+	
+	NSArray *dictionaryTranslatedContentVerbs;
+	NSMutableArray *dictionaryTranslatedContentVerbsIndex;
+	
+	NSArray *dictionaryTranslatedContentAdjectives;
+	NSMutableArray *dictionaryTranslatedContentAdjectivesIndex;
+	
+	NSArray *dictionaryTranslatedContentAdverbs;
+	NSMutableArray *dictionaryTranslatedContentAdverbsIndex;
+	
+	NSArray *dictionaryTranslatedContentProNouns;
+	NSMutableArray *dictionaryTranslatedContentProNounsIndex;
+	
 	NSArray *dictionaryActiveContent;
-	NSArray *dictionaryActiveContentIndex;
+	NSMutableArray *dictionaryActiveContentIndex;
 	
 	NSMutableArray *filteredDictionaryContent;
 	NSString *savedSearchTerm;
@@ -27,10 +57,14 @@
 	UISegmentedControl *segmentedControl;
 	NSMutableArray *listOfItems;
 	BOOL currentMode;	//YES: Na'vi to English, NO: English to Na'vi
+	BOOL cellSizeChanged;
 }
 
-@property (nonatomic, retain) NSArray *dictionaryContent, *dictionaryTranslatedContent, *dictionaryActiveContent, *dictionaryActiveContentIndex;
-@property (nonatomic, retain) NSMutableArray *filteredDictionaryContent;
+@property (nonatomic, retain) NSArray *dictionaryContent, *dictionaryTranslatedContent, *dictionaryActiveContent, *dictionaryTranslatedContentAdverbs;
+@property (nonatomic, retain) NSArray *dictionaryTranslatedContentNouns, *dictionaryTranslatedContentVerbs, *dictionaryContentAdverbs;
+@property (nonatomic, retain) NSArray *dictionaryTranslatedContentProNouns, *dictionaryTranslatedContentAdjectives;
+@property (nonatomic, retain) NSArray *dictionaryContentNouns, *dictionaryContentProNouns, *dictionaryContentAdjectives, *dictionaryContentVerbs;
+@property (nonatomic, retain) NSMutableArray *filteredDictionaryContent, *dictionaryActiveContentIndex;
 @property (nonatomic, retain) UIViewController *viewController;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
 
@@ -44,8 +78,11 @@
 - (void)loadNaviData;
 
 - (void) addViewController:(UIViewController *)controller;
+- (UITableViewCell *) getCellContentView:(NSString *)cellIdentifier;
 
 - (IBAction) swapDictionaryMode:(id)sender;
+
+- (IBAction) filterDictionary:(id)sender;
 
 
 @end

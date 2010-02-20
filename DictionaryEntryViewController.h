@@ -12,11 +12,14 @@
 @interface DictionaryEntryViewController : UIViewController {
 	UISegmentedControl *segmentedControl;
 	DictionaryEntry *entry;
-	UILabel *definition;
+	UILabel *fancyType;
+	UILabel *term;
+	UITextView *definition;
 }
 
 @property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
-@property (nonatomic, retain) IBOutlet UILabel *definition;
+@property (nonatomic, retain) IBOutlet UILabel *fancyType, *term;
+@property (nonatomic, retain) IBOutlet UITextView *definition;
 @property (nonatomic, retain) DictionaryEntry *entry;
 
 - (IBAction)playAudioFile:(id)sender;
