@@ -58,6 +58,11 @@
 		0427A203112FF0A500307E3F /* disclaimerButton_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0427A1FD112FF0A500307E3F /* disclaimerButton_highlighted.png */; };
 		0427A204112FF0A500307E3F /* disclaimerButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0427A1FE112FF0A500307E3F /* disclaimerButton.png */; };
 		0427A205112FF0A500307E3F /* disclaimerButton.psd in Resources */ = {isa = PBXBuildFile; fileRef = 0427A1FF112FF0A500307E3F /* disclaimerButton.psd */; };
+		0427A97F1134ED1A00307E3F /* naviLanguage_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0427A97C1134ED1A00307E3F /* naviLanguage_highlighted.png */; };
+		0427A9801134ED1A00307E3F /* naviLanguage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0427A97D1134ED1A00307E3F /* naviLanguage.png */; };
+		0427A9811134ED1A00307E3F /* naviLanguage.psd in Resources */ = {isa = PBXBuildFile; fileRef = 0427A97E1134ED1A00307E3F /* naviLanguage.psd */; };
+		0427A9881134EE1E00307E3F /* languageGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427A9861134EE1E00307E3F /* languageGuideViewController.m */; };
+		0427A9891134EE1E00307E3F /* languageGuideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0427A9871134EE1E00307E3F /* languageGuideViewController.xib */; };
 		0443E7C611069B8000CEAB58 /* DictionaryEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 0443E7C511069B8000CEAB58 /* DictionaryEntry.m */; };
 		0443E8661107D9D000CEAB58 /* AppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0443E8641107D9D000CEAB58 /* AppViewController.m */; };
 		0443E8671107D9D000CEAB58 /* AppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0443E8651107D9D000CEAB58 /* AppViewController.xib */; };
@@ -143,6 +148,12 @@
 		0427A1FD112FF0A500307E3F /* disclaimerButton_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disclaimerButton_highlighted.png; sourceTree = "<group>"; };
 		0427A1FE112FF0A500307E3F /* disclaimerButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disclaimerButton.png; sourceTree = "<group>"; };
 		0427A1FF112FF0A500307E3F /* disclaimerButton.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = disclaimerButton.psd; sourceTree = "<group>"; };
+		0427A97C1134ED1A00307E3F /* naviLanguage_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = naviLanguage_highlighted.png; sourceTree = "<group>"; };
+		0427A97D1134ED1A00307E3F /* naviLanguage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = naviLanguage.png; sourceTree = "<group>"; };
+		0427A97E1134ED1A00307E3F /* naviLanguage.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = naviLanguage.psd; sourceTree = "<group>"; };
+		0427A9851134EE1E00307E3F /* languageGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = languageGuideViewController.h; sourceTree = "<group>"; };
+		0427A9861134EE1E00307E3F /* languageGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = languageGuideViewController.m; sourceTree = "<group>"; };
+		0427A9871134EE1E00307E3F /* languageGuideViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = languageGuideViewController.xib; sourceTree = "<group>"; };
 		0443E7C411069B8000CEAB58 /* DictionaryEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryEntry.h; sourceTree = "<group>"; };
 		0443E7C511069B8000CEAB58 /* DictionaryEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryEntry.m; sourceTree = "<group>"; };
 		0443E8631107D9D000CEAB58 /* AppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppViewController.h; path = Classes/AppViewController.h; sourceTree = "<group>"; };
@@ -178,7 +189,7 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Learn_Navi_iPhone_AppAppDelegate.h; path = Classes/Learn_Navi_iPhone_AppAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Learn_Navi_iPhone_AppAppDelegate.m; path = Classes/Learn_Navi_iPhone_AppAppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* LearnNaviiPhoneApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnNaviiPhoneApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* Learn Navi iPhone App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Learn Navi iPhone App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AAE50D9B0CCF005BE974 /* Learn_Navi_iPhone_App_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Learn_Navi_iPhone_App_Prefix.pch; sourceTree = "<group>"; };
@@ -221,6 +232,8 @@
 				0427A169112FE06500307E3F /* ResourcesViewController.m */,
 				0427A1CD112FEC9600307E3F /* AboutDisclaimerViewController.h */,
 				0427A1CE112FEC9600307E3F /* AboutDisclaimerViewController.m */,
+				0427A9851134EE1E00307E3F /* languageGuideViewController.h */,
+				0427A9861134EE1E00307E3F /* languageGuideViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -259,7 +272,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* LearnNaviiPhoneApp.app */,
+				1D6058910D05DD3D006BFB54 /* Learn Navi iPhone App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -296,6 +309,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0427A9871134EE1E00307E3F /* languageGuideViewController.xib */,
+				0427A97C1134ED1A00307E3F /* naviLanguage_highlighted.png */,
+				0427A97D1134ED1A00307E3F /* naviLanguage.png */,
+				0427A97E1134ED1A00307E3F /* naviLanguage.psd */,
 				0427A1FA112FF0A500307E3F /* aboutButton_highlighted.png */,
 				0427A1FB112FF0A500307E3F /* aboutButton.png */,
 				0427A1FC112FF0A500307E3F /* aboutButton.psd */,
@@ -379,7 +396,7 @@
 			);
 			name = "Learn Navi iPhone App";
 			productName = "Learn Navi iPhone App";
-			productReference = 1D6058910D05DD3D006BFB54 /* LearnNaviiPhoneApp.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* Learn Navi iPhone App.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -464,6 +481,10 @@
 				0427A203112FF0A500307E3F /* disclaimerButton_highlighted.png in Resources */,
 				0427A204112FF0A500307E3F /* disclaimerButton.png in Resources */,
 				0427A205112FF0A500307E3F /* disclaimerButton.psd in Resources */,
+				0427A97F1134ED1A00307E3F /* naviLanguage_highlighted.png in Resources */,
+				0427A9801134ED1A00307E3F /* naviLanguage.png in Resources */,
+				0427A9811134ED1A00307E3F /* naviLanguage.psd in Resources */,
+				0427A9891134EE1E00307E3F /* languageGuideViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +548,7 @@
 				0443EFBC110D11B600CEAB58 /* DictionaryEntryViewController.m in Sources */,
 				0427A16B112FE06500307E3F /* ResourcesViewController.m in Sources */,
 				0427A1D0112FEC9600307E3F /* AboutDisclaimerViewController.m in Sources */,
+				0427A9881134EE1E00307E3F /* languageGuideViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

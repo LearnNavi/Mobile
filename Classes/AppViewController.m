@@ -8,6 +8,7 @@
 
 #import "ResourcesViewController.h"
 #import "DictionaryTableViewController.h"
+#import "languageGuideViewController.h"
 #import "AppViewController.h"
 #import "FlurryAPI.h"
 
@@ -16,7 +17,7 @@
 
 @synthesize navController;
 @synthesize betaText;
-@synthesize dictionaryTableViewController, resources;
+@synthesize dictionaryTableViewController, resources, languageGuideController;
 
 - (NSString *)bundleVersionNumber {
 	return [[[NSBundle mainBundle] infoDictionary]
@@ -103,6 +104,19 @@
 	[FlurryAPI logEvent:@"Practice_Selected"];
 	
 	NSLog(@"Start the Practice");
+	
+}
+
+- (IBAction) launchNaviLanguage:(id)sender {
+	
+	[FlurryAPI logEvent:@"Language_Guide_Selected"];
+	
+	if([self languageGuideController] == nil) {
+		languageGuideController = [[languageGuideViewController alloc] initWithNibName:@"languageGuideViewController" bundle:[NSBundle mainBundle]];
+		
+	}
+	
+	[[self navController] pushViewController:languageGuideController animated:YES];
 	
 }
 

@@ -55,7 +55,7 @@
     
 	[super viewDidLoad];
 	
-	UIBarButtonItem *flexibleSpaceButtonItem = [[UIBarButtonItem alloc]
+	/*UIBarButtonItem *flexibleSpaceButtonItem = [[UIBarButtonItem alloc]
 												initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
 												target:nil action:nil];
 	
@@ -63,6 +63,7 @@
 	//self.navigationItem.rightBarButtonItem = addButton;
 	//[self.navigationItem.rightBarButtonItem ];
 	//[addButton release];
+	
 	
 	UIBarButtonItem *segmentBarItem = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
 	//[segmentedControl release];
@@ -73,8 +74,10 @@
 							segmentBarItem,
 							nil] animated:YES];
 	//self.toolbarItems ;
+	 
 	[segmentBarItem release];
 	[flexibleSpaceButtonItem release];
+	 */
 	
 }
 
