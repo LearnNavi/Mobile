@@ -323,13 +323,13 @@
 			predicate = [NSPredicate predicateWithFormat:@"SELF.entryName beginswith[c] %@", alphabet];
 		} else if(([alphabet compare:@"K"] == 0) || ([alphabet compare:@"P"] == 0) || ([alphabet compare:@"T"] == 0)){
 			
-			predicate = [NSPredicate predicateWithFormat:@"(SELF.entryName beginswith[c] %@) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"%@x",alphabet]];
+			predicate = [NSPredicate predicateWithFormat:@"((SELF.entryName beginswith[c] %@) OR (SELF.entryName beginswith[c] %@)) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"--%@",alphabet], [NSString stringWithFormat:@"%@x",alphabet]];
 		} else if([alphabet compare:@"N"] == 0){
-		
-			predicate = [NSPredicate predicateWithFormat:@"(SELF.entryName beginswith[c] %@) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"%@g",alphabet]];
+			
+			predicate = [NSPredicate predicateWithFormat:@"((SELF.entryName beginswith[c] %@) OR (SELF.entryName beginswith[c] %@)) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"--%@",alphabet], [NSString stringWithFormat:@"%@g",alphabet]];
 		} else {
 			
-			predicate = [NSPredicate predicateWithFormat:@"SELF.entryName beginswith[c] %@", alphabet];
+			predicate = [NSPredicate predicateWithFormat:@"(SELF.entryName beginswith[c] %@) OR (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"--%@",alphabet]];
 		}
 		
 		NSArray *entries = [dictionaryActiveContent filteredArrayUsingPredicate:predicate];
@@ -403,13 +403,13 @@
 			predicate = [NSPredicate predicateWithFormat:@"SELF.entryName beginswith[c] %@", alphabet];
 		} else if(([alphabet compare:@"K"] == 0) || ([alphabet compare:@"P"] == 0) || ([alphabet compare:@"T"] == 0)){
 			
-			predicate = [NSPredicate predicateWithFormat:@"(SELF.entryName beginswith[c] %@) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"%@x",alphabet]];
+			predicate = [NSPredicate predicateWithFormat:@"((SELF.entryName beginswith[c] %@) OR (SELF.entryName beginswith[c] %@)) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"--%@",alphabet], [NSString stringWithFormat:@"%@x",alphabet]];
 		} else if([alphabet compare:@"N"] == 0){
-		
-			predicate = [NSPredicate predicateWithFormat:@"(SELF.entryName beginswith[c] %@) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"%@g",alphabet]];
+			
+			predicate = [NSPredicate predicateWithFormat:@"((SELF.entryName beginswith[c] %@) OR (SELF.entryName beginswith[c] %@)) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"--%@",alphabet], [NSString stringWithFormat:@"%@g",alphabet]];
 		} else {
 			
-			predicate = [NSPredicate predicateWithFormat:@"SELF.entryName beginswith[c] %@", alphabet];
+			predicate = [NSPredicate predicateWithFormat:@"(SELF.entryName beginswith[c] %@) OR (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"--%@",alphabet]];
 		}
 		
 		NSArray *entries = [dictionaryActiveContent filteredArrayUsingPredicate:predicate];
@@ -496,13 +496,13 @@
 			predicate = [NSPredicate predicateWithFormat:@"SELF.entryName beginswith[c] %@", alphabet];
 		} else if(([alphabet compare:@"K"] == 0) || ([alphabet compare:@"P"] == 0) || ([alphabet compare:@"T"] == 0)){
 			
-			predicate = [NSPredicate predicateWithFormat:@"(SELF.entryName beginswith[c] %@) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"%@x",alphabet]];
+			predicate = [NSPredicate predicateWithFormat:@"((SELF.entryName beginswith[c] %@) OR (SELF.entryName beginswith[c] %@)) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"--%@",alphabet], [NSString stringWithFormat:@"%@x",alphabet]];
 		} else if([alphabet compare:@"N"] == 0){
 		
-			predicate = [NSPredicate predicateWithFormat:@"(SELF.entryName beginswith[c] %@) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"%@g",alphabet]];
+			predicate = [NSPredicate predicateWithFormat:@"((SELF.entryName beginswith[c] %@) OR (SELF.entryName beginswith[c] %@)) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"--%@",alphabet], [NSString stringWithFormat:@"%@g",alphabet]];
 		} else {
 			
-			predicate = [NSPredicate predicateWithFormat:@"SELF.entryName beginswith[c] %@", alphabet];
+			predicate = [NSPredicate predicateWithFormat:@"(SELF.entryName beginswith[c] %@) OR (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"--%@",alphabet]];
 		}
 		NSArray *entries = [dictionaryActiveContent filteredArrayUsingPredicate:predicate];
 		
@@ -622,7 +622,7 @@
 	//NSURL * url = [NSURL fileURLWithPath:@"NaviDictionary.tsv"];
 	
 	NSLog(@"Loading English");
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"NaviEnglish" ofType:@"tsv"];
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"NaviDictionary" ofType:@"csv"];
 	
 	// Do something with the filename.
 	NSError *error;
@@ -633,7 +633,7 @@
 	scanner = [NSScanner scannerWithString:fileContents];
 	[scanner setCharactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
 	newlineSet = [NSCharacterSet characterSetWithCharactersInString:@"\n"];
-	splitSet = [NSCharacterSet characterSetWithCharactersInString:@"<|>"];
+	splitSet = [NSCharacterSet characterSetWithCharactersInString:@";"];
 	NSMutableArray *entries = [NSMutableArray arrayWithCapacity:150];
 	NSMutableArray *entriesN = [NSMutableArray arrayWithCapacity:150];
 	NSMutableArray *entriesPN = [NSMutableArray arrayWithCapacity:150];
@@ -660,10 +660,10 @@
 		// Now scan symbol and coords, if they exist
 		//record = 
 		[lineScanner scanUpToCharactersFromSet:splitSet intoString:&definition]; 
-		[lineScanner scanString:@"<|>" intoString:NULL]; 
-		[lineScanner scanUpToCharactersFromSet:splitSet intoString:&partOfSpeech]; 
-		[lineScanner scanString:@"<|>" intoString:NULL]; 
+		[lineScanner scanString:@";" intoString:NULL]; 
 		[lineScanner scanUpToCharactersFromSet:splitSet intoString:&term]; 
+		[lineScanner scanString:@";" intoString:NULL]; 
+		[lineScanner scanUpToCharactersFromSet:splitSet intoString:&partOfSpeech]; 
 		//NSLog(@"%@ - %@", term, partOfSpeech);
 		//thisSection = [term substringWithRange:NSMakeRange(0, 1)];
 		//if([thisSection compare:@"*"] == 0){
@@ -756,6 +756,36 @@
 			
 		} else if([partOfSpeech compare:@"adj., pn."] == 0){
 			fancyType = @"Adjective, Pronoun";
+			
+		} else if([partOfSpeech compare:@"n.,adj."] == 0){
+			fancyType = @"Adjective, Noun";
+			
+		} else if([partOfSpeech compare:@"pn.,adj."] == 0){
+			fancyType = @"Adjective, Pronoun";
+			
+		} else if([partOfSpeech compare:@"root"] == 0){
+			fancyType = @"Root";
+			
+		} else if([partOfSpeech compare:@"prefix"] == 0){
+			fancyType = @"Prefix";
+			
+		} else if([partOfSpeech compare:@"pn., adv."] == 0){
+			fancyType = @"Adverb, Pronoun";
+			
+		} else if([partOfSpeech compare:@"n., adv."] == 0){
+			fancyType = @"Noun, Adverb";
+			
+		} else if([partOfSpeech compare:@"adj., n."] == 0){
+			fancyType = @"Adjective, Noun";
+			
+		} else if([partOfSpeech compare:@"adv., intj."] == 0){
+			fancyType = @"Adverb, Interjection";
+			
+		} else if([partOfSpeech compare:@"v., intj."] == 0){
+			fancyType = @"Verb, Interjection";
+			
+		} else if([partOfSpeech compare:@"dem.,pn."] == 0){
+			fancyType = @"Demonstrative, Pronoun";
 			
 		} else {
 			NSLog(@"Unknown: %@ - %@", partOfSpeech, term);
@@ -946,8 +976,7 @@
 	//NSURL * url = [NSURL fileURLWithPath:@"NaviDictionary.tsv"];
 	
 	NSLog(@"Loading Na'vi");
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"NaviDictionary" ofType:@"tsv"];
-	
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"NaviDictionary" ofType:@"csv"];
 	// Do something with the filename.
 	NSError *error;
 	NSString * fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error ];
@@ -957,7 +986,7 @@
 	scanner = [NSScanner scannerWithString:fileContents];
 	[scanner setCharactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
 	newlineSet = [NSCharacterSet characterSetWithCharactersInString:@"\n"];
-	splitSet = [NSCharacterSet characterSetWithCharactersInString:@"<|>"];
+	splitSet = [NSCharacterSet characterSetWithCharactersInString:@";"];
 	//NSMutableArray *sections = [NSMutableArray arrayWithCapacity:30];
 	NSMutableArray *entries = [NSMutableArray arrayWithCapacity:150];
 	NSMutableArray *entriesN = [NSMutableArray arrayWithCapacity:150];
@@ -985,10 +1014,11 @@
 		// Now scan symbol and coords, if they exist
 		//record = 
 		[lineScanner scanUpToCharactersFromSet:splitSet intoString:&term]; 
-		[lineScanner scanString:@"<|>" intoString:NULL]; 
+		[lineScanner scanString:@";" intoString:NULL]; 
+		[lineScanner scanUpToCharactersFromSet:splitSet intoString:&definition];
+		[lineScanner scanString:@";" intoString:NULL]; 
 		[lineScanner scanUpToCharactersFromSet:splitSet intoString:&partOfSpeech]; 
-		[lineScanner scanString:@"<|>" intoString:NULL]; 
-		[lineScanner scanUpToCharactersFromSet:splitSet intoString:&definition]; 
+		 
 		//NSLog(@"%@ ||| %@ ||| %@", term, partOfSpeech, definition);
 		//NSLog(@"%@ - %@", term, partOfSpeech);
 		//thisSection = [term substringWithRange:NSMakeRange(0, 1)];
@@ -1087,6 +1117,36 @@
 		} else if([partOfSpeech compare:@"adj., pn."] == 0){
 			fancyType = @"Adjective, Pronoun";
 			
+		} else if([partOfSpeech compare:@"n.,adj."] == 0){
+			fancyType = @"Adjective, Noun";
+			
+		} else if([partOfSpeech compare:@"pn.,adj."] == 0){
+			fancyType = @"Adjective, Pronoun";
+			
+		} else if([partOfSpeech compare:@"root"] == 0){
+			fancyType = @"Root";
+			
+		} else if([partOfSpeech compare:@"prefix"] == 0){
+			fancyType = @"Prefix";
+			
+		} else if([partOfSpeech compare:@"pn., adv."] == 0){
+			fancyType = @"Adverb, Pronoun";
+			
+		} else if([partOfSpeech compare:@"n., adv."] == 0){
+			fancyType = @"Noun, Adverb";
+			
+		} else if([partOfSpeech compare:@"adj., n."] == 0){
+			fancyType = @"Adjective, Noun";
+			
+		} else if([partOfSpeech compare:@"adv., intj."] == 0){
+			fancyType = @"Adverb, Interjection";
+			
+		} else if([partOfSpeech compare:@"v., intj."] == 0){
+			fancyType = @"Verb, Interjection";
+			
+		} else if([partOfSpeech compare:@"dem.,pn."] == 0){
+			fancyType = @"Demonstrative, Pronoun";
+			
 		} else {
 			NSLog(@"Unknown: %@ - %@", partOfSpeech, term);
 			fancyType = partOfSpeech;
@@ -1151,6 +1211,9 @@
 		if([uniChar compare:@"*"] == 0){
 			//Pesky *
 			uniChar = uniChar2;
+		} else if([uniChar compare:@"-"] == 0){
+			//Pesky *
+			uniChar = [[[dictionaryContentProNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(2, 1)];
 		} else if((([uniChar compare:@"p"] == 0 || [uniChar compare:@"k"] == 0 || [uniChar compare:@"t"] == 0) && ([uniChar2 compare:@"x"] == 0)) || ([uniChar compare:@"n"] == 0) && ([uniChar2 compare:@"g"] == 0) ){
 			//Pesky *
 			uniChar = [[[dictionaryContentProNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 2)];
@@ -1172,6 +1235,9 @@
 		if([uniChar compare:@"*"] == 0){
 			//Pesky *
 			uniChar = uniChar2;
+		} else if([uniChar compare:@"-"] == 0){
+			//Pesky *
+			uniChar = [[[dictionaryContentNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(2, 1)];
 		} else if((([uniChar compare:@"p"] == 0 || [uniChar compare:@"k"] == 0 || [uniChar compare:@"t"] == 0) && ([uniChar2 compare:@"x"] == 0)) || ([uniChar compare:@"n"] == 0) && ([uniChar2 compare:@"g"] == 0) ){
 			//Pesky *
 			uniChar = [[[dictionaryContentNouns objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 2)];
@@ -1193,6 +1259,9 @@
 		if([uniChar compare:@"*"] == 0){
 			//Pesky *
 			uniChar = [[[dictionaryContentVerbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(1, 1)];
+		} else if([uniChar compare:@"-"] == 0){
+			//Pesky *
+			uniChar = [[[dictionaryContentVerbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(2, 1)];
 		} else if((([uniChar compare:@"p"] == 0 || [uniChar compare:@"k"] == 0 || [uniChar compare:@"t"] == 0) && ([uniChar2 compare:@"x"] == 0)) || ([uniChar compare:@"n"] == 0) && ([uniChar2 compare:@"g"] == 0) ){
 			//Pesky *
 			uniChar = [[[dictionaryContentVerbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 2)];
@@ -1214,6 +1283,9 @@
 		if([uniChar compare:@"*"] == 0){
 			//Pesky *
 			uniChar = uniChar2;
+		} else if([uniChar compare:@"-"] == 0){
+			//Pesky *
+			uniChar = [[[dictionaryContentAdjectives objectAtIndex:i] entryName] substringWithRange:NSMakeRange(2, 1)];
 		} else if((([uniChar compare:@"p"] == 0 || [uniChar compare:@"k"] == 0 || [uniChar compare:@"t"] == 0) && ([uniChar2 compare:@"x"] == 0)) || ([uniChar compare:@"n"] == 0) && ([uniChar2 compare:@"g"] == 0) ){
 			//Pesky *
 			uniChar = [[[dictionaryContentAdjectives objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 2)];
@@ -1235,6 +1307,9 @@
 		if([uniChar compare:@"*"] == 0){
 			//Pesky *
 			uniChar = uniChar2;
+		} else if([uniChar compare:@"-"] == 0){
+			//Pesky *
+			uniChar = [[[dictionaryContent objectAtIndex:i] entryName] substringWithRange:NSMakeRange(2, 1)];
 		} else if((([uniChar compare:@"p"] == 0 || [uniChar compare:@"k"] == 0 || [uniChar compare:@"t"] == 0) && ([uniChar2 compare:@"x"] == 0)) || ([uniChar compare:@"n"] == 0) && ([uniChar2 compare:@"g"] == 0) ){
 			//Pesky *
 			uniChar = [[[dictionaryContent objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 2)];
@@ -1256,6 +1331,9 @@
 		if([uniChar compare:@"*"] == 0){
 			//Pesky *
 			uniChar = uniChar2;
+		} else if([uniChar compare:@"-"] == 0){
+			//Pesky *
+			uniChar = [[[dictionaryContentAdverbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(2, 1)];
 		} else if((([uniChar compare:@"p"] == 0 || [uniChar compare:@"k"] == 0 || [uniChar compare:@"t"] == 0) && ([uniChar2 compare:@"x"] == 0)) || ([uniChar compare:@"n"] == 0) && ([uniChar2 compare:@"g"] == 0) ){
 			//Pesky *
 			uniChar = [[[dictionaryContentAdverbs objectAtIndex:i] entryName] substringWithRange:NSMakeRange(0, 2)];

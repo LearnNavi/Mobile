@@ -33,7 +33,7 @@
 		041A67511103855B0009CEC2 /* practiceButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 041A674E1103855B0009CEC2 /* practiceButton.png */; };
 		041A67521103855B0009CEC2 /* practiceButton.psd in Resources */ = {isa = PBXBuildFile; fileRef = 041A674F1103855B0009CEC2 /* practiceButton.psd */; };
 		042798BE112A501B00307E3F /* NaviEnglish.tsv in Resources */ = {isa = PBXBuildFile; fileRef = 042798BD112A501B00307E3F /* NaviEnglish.tsv */; };
-		042798C2112A503700307E3F /* NaviDictionary.tsv in Resources */ = {isa = PBXBuildFile; fileRef = 042798C1112A503700307E3F /* NaviDictionary.tsv */; };
+		042798C2112A503700307E3F /* NaviDictionary.csv in Resources */ = {isa = PBXBuildFile; fileRef = 042798C1112A503700307E3F /* NaviDictionary.csv */; };
 		0427A15E112FDF2000307E3F /* resourcesButton_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0427A15B112FDF2000307E3F /* resourcesButton_highlighted.png */; };
 		0427A15F112FDF2000307E3F /* resourcesButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0427A15C112FDF2000307E3F /* resourcesButton.png */; };
 		0427A160112FDF2000307E3F /* resourcesButton.psd in Resources */ = {isa = PBXBuildFile; fileRef = 0427A15D112FDF2000307E3F /* resourcesButton.psd */; };
@@ -121,7 +121,7 @@
 		041A674E1103855B0009CEC2 /* practiceButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = practiceButton.png; sourceTree = "<group>"; };
 		041A674F1103855B0009CEC2 /* practiceButton.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = practiceButton.psd; sourceTree = "<group>"; };
 		042798BD112A501B00307E3F /* NaviEnglish.tsv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NaviEnglish.tsv; sourceTree = "<group>"; };
-		042798C1112A503700307E3F /* NaviDictionary.tsv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NaviDictionary.tsv; sourceTree = "<group>"; };
+		042798C1112A503700307E3F /* NaviDictionary.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NaviDictionary.csv; sourceTree = "<group>"; };
 		0427A15B112FDF2000307E3F /* resourcesButton_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resourcesButton_highlighted.png; sourceTree = "<group>"; };
 		0427A15C112FDF2000307E3F /* resourcesButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resourcesButton.png; sourceTree = "<group>"; };
 		0427A15D112FDF2000307E3F /* resourcesButton.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = resourcesButton.psd; sourceTree = "<group>"; };
@@ -189,7 +189,7 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Learn_Navi_iPhone_AppAppDelegate.h; path = Classes/Learn_Navi_iPhone_AppAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Learn_Navi_iPhone_AppAppDelegate.m; path = Classes/Learn_Navi_iPhone_AppAppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* Learn Navi iPhone App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Learn Navi iPhone App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* LearnNaviiPhoneApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnNaviiPhoneApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AAE50D9B0CCF005BE974 /* Learn_Navi_iPhone_App_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Learn_Navi_iPhone_App_Prefix.pch; sourceTree = "<group>"; };
@@ -272,7 +272,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* Learn Navi iPhone App.app */,
+				1D6058910D05DD3D006BFB54 /* LearnNaviiPhoneApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -293,7 +293,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				042798C1112A503700307E3F /* NaviDictionary.tsv */,
+				042798C1112A503700307E3F /* NaviDictionary.csv */,
 				042798BD112A501B00307E3F /* NaviEnglish.tsv */,
 				0495B0A011130B9B002B7BCA /* NaviEnglish.tex */,
 				0443F54A110F769600CEAB58 /* NaviDictionary.tex */,
@@ -396,7 +396,7 @@
 			);
 			name = "Learn Navi iPhone App";
 			productName = "Learn Navi iPhone App";
-			productReference = 1D6058910D05DD3D006BFB54 /* Learn Navi iPhone App.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* LearnNaviiPhoneApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -458,7 +458,7 @@
 				0443F54B110F769600CEAB58 /* NaviDictionary.tex in Resources */,
 				0495B0A111130B9B002B7BCA /* NaviEnglish.tex in Resources */,
 				042798BE112A501B00307E3F /* NaviEnglish.tsv in Resources */,
-				042798C2112A503700307E3F /* NaviDictionary.tsv in Resources */,
+				042798C2112A503700307E3F /* NaviDictionary.csv in Resources */,
 				0427A15E112FDF2000307E3F /* resourcesButton_highlighted.png in Resources */,
 				0427A15F112FDF2000307E3F /* resourcesButton.png in Resources */,
 				0427A160112FDF2000307E3F /* resourcesButton.psd in Resources */,
@@ -673,7 +673,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Gillogly";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -681,7 +681,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
 				PRODUCT_NAME = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A7F9D311-955B-4792-958A-F3C1E862DC93";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos3.0;
 			};
 			name = Debug;

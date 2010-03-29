@@ -56,6 +56,7 @@
 		[UIView commitAnimations];
 		shouldAnimate = NO;
 	} else {
+		
 		[super viewWillAppear:animated];
 	}
 }
