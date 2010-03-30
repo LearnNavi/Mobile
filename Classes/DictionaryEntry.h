@@ -19,5 +19,5 @@
 @property (nonatomic, copy) NSString *entryName, *definition, *type, *fancyType;
 
 + (id)entryWithName:(NSString *)entryName type:(NSString *)type definition:(NSString *)definition andFancyType:(NSString *)fancyType;
-
+int stringSort( id obj1, id obj2, void *context);
 @end

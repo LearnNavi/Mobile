@@ -29,4 +29,11 @@
 	[super dealloc];
 }
 
+int stringSort( id obj1, id obj2, void *context){
+	NSString *entry1 = [(DictionaryEntry *)obj1 entryName];
+	NSString *entry2 = [(DictionaryEntry *)obj2 entryName];
+	
+	return [entry1 compare:entry2 options:NSCaseInsensitiveSearch];
+	
+}
 @end

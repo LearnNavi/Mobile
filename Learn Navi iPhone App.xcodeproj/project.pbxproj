@@ -502,7 +502,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "perl texParser.pl";
+			shellScript = "#perl texParser.pl";
 		};
 		044FAA6B111267E3004E58A6 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

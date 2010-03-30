@@ -323,13 +323,13 @@
 			predicate = [NSPredicate predicateWithFormat:@"SELF.entryName beginswith[c] %@", alphabet];
 		} else if(([alphabet compare:@"K"] == 0) || ([alphabet compare:@"P"] == 0) || ([alphabet compare:@"T"] == 0)){
 			
-			predicate = [NSPredicate predicateWithFormat:@"((SELF.entryName beginswith[c] %@) OR (SELF.entryName beginswith[c] %@)) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"--%@",alphabet], [NSString stringWithFormat:@"%@x",alphabet]];
+			predicate = [NSPredicate predicateWithFormat:@"(SELF.entryName beginswith[c] %@) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"%@x",alphabet]];
 		} else if([alphabet compare:@"N"] == 0){
 			
-			predicate = [NSPredicate predicateWithFormat:@"((SELF.entryName beginswith[c] %@) OR (SELF.entryName beginswith[c] %@)) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"--%@",alphabet], [NSString stringWithFormat:@"%@g",alphabet]];
+			predicate = [NSPredicate predicateWithFormat:@"(SELF.entryName beginswith[c] %@) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"%@g",alphabet]];
 		} else {
 			
-			predicate = [NSPredicate predicateWithFormat:@"(SELF.entryName beginswith[c] %@) OR (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"--%@",alphabet]];
+			predicate = [NSPredicate predicateWithFormat:@"SELF.entryName beginswith[c] %@", alphabet];
 		}
 		
 		NSArray *entries = [dictionaryActiveContent filteredArrayUsingPredicate:predicate];
@@ -403,13 +403,13 @@
 			predicate = [NSPredicate predicateWithFormat:@"SELF.entryName beginswith[c] %@", alphabet];
 		} else if(([alphabet compare:@"K"] == 0) || ([alphabet compare:@"P"] == 0) || ([alphabet compare:@"T"] == 0)){
 			
-			predicate = [NSPredicate predicateWithFormat:@"((SELF.entryName beginswith[c] %@) OR (SELF.entryName beginswith[c] %@)) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"--%@",alphabet], [NSString stringWithFormat:@"%@x",alphabet]];
+			predicate = [NSPredicate predicateWithFormat:@"(SELF.entryName beginswith[c] %@) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"%@x",alphabet]];
 		} else if([alphabet compare:@"N"] == 0){
 			
-			predicate = [NSPredicate predicateWithFormat:@"((SELF.entryName beginswith[c] %@) OR (SELF.entryName beginswith[c] %@)) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"--%@",alphabet], [NSString stringWithFormat:@"%@g",alphabet]];
+			predicate = [NSPredicate predicateWithFormat:@"(SELF.entryName beginswith[c] %@) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"%@g",alphabet]];
 		} else {
 			
-			predicate = [NSPredicate predicateWithFormat:@"(SELF.entryName beginswith[c] %@) OR (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"--%@",alphabet]];
+			predicate = [NSPredicate predicateWithFormat:@"SELF.entryName beginswith[c] %@", alphabet];
 		}
 		
 		NSArray *entries = [dictionaryActiveContent filteredArrayUsingPredicate:predicate];
@@ -496,13 +496,13 @@
 			predicate = [NSPredicate predicateWithFormat:@"SELF.entryName beginswith[c] %@", alphabet];
 		} else if(([alphabet compare:@"K"] == 0) || ([alphabet compare:@"P"] == 0) || ([alphabet compare:@"T"] == 0)){
 			
-			predicate = [NSPredicate predicateWithFormat:@"((SELF.entryName beginswith[c] %@) OR (SELF.entryName beginswith[c] %@)) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"--%@",alphabet], [NSString stringWithFormat:@"%@x",alphabet]];
+			predicate = [NSPredicate predicateWithFormat:@"(SELF.entryName beginswith[c] %@) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"%@x",alphabet]];
 		} else if([alphabet compare:@"N"] == 0){
 		
-			predicate = [NSPredicate predicateWithFormat:@"((SELF.entryName beginswith[c] %@) OR (SELF.entryName beginswith[c] %@)) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"--%@",alphabet], [NSString stringWithFormat:@"%@g",alphabet]];
+			predicate = [NSPredicate predicateWithFormat:@"(SELF.entryName beginswith[c] %@) AND NOT (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"%@g",alphabet]];
 		} else {
 			
-			predicate = [NSPredicate predicateWithFormat:@"(SELF.entryName beginswith[c] %@) OR (SELF.entryName beginswith[c] %@)", alphabet, [NSString stringWithFormat:@"--%@",alphabet]];
+			predicate = [NSPredicate predicateWithFormat:@"SELF.entryName beginswith[c] %@", alphabet];
 		}
 		NSArray *entries = [dictionaryActiveContent filteredArrayUsingPredicate:predicate];
 		
@@ -827,6 +827,14 @@
 		
 	}
 	//[sections addObject:section];
+	
+	[entries sortUsingFunction:stringSort context:nil];
+	[entriesV sortUsingFunction:stringSort context:nil];
+	[entriesN sortUsingFunction:stringSort context:nil];
+	[entriesPN sortUsingFunction:stringSort context:nil];
+	[entriesADJ sortUsingFunction:stringSort context:nil];
+	[entriesADV sortUsingFunction:stringSort context:nil];
+	
 	[self setDictionaryTranslatedContent:entries];
 	[self setDictionaryTranslatedContentVerbs:entriesV];
 	[self setDictionaryTranslatedContentNouns:entriesN];
