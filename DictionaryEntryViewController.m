@@ -42,7 +42,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 	//[[self navigationItem] setTitle:@"Entry"];
-	[definition setText:[self.entry definition]];
+	[definition setText:[self.entry english_definition]];
 	[fancyType setText:[self.entry fancyType]];
 	[term setText:[self.entry entryName]];
 	[[self navigationController] setNavigationBarHidden:NO animated:YES];

@@ -63,13 +63,13 @@
 		0427A9811134ED1A00307E3F /* naviLanguage.psd in Resources */ = {isa = PBXBuildFile; fileRef = 0427A97E1134ED1A00307E3F /* naviLanguage.psd */; };
 		0427A9881134EE1E00307E3F /* languageGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427A9861134EE1E00307E3F /* languageGuideViewController.m */; };
 		0427A9891134EE1E00307E3F /* languageGuideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0427A9871134EE1E00307E3F /* languageGuideViewController.xib */; };
+		04304145118C5AC900267527 /* dictionary.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 04304144118C5AC900267527 /* dictionary.sqlite */; };
 		0443E7C611069B8000CEAB58 /* DictionaryEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 0443E7C511069B8000CEAB58 /* DictionaryEntry.m */; };
 		0443E8661107D9D000CEAB58 /* AppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0443E8641107D9D000CEAB58 /* AppViewController.m */; };
 		0443E8671107D9D000CEAB58 /* AppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0443E8651107D9D000CEAB58 /* AppViewController.xib */; };
 		0443E90F1107EDBB00CEAB58 /* DictionaryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0443E90E1107EDBB00CEAB58 /* DictionaryTableViewController.m */; };
 		0443E9A71107F9A700CEAB58 /* DictionaryTable.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0443E9A61107F9A700CEAB58 /* DictionaryTable.xib */; };
 		0443EE83110CA7AB00CEAB58 /* dictionaryButton.psd in Resources */ = {isa = PBXBuildFile; fileRef = 0443EE82110CA7AB00CEAB58 /* dictionaryButton.psd */; };
-		0443EECF110CACB600CEAB58 /* DictionarySection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0443EECE110CACB600CEAB58 /* DictionarySection.m */; };
 		0443EFBC110D11B600CEAB58 /* DictionaryEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0443EFBA110D11B600CEAB58 /* DictionaryEntryViewController.m */; };
 		0443EFBD110D11B600CEAB58 /* DictionaryEntryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0443EFBB110D11B600CEAB58 /* DictionaryEntryViewController.xib */; };
 		0443F0BE110E2C2300CEAB58 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F0BD110E2C2300CEAB58 /* CoreLocation.framework */; };
@@ -154,6 +154,7 @@
 		0427A9851134EE1E00307E3F /* languageGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = languageGuideViewController.h; sourceTree = "<group>"; };
 		0427A9861134EE1E00307E3F /* languageGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = languageGuideViewController.m; sourceTree = "<group>"; };
 		0427A9871134EE1E00307E3F /* languageGuideViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = languageGuideViewController.xib; sourceTree = "<group>"; };
+		04304144118C5AC900267527 /* dictionary.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = dictionary.sqlite; sourceTree = "<group>"; };
 		0443E7C411069B8000CEAB58 /* DictionaryEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryEntry.h; sourceTree = "<group>"; };
 		0443E7C511069B8000CEAB58 /* DictionaryEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryEntry.m; sourceTree = "<group>"; };
 		0443E8631107D9D000CEAB58 /* AppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppViewController.h; path = Classes/AppViewController.h; sourceTree = "<group>"; };
@@ -163,8 +164,6 @@
 		0443E90E1107EDBB00CEAB58 /* DictionaryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DictionaryTableViewController.m; path = Classes/DictionaryTableViewController.m; sourceTree = "<group>"; };
 		0443E9A61107F9A700CEAB58 /* DictionaryTable.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DictionaryTable.xib; sourceTree = "<group>"; };
 		0443EE82110CA7AB00CEAB58 /* dictionaryButton.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = dictionaryButton.psd; sourceTree = "<group>"; };
-		0443EECD110CACB600CEAB58 /* DictionarySection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionarySection.h; sourceTree = "<group>"; };
-		0443EECE110CACB600CEAB58 /* DictionarySection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionarySection.m; sourceTree = "<group>"; };
 		0443EFB9110D11B600CEAB58 /* DictionaryEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryEntryViewController.h; sourceTree = "<group>"; };
 		0443EFBA110D11B600CEAB58 /* DictionaryEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryEntryViewController.m; sourceTree = "<group>"; };
 		0443EFBB110D11B600CEAB58 /* DictionaryEntryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DictionaryEntryViewController.xib; sourceTree = "<group>"; };
@@ -189,7 +188,7 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Learn_Navi_iPhone_AppAppDelegate.h; path = Classes/Learn_Navi_iPhone_AppAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Learn_Navi_iPhone_AppAppDelegate.m; path = Classes/Learn_Navi_iPhone_AppAppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* Learn Navi iPhone App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Learn Navi iPhone App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* LearnNaviiPhoneApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnNaviiPhoneApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AAE50D9B0CCF005BE974 /* Learn_Navi_iPhone_App_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Learn_Navi_iPhone_App_Prefix.pch; sourceTree = "<group>"; };
@@ -262,8 +261,6 @@
 			children = (
 				0443E7C411069B8000CEAB58 /* DictionaryEntry.h */,
 				0443E7C511069B8000CEAB58 /* DictionaryEntry.m */,
-				0443EECD110CACB600CEAB58 /* DictionarySection.h */,
-				0443EECE110CACB600CEAB58 /* DictionarySection.m */,
 			);
 			name = Models;
 			path = Classes;
@@ -272,7 +269,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* Learn Navi iPhone App.app */,
+				1D6058910D05DD3D006BFB54 /* LearnNaviiPhoneApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -309,6 +306,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				04304144118C5AC900267527 /* dictionary.sqlite */,
 				0427A9871134EE1E00307E3F /* languageGuideViewController.xib */,
 				0427A97C1134ED1A00307E3F /* naviLanguage_highlighted.png */,
 				0427A97D1134ED1A00307E3F /* naviLanguage.png */,
@@ -396,7 +394,7 @@
 			);
 			name = "Learn Navi iPhone App";
 			productName = "Learn Navi iPhone App";
-			productReference = 1D6058910D05DD3D006BFB54 /* Learn Navi iPhone App.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* LearnNaviiPhoneApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -485,6 +483,7 @@
 				0427A9801134ED1A00307E3F /* naviLanguage.png in Resources */,
 				0427A9811134ED1A00307E3F /* naviLanguage.psd in Resources */,
 				0427A9891134EE1E00307E3F /* languageGuideViewController.xib in Resources */,
+				04304145118C5AC900267527 /* dictionary.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,7 +543,6 @@
 				0443E7C611069B8000CEAB58 /* DictionaryEntry.m in Sources */,
 				0443E8661107D9D000CEAB58 /* AppViewController.m in Sources */,
 				0443E90F1107EDBB00CEAB58 /* DictionaryTableViewController.m in Sources */,
-				0443EECF110CACB600CEAB58 /* DictionarySection.m in Sources */,
 				0443EFBC110D11B600CEAB58 /* DictionaryEntryViewController.m in Sources */,
 				0427A16B112FE06500307E3F /* ResourcesViewController.m in Sources */,
 				0427A1D0112FEC9600307E3F /* AboutDisclaimerViewController.m in Sources */,
