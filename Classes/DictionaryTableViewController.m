@@ -14,7 +14,7 @@
 @implementation DictionaryTableViewController
 
 
-@synthesize dictionaryContent, filteredDictionaryContent, dictionaryContentIndex; 
+@synthesize dictionaryContent, filteredDictionaryContent, dictionaryContentIndex, indexCounts; 
 @synthesize savedSearchTerm, savedScopeButtonIndex, searchWasActive, viewController, segmentedControl, currentMode;
 
 /*
@@ -303,17 +303,11 @@
 		//return [dictSection.entries count];
 		
 		//---get the letter in each section; e.g., A, B, C, etc.---
-		NSString *alphabet = [[dictionaryContentIndex objectAtIndex:section] capitalizedString];
+		NSNumber *count = [indexCounts objectForKey:[dictionaryContentIndex objectAtIndex:section]];
 		
-		NSPredicate *predicate;
-		//---get all states beginning with the letter---
 		
-		predicate = [NSPredicate predicateWithFormat:@"SELF.alpha like %@", alphabet];
 		
-		NSArray *entries = [dictionaryContent filteredArrayUsingPredicate:predicate];
-		
-		//---return the number of states beginning with the letter---
-		return [entries count];    		
+		return [count intValue];    		
 		
     }
 	
@@ -359,19 +353,9 @@
 		//---get the letter in the current section---
 		NSString *alphabet = [dictionaryContentIndex objectAtIndex:[indexPath section]];
 		
-		NSPredicate *predicate;
-		//---get all states beginning with the letter---
 		
-		predicate = [NSPredicate predicateWithFormat:@"SELF.alpha like %@", alphabet];
 		
-		NSArray *entries =  [dictionaryContent filteredArrayUsingPredicate:predicate];
-
-		
-		if ([entries count]>0) {
-			//---extract the relevant state from the states object---
-			entry = [entries objectAtIndex:indexPath.row];
-		}
-		
+		entry = [self readEntryFromDatabase:alphabet row:indexPath.row];
 		
     }
 	UILabel *lblTemp1 = (UILabel *)[cell viewWithTag:1];
@@ -436,17 +420,11 @@
 		
 		//---get the letter in the current section---
 		NSString *alphabet = [dictionaryContentIndex objectAtIndex:[indexPath section]];
-		NSPredicate *predicate;
-		//---get all states beginning with the letter---
-			
-		predicate = [NSPredicate predicateWithFormat:@"SELF.alpha like %@", alphabet];
 		
-		NSArray *entries = [dictionaryContent filteredArrayUsingPredicate:predicate];
 		
-		if ([entries count]>0) {
-			//---extract the relevant state from the states object---
-			entry = [entries objectAtIndex:indexPath.row];
-		}
+	
+		entry = [self readEntryFromDatabase:alphabet row:indexPath.row];
+		
 		
     }
 	//detailsViewController.title = entry.entryName;
@@ -573,88 +551,94 @@
 	[fileManager release];
 }
 
+- (DictionaryEntry *) readEntryFromDatabase:(NSString *)alpha row:(int)row {
+	// Setup the database object
+	DictionaryEntry *entry = nil;
+	
+	
+				
+	// Setup the SQL Statement and compile it for faster access
+	NSString *query = [NSString stringWithFormat:@"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.alpha = \"%@\" LIMIT %d,1",alpha,row];
+	const char *sqlStatement = [query UTF8String];
+	//const char *sqlStatement = "SELECT * FROM entries";
+	sqlite3_stmt *compiledStatement;
+	int sqlResult = sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL);
+	if(sqlResult == SQLITE_OK) {
+		// Loop through the results and add them to the feeds array
+		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
+			// Read the data from the result row
+			NSString *aEntry_Name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+			NSString *aNavi_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+			NSString *aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+			NSString *aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
+			NSString *aIpa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
+			NSString *aImageURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
+			NSString *aAudioURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
+			NSString *aFancy_type = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 7)];
+			NSString *aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 8)];
+			//NSString *aFancy_type = @"";
+			// Create a new animal object with the data from the database
+			entry = [DictionaryEntry entryWithName:aEntry_Name english_definition:aEnglish_definition navi_definition:aNavi_definition part_of_speech:aPart_of_speech ipa:aIpa imageURL:aImageURL audioURL:aAudioURL andFancyType:aFancy_type alpha:aAlpha];
+			
+		}
+	} else {
+		NSLog(@"Error1");
+	}
+	// Release the compiled statement from memory
+	sqlite3_finalize(compiledStatement);
+		
+	
+	return entry;
+	
+}
+
 -(void) readEntriesFromDatabase {
 	// Setup the database object
-	sqlite3 *database;
 	
 	// Init the animals Array
-	NSMutableArray *content = [[NSMutableArray alloc] init];
+	indexCounts = [[NSMutableDictionary alloc] init];
 	// Open the database from the users filessytem
 	if(sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK) {
 		
-		const char *sqlStatement3 = "SELECT count(*) FROM entries";
 		
-		sqlite3_stmt *compiledStatement3;
-		int sqlResult3 = sqlite3_prepare_v2(database, sqlStatement3, -1, &compiledStatement3, NULL);
-		if(sqlResult3 == SQLITE_OK) {
-			while(sqlite3_step(compiledStatement3) == SQLITE_ROW) {
-				// Read the data from the result row
-				NSString *aCount = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement3, 0)];
-			
-				NSLog(@"Count %@",aCount);
-			}
-		}
 		
-		// Setup the SQL Statement and compile it for faster access
-		const char *sqlStatement = "SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech";
+		
+		NSMutableArray *contentIndex = [[NSMutableArray alloc] init];
+		
+		const char *sqlStatement = "SELECT alpha,COUNT(*) FROM entries GROUP BY alpha";
 		//const char *sqlStatement = "SELECT * FROM entries";
 		sqlite3_stmt *compiledStatement;
 		int sqlResult = sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL);
+		
 		if(sqlResult == SQLITE_OK) {
 			// Loop through the results and add them to the feeds array
 			while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
 				// Read the data from the result row
-				NSString *aEntry_Name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
-				NSString *aNavi_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
-				NSString *aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
-				NSString *aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
-				NSString *aIpa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
-				NSString *aImageURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
-				NSString *aAudioURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
-				NSString *aFancy_type = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 7)];
-				NSString *aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 8)];
+				NSString *aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+				NSString *aCount = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
 				//NSString *aFancy_type = @"";
 				// Create a new animal object with the data from the database
-				DictionaryEntry *entry = [DictionaryEntry entryWithName:aEntry_Name english_definition:aEnglish_definition navi_definition:aNavi_definition part_of_speech:aPart_of_speech ipa:aIpa imageURL:aImageURL audioURL:aAudioURL andFancyType:aFancy_type alpha:aAlpha];
-				// Add the animal object to the animals Array
-				[content addObject:entry];
+				NSNumber *aNumber = [NSNumber numberWithInt:[aCount intValue]];
+				[indexCounts setObject:aNumber forKey:aAlpha];
 				
-				//[entry release];
-			}
-		} else {
-			NSLog(@"Error1");
-		}
-		// Release the compiled statement from memory
-		sqlite3_finalize(compiledStatement);
-		NSMutableArray *contentIndex = [[NSMutableArray alloc] init];
-		
-		const char *sqlStatement2 = "SELECT alpha FROM entries GROUP BY alpha";
-		//const char *sqlStatement = "SELECT * FROM entries";
-		sqlite3_stmt *compiledStatement2;
-		sqlResult = sqlite3_prepare_v2(database, sqlStatement2, -1, &compiledStatement2, NULL);
-		if(sqlResult == SQLITE_OK) {
-			// Loop through the results and add them to the feeds array
-			while(sqlite3_step(compiledStatement2) == SQLITE_ROW) {
-				// Read the data from the result row
-				NSString *aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement2, 0)];
-				
-				//NSString *aFancy_type = @"";
-				// Create a new animal object with the data from the database
-				[contentIndex addObject:aAlpha];
-
+				if([aAlpha compare:@"Ä"] == 0){
+					[contentIndex insertObject:aAlpha atIndex:([contentIndex indexOfObject:@"A"] + 1)];
+				} else if ([aAlpha compare:@"Ì"] == 0) {
+					[contentIndex insertObject:aAlpha atIndex:([contentIndex indexOfObject:@"I"] + 1)];
+				} else {
+					[contentIndex addObject:aAlpha];
+				}
 				
 			}
 		} else {
 			NSLog(@"Error2");
 		}
 		// Release the compiled statement from memory
-		sqlite3_finalize(compiledStatement2);
+		sqlite3_finalize(compiledStatement);
 		
-		[self setDictionaryContent:content];
 		dictionaryContentIndex = contentIndex;
 		
 	}
-	sqlite3_close(database);
 	
 	
 	

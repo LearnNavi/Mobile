@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
+#import "DictionaryEntry.h"
 
 @interface DictionaryTableViewController : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate> {
 	NSMutableArray *dictionaryContent;
 	NSMutableArray *dictionaryContentIndex;
-		
+	NSMutableDictionary *indexCounts;
 	NSMutableArray *filteredDictionaryContent;
 	NSString *savedSearchTerm;
 	NSInteger savedScopeButtonIndex;
@@ -25,10 +26,12 @@
 	
 	NSString *databaseName;
 	NSString *databasePath;
+	sqlite3 *database;
 }
 
 @property (nonatomic, retain) NSMutableArray *dictionaryContent, *filteredDictionaryContent;
 @property (nonatomic, retain) NSMutableArray *dictionaryContentIndex;
+@property (nonatomic, retain) NSMutableDictionary *indexCounts;
 @property (nonatomic, retain) UIViewController *viewController;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
 
@@ -49,5 +52,6 @@
 -(void) checkAndCreateDatabase;
 -(void) readEntriesFromDatabase;
 
+- (DictionaryEntry *) readEntryFromDatabase:(NSString *)alpha row:(int)row;
 
 @end
