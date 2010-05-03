@@ -30,8 +30,10 @@
 }
 
 - (NSString *)versionString {
+	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+	NSString *dictionary_version = [prefs stringForKey:@"dictionary_version"];
 	
-	return [NSString stringWithFormat:@"Version %@ (%@)",[self bundleVersionNumber], [self bundleShortVersionString]];
+	return [NSString stringWithFormat:@"Version %@ (%@-%@)",[self bundleVersionNumber], [self bundleShortVersionString], dictionary_version];
 }
 
 
@@ -40,7 +42,7 @@
     [super viewDidLoad];
 	
 	//Update the App version string
-	NSLog(@"Version: %@", [self versionString]);
+	NSLog(@"%@", [self versionString]);
 	[betaText setText:[self versionString]];
 
 }
@@ -75,14 +77,33 @@
 - (IBAction) launchDictionary:(id)sender {
 	
 	[FlurryAPI logEvent:@"Dictionary_Selected"];
-	
+	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+	NSString *mode = [prefs stringForKey:@"dictionary_language"];
+	BOOL currentMode;
+	if([mode compare:@"navi"] == 0){
+		currentMode = YES;
+	} else if([mode compare:@"english"] == 0){
+		currentMode = NO;
+	} else {
+		NSLog(@"Unknown mode: %@", mode);
+		currentMode = YES;
+	}
 	if([self dictionaryTableViewController] == nil) {
 		dictionaryTableViewController = [[DictionaryTableViewController alloc] initWithNibName:@"DictionaryTable" bundle:[NSBundle mainBundle]];
-		self.navigationItem.backBarButtonItem =
-		[[UIBarButtonItem alloc] initWithTitle:@"Kelutral"
-										 style: UIBarButtonItemStyleBordered
-										target:nil
-										action:nil];
+		if(currentMode){
+			self.navigationItem.backBarButtonItem =
+			[[UIBarButtonItem alloc] initWithTitle:@"Kelutral"
+											 style: UIBarButtonItemStyleBordered
+											target:nil
+											action:nil];
+		} else {
+			self.navigationItem.backBarButtonItem =
+			[[UIBarButtonItem alloc] initWithTitle:@"Home"
+											 style: UIBarButtonItemStyleBordered
+											target:nil
+											action:nil];
+			
+		}
 	}	
 	
 	

@@ -10,6 +10,32 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
+			<string>Language Preferences</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Dictionary</string>
+			<key>Key</key>
+			<string>dictionary_language</string>
+			<key>DefaultValue</key>
+			<string>navi</string>
+			<key>Values</key>
+			<array>
+				<string>navi</string>
+				<string>english</string>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Na&apos;vi</string>
+				<string>English</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
 			<string>Parts of Speech Filter</string>
 		</dict>
 		<dict>

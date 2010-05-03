@@ -37,7 +37,19 @@
 	//listOfItems = [[NSMutableArray alloc] init];
 	
 	[super viewDidLoad];
-	currentMode = YES;
+	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+	NSString *mode = [prefs stringForKey:@"dictionary_language"];
+	if([mode compare:@"navi"] == 0){
+		currentMode = YES;
+		self.title = @"Na'vi > 'ìnglìsì";
+	} else if([mode compare:@"english"] == 0){
+		currentMode = NO;
+		self.title = @"English > Na'vi";
+	} else {
+		NSLog(@"Unknown mode: %@", mode);
+		currentMode = YES;
+		self.title = @"Na'vi > 'ìnglìsì";
+	}
 	
 	[self filterDictionary:self];
 	[self loadData];
@@ -61,12 +73,12 @@
 	
 	[self.tableView reloadData];
 	self.tableView.scrollEnabled = YES;
-	self.title = @"Na'vi > 'ìnglìsì";
+	
 	
 	cellSizeChanged = NO;
 	
 	//defaultTintColor = [segmentedControl.tintColor retain];    // keep track of this for later
-	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+	
 	[segmentedControl setTitle:[[prefs stringForKey:@"filter1"] capitalizedString] forSegmentAtIndex:1];
 	[segmentedControl setTitle:[[prefs stringForKey:@"filter2"] capitalizedString] forSegmentAtIndex:2];
 	[segmentedControl setTitle:[[prefs stringForKey:@"filter3"] capitalizedString] forSegmentAtIndex:3];
@@ -108,7 +120,7 @@
 	
 	NSString *queryAlpha = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.alpha = \"%%@\" LIMIT %%d,1";
 	NSString *queryAlphaIndex = @"SELECT alpha,COUNT(*) FROM entries WHERE part_of_speech like '%%^%@^%%' GROUP BY alpha";
-	NSString *queryBeta = @"SELECT entries.english_definition, entries.navi_definition, entries.entry_name, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.beta = \"%%@\" LIMIT %%d,1";
+	NSString *queryBeta = @"SELECT entries.english_definition, entries.navi_definition, entries.entry_name, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.beta = \"%%@\" ORDER BY entries.english_definition LIMIT %%d,1";
 	NSString *queryBetaIndex = @"SELECT beta,COUNT(*) FROM entries WHERE part_of_speech like '%%^%@^%%' GROUP BY beta";
 	
 	
@@ -160,7 +172,7 @@
 				// All
 				// Do nothing
 				queryIndex = @"SELECT beta,COUNT(*) FROM entries GROUP BY beta";
-				query = @"SELECT entries.english_definition, entries.navi_definition, entries.entry_name, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.beta = \"%@\" LIMIT %d,1";
+				query = @"SELECT entries.english_definition, entries.navi_definition, entries.entry_name, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.beta = \"%@\" ORDER BY entries.english_definition LIMIT %d,1";
 				
 				break;
 			case 1:

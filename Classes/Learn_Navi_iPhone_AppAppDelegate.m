@@ -40,6 +40,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	if(!filter1) {
 		[self registerDefaultsFromSettingsBundle];
 	}
+	[self checkAndCreateDatabase];
 	
 	
 	// Add registration for remote notifications
@@ -49,7 +50,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	// Clear application badge when app launches
 	application.applicationIconBadgeNumber = 0;
 	
-	[self checkAndCreateDatabase];
+	
 		
 	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
 	//Tracking Code
@@ -78,9 +79,10 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 #if !TARGET_IPHONE_SIMULATOR
 	
+	//NSLog(@"%@",devToken); 
 	// Get Bundle Info for Remote Registration (handy if you have more than one app)
 	NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
-	NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+	NSString *appVersion = [self versionString];
 	
 	// Check what Notifications the user has turned on.  We registered for all three, but they may have manually disabled some or all of them.
 	NSUInteger rntypes = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
@@ -149,6 +151,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	NSURL *url = [[NSURL alloc] initWithScheme:@"http" host:host path:urlString];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
 	NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+	returnData;
 	//NSLog(@"Register URL: %@", url);
 	//NSLog(@"Return Data: %@", returnData);
 	
@@ -261,26 +264,30 @@ void uncaughtExceptionHandler(NSException *exception) {
 			[fileManager copyItemAtPath:databasePathFromApp toPath:databasePath error:&err];
 			
 			
-			[fileManager release];
-			return;
+			
 		} else {
 			//Up to date
-			[fileManager release];
-			return;
+			
 		}
 		
 		
-	}
+	} else {
 	
 	// If not then proceed to copy the database from the application to the users filesystem
 	
 	// Get the path to the database in the application package
 	
-	[fileManager copyItemAtPath:databasePathFromApp toPath:databasePath error:nil];
-	
-	[fileManager release];
+		[fileManager copyItemAtPath:databasePathFromApp toPath:databasePath error:nil];
+		
+	}
 	// Copy the database from the package to the users filesystem
 	
+	
+	[self registerDatabaseInfo:databasePath];
+	
+	[fileManager release];
+	return;
+
 }
 
 - (double)getDatabaseVersion:(NSString *)aDatabase {
@@ -297,7 +304,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
 			// Read the data from the result row
 			versionString = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
-			NSLog(@"Version: %@",versionString);
+			//NSLog(@"Version: %@",versionString);
 		}
 	} else {
 		NSLog(@"Error read version 2: %@", aDatabase);
@@ -313,6 +320,66 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 }
 
+- (void)registerDatabaseInfo:(NSString *)aDatabase {
+	sqlite3 *dBase;
+	if(sqlite3_open([aDatabase UTF8String], &dBase) != SQLITE_OK) {
+		NSLog(@"Error read version");
+		return;
+	} 
+	NSString *versionString;
+	NSString *dictionaryVersionString;
+	NSString *dateString;
+	
+	const char *sqlStatement = "select version,dictionary_version,date from version";
+	sqlite3_stmt *compiledStatement;
+	if(sqlite3_prepare_v2(dBase, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
+		// Loop through the results and add them to the feeds array
+		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
+			// Read the data from the result row
+			versionString = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+			dictionaryVersionString = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+			dateString = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+			//NSLog(@"Version: %@",versionString);
+		}
+	} else {
+		NSLog(@"Error read version 2: %@", aDatabase);
+		return;
+	}
+	// Release the compiled statement from memory
+	sqlite3_finalize(compiledStatement);
+	
+	
+	sqlite3_close(dBase);
+	
+	//Register settings
+	
+	[[NSUserDefaults standardUserDefaults]
+	 setObject:dictionaryVersionString forKey:@"dictionary_version"];
+	[[NSUserDefaults standardUserDefaults]
+	 setObject:versionString forKey:@"database_version"];
+	[[NSUserDefaults standardUserDefaults]
+	 setObject:dateString forKey:@"dictionary_date"];
+	
+	
+	
+	return ;
+	
+}
+
+- (NSString *)bundleVersionNumber {
+	return [[[NSBundle mainBundle] infoDictionary]
+			valueForKey:@"CFBundleVersion"];
+}
+
+- (NSString *)bundleShortVersionString {
+	return [[[NSBundle mainBundle] infoDictionary]
+			valueForKey:@"SVN_Version"];
+}
+
+- (NSString *)versionString {
+	
+	return [NSString stringWithFormat:@"Version %@ (%@)",[self bundleVersionNumber], [self bundleShortVersionString]];
+}
 
 
 #pragma mark -
