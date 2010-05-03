@@ -23,7 +23,8 @@
 	NSMutableArray *listOfItems;
 	BOOL currentMode;	//YES: Na'vi to English, NO: English to Na'vi
 	BOOL cellSizeChanged;
-	
+	NSString *query;
+	NSString *queryIndex;
 	NSString *databaseName;
 	NSString *databasePath;
 	sqlite3 *database;
@@ -34,6 +35,7 @@
 @property (nonatomic, retain) NSMutableDictionary *indexCounts;
 @property (nonatomic, retain) UIViewController *viewController;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
+@property (nonatomic, retain) NSString *query, *queryIndex, *databasePath;
 
 @property (nonatomic, copy) NSString *savedSearchTerm;
 @property (nonatomic) NSInteger savedScopeButtonIndex;
@@ -49,7 +51,6 @@
 
 - (IBAction) filterDictionary:(id)sender;
 
--(void) checkAndCreateDatabase;
 -(void) readEntriesFromDatabase;
 
 - (DictionaryEntry *) readEntryFromDatabase:(NSString *)alpha row:(int)row;

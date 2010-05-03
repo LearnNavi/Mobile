@@ -19,10 +19,11 @@
 	NSString *audioURL;
 	NSString *fancyType;
 	NSString *alpha;
+	NSString *beta;
 }
 
-@property (nonatomic, copy) NSString *entryName, *navi_definition, *english_definition, *part_of_speech, *ipa, *imageURL, *audioURL, *fancyType, *alpha;
+@property (nonatomic, copy) NSString *entryName, *navi_definition, *english_definition, *part_of_speech, *ipa, *imageURL, *audioURL, *fancyType, *alpha, *beta;
 
-+ (id)entryWithName:(NSString *)entryName english_definition:(NSString *)english_definition navi_definition:(NSString *)navi_definition part_of_speech:(NSString *)part_of_speech ipa:(NSString *)ipa imageURL:(NSString *)imageURL audioURL:(NSString *)audioURL andFancyType:(NSString *)fancyType alpha:(NSString *)alpha;
++ (id)entryWithName:(NSString *)entryName english_definition:(NSString *)english_definition navi_definition:(NSString *)navi_definition part_of_speech:(NSString *)part_of_speech ipa:(NSString *)ipa imageURL:(NSString *)imageURL audioURL:(NSString *)audioURL andFancyType:(NSString *)fancyType alpha:(NSString *)alpha beta:(NSString *)beta;
 int stringSort( id obj1, id obj2, void *context);
 @end

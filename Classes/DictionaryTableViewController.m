@@ -14,8 +14,8 @@
 @implementation DictionaryTableViewController
 
 
-@synthesize dictionaryContent, filteredDictionaryContent, dictionaryContentIndex, indexCounts; 
-@synthesize savedSearchTerm, savedScopeButtonIndex, searchWasActive, viewController, segmentedControl, currentMode;
+@synthesize dictionaryContent, filteredDictionaryContent, dictionaryContentIndex, indexCounts, query, queryIndex; 
+@synthesize savedSearchTerm, savedScopeButtonIndex, searchWasActive, viewController, segmentedControl, currentMode, databasePath;
 
 /*
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -38,7 +38,10 @@
 	
 	[super viewDidLoad];
 	currentMode = YES;
+	
+	[self filterDictionary:self];
 	[self loadData];
+	[self readEntriesFromDatabase];
 	
 	//self.title = @"Products";
 	
@@ -63,6 +66,12 @@
 	cellSizeChanged = NO;
 	
 	//defaultTintColor = [segmentedControl.tintColor retain];    // keep track of this for later
+	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+	[segmentedControl setTitle:[[prefs stringForKey:@"filter1"] capitalizedString] forSegmentAtIndex:1];
+	[segmentedControl setTitle:[[prefs stringForKey:@"filter2"] capitalizedString] forSegmentAtIndex:2];
+	[segmentedControl setTitle:[[prefs stringForKey:@"filter3"] capitalizedString] forSegmentAtIndex:3];
+	[segmentedControl setTitle:[[prefs stringForKey:@"filter4"] capitalizedString] forSegmentAtIndex:4];
+	[segmentedControl setTitle:[[prefs stringForKey:@"filter5"] capitalizedString] forSegmentAtIndex:5];
 	
 	UIBarButtonItem *flexibleSpaceButtonItem = [[UIBarButtonItem alloc]
 												initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
@@ -97,66 +106,87 @@
 	
 	cellSizeChanged = YES;
 	
+	NSString *queryAlpha = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.alpha = \"%%@\" LIMIT %%d,1";
+	NSString *queryAlphaIndex = @"SELECT alpha,COUNT(*) FROM entries WHERE part_of_speech like '%%^%@^%%' GROUP BY alpha";
+	NSString *queryBeta = @"SELECT entries.english_definition, entries.navi_definition, entries.entry_name, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.beta = \"%%@\" LIMIT %%d,1";
+	NSString *queryBetaIndex = @"SELECT beta,COUNT(*) FROM entries WHERE part_of_speech like '%%^%@^%%' GROUP BY beta";
+	
+	
+	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+	
 	if(currentMode){
 		switch(segmentedControl.selectedSegmentIndex) {
 			case 0:
 				// All
 				// Do nothing
-				
+				queryIndex = @"SELECT alpha,COUNT(*) FROM entries GROUP BY alpha";
+				query = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.alpha = \"%@\" LIMIT %d,1";
 				
 				break;
 			case 1:
 				// Nouns
-				
+				[self setQueryIndex:[NSString stringWithFormat:queryAlphaIndex,[prefs stringForKey:@"filter1"]]];
+				[self setQuery:[NSString stringWithFormat:queryAlpha,[prefs stringForKey:@"filter1"]]];
 				break;
 			case 2:
 				// Pronouns
-				
+				[self setQueryIndex:[NSString stringWithFormat:queryAlphaIndex,[prefs stringForKey:@"filter2"]]];
+				[self setQuery:[NSString stringWithFormat:queryAlpha,[prefs stringForKey:@"filter2"]]];
 				break;
 			case 3:
 				// Verbs
-				
+				[self setQueryIndex:[NSString stringWithFormat:queryAlphaIndex,[prefs stringForKey:@"filter3"]]];
+				[self setQuery:[NSString stringWithFormat:queryAlpha,[prefs stringForKey:@"filter3"]]];
 				break;
 			case 4:
 				// Adjectives
-				
+				[self setQueryIndex:[NSString stringWithFormat:queryAlphaIndex,[prefs stringForKey:@"filter4"]]];
+				[self setQuery:[NSString stringWithFormat:queryAlpha,[prefs stringForKey:@"filter4"]]];
 				break;
 			case 5:
 				// Adverbs
-				
+				[self setQueryIndex:[NSString stringWithFormat:queryAlphaIndex,[prefs stringForKey:@"filter5"]]];
+				[self setQuery:[NSString stringWithFormat:queryAlpha,[prefs stringForKey:@"filter5"]]];
 				break;
 			default:
 				break;
 				
 		}
+		
+		
 	} else {
 		switch(segmentedControl.selectedSegmentIndex) {
 			case 0:
 				// All
 				// Do nothing
-				
+				queryIndex = @"SELECT beta,COUNT(*) FROM entries GROUP BY beta";
+				query = @"SELECT entries.english_definition, entries.navi_definition, entries.entry_name, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.beta = \"%@\" LIMIT %d,1";
 				
 				break;
 			case 1:
 				// Nouns
-				
-				
+				[self setQueryIndex:[NSString stringWithFormat:queryBetaIndex,[prefs stringForKey:@"filter1"]]];
+				[self setQuery:[NSString stringWithFormat:queryBeta,[prefs stringForKey:@"filter1"]]];
 				break;
 			case 2:
 				// Pronouns
-				
+				[self setQueryIndex:[NSString stringWithFormat:queryBetaIndex,[prefs stringForKey:@"filter2"]]];
+				[self setQuery:[NSString stringWithFormat:queryBeta,[prefs stringForKey:@"filter2"]]];
 				break;
 			case 3:
 				// Verbs
-				
+				[self setQueryIndex:[NSString stringWithFormat:queryBetaIndex,[prefs stringForKey:@"filter3"]]];
+				[self setQuery:[NSString stringWithFormat:queryBeta,[prefs stringForKey:@"filter3"]]];
 				break;
 			case 4:
 				// Adjectives
-				
+				[self setQueryIndex:[NSString stringWithFormat:queryBetaIndex,[prefs stringForKey:@"filter4"]]];
+				[self setQuery:[NSString stringWithFormat:queryBeta,[prefs stringForKey:@"filter4"]]];
 				break;
 			case 5:
 				// Adverbs
-				
+				[self setQueryIndex:[NSString stringWithFormat:queryBetaIndex,[prefs stringForKey:@"filter5"]]];
+				[self setQuery:[NSString stringWithFormat:queryBeta,[prefs stringForKey:@"filter5"]]];
 				break;
 			default:
 				break;
@@ -164,7 +194,7 @@
 		}
 		
 	}
-	
+	[self readEntriesFromDatabase];
 	[self.tableView reloadData];
 }
 
@@ -201,9 +231,7 @@
 	
 	//Need a more elegant way to load...
 	//
-	//[self loadData];
-	//[self.tableView reloadData];
-
+	[self filterDictionary:self];
 	[UIView commitAnimations];
 }
 
@@ -514,55 +542,33 @@
 	
 	NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDir = [documentPaths objectAtIndex:0];
-	databasePath = [documentsDir stringByAppendingPathComponent:databaseName];
-	
+	[self setDatabasePath:[documentsDir stringByAppendingPathComponent:databaseName]];	
 	// Execute the "checkAndCreateDatabase" function
-	[self checkAndCreateDatabase];
+	
+	if(sqlite3_open([databasePath UTF8String], &database) != SQLITE_OK) {
+		NSLog(@"Error 646");
+	}
 	
 	// Query the database for all animal records and construct the "animals" array
-	[self readEntriesFromDatabase];
+	//[self readEntriesFromDatabase];
 	
 	
 
 }
 
--(void) checkAndCreateDatabase{
-	// Check if the SQL database has already been saved to the users phone, if not then copy it over
-	BOOL success;
-	
-	// Create a FileManager object, we will use this to check the status
-	// of the database and to copy it over if required
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	
-	// Check if the database has already been created in the users filesystem
-	success = [fileManager fileExistsAtPath:databasePath];
-	
-	// If the database already exists then return without doing anything
-	if(success) return;
-	
-	// If not then proceed to copy the database from the application to the users filesystem
-	
-	// Get the path to the database in the application package
-	NSString *databasePathFromApp = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:databaseName];
-	
-	// Copy the database from the package to the users filesystem
-	[fileManager copyItemAtPath:databasePathFromApp toPath:databasePath error:nil];
-	
-	[fileManager release];
-}
 
-- (DictionaryEntry *) readEntryFromDatabase:(NSString *)alpha row:(int)row {
+
+- (DictionaryEntry *) searchEntryFromDatabase:(NSString *)search row:(int)row {
 	// Setup the database object
 	DictionaryEntry *entry = nil;
 	
 	
-				
+	
 	// Setup the SQL Statement and compile it for faster access
-	NSString *query = [NSString stringWithFormat:@"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.alpha = \"%@\" LIMIT %d,1",alpha,row];
-	const char *sqlStatement = [query UTF8String];
+	NSString *queryString = [NSString stringWithFormat:[self query],search,row];
 	//const char *sqlStatement = "SELECT * FROM entries";
 	sqlite3_stmt *compiledStatement;
-	int sqlResult = sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL);
+	int sqlResult = sqlite3_prepare_v2(database, [queryString UTF8String], -1, &compiledStatement, NULL);
 	if(sqlResult == SQLITE_OK) {
 		// Loop through the results and add them to the feeds array
 		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
@@ -576,13 +582,55 @@
 			NSString *aAudioURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
 			NSString *aFancy_type = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 7)];
 			NSString *aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 8)];
+			NSString *aBeta = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 9)];
 			//NSString *aFancy_type = @"";
 			// Create a new animal object with the data from the database
-			entry = [DictionaryEntry entryWithName:aEntry_Name english_definition:aEnglish_definition navi_definition:aNavi_definition part_of_speech:aPart_of_speech ipa:aIpa imageURL:aImageURL audioURL:aAudioURL andFancyType:aFancy_type alpha:aAlpha];
+			entry = [DictionaryEntry entryWithName:aEntry_Name english_definition:aEnglish_definition navi_definition:aNavi_definition part_of_speech:aPart_of_speech ipa:aIpa imageURL:aImageURL audioURL:aAudioURL andFancyType:aFancy_type alpha:aAlpha beta:aBeta];
 			
 		}
 	} else {
-		NSLog(@"Error1");
+		NSLog(@"Error 588");
+	}
+	// Release the compiled statement from memory
+	sqlite3_finalize(compiledStatement);
+	
+	
+	return entry;
+	
+}
+
+- (DictionaryEntry *) readEntryFromDatabase:(NSString *)alpha row:(int)row {
+	// Setup the database object
+	DictionaryEntry *entry = nil;
+	
+	
+				
+	// Setup the SQL Statement and compile it for faster access
+	NSString *queryString = [NSString stringWithFormat:[self query],alpha,row];
+	//const char *sqlStatement = "SELECT * FROM entries";
+	sqlite3_stmt *compiledStatement;
+	int sqlResult = sqlite3_prepare_v2(database, [queryString UTF8String], -1, &compiledStatement, NULL);
+	if(sqlResult == SQLITE_OK) {
+		// Loop through the results and add them to the feeds array
+		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
+			// Read the data from the result row
+			NSString *aEntry_Name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+			NSString *aNavi_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+			NSString *aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+			NSString *aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
+			NSString *aIpa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
+			NSString *aImageURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
+			NSString *aAudioURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
+			NSString *aFancy_type = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 7)];
+			NSString *aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 8)];
+			NSString *aBeta = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 9)];
+			//NSString *aFancy_type = @"";
+			// Create a new animal object with the data from the database
+			entry = [DictionaryEntry entryWithName:aEntry_Name english_definition:aEnglish_definition navi_definition:aNavi_definition part_of_speech:aPart_of_speech ipa:aIpa imageURL:aImageURL audioURL:aAudioURL andFancyType:aFancy_type alpha:aAlpha beta:aBeta];
+			
+		}
+	} else {
+		NSLog(@"Error 629");
 	}
 	// Release the compiled statement from memory
 	sqlite3_finalize(compiledStatement);
@@ -595,57 +643,84 @@
 -(void) readEntriesFromDatabase {
 	// Setup the database object
 	
+	if(databasePath == nil){
+		[self loadData];
+	}
+	
 	// Init the animals Array
 	indexCounts = [[NSMutableDictionary alloc] init];
 	// Open the database from the users filessytem
-	if(sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK) {
+	
 		
 		
-		
-		
-		NSMutableArray *contentIndex = [[NSMutableArray alloc] init];
-		
-		const char *sqlStatement = "SELECT alpha,COUNT(*) FROM entries GROUP BY alpha";
-		//const char *sqlStatement = "SELECT * FROM entries";
-		sqlite3_stmt *compiledStatement;
-		int sqlResult = sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL);
-		
-		if(sqlResult == SQLITE_OK) {
-			// Loop through the results and add them to the feeds array
-			while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
-				// Read the data from the result row
-				NSString *aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
-				NSString *aCount = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
-				//NSString *aFancy_type = @"";
-				// Create a new animal object with the data from the database
-				NSNumber *aNumber = [NSNumber numberWithInt:[aCount intValue]];
-				[indexCounts setObject:aNumber forKey:aAlpha];
-				
-				if([aAlpha compare:@"Ä"] == 0){
-					[contentIndex insertObject:aAlpha atIndex:([contentIndex indexOfObject:@"A"] + 1)];
-				} else if ([aAlpha compare:@"Ì"] == 0) {
-					[contentIndex insertObject:aAlpha atIndex:([contentIndex indexOfObject:@"I"] + 1)];
+	NSMutableArray *contentIndex = [[NSMutableArray alloc] init];
+	
+	
+	//const char *sqlStatement = "SELECT * FROM entries";
+	sqlite3_stmt *compiledStatement;
+	int sqlResult = sqlite3_prepare_v2(database, [queryIndex UTF8String], -1, &compiledStatement, NULL);
+	
+	if(sqlResult == SQLITE_OK) {
+		// Loop through the results and add them to the feeds array
+		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
+			// Read the data from the result row
+			NSString *aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+			NSString *aCount = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+			//NSString *aFancy_type = @"";
+			// Create a new animal object with the data from the database
+			NSNumber *aNumber = [NSNumber numberWithInt:[aCount intValue]];
+			[indexCounts setObject:aNumber forKey:aAlpha];
+			
+			if([aAlpha compare:@"Ä"] == 0){
+				int index = [contentIndex indexOfObject:@"A"];
+				int index2 = [contentIndex indexOfObject:@"'"];
+				if(index > 30){
+					// Not Found
+					if(index2 > 30){
+						[contentIndex insertObject:aAlpha atIndex:(0)];
+					} else {
+						[contentIndex insertObject:aAlpha atIndex:(1)];
+					}
 				} else {
-					[contentIndex addObject:aAlpha];
+					[contentIndex insertObject:aAlpha atIndex:(index + 1)];
+				}
+			} else if ([aAlpha compare:@"Ì"] == 0) {
+				int index = [contentIndex indexOfObject:@"I"];
+				int index2 = [contentIndex indexOfObject:@"K"];
+				if(index > 30){
+					// Not Found
+					if(index2 > 30){
+						[contentIndex addObject:aAlpha];
+					} else {
+						[contentIndex insertObject:aAlpha atIndex:index2];
+					}
+				} else {
+					[contentIndex insertObject:aAlpha atIndex:(index + 1)];
 				}
 				
+			} else {
+				[contentIndex addObject:aAlpha];
 			}
-		} else {
-			NSLog(@"Error2");
+			
 		}
-		// Release the compiled statement from memory
-		sqlite3_finalize(compiledStatement);
-		
-		dictionaryContentIndex = contentIndex;
-		
+	} else {
+		NSLog(@"Error 701: %@ %@", databasePath, queryIndex);
 	}
+	// Release the compiled statement from memory
+	sqlite3_finalize(compiledStatement);
+	
+	dictionaryContentIndex = contentIndex;
+		
+	
 	
 	
 	
 }
 
 
+
 - (void)dealloc {
+	sqlite3_close(database);
 	[dictionaryContent dealloc];
 	[filteredDictionaryContent dealloc];
 	 

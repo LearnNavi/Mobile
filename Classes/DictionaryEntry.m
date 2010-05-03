@@ -11,9 +11,9 @@
 
 @implementation DictionaryEntry
 
-@synthesize entryName, english_definition, navi_definition, part_of_speech, ipa, imageURL, audioURL, fancyType, alpha;
+@synthesize entryName, english_definition, navi_definition, part_of_speech, ipa, imageURL, audioURL, fancyType, alpha, beta;
 
-+ (id)entryWithName:(NSString *)entryName english_definition:(NSString *)english_definition navi_definition:(NSString *)navi_definition part_of_speech:(NSString *)part_of_speech ipa:(NSString *)ipa imageURL:(NSString *)imageURL audioURL:(NSString *)audioURL andFancyType:(NSString *)fancyType alpha:(NSString *)alpha{
++ (id)entryWithName:(NSString *)entryName english_definition:(NSString *)english_definition navi_definition:(NSString *)navi_definition part_of_speech:(NSString *)part_of_speech ipa:(NSString *)ipa imageURL:(NSString *)imageURL audioURL:(NSString *)audioURL andFancyType:(NSString *)fancyType alpha:(NSString *)alpha beta:(NSString *)beta {
 	DictionaryEntry *newEntry = [[[self alloc] init] autorelease];
 	newEntry.entryName = entryName;
 	newEntry.part_of_speech = part_of_speech;
@@ -24,6 +24,7 @@
 	newEntry.audioURL = audioURL;
 	newEntry.fancyType = fancyType;
 	newEntry.alpha = alpha;
+	newEntry.beta = beta;
 	return newEntry;
 }
 
@@ -36,6 +37,8 @@
 	[imageURL release];
 	[audioURL release];
 	[fancyType release];
+	[alpha release];
+	[beta release];
 	[super dealloc];
 }
 

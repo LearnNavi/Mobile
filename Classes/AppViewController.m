@@ -26,12 +26,12 @@
 
 - (NSString *)bundleShortVersionString {
 	return [[[NSBundle mainBundle] infoDictionary]
-			valueForKey:@"CFBundleShortVersionString"];
+			valueForKey:@"SVN_Version"];
 }
 
 - (NSString *)versionString {
 	
-	return [NSString stringWithFormat:@"Version %@ (%@)",[self bundleShortVersionString] ,[self bundleVersionNumber]];
+	return [NSString stringWithFormat:@"Version %@ (%@)",[self bundleVersionNumber], [self bundleShortVersionString]];
 }
 
 

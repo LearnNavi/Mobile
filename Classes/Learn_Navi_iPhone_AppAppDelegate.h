@@ -20,5 +20,9 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
 
+- (void)registerDefaultsFromSettingsBundle;
+-(void) checkAndCreateDatabase;
+- (double)getDatabaseVersion:(NSString *)aDatabase;
+
 @end
 
