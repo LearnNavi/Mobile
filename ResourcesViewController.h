@@ -19,6 +19,7 @@
 
 - (IBAction)returnHome:(id)sender;
 - (IBAction)launchLearnNaviSite:(id)sender;
+- (IBAction)updateDictionary:(id)sender;
 - (IBAction)disclaimer:(id)sender;
 - (IBAction)about:(id)sender;
 

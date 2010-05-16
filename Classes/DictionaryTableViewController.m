@@ -579,6 +579,7 @@
 	// Setup the SQL Statement and compile it for faster access
 	NSString *queryString = [NSString stringWithFormat:[self query],search,row];
 	//const char *sqlStatement = "SELECT * FROM entries";
+	NSLog(@"Search Query: %@",queryString);
 	sqlite3_stmt *compiledStatement;
 	int sqlResult = sqlite3_prepare_v2(database, [queryString UTF8String], -1, &compiledStatement, NULL);
 	if(sqlResult == SQLITE_OK) {
@@ -601,8 +602,8 @@
 			
 		}
 	} else {
-		NSLog(@"Error 588");
-	}
+		NSLog(@"Error 604");
+}
 	// Release the compiled statement from memory
 	sqlite3_finalize(compiledStatement);
 	

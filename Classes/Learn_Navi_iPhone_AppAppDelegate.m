@@ -11,10 +11,11 @@
 #import "Learn_Navi_iPhone_AppAppDelegate.h"
 #import "AppViewController.h"
 #import "FlurryAPI.h"
+#import "LoadingView.h"
 
 @implementation Learn_Navi_iPhone_AppAppDelegate
 
-@synthesize window;
+@synthesize window, appViewController;
 
 +(void)initialize { 
 	
@@ -29,9 +30,18 @@ void uncaughtExceptionHandler(NSException *exception) {
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {    
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	
+	if(launchOptions != nil){
+		NSLog(@"Update Database");
+		[self startUpdate:self];
+		
+	}
     
-    // Override point for customization after app launch 
+	
+	
+	
+	// Override point for customization after app launch 
 	
 	NSString *filter1 = [[NSUserDefaults standardUserDefaults] stringForKey:@"filter1"];
 	
@@ -51,18 +61,31 @@ void uncaughtExceptionHandler(NSException *exception) {
 	application.applicationIconBadgeNumber = 0;
 	
 	
-		
+	
 	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
 	//Tracking Code
 	[FlurryAPI startSessionWithLocationServices:@"AIUXWAWDAFLHEUHXPUCC"];
 	[FlurryAPI setSessionReportsOnCloseEnabled:YES];
+	[self launchApp:self];
+	
+	return NO;
+}
+
+
+
+- (void)launchApp:(id)sender {
 	
 	theRect = [[self window] frame];
 	theRect = CGRectOffset(theRect, 0.0, 20.0);
 	
-	AppViewController *appViewController = [[AppViewController alloc] initWithNibName:@"AppViewController" bundle:[NSBundle mainBundle]];
+	if(appViewController) {
+		[appViewController.navigationController.view removeFromSuperview];
+		[appViewController release];
+		
+	}
+	appViewController = [[AppViewController alloc] initWithNibName:@"AppViewController" bundle:[NSBundle mainBundle]];
 	appViewController.view.frame = theRect;
-
+	
 	UINavigationController *thisNavigationController = [[UINavigationController alloc] initWithRootViewController:appViewController];
 	thisNavigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
 	thisNavigationController.toolbar.barStyle = UIBarStyleBlackOpaque;
@@ -229,7 +252,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 }
 
--(void) checkAndCreateDatabase{
+- (void) checkAndCreateDatabase{
 	// Check if the SQL database has already been saved to the users phone, if not then copy it over
 	BOOL success;
 	NSString *databaseName = @"dictionary.sqlite";
@@ -244,7 +267,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 	// Check if the database has already been created in the users filesystem
 	success = [fileManager fileExistsAtPath:databasePath];
-	
+	double databaseVersion = 0;
 	NSString *databasePathFromApp = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:databaseName];
 	// If the database already exists then return without doing anything
 	if(success) {
@@ -282,12 +305,128 @@ void uncaughtExceptionHandler(NSException *exception) {
 	}
 	// Copy the database from the package to the users filesystem
 	
+	databaseVersion = [self getDatabaseVersion:databasePath];
+	
+	// Check the web for updates to the database, if enabled
+	UIApplication* app = [UIApplication sharedApplication];
+	app.networkActivityIndicatorVisible = YES; // to stop it, set this to NO
+	
+	NSError *errVersion = [[[NSError alloc] init] autorelease];
+	NSString *versionUrl = [[NSString stringWithFormat:@"http://learnnaviapp.com/database/version"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *versionFile = [NSString stringWithContentsOfURL:[NSURL URLWithString:versionUrl] encoding:NSUTF8StringEncoding error:&errVersion];
+	if(errVersion.code != 0) {
+		// HANDLE ERROR HERE
+		NSLog(@"Online Error: %@", [errVersion localizedDescription]);
+	} else {
+		NSLog(@"Online Version: %@", versionFile);
+		
+		if(databaseVersion < [versionFile doubleValue]){
+			// New database available
+			// Prompt user to download new version
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dictionary Update Ready" message:@"There is a new version of the dictionary available for download.  Would you like to update now?" 
+														   delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
+			[alert show];
+			[alert release];
+			
+			
+			
+		} else {
+			NSLog(@"Up to date");
+			
+		}
+		
+		
+		 
+	}
+	
+	
+	app.networkActivityIndicatorVisible = NO;
+	
+	
+	
+	
+	
 	
 	[self registerDatabaseInfo:databasePath];
 	
 	[fileManager release];
 	return;
 
+}
+
+- (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	// the user clicked one of the OK/Cancel buttons
+	if (buttonIndex == 1)
+	{
+		NSLog(@"Yes");
+		[self startUpdate:self];
+		
+	}
+	else
+	{
+		NSLog(@"User canceled database update");
+	}
+}
+
+- (void)startUpdate:(id)sender {
+	loadingView =
+	[LoadingView loadingViewInView:[self window]];
+	[self performSelectorInBackground:@selector(updateDatabase:) withObject:nil];
+
+}
+
+- (void)updateFinished:(id)sender {
+	
+	[loadingView removeView];
+	[self launchApp:self];
+}
+
+- (void)updateDatabase:(id)sender {
+	
+	
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	
+	
+	// Download new version
+	UIApplication* app = [UIApplication sharedApplication];
+	app.networkActivityIndicatorVisible = YES; // to stop it, set this to NO
+	
+	NSString *databaseUrl = [[NSString stringWithFormat:@"http://learnnaviapp.com/database/dictionary.sqlite"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSData *newDatabase = [NSData dataWithContentsOfURL:[NSURL URLWithString:databaseUrl]];
+	
+	if(newDatabase == nil){
+		NSLog(@"Error downloading database");
+		
+	} else {
+		//Delete current database
+		NSFileManager *fileManager = [NSFileManager defaultManager];
+		
+		NSString *databaseName = @"dictionary.sqlite";
+		
+		NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+		NSString *documentsDir = [documentPaths objectAtIndex:0];
+		NSString *databasePath = [documentsDir stringByAppendingPathComponent:databaseName];
+		
+		[fileManager removeItemAtPath:databasePath error:nil];
+		[fileManager createFileAtPath:databasePath contents:newDatabase attributes:nil];
+		
+		[fileManager release];
+		[self registerDatabaseInfo:databasePath];
+		app.networkActivityIndicatorVisible = NO;
+		
+		
+		// Show success message
+		
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dictionary Updated" message:@"The dictionary has been successfully updated." 
+													   delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+	}
+	//[NSThread sleepForTimeInterval:1.0];
+	[self performSelectorOnMainThread:@selector(updateFinished:) withObject:nil waitUntilDone:YES];
+	
+	[pool release];
+	
 }
 
 - (double)getDatabaseVersion:(NSString *)aDatabase {

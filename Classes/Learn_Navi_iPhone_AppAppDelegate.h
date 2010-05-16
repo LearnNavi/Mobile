@@ -6,26 +6,35 @@
 //  Copyright LearnNa'vi.org Community. 2010. All rights reserved.
 //
 
-@interface Learn_Navi_iPhone_AppAppDelegate : NSObject <UIApplicationDelegate> {
+#import "AppViewController.h"
+#import "LoadingView.h"
+
+@interface Learn_Navi_iPhone_AppAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate> {
     
 
 	CGRect theRect;
 
     UIWindow *window;
-    
-
+    AppViewController *appViewController;
+	LoadingView *loadingView;
 }
 
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, retain) AppViewController *appViewController;
 
 
 - (void)registerDefaultsFromSettingsBundle;
--(void) checkAndCreateDatabase;
+- (void) checkAndCreateDatabase;
 - (double)getDatabaseVersion:(NSString *)aDatabase;
 - (NSString *)versionString;
 - (NSString *)bundleShortVersionString;
 - (NSString *)bundleVersionNumber;
 - (void)registerDatabaseInfo:(NSString *)aDatabase;
+- (void)launchApp:(id)sender;
+- (void)updateDatabase:(id)sender;
+- (void)startUpdate:(id)sender;
+- (void)updateFinished:(id)sender;
+
 @end
 
