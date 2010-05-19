@@ -15,12 +15,14 @@
 	UILabel *fancyType;
 	UILabel *term;
 	UITextView *definition;
+	BOOL mode;
 }
 
 @property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
 @property (nonatomic, retain) IBOutlet UILabel *fancyType, *term;
 @property (nonatomic, retain) IBOutlet UITextView *definition;
 @property (nonatomic, retain) DictionaryEntry *entry;
+@property (nonatomic) BOOL mode;
 
 - (IBAction)playAudioFile:(id)sender;
 

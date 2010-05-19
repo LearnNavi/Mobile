@@ -14,8 +14,11 @@
 	NSMutableArray *dictionaryContent;
 	NSMutableArray *dictionaryContentIndex;
 	NSMutableArray *dictionaryContentIndexMod;
+	NSMutableArray *dictionarySearchContent;
+	NSMutableArray *dictionarySearchContentIndex;
+	NSMutableArray *dictionarySearchContentIndexMod;
 	NSMutableDictionary *indexCounts;
-	NSMutableArray *filteredDictionaryContent;
+	NSMutableDictionary *indexSearchCounts;
 	NSString *savedSearchTerm;
 	NSInteger savedScopeButtonIndex;
 	BOOL searchWasActive;
@@ -26,17 +29,20 @@
 	BOOL cellSizeChanged;
 	NSString *query;
 	NSString *queryIndex;
+	NSString *querySearch;
+	NSString *querySearchIndex;
 	NSString *databaseName;
 	NSString *databasePath;
 	sqlite3 *database;
+	NSString *search_term;
 }
 
-@property (nonatomic, retain) NSMutableArray *dictionaryContent, *filteredDictionaryContent;
-@property (nonatomic, retain) NSMutableArray *dictionaryContentIndex, *dictionaryContentIndexMod;
-@property (nonatomic, retain) NSMutableDictionary *indexCounts;
+@property (nonatomic, retain) NSMutableArray *dictionaryContent, *dictionarySearchContent;
+@property (nonatomic, retain) NSMutableArray *dictionaryContentIndex, *dictionaryContentIndexMod, *dictionarySearchContentIndex, *dictionarySearchContentIndexMod;
+@property (nonatomic, retain) NSMutableDictionary *indexCounts, *indexSearchCounts;
 @property (nonatomic, retain) UIViewController *viewController;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
-@property (nonatomic, retain) NSString *query, *queryIndex, *databasePath;
+@property (nonatomic, retain) NSString *query, *queryIndex, *querySearch, *querySearchIndex, *databasePath, *search_term;
 
 @property (nonatomic, copy) NSString *savedSearchTerm;
 @property (nonatomic) NSInteger savedScopeButtonIndex;
@@ -55,5 +61,9 @@
 -(void) readEntriesFromDatabase;
 
 - (DictionaryEntry *) readEntryFromDatabase:(NSString *)alpha row:(int)row;
-
+- (DictionaryEntry *) searchEntryFromDatabase:(NSString *)search row:(int)row;
+- (DictionaryEntry *) readSearchEntryFromDatabase:(NSString *)alpha row:(int)row;
+- (void) readSearchEntriesFromDatabase;
+- (NSString *)convertStringFromDatabase:(NSString *)string;
+- (NSString *)convertStringToDatabase:(NSString *)string;
 @end

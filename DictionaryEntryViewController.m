@@ -11,7 +11,7 @@
 
 @implementation DictionaryEntryViewController
 
-@synthesize segmentedControl, entry, definition, term, fancyType;
+@synthesize segmentedControl, entry, definition, term, fancyType, mode;
 
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -42,9 +42,15 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 	//[[self navigationItem] setTitle:@"Entry"];
-	[definition setText:[self.entry english_definition]];
-	[fancyType setText:[self.entry fancyType]];
-	[term setText:[self.entry entryName]];
+	if(mode){
+		[definition setText:[self.entry english_definition]];
+		[fancyType setText:[self.entry fancyType]];
+		[term setText:[self.entry entryName]];
+	} else {
+		[definition setText:[self.entry entryName]];
+		[fancyType setText:[self.entry fancyType]];
+		[term setText:[self.entry english_definition]];
+	}
 	[[self navigationController] setNavigationBarHidden:NO animated:YES];
 	
 }

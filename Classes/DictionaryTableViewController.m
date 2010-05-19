@@ -14,8 +14,8 @@
 @implementation DictionaryTableViewController
 
 
-@synthesize dictionaryContent, filteredDictionaryContent, dictionaryContentIndex, dictionaryContentIndexMod, indexCounts, query, queryIndex; 
-@synthesize savedSearchTerm, savedScopeButtonIndex, searchWasActive, viewController, segmentedControl, currentMode, databasePath;
+@synthesize dictionaryContent, dictionarySearchContent, dictionaryContentIndex, dictionaryContentIndexMod, dictionarySearchContentIndex, dictionarySearchContentIndexMod, indexCounts, query, queryIndex; 
+@synthesize querySearch, querySearchIndex, search_term, savedSearchTerm, savedScopeButtonIndex, searchWasActive, viewController, segmentedControl, currentMode, databasePath, indexSearchCounts;
 
 /*
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -59,7 +59,7 @@
 	
 	
 	// create a filtered list that will contain products for the search results table.
-	self.filteredDictionaryContent = [NSMutableArray arrayWithCapacity:10];
+	//self.filteredDictionaryContent = [NSMutableArray arrayWithCapacity:10];
 	
 	// restore search settings if they were saved in didReceiveMemoryWarning.
     if (self.savedSearchTerm)
@@ -73,8 +73,6 @@
 	
 	[self.tableView reloadData];
 	self.tableView.scrollEnabled = YES;
-	
-	
 	cellSizeChanged = NO;
 	
 	//defaultTintColor = [segmentedControl.tintColor retain];    // keep track of this for later
@@ -123,6 +121,11 @@
 	NSString *queryBeta = @"SELECT entries.english_definition, entries.navi_definition, entries.entry_name, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.beta = \"%%@\" ORDER BY entries.english_definition LIMIT %%d,1";
 	NSString *queryBetaIndex = @"SELECT beta,COUNT(*) FROM entries WHERE part_of_speech like '%%^%@^%%' GROUP BY beta";
 	
+	//Search Versions
+	NSString *querySearchAlpha = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.alpha = \"%%@\" AND entry_name like '%%%%%%@%%%%' ORDER BY entries.entry_name  LIMIT %%d,1";
+	NSString *querySearchAlphaIndex = @"SELECT alpha,COUNT(*) FROM entries WHERE part_of_speech like '%%^%@^%%' AND entry_name like '%%%%%%@%%%%' GROUP BY alpha";
+	NSString *querySearchBeta = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.beta = \"%%@\" AND english_definition like '%%%%%%@%%%%' ORDER BY entries.english_definition LIMIT %%d,1";
+	NSString *querySearchBetaIndex = @"SELECT beta,COUNT(*) FROM entries WHERE part_of_speech like '%%^%@^%%' AND english_definition like '%%%%%%@%%%%' GROUP BY beta";
 	
 	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 	
@@ -134,31 +137,44 @@
 				queryIndex = @"SELECT alpha,COUNT(*) FROM entries GROUP BY alpha";
 				query = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.alpha = \"%@\" ORDER BY entries.entry_name LIMIT %d,1";
 				
+				querySearchIndex = @"SELECT alpha,COUNT(*) FROM entries WHERE entry_name like '%%%@%%' GROUP BY alpha";
+				querySearch = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.alpha = \"%@\" AND entry_name like '%%%@%%' ORDER BY entries.entry_name LIMIT %d,1";
+				
 				break;
 			case 1:
 				// Nouns
 				[self setQueryIndex:[NSString stringWithFormat:queryAlphaIndex,[prefs stringForKey:@"filter1"]]];
 				[self setQuery:[NSString stringWithFormat:queryAlpha,[prefs stringForKey:@"filter1"]]];
+				[self setQuerySearchIndex:[NSString stringWithFormat:querySearchAlphaIndex,[prefs stringForKey:@"filter1"]]];
+				[self setQuerySearch:[NSString stringWithFormat:querySearchAlpha,[prefs stringForKey:@"filter1"]]];
 				break;
 			case 2:
 				// Pronouns
 				[self setQueryIndex:[NSString stringWithFormat:queryAlphaIndex,[prefs stringForKey:@"filter2"]]];
 				[self setQuery:[NSString stringWithFormat:queryAlpha,[prefs stringForKey:@"filter2"]]];
+				[self setQuerySearchIndex:[NSString stringWithFormat:querySearchAlphaIndex,[prefs stringForKey:@"filter2"]]];
+				[self setQuerySearch:[NSString stringWithFormat:querySearchAlpha,[prefs stringForKey:@"filter2"]]];
 				break;
 			case 3:
 				// Verbs
 				[self setQueryIndex:[NSString stringWithFormat:queryAlphaIndex,[prefs stringForKey:@"filter3"]]];
 				[self setQuery:[NSString stringWithFormat:queryAlpha,[prefs stringForKey:@"filter3"]]];
+				[self setQuerySearchIndex:[NSString stringWithFormat:querySearchAlphaIndex,[prefs stringForKey:@"filter3"]]];
+				[self setQuerySearch:[NSString stringWithFormat:querySearchAlpha,[prefs stringForKey:@"filter3"]]];
 				break;
 			case 4:
 				// Adjectives
 				[self setQueryIndex:[NSString stringWithFormat:queryAlphaIndex,[prefs stringForKey:@"filter4"]]];
 				[self setQuery:[NSString stringWithFormat:queryAlpha,[prefs stringForKey:@"filter4"]]];
+				[self setQuerySearchIndex:[NSString stringWithFormat:querySearchAlphaIndex,[prefs stringForKey:@"filter4"]]];
+				[self setQuerySearch:[NSString stringWithFormat:querySearchAlpha,[prefs stringForKey:@"filter4"]]];
 				break;
 			case 5:
 				// Adverbs
 				[self setQueryIndex:[NSString stringWithFormat:queryAlphaIndex,[prefs stringForKey:@"filter5"]]];
 				[self setQuery:[NSString stringWithFormat:queryAlpha,[prefs stringForKey:@"filter5"]]];
+				[self setQuerySearchIndex:[NSString stringWithFormat:querySearchAlphaIndex,[prefs stringForKey:@"filter5"]]];
+				[self setQuerySearch:[NSString stringWithFormat:querySearchAlpha,[prefs stringForKey:@"filter5"]]];
 				break;
 			default:
 				break;
@@ -172,33 +188,46 @@
 				// All
 				// Do nothing
 				queryIndex = @"SELECT beta,COUNT(*) FROM entries GROUP BY beta";
-				query = @"SELECT entries.english_definition, entries.navi_definition, entries.entry_name, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.beta = \"%@\" ORDER BY entries.english_definition LIMIT %d,1";
+				query = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.beta = \"%@\" ORDER BY entries.english_definition LIMIT %d,1";
+				
+				querySearchIndex = @"SELECT beta,COUNT(*) FROM entries WHERE english_definition like '%%%@%%' GROUP BY beta";
+				querySearch = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.beta = \"%@\" AND english_definition like '%%%@%%' ORDER BY entries.english_definition LIMIT %d,1";
 				
 				break;
 			case 1:
 				// Nouns
 				[self setQueryIndex:[NSString stringWithFormat:queryBetaIndex,[prefs stringForKey:@"filter1"]]];
 				[self setQuery:[NSString stringWithFormat:queryBeta,[prefs stringForKey:@"filter1"]]];
+				[self setQuerySearchIndex:[NSString stringWithFormat:querySearchBetaIndex,[prefs stringForKey:@"filter1"]]];
+				[self setQuerySearch:[NSString stringWithFormat:querySearchBeta,[prefs stringForKey:@"filter1"]]];
 				break;
 			case 2:
 				// Pronouns
 				[self setQueryIndex:[NSString stringWithFormat:queryBetaIndex,[prefs stringForKey:@"filter2"]]];
 				[self setQuery:[NSString stringWithFormat:queryBeta,[prefs stringForKey:@"filter2"]]];
+				[self setQuerySearchIndex:[NSString stringWithFormat:querySearchBetaIndex,[prefs stringForKey:@"filter2"]]];
+				[self setQuerySearch:[NSString stringWithFormat:querySearchBeta,[prefs stringForKey:@"filter2"]]];
 				break;
 			case 3:
 				// Verbs
 				[self setQueryIndex:[NSString stringWithFormat:queryBetaIndex,[prefs stringForKey:@"filter3"]]];
 				[self setQuery:[NSString stringWithFormat:queryBeta,[prefs stringForKey:@"filter3"]]];
+				[self setQuerySearchIndex:[NSString stringWithFormat:querySearchBetaIndex,[prefs stringForKey:@"filter3"]]];
+				[self setQuerySearch:[NSString stringWithFormat:querySearchBeta,[prefs stringForKey:@"filter3"]]];
 				break;
 			case 4:
 				// Adjectives
 				[self setQueryIndex:[NSString stringWithFormat:queryBetaIndex,[prefs stringForKey:@"filter4"]]];
 				[self setQuery:[NSString stringWithFormat:queryBeta,[prefs stringForKey:@"filter4"]]];
+				[self setQuerySearchIndex:[NSString stringWithFormat:querySearchBetaIndex,[prefs stringForKey:@"filter4"]]];
+				[self setQuerySearch:[NSString stringWithFormat:querySearchBeta,[prefs stringForKey:@"filter4"]]];
 				break;
 			case 5:
 				// Adverbs
 				[self setQueryIndex:[NSString stringWithFormat:queryBetaIndex,[prefs stringForKey:@"filter5"]]];
 				[self setQuery:[NSString stringWithFormat:queryBeta,[prefs stringForKey:@"filter5"]]];
+				[self setQuerySearchIndex:[NSString stringWithFormat:querySearchBetaIndex,[prefs stringForKey:@"filter5"]]];
+				[self setQuerySearch:[NSString stringWithFormat:querySearchBeta,[prefs stringForKey:@"filter5"]]];
 				break;
 			default:
 				break;
@@ -206,8 +235,19 @@
 		}
 		
 	}
-	[self readEntriesFromDatabase];
-	[self.tableView reloadData];
+	if (self.searchDisplayController.active)
+	{
+		[self readSearchEntriesFromDatabase];
+		[self.searchDisplayController.searchResultsTableView reloadData];
+	} else {
+		
+		[self readEntriesFromDatabase];
+		[self.tableView reloadData];
+	}
+	
+	
+	
+	
 }
 
 - (IBAction) swapDictionaryMode:(id)sender {
@@ -290,7 +330,7 @@
     self.savedSearchTerm = [self.searchDisplayController.searchBar text];
     self.savedScopeButtonIndex = [self.searchDisplayController.searchBar selectedScopeButtonIndex];
 	
-	self.filteredDictionaryContent = nil;
+	//self.filteredDictionaryContent = nil;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -300,7 +340,7 @@
 	
 	if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
-		return @"Search Results";
+		return [dictionarySearchContentIndexMod objectAtIndex:section];
     }
 	else
 	{
@@ -313,7 +353,7 @@
     // Number of sections is the number of regions.
 	if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
-		return 1;
+		return [dictionarySearchContentIndex count];
     }
 	else
 	{
@@ -334,7 +374,9 @@
 	if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
 
-		return [self.filteredDictionaryContent count];
+		NSNumber *count = [indexSearchCounts objectForKey:[dictionarySearchContentIndex objectAtIndex:section]];
+		
+		return [count intValue]; 
     }
 	else
 	{
@@ -384,7 +426,11 @@
 	DictionaryEntry *entry = nil;
 	if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
-		entry = [self.filteredDictionaryContent objectAtIndex:indexPath.row];
+		//---get the letter in the current section---
+		NSString *alphabet = [dictionarySearchContentIndex objectAtIndex:[indexPath section]];
+		
+		
+		entry = [self readSearchEntryFromDatabase:alphabet row:indexPath.row];
     }
 	else
 	{
@@ -402,9 +448,13 @@
 	
 	UILabel *lblTemp2 = (UILabel *)[cell viewWithTag:2];
 
-			
-	lblTemp1.text = entry.entryName;
-	lblTemp2.text = entry.english_definition;
+	if(currentMode){
+		lblTemp1.text = entry.entryName;
+		lblTemp2.text = entry.english_definition;
+	} else {
+		lblTemp2.text = entry.entryName;
+		lblTemp1.text = entry.english_definition;
+	}
 	
 	
 	return cell;
@@ -451,7 +501,10 @@
 	DictionaryEntry *entry = nil;
 	if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
-        entry = [self.filteredDictionaryContent objectAtIndex:indexPath.row];
+        //---get the letter in the current section---
+		NSString *alphabet = [dictionarySearchContentIndex objectAtIndex:[indexPath section]];
+		
+		entry = [self readSearchEntryFromDatabase:alphabet row:indexPath.row];
     }
 	else
 	{
@@ -476,6 +529,7 @@
 									 style: UIBarButtonItemStyleBordered
 									target:nil
 									action:nil];
+	[detailsViewController setMode:currentMode];
 	[detailsViewController setEntry:entry];
 	[[self navigationController] pushViewController:detailsViewController animated:YES];
     [detailsViewController release];
@@ -493,23 +547,16 @@
 	 Update the filtered array based on the search text and scope.
 	 */
 	
-	[self.filteredDictionaryContent removeAllObjects]; // First clear the filtered array.
+	//[self.filteredDictionaryContent removeAllObjects]; // First clear the filtered array.
 	
 	/*
 	 Search the main list for products whose type matches the scope (if selected) and whose name matches searchText; add items that match to the filtered array.
 	 */
+	self.searchDisplayController.searchResultsTableView.rowHeight = 60;
+
+	[self setSearch_term:searchText];
 	
-	
-	for (DictionaryEntry *entry in dictionaryContent) {
-		
-		//NSComparisonResult result = [entry.entryName compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
-		//if (result == NSOrderedSame)
-		if( [entry.entryName rangeOfString:searchText options:NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch].location != NSNotFound )
-		{
-			[self.filteredDictionaryContent addObject:entry];
-		}
-		
-	}
+	[self readSearchEntriesFromDatabase];
 	
 }
 
@@ -517,7 +564,7 @@
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
     if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
-		return nil;
+		return dictionarySearchContentIndexMod;
 	} else {
 		
 		return dictionaryContentIndexMod;
@@ -570,19 +617,19 @@
 	// Setup the database object
 	DictionaryEntry *entry = nil;
 	
-	
+	search = [self convertStringToDatabase:search];
 	
 	// Setup the SQL Statement and compile it for faster access
-	NSString *queryString = [NSString stringWithFormat:[self query],search,row];
+	NSString *queryString = [NSString stringWithFormat:[self querySearch],search,row];
 	//const char *sqlStatement = "SELECT * FROM entries";
-	NSLog(@"Search Query: %@",queryString);
+	//NSLog(@"Search Query: %@",queryString);
 	sqlite3_stmt *compiledStatement;
 	int sqlResult = sqlite3_prepare_v2(database, [queryString UTF8String], -1, &compiledStatement, NULL);
 	if(sqlResult == SQLITE_OK) {
 		// Loop through the results and add them to the feeds array
 		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
 			// Read the data from the result row
-			NSMutableString *aEntry_Name = [NSMutableString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+			NSString *aEntry_Name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
 			NSString *aNavi_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
 			NSString *aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
 			NSString *aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
@@ -593,10 +640,7 @@
 			NSString *aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 8)];
 			NSString *aBeta = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 9)];
 			//NSString *aFancy_type = @"";
-			[aEntry_Name replaceOccurrencesOfString:@"b" withString:@"ä" options:NSLiteralSearch range:NSMakeRange(0, [aEntry_Name length])];
-			[aEntry_Name replaceOccurrencesOfString:@"B" withString:@"Ä" options:NSLiteralSearch range:NSMakeRange(0, [aEntry_Name length])];
-			[aEntry_Name replaceOccurrencesOfString:@"j" withString:@"ì" options:NSLiteralSearch range:NSMakeRange(0, [aEntry_Name length])];
-			[aEntry_Name replaceOccurrencesOfString:@"J" withString:@"Ì" options:NSLiteralSearch range:NSMakeRange(0, [aEntry_Name length])];
+			aEntry_Name = [self convertStringFromDatabase:aEntry_Name];
 			
 			
 			// Create a new animal object with the data from the database
@@ -628,7 +672,7 @@
 		// Loop through the results and add them to the feeds array
 		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
 			// Read the data from the result row
-			NSMutableString *aEntry_Name = [NSMutableString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+			NSString *aEntry_Name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
 			NSString *aNavi_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
 			NSString *aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
 			NSString *aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
@@ -640,10 +684,8 @@
 			NSString *aBeta = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 9)];
 			//NSString *aFancy_type = @"";
 			// Create a new animal object with the data from the database
-			[aEntry_Name replaceOccurrencesOfString:@"b" withString:@"ä" options:NSLiteralSearch range:NSMakeRange(0, [aEntry_Name length])];
-			[aEntry_Name replaceOccurrencesOfString:@"B" withString:@"Ä" options:NSLiteralSearch range:NSMakeRange(0, [aEntry_Name length])];
-			[aEntry_Name replaceOccurrencesOfString:@"j" withString:@"ì" options:NSLiteralSearch range:NSMakeRange(0, [aEntry_Name length])];
-			[aEntry_Name replaceOccurrencesOfString:@"J" withString:@"Ì" options:NSLiteralSearch range:NSMakeRange(0, [aEntry_Name length])];
+			aEntry_Name = [self convertStringFromDatabase:aEntry_Name];
+			
 			entry = [DictionaryEntry entryWithName:aEntry_Name english_definition:aEnglish_definition navi_definition:aNavi_definition part_of_speech:aPart_of_speech ipa:aIpa imageURL:aImageURL audioURL:aAudioURL andFancyType:aFancy_type alpha:aAlpha beta:aBeta];
 			//NSLog(@"Entry: %@", aEntry_Name);
 		}
@@ -653,6 +695,48 @@
 	// Release the compiled statement from memory
 	sqlite3_finalize(compiledStatement);
 		
+	
+	
+	return entry;
+	
+}
+
+- (DictionaryEntry *) readSearchEntryFromDatabase:(NSString *)alpha row:(int)row {
+	// Setup the database object
+	DictionaryEntry *entry = nil;
+	
+	// Setup the SQL Statement and compile it for faster access
+	NSString *queryString = [NSString stringWithFormat:[self querySearch],alpha,[self search_term],row];
+	//NSLog(@"Query: %@",queryString);
+	//const char *sqlStatement = "SELECT * FROM entries";
+	sqlite3_stmt *compiledStatement;
+	int sqlResult = sqlite3_prepare_v2(database, [queryString UTF8String], -1, &compiledStatement, NULL);
+	if(sqlResult == SQLITE_OK) {
+		// Loop through the results and add them to the feeds array
+		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
+			// Read the data from the result row
+			NSString *aEntry_Name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+			NSString *aNavi_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+			NSString *aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+			NSString *aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
+			NSString *aIpa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
+			NSString *aImageURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
+			NSString *aAudioURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
+			NSString *aFancy_type = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 7)];
+			NSString *aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 8)];
+			NSString *aBeta = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 9)];
+			//NSString *aFancy_type = @"";
+			// Create a new animal object with the data from the database
+			aEntry_Name = [self convertStringFromDatabase:aEntry_Name];
+			entry = [DictionaryEntry entryWithName:aEntry_Name english_definition:aEnglish_definition navi_definition:aNavi_definition part_of_speech:aPart_of_speech ipa:aIpa imageURL:aImageURL audioURL:aAudioURL andFancyType:aFancy_type alpha:aAlpha beta:aBeta];
+			//NSLog(@"Entry: %@", aEntry_Name);
+		}
+	} else {
+		NSLog(@"Error 629");
+	}
+	// Release the compiled statement from memory
+	sqlite3_finalize(compiledStatement);
+	
 	
 	
 	return entry;
@@ -683,15 +767,14 @@
 		// Loop through the results and add them to the feeds array
 		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
 			// Read the data from the result row
-			NSMutableString *aAlpha = [NSMutableString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+			NSString *aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
 			NSString *aCount = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
 			//NSString *aFancy_type = @"";
 			
-			NSMutableString *alpha = [aAlpha mutableCopy];
-			[aAlpha replaceOccurrencesOfString:@"b" withString:@"ä" options:NSLiteralSearch range:NSMakeRange(0, [aAlpha length])];
-			[aAlpha replaceOccurrencesOfString:@"B" withString:@"Ä" options:NSLiteralSearch range:NSMakeRange(0, [aAlpha length])];
-			[aAlpha replaceOccurrencesOfString:@"j" withString:@"ì" options:NSLiteralSearch range:NSMakeRange(0, [aAlpha length])];
-			[aAlpha replaceOccurrencesOfString:@"J" withString:@"Ì" options:NSLiteralSearch range:NSMakeRange(0, [aAlpha length])];
+			NSMutableString *alpha = [aAlpha copy];
+			if(currentMode){
+				aAlpha = [self convertStringFromDatabase:aAlpha];
+			}
 			// Create a new animal object with the data from the database
 			NSNumber *aNumber = [NSNumber numberWithInt:[aCount intValue]];
 			[indexCounts setObject:aNumber forKey:alpha];
@@ -716,12 +799,88 @@
 	
 }
 
+-(void) readSearchEntriesFromDatabase {
+	// Setup the database object
+	
+	if(databasePath == nil){
+		[self loadData];
+	}
+	
+	// Init the animals Array
+	indexSearchCounts = [[NSMutableDictionary alloc] init];
+	// Open the database from the users filessytem
+	
+	NSString *queryString = [NSString stringWithFormat:[self querySearchIndex], [self search_term]];
+	
+	NSMutableArray *contentIndex = [[NSMutableArray alloc] init];
+	NSMutableArray *contentIndexMod = [[NSMutableArray alloc] init]; 
+	//NSLog(@"QueryString: %@", queryString);
+	//const char *sqlStatement = "SELECT * FROM entries";
+	sqlite3_stmt *compiledStatement;
+	int sqlResult = sqlite3_prepare_v2(database, [queryString UTF8String], -1, &compiledStatement, NULL);
+	
+	if(sqlResult == SQLITE_OK) {
+		// Loop through the results and add them to the feeds array
+		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
+			// Read the data from the result row
+			NSString *aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+			NSString *aCount = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+			//NSString *aFancy_type = @"";
+			
+			NSMutableString *alpha = [aAlpha copy];
+			if(currentMode){
+				aAlpha = [self convertStringFromDatabase:aAlpha];
+			}
+			// Create a new animal object with the data from the database
+			NSNumber *aNumber = [NSNumber numberWithInt:[aCount intValue]];
+			[indexSearchCounts setObject:aNumber forKey:alpha];
+			//NSLog(@"Query: %@", queryIndex);
+			//NSLog(@"Alpha: %@ Num: %@",aAlpha, aNumber);
+			
+			[contentIndex addObject:alpha];
+			[contentIndexMod addObject:aAlpha];
+			
+		}
+	} else {
+		NSLog(@"Error 701: %@ %@", databasePath, queryIndex);
+	}
+	// Release the compiled statement from memory
+	sqlite3_finalize(compiledStatement);
+	
+	dictionarySearchContentIndex = contentIndex;
+	dictionarySearchContentIndexMod = contentIndexMod;
+	
+	
+	
+	
+}
 
+
+-(NSString *)convertStringFromDatabase:(NSString *)string {
+	
+	NSMutableString *aAlpha = [string mutableCopy];
+	[aAlpha replaceOccurrencesOfString:@"b" withString:@"ä" options:NSLiteralSearch range:NSMakeRange(0, [aAlpha length])];
+	[aAlpha replaceOccurrencesOfString:@"B" withString:@"Ä" options:NSLiteralSearch range:NSMakeRange(0, [aAlpha length])];
+	[aAlpha replaceOccurrencesOfString:@"j" withString:@"ì" options:NSLiteralSearch range:NSMakeRange(0, [aAlpha length])];
+	[aAlpha replaceOccurrencesOfString:@"J" withString:@"Ì" options:NSLiteralSearch range:NSMakeRange(0, [aAlpha length])];
+	
+	return aAlpha;
+}
+
+-(NSString *)convertStringToDatabase:(NSString *)string {
+	
+	NSMutableString *aAlpha = [string mutableCopy];
+	[aAlpha replaceOccurrencesOfString:@"ä" withString:@"b" options:NSLiteralSearch range:NSMakeRange(0, [aAlpha length])];
+	[aAlpha replaceOccurrencesOfString:@"Ä" withString:@"B" options:NSLiteralSearch range:NSMakeRange(0, [aAlpha length])];
+	[aAlpha replaceOccurrencesOfString:@"ì" withString:@"j" options:NSLiteralSearch range:NSMakeRange(0, [aAlpha length])];
+	[aAlpha replaceOccurrencesOfString:@"Ì" withString:@"J" options:NSLiteralSearch range:NSMakeRange(0, [aAlpha length])];
+	
+	return aAlpha;
+}
 
 - (void)dealloc {
 	sqlite3_close(database);
 	[dictionaryContent dealloc];
-	[filteredDictionaryContent dealloc];
 	 
     [super dealloc];
 }
