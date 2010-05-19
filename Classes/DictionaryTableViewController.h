@@ -13,6 +13,7 @@
 @interface DictionaryTableViewController : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate> {
 	NSMutableArray *dictionaryContent;
 	NSMutableArray *dictionaryContentIndex;
+	NSMutableArray *dictionaryContentIndexMod;
 	NSMutableDictionary *indexCounts;
 	NSMutableArray *filteredDictionaryContent;
 	NSString *savedSearchTerm;
@@ -31,7 +32,7 @@
 }
 
 @property (nonatomic, retain) NSMutableArray *dictionaryContent, *filteredDictionaryContent;
-@property (nonatomic, retain) NSMutableArray *dictionaryContentIndex;
+@property (nonatomic, retain) NSMutableArray *dictionaryContentIndex, *dictionaryContentIndexMod;
 @property (nonatomic, retain) NSMutableDictionary *indexCounts;
 @property (nonatomic, retain) UIViewController *viewController;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;

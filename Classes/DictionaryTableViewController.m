@@ -14,7 +14,7 @@
 @implementation DictionaryTableViewController
 
 
-@synthesize dictionaryContent, filteredDictionaryContent, dictionaryContentIndex, indexCounts, query, queryIndex; 
+@synthesize dictionaryContent, filteredDictionaryContent, dictionaryContentIndex, dictionaryContentIndexMod, indexCounts, query, queryIndex; 
 @synthesize savedSearchTerm, savedScopeButtonIndex, searchWasActive, viewController, segmentedControl, currentMode, databasePath;
 
 /*
@@ -118,7 +118,7 @@
 	
 	cellSizeChanged = YES;
 	
-	NSString *queryAlpha = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.alpha = \"%%@\" LIMIT %%d,1";
+	NSString *queryAlpha = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.alpha = \"%%@\" ORDER BY entries.entry_name  LIMIT %%d,1";
 	NSString *queryAlphaIndex = @"SELECT alpha,COUNT(*) FROM entries WHERE part_of_speech like '%%^%@^%%' GROUP BY alpha";
 	NSString *queryBeta = @"SELECT entries.english_definition, entries.navi_definition, entries.entry_name, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.beta = \"%%@\" ORDER BY entries.english_definition LIMIT %%d,1";
 	NSString *queryBetaIndex = @"SELECT beta,COUNT(*) FROM entries WHERE part_of_speech like '%%^%@^%%' GROUP BY beta";
@@ -132,7 +132,7 @@
 				// All
 				// Do nothing
 				queryIndex = @"SELECT alpha,COUNT(*) FROM entries GROUP BY alpha";
-				query = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.alpha = \"%@\" LIMIT %d,1";
+				query = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.alpha = \"%@\" ORDER BY entries.entry_name LIMIT %d,1";
 				
 				break;
 			case 1:
@@ -304,7 +304,7 @@
     }
 	else
 	{
-		return [dictionaryContentIndex objectAtIndex:section];
+		return [dictionaryContentIndexMod objectAtIndex:section];
 	}
 	
 }
@@ -519,7 +519,8 @@
 	{
 		return nil;
 	} else {
-		return dictionaryContentIndex;
+		
+		return dictionaryContentIndexMod;
 	}
 }
 
@@ -561,13 +562,8 @@
 		NSLog(@"Error 646");
 	}
 	
-	// Query the database for all animal records and construct the "animals" array
-	//[self readEntriesFromDatabase];
-	
-	
 
 }
-
 
 
 - (DictionaryEntry *) searchEntryFromDatabase:(NSString *)search row:(int)row {
@@ -586,7 +582,7 @@
 		// Loop through the results and add them to the feeds array
 		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
 			// Read the data from the result row
-			NSString *aEntry_Name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+			NSMutableString *aEntry_Name = [NSMutableString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
 			NSString *aNavi_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
 			NSString *aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
 			NSString *aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
@@ -597,13 +593,19 @@
 			NSString *aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 8)];
 			NSString *aBeta = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 9)];
 			//NSString *aFancy_type = @"";
+			[aEntry_Name replaceOccurrencesOfString:@"b" withString:@"ä" options:NSLiteralSearch range:NSMakeRange(0, [aEntry_Name length])];
+			[aEntry_Name replaceOccurrencesOfString:@"B" withString:@"Ä" options:NSLiteralSearch range:NSMakeRange(0, [aEntry_Name length])];
+			[aEntry_Name replaceOccurrencesOfString:@"j" withString:@"ì" options:NSLiteralSearch range:NSMakeRange(0, [aEntry_Name length])];
+			[aEntry_Name replaceOccurrencesOfString:@"J" withString:@"Ì" options:NSLiteralSearch range:NSMakeRange(0, [aEntry_Name length])];
+			
+			
 			// Create a new animal object with the data from the database
 			entry = [DictionaryEntry entryWithName:aEntry_Name english_definition:aEnglish_definition navi_definition:aNavi_definition part_of_speech:aPart_of_speech ipa:aIpa imageURL:aImageURL audioURL:aAudioURL andFancyType:aFancy_type alpha:aAlpha beta:aBeta];
 			
 		}
 	} else {
 		NSLog(@"Error 604");
-}
+	}
 	// Release the compiled statement from memory
 	sqlite3_finalize(compiledStatement);
 	
@@ -615,11 +617,10 @@
 - (DictionaryEntry *) readEntryFromDatabase:(NSString *)alpha row:(int)row {
 	// Setup the database object
 	DictionaryEntry *entry = nil;
-	
-	
-				
+					
 	// Setup the SQL Statement and compile it for faster access
 	NSString *queryString = [NSString stringWithFormat:[self query],alpha,row];
+	//NSLog(@"Query: %@",queryString);
 	//const char *sqlStatement = "SELECT * FROM entries";
 	sqlite3_stmt *compiledStatement;
 	int sqlResult = sqlite3_prepare_v2(database, [queryString UTF8String], -1, &compiledStatement, NULL);
@@ -627,7 +628,7 @@
 		// Loop through the results and add them to the feeds array
 		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
 			// Read the data from the result row
-			NSString *aEntry_Name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+			NSMutableString *aEntry_Name = [NSMutableString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
 			NSString *aNavi_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
 			NSString *aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
 			NSString *aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
@@ -639,8 +640,12 @@
 			NSString *aBeta = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 9)];
 			//NSString *aFancy_type = @"";
 			// Create a new animal object with the data from the database
+			[aEntry_Name replaceOccurrencesOfString:@"b" withString:@"ä" options:NSLiteralSearch range:NSMakeRange(0, [aEntry_Name length])];
+			[aEntry_Name replaceOccurrencesOfString:@"B" withString:@"Ä" options:NSLiteralSearch range:NSMakeRange(0, [aEntry_Name length])];
+			[aEntry_Name replaceOccurrencesOfString:@"j" withString:@"ì" options:NSLiteralSearch range:NSMakeRange(0, [aEntry_Name length])];
+			[aEntry_Name replaceOccurrencesOfString:@"J" withString:@"Ì" options:NSLiteralSearch range:NSMakeRange(0, [aEntry_Name length])];
 			entry = [DictionaryEntry entryWithName:aEntry_Name english_definition:aEnglish_definition navi_definition:aNavi_definition part_of_speech:aPart_of_speech ipa:aIpa imageURL:aImageURL audioURL:aAudioURL andFancyType:aFancy_type alpha:aAlpha beta:aBeta];
-			
+			//NSLog(@"Entry: %@", aEntry_Name);
 		}
 	} else {
 		NSLog(@"Error 629");
@@ -648,6 +653,7 @@
 	// Release the compiled statement from memory
 	sqlite3_finalize(compiledStatement);
 		
+	
 	
 	return entry;
 	
@@ -667,7 +673,7 @@
 		
 		
 	NSMutableArray *contentIndex = [[NSMutableArray alloc] init];
-	
+	NSMutableArray *contentIndexMod = [[NSMutableArray alloc] init]; 
 	
 	//const char *sqlStatement = "SELECT * FROM entries";
 	sqlite3_stmt *compiledStatement;
@@ -677,43 +683,23 @@
 		// Loop through the results and add them to the feeds array
 		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
 			// Read the data from the result row
-			NSString *aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+			NSMutableString *aAlpha = [NSMutableString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
 			NSString *aCount = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
 			//NSString *aFancy_type = @"";
+			
+			NSMutableString *alpha = [aAlpha mutableCopy];
+			[aAlpha replaceOccurrencesOfString:@"b" withString:@"ä" options:NSLiteralSearch range:NSMakeRange(0, [aAlpha length])];
+			[aAlpha replaceOccurrencesOfString:@"B" withString:@"Ä" options:NSLiteralSearch range:NSMakeRange(0, [aAlpha length])];
+			[aAlpha replaceOccurrencesOfString:@"j" withString:@"ì" options:NSLiteralSearch range:NSMakeRange(0, [aAlpha length])];
+			[aAlpha replaceOccurrencesOfString:@"J" withString:@"Ì" options:NSLiteralSearch range:NSMakeRange(0, [aAlpha length])];
 			// Create a new animal object with the data from the database
 			NSNumber *aNumber = [NSNumber numberWithInt:[aCount intValue]];
-			[indexCounts setObject:aNumber forKey:aAlpha];
+			[indexCounts setObject:aNumber forKey:alpha];
+			//NSLog(@"Query: %@", queryIndex);
+			//NSLog(@"Alpha: %@ Num: %@",aAlpha, aNumber);
 			
-			if([aAlpha compare:@"Ä"] == 0){
-				int index = [contentIndex indexOfObject:@"A"];
-				int index2 = [contentIndex indexOfObject:@"'"];
-				if(index > 30){
-					// Not Found
-					if(index2 > 30){
-						[contentIndex insertObject:aAlpha atIndex:(0)];
-					} else {
-						[contentIndex insertObject:aAlpha atIndex:(1)];
-					}
-				} else {
-					[contentIndex insertObject:aAlpha atIndex:(index + 1)];
-				}
-			} else if ([aAlpha compare:@"Ì"] == 0) {
-				int index = [contentIndex indexOfObject:@"I"];
-				int index2 = [contentIndex indexOfObject:@"K"];
-				if(index > 30){
-					// Not Found
-					if(index2 > 30){
-						[contentIndex addObject:aAlpha];
-					} else {
-						[contentIndex insertObject:aAlpha atIndex:index2];
-					}
-				} else {
-					[contentIndex insertObject:aAlpha atIndex:(index + 1)];
-				}
-				
-			} else {
-				[contentIndex addObject:aAlpha];
-			}
+			[contentIndex addObject:alpha];
+			[contentIndexMod addObject:aAlpha];
 			
 		}
 	} else {
@@ -723,7 +709,7 @@
 	sqlite3_finalize(compiledStatement);
 	
 	dictionaryContentIndex = contentIndex;
-		
+	dictionaryContentIndexMod = contentIndexMod;
 	
 	
 	
