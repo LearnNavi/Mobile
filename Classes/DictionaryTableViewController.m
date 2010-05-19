@@ -122,10 +122,10 @@
 	NSString *queryBetaIndex = @"SELECT beta,COUNT(*) FROM entries WHERE part_of_speech like '%%^%@^%%' GROUP BY beta";
 	
 	//Search Versions
-	NSString *querySearchAlpha = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.alpha = \"%%@\" AND entry_name like '%%%%%%@%%%%' ORDER BY entries.entry_name  LIMIT %%d,1";
-	NSString *querySearchAlphaIndex = @"SELECT alpha,COUNT(*) FROM entries WHERE part_of_speech like '%%^%@^%%' AND entry_name like '%%%%%%@%%%%' GROUP BY alpha";
-	NSString *querySearchBeta = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.beta = \"%%@\" AND english_definition like '%%%%%%@%%%%' ORDER BY entries.english_definition LIMIT %%d,1";
-	NSString *querySearchBetaIndex = @"SELECT beta,COUNT(*) FROM entries WHERE part_of_speech like '%%^%@^%%' AND english_definition like '%%%%%%@%%%%' GROUP BY beta";
+	NSString *querySearchAlpha = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.alpha = \"%%@\" AND entry_name like \"%%%%%%@%%%%\" ORDER BY entries.entry_name  LIMIT %%d,1";
+	NSString *querySearchAlphaIndex = @"SELECT alpha,COUNT(*) FROM entries WHERE part_of_speech like '%%^%@^%%' AND entry_name like \"%%%%%%@%%%%\" GROUP BY alpha";
+	NSString *querySearchBeta = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.beta = \"%%@\" AND english_definition like \"%%%%%%@%%%%\" ORDER BY entries.english_definition LIMIT %%d,1";
+	NSString *querySearchBetaIndex = @"SELECT beta,COUNT(*) FROM entries WHERE part_of_speech like '%%^%@^%%' AND english_definition like \"%%%%%%@%%%%\" GROUP BY beta";
 	
 	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 	
@@ -137,8 +137,8 @@
 				queryIndex = @"SELECT alpha,COUNT(*) FROM entries GROUP BY alpha";
 				query = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.alpha = \"%@\" ORDER BY entries.entry_name LIMIT %d,1";
 				
-				querySearchIndex = @"SELECT alpha,COUNT(*) FROM entries WHERE entry_name like '%%%@%%' GROUP BY alpha";
-				querySearch = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.alpha = \"%@\" AND entry_name like '%%%@%%' ORDER BY entries.entry_name LIMIT %d,1";
+				querySearchIndex = @"SELECT alpha,COUNT(*) FROM entries WHERE entry_name like \"%%%@%%\" GROUP BY alpha";
+				querySearch = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.alpha = \"%@\" AND entry_name like \"%%%@%%\" ORDER BY entries.entry_name LIMIT %d,1";
 				
 				break;
 			case 1:
@@ -190,8 +190,8 @@
 				queryIndex = @"SELECT beta,COUNT(*) FROM entries GROUP BY beta";
 				query = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.beta = \"%@\" ORDER BY entries.english_definition LIMIT %d,1";
 				
-				querySearchIndex = @"SELECT beta,COUNT(*) FROM entries WHERE english_definition like '%%%@%%' GROUP BY beta";
-				querySearch = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.beta = \"%@\" AND english_definition like '%%%@%%' ORDER BY entries.english_definition LIMIT %d,1";
+				querySearchIndex = @"SELECT beta,COUNT(*) FROM entries WHERE english_definition like \"%%%@%%\" GROUP BY beta";
+				querySearch = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.beta = \"%@\" AND english_definition like \"%%%@%%\" ORDER BY entries.english_definition LIMIT %d,1";
 				
 				break;
 			case 1:
