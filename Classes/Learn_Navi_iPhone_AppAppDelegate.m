@@ -516,8 +516,9 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (NSString *)versionString {
-	
-	return [NSString stringWithFormat:@"Version %@ (%@)",[self bundleVersionNumber], [self bundleShortVersionString]];
+	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+	NSString *dictionary_version = [prefs stringForKey:@"database_version"];
+	return [NSString stringWithFormat:@"Version %@ (%@-%@)",[self bundleVersionNumber], [self bundleShortVersionString], dictionary_version];
 }
 
 

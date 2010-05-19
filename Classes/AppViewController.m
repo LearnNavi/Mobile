@@ -31,7 +31,7 @@
 
 - (NSString *)versionString {
 	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-	NSString *dictionary_version = [prefs stringForKey:@"dictionary_version"];
+	NSString *dictionary_version = [prefs stringForKey:@"database_version"];
 	
 	return [NSString stringWithFormat:@"Version %@ (%@-%@)",[self bundleVersionNumber], [self bundleShortVersionString], dictionary_version];
 }
