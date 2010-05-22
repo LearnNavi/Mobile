@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>0.6.1</string>
+	<string>0.7.0</string>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleBlackOpaque</string>
 	<key>SVN_Version</key>
@@ -31,7 +31,7 @@
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.6.1</string>
+	<string>0.7.0</string>
 	<key>MMAppID</key>
 	<string>c142bc99fd6aa1eda1a3f17b6d9b09621589dc49</string>
 	<key>CFBundleGetInfoString</key>
