@@ -3,8 +3,8 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content" android:background="@drawable/resources_background">
-<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_x="52.5dip" android:width="215dip" android:layout_y="120dip" android:id="@+id/AboutButton" android:background="@drawable/about_button_image"></Button>
-<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_y="165dip" android:layout_x="52.5dip" android:width="215dip" android:height="45dip" android:id="@+id/LearnNaviOrgButton" android:background="@drawable/learn_navi_button_image"></Button>
-<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_y="210dip" android:layout_x="52.5dip" android:width="215dip" android:height="45dip" android:id="@+id/DisclaimerButton" android:background="@drawable/disclaimer_button_image"></Button>
-<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_y="255dip" android:layout_x="52.5dip" android:width="215dip" android:height="45dip" android:id="@+id/ReturnHomeButton" android:background="@drawable/return_home_button_image"></Button>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_x="52.5dip" android:width="215dip" android:id="@+id/AboutButton" android:background="@drawable/about_button_image" android:layout_y="105dip"></Button>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_x="52.5dip" android:width="215dip" android:height="45dip" android:id="@+id/LearnNaviOrgButton" android:background="@drawable/learn_navi_button_image" android:layout_y="160dip"></Button>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_x="52.5dip" android:width="215dip" android:height="45dip" android:id="@+id/DisclaimerButton" android:background="@drawable/disclaimer_button_image" android:layout_y="215dip"></Button>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_x="52.5dip" android:width="215dip" android:height="45dip" android:id="@+id/ReturnHomeButton" android:background="@drawable/return_home_button_image" android:layout_y="270dip"></Button>
 </AbsoluteLayout>

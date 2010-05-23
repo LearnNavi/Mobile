@@ -16,12 +16,24 @@ public class Kelutral extends Activity implements OnClickListener {
         
         Button button = (Button)findViewById(R.id.ResourcesButton);
         button.setOnClickListener(this);
+        button = (Button)findViewById(R.id.DictionaryButton);
+        button.setOnClickListener(this);
     }
     
 	@Override
 	public void onClick(View v) {
-		Intent newIntent = new Intent();
-		newIntent.setClass(this, Resources.class);
-		startActivity(newIntent);
+		switch (v.getId())
+		{
+		case R.id.ResourcesButton:
+			Intent newIntent = new Intent();
+			newIntent.setClass(this, Resources.class);
+			startActivity(newIntent);
+			break;
+		case R.id.DictionaryButton:
+			newIntent = new Intent();
+			newIntent.setClass(this, Dictionary.class);
+			startActivity(newIntent);
+			break;
+		}
 	}
 }
