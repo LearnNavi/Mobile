@@ -11,12 +11,13 @@
 
 @interface AboutDisclaimerViewController : UIViewController {
 	UITextView *contentText;
-	UILabel *titleText;
+	UITextView *contentTextShadow;
+	UIImageView *bg_image;
 	BOOL type;
 }
 
-@property (nonatomic, retain) IBOutlet UILabel *titleText;
-@property (nonatomic, retain) IBOutlet UITextView *contentText;
+@property (nonatomic, retain) IBOutlet UITextView *contentText, *contentTextShadow;
+@property (nonatomic, retain) IBOutlet UIImageView *bg_image;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil type:(BOOL)contentType;
 - (IBAction)doneReading:(id)sender;

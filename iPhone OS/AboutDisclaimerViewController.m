@@ -11,7 +11,7 @@
 
 @implementation AboutDisclaimerViewController
 
-@synthesize titleText, contentText;
+@synthesize contentText, contentTextShadow, bg_image;
 
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -77,15 +77,21 @@
 }
 
 - (void)setupAbout {
-	NSLog(@"Setup About");
-	[titleText setText:@"About Learn Na'vi"];
-	[contentText setText:@"Learn Na'vi was created by Michael Gillogly aka \"Seze\" from the Learn Na'vi online community.  It was created for the online community as a reference and learning tool.  Special thanks goes to Taronyu for providing the dictionary content and all the members from the Learn Na'vi online community that helped with the development process..."];
+	
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"AboutBackground" ofType:@"png"];
+	[bg_image setImage:[UIImage imageWithContentsOfFile:path]];
+	NSLog(@"Path: %@",path);
+	[contentText setText:@"Learn Na'vi was created by Michael Gillogly aka \"Seze\" from the Learn Na'vi online community.  It was created for the online community as a reference and learning tool.  Special thanks goes to Taronyu and Tuiq for providing the dictionary content and all the members from the Learn Na'vi online community that helped with the development process..."];
+	[contentTextShadow setText:@"Learn Na'vi was created by Michael Gillogly aka \"Seze\" from the Learn Na'vi online community.  It was created for the online community as a reference and learning tool.  Special thanks goes to Taronyu and Tuiq for providing the dictionary content and all the members from the Learn Na'vi online community that helped with the development process..."];
 }
 
 - (void)setupDisclaimer {
-	NSLog(@"Setup Disclaimer");
-	[titleText setText:@"Disclaimer"];
+
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"DisclaimerBackground" ofType:@"png"];
+	[bg_image setImage:[UIImage imageWithContentsOfFile:path]];
+	NSLog(@"Path: %@",path);
 	[contentText setText:@"The Na'vi language was created by Paul Frommer. Much of the information displayed in this App was written by Prof. Frommer and is presented here for educational purposes only. Learn Na'vi is not affiliated with the official Avatar website, James Cameron, or the Twentieth Century-Fox Film Corporation. All trademarks and servicemarks are the properties of their respective owners."];
+	[contentTextShadow setText:@"The Na'vi language was created by Paul Frommer. Much of the information displayed in this App was written by Prof. Frommer and is presented here for educational purposes only. Learn Na'vi is not affiliated with the official Avatar website, James Cameron, or the Twentieth Century-Fox Film Corporation. All trademarks and servicemarks are the properties of their respective owners."];
 }
 
 

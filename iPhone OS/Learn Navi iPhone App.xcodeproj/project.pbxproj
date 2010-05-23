@@ -23,6 +23,8 @@
 
 /* Begin PBXBuildFile section */
 		0415E90111A8ECDD00F03229 /* EntryBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0415E90011A8ECDD00F03229 /* EntryBackground.png */; };
+		0415E92C11A9809900F03229 /* AboutBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0415E92A11A9809900F03229 /* AboutBackground.png */; };
+		0415E92D11A9809900F03229 /* DisclaimerBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0415E92B11A9809900F03229 /* DisclaimerBackground.png */; };
 		041A664910FE988C0009CEC2 /* UIViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A664810FE988C0009CEC2 /* UIViewAdditions.m */; };
 		041A664F10FE9BF00009CEC2 /* Root.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A664E10FE9BF00009CEC2 /* Root.m */; };
 		041A66EF110377380009CEC2 /* dictionaryButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 041A66EE110377380009CEC2 /* dictionaryButton.png */; };
@@ -95,6 +97,8 @@
 
 /* Begin PBXFileReference section */
 		0415E90011A8ECDD00F03229 /* EntryBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EntryBackground.png; sourceTree = "<group>"; };
+		0415E92A11A9809900F03229 /* AboutBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AboutBackground.png; sourceTree = "<group>"; };
+		0415E92B11A9809900F03229 /* DisclaimerBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DisclaimerBackground.png; sourceTree = "<group>"; };
 		041A664710FE988C0009CEC2 /* UIViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIViewAdditions.h; path = Classes/UIViewAdditions.h; sourceTree = "<group>"; };
 		041A664810FE988C0009CEC2 /* UIViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIViewAdditions.m; path = Classes/UIViewAdditions.m; sourceTree = "<group>"; };
 		041A664D10FE9BF00009CEC2 /* Root.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Root.h; path = Classes/Root.h; sourceTree = "<group>"; };
@@ -286,6 +290,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0415E92A11A9809900F03229 /* AboutBackground.png */,
+				0415E92B11A9809900F03229 /* DisclaimerBackground.png */,
 				0415E90011A8ECDD00F03229 /* EntryBackground.png */,
 				04DE2046119F5329004093C8 /* updateDictionaryButton_highlighted.png */,
 				04DE2047119F5329004093C8 /* updateDictionaryButton.png */,
@@ -438,6 +444,8 @@
 				04DE2048119F5329004093C8 /* updateDictionaryButton_highlighted.png in Resources */,
 				04DE2049119F5329004093C8 /* updateDictionaryButton.png in Resources */,
 				0415E90111A8ECDD00F03229 /* EntryBackground.png in Resources */,
+				0415E92C11A9809900F03229 /* AboutBackground.png in Resources */,
+				0415E92D11A9809900F03229 /* DisclaimerBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
