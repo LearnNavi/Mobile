@@ -107,7 +107,7 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     
     public Cursor queryAllEntries()
     {
-    	return myDataBase.rawQuery("SELECT _id, entries.entry_name AS word, entries.english_definition AS definition FROM entries ORDER BY entries.entry_name COLLATE UNICODE", null);
+    	return myDataBase.rawQuery("SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, entries.english_definition AS definition FROM entries ORDER BY entries.entry_name", null);
     }
     
     @Override
