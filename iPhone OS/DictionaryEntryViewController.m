@@ -69,6 +69,8 @@
     
 	[super viewDidLoad];
 	
+	self.title = [self.entry entryName];
+	
 	/*UIBarButtonItem *flexibleSpaceButtonItem = [[UIBarButtonItem alloc]
 												initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
 												target:nil action:nil];

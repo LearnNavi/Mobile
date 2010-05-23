@@ -473,12 +473,14 @@
 	
 	//Initialize Label with tag 1.
 	lblTemp = [[UILabel alloc] initWithFrame:Label1Frame];
+	[lblTemp setBackgroundColor:[UIColor colorWithWhite:0.93 alpha:0.0]];
 	lblTemp.tag = 1;
 	[cell.contentView addSubview:lblTemp];
 	[lblTemp release];
 	
 	//Initialize Label with tag 2.
 	lblTemp = [[UILabel alloc] initWithFrame:Label2Frame];
+	[lblTemp setBackgroundColor:[UIColor colorWithWhite:0.93 alpha:0.0]];
 	lblTemp.tag = 2;
 	lblTemp.font = [UIFont boldSystemFontOfSize:12];
 	lblTemp.textColor = [UIColor lightGrayColor];
@@ -529,6 +531,7 @@
 									 style: UIBarButtonItemStyleBordered
 									target:nil
 									action:nil];
+	
 	[detailsViewController setMode:currentMode];
 	[detailsViewController setEntry:entry];
 	[[self navigationController] pushViewController:detailsViewController animated:YES];
