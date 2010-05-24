@@ -27,12 +27,12 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
         this.myContext = context;
     }
 	
-	// Copy the database from the distribution if it doesn't exist
-	public void createDataBase() throws IOException{
+	// Copy the database from the distribution if it doesn't exist, return DB version
+	public String createDataBase() throws IOException{
 		 
-    	boolean dbExist = checkDataBase();
+    	String ret = checkDataBase();
  
-    	if(dbExist){
+    	if(ret != null){
     		//do nothing - database already exist
     	}else{
     		//By calling this method and empty database will be created into the default system path
@@ -40,14 +40,20 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
         	this.getReadableDatabase();
         	try {
     			copyDataBase();
+    			ret = checkDataBase();
+    			if (ret == null)
+    				ret = "Unk";
     		} catch (IOException e) {
         		throw new Error("Error copying database");
         	}
     	}
+    	
+    	return ret;
     }
 	
-	// Check if the database exists
-    private boolean checkDataBase(){
+	// Check if the database exists, returning the version if it does
+    private String checkDataBase(){
+    	String ret = null;
     	SQLiteDatabase checkDB = null;
 
     	try{
@@ -60,9 +66,7 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     	if(checkDB != null){
     		try
     		{
-    			Cursor c = checkDB.rawQuery("SELECT version FROM version", null);
-    			c.close();
-        		checkDB.close();
+    			ret = queryDatabaseVersion(checkDB);
     		}
     		catch(SQLiteException e){
         		checkDB.close();
@@ -70,9 +74,21 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     		}
     	}
  
-    	return checkDB != null ? true : false;
+    	return ret;
     }
-
+    
+    private static String queryDatabaseVersion(SQLiteDatabase db) throws SQLiteException
+    {
+    	String ret;
+    	Cursor c = db.rawQuery("SELECT version FROM version", null);
+    	if (c.moveToFirst())
+    		ret = c.getString(0);
+    	else
+    		ret = "Unk";
+    	c.close();
+    	return ret;
+    }
+    
     // Copy the database from the distribution
     private void copyDataBase() throws IOException{
     	 

@@ -4,4 +4,5 @@
     <string name="app_name">Learn Na'vi Android</string>
 <string name="ButtonKelutral">Kelutral</string>
 <string name="no_entries">No entries found.</string>
+<string name="VersionString">Version $V$ ($S$-$D$)</string>
 </resources>
