@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:background="@drawable/about_disclaimer_background" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
-<FrameLayout android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="385"><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/Disclaimer" android:layout_gravity="center" android:padding="25dp"></TextView></FrameLayout><LinearLayout android:id="@+id/LinearLayout01" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="50"><FrameLayout android:id="@+id/FrameLayout01" android:layout_height="fill_parent" android:layout_width="0dp" android:layout_weight="52.5"></FrameLayout><Button android:layout_width="0dp" android:layout_weight="215" android:background="@drawable/return_home_button_image" android:layout_height="fill_parent" android:id="@+id/ReturnHomeButton"></Button>
+  android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:background="@drawable/disclaimer_background">
+<FrameLayout android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="405"><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/Disclaimer" android:layout_gravity="center" android:padding="25dp"></TextView></FrameLayout><LinearLayout android:id="@+id/LinearLayout01" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="50"><FrameLayout android:id="@+id/FrameLayout01" android:layout_height="fill_parent" android:layout_width="0dp" android:layout_weight="52.5"></FrameLayout><Button android:layout_width="0dp" android:layout_weight="215" android:background="@drawable/return_home_button_image" android:layout_height="fill_parent" android:id="@+id/ReturnHomeButton"></Button>
 <FrameLayout android:id="@+id/FrameLayout02" android:layout_height="fill_parent" android:layout_width="0dp" android:layout_weight="52.5"></FrameLayout>
 
-</LinearLayout><FrameLayout android:id="@+id/FrameLayout03" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="50"></FrameLayout>
+</LinearLayout><FrameLayout android:id="@+id/FrameLayout03" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="30"></FrameLayout>
 
 
 
