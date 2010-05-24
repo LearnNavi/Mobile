@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:background="@drawable/about_disclaimer_background" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
+<FrameLayout android:layout_height="0dp" android:layout_weight="20" android:layout_width="fill_parent">
+
+
+</FrameLayout><LinearLayout android:orientation="vertical" android:layout_height="0dp" android:layout_weight="365" android:layout_width="fill_parent"><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/VersionString" android:layout_gravity="center_horizontal" android:textStyle="bold" android:textSize="22sp" android:textColor="#ff6200" android:id="@+id/VersionTextView"></TextView><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:text="@string/DBVersionString" android:textColor="#ffd080" android:textSize="12sp" android:id="@+id/DBVersionTextView"></TextView>
+<FrameLayout android:id="@+id/FrameLayout01" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="1"><TextView android:layout_width="wrap_content" android:text="@string/About" android:scrollbars="vertical" android:layout_height="wrap_content" android:paddingLeft="25dp" android:paddingRight="25dp" android:layout_gravity="center"></TextView></FrameLayout>
+</LinearLayout><LinearLayout android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="50"><FrameLayout android:layout_height="fill_parent" android:layout_width="0dp" android:layout_weight="52.5"></FrameLayout><Button android:layout_width="0dp" android:layout_weight="215" android:background="@drawable/return_home_button_image" android:layout_height="fill_parent" android:id="@+id/ReturnHomeButton"></Button>
+<FrameLayout android:layout_height="fill_parent" android:layout_width="0dp" android:layout_weight="52.5"></FrameLayout>
+
+</LinearLayout><FrameLayout android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="50"></FrameLayout>
+
+
+
+
+</LinearLayout>

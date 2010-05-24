@@ -21,6 +21,12 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     public static final String KEY_WORD = "word";
     public static final String KEY_DEFINITION = "definition";
     public static final String KEY_ROWID = "_id";
+    public static final String KEY_IPA = "ipa";
+    public static final String KEY_PART = "part_of_speech";
+    
+    private static String QUERY_ALL = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, entries.english_definition AS definition FROM entries ORDER BY entries.entry_name COLLATE UNICODE";
+    private static String QUERY_ALL_TO_NAVI = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS definition, entries.english_definition AS word FROM entries ORDER BY entries.english_definition COLLATE UNICODE";
+    public static String QUERY_ENTRY = "SELECT replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, entries.english_definition AS definition, ipa, fps.description as part_of_speech FROM entries LEFT JOIN fancy_parts_of_speech fps USING (part_of_speech) WHERE _id = ?";
 
 	public EntryDBAdapter(Context context) {
     	super(context, DB_NAME, null, 1);
@@ -123,7 +129,17 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     
     public Cursor queryAllEntries()
     {
-    	return myDataBase.rawQuery("SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, entries.english_definition AS definition FROM entries ORDER BY entries.entry_name", null);
+    	return myDataBase.rawQuery(QUERY_ALL, null);
+    }
+    
+    public Cursor queryAllEntriesToNavi()
+    {
+    	return myDataBase.rawQuery(QUERY_ALL_TO_NAVI, null);
+    }
+    
+    public Cursor querySingleEntry(int rowId)
+    {
+    	return myDataBase.rawQuery(QUERY_ENTRY, new String[] { Integer.toString(rowId) });
     }
     
     @Override

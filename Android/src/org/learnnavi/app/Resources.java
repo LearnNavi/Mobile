@@ -21,6 +21,10 @@ public class Resources extends Activity implements OnClickListener {
         button.setOnClickListener(this);
         button = (Button)findViewById(R.id.LearnNaviOrgButton);
         button.setOnClickListener(this);
+        button = (Button)findViewById(R.id.DisclaimerButton);
+        button.setOnClickListener(this);
+        button = (Button)findViewById(R.id.AboutButton);
+        button.setOnClickListener(this);
 	}
 
 	@Override
@@ -33,6 +37,17 @@ public class Resources extends Activity implements OnClickListener {
 		case R.id.LearnNaviOrgButton:
 			Intent myIntent = new Intent(Intent.ACTION_VIEW,
 					Uri.parse("http://www.learnnavi.org"));
+			startActivity(myIntent);
+			break;
+		case R.id.DisclaimerButton:
+			myIntent = new Intent();
+			myIntent.setClass(this, AboutDisclaimer.class);
+			startActivity(myIntent);
+			break;
+		case R.id.AboutButton:
+			myIntent = new Intent();
+			myIntent.setClass(this, AboutDisclaimer.class);
+			myIntent.putExtra(AboutDisclaimer.KEY_ISABOUT, true);
 			startActivity(myIntent);
 			break;
 		}
