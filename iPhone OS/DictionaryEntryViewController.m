@@ -51,13 +51,11 @@
 		[term setText:[self.entry english_definition]];
 		
 	}
-	if([[self.entry ipa] compare:@""] == 0){
-		[ipa setText:@"[IPA not set]"];
+	
+	
+	[ipa setText:[self.entry ipa]];
 
-	} else {
-		[ipa setText:[NSString stringWithFormat:@"[%@]",[self.entry ipa]]];
-
-	}
+	
 	[fancyType setText:[self.entry fancyType]];
 	[[self navigationController] setNavigationBarHidden:NO animated:YES];
 	
