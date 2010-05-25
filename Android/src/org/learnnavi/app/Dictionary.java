@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import android.app.Dialog;
 import android.app.ListActivity;
+import android.app.SearchManager;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Html;
@@ -12,6 +14,7 @@ import android.text.Spanned;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -21,6 +24,8 @@ public class Dictionary extends ListActivity implements OnClickListener {
 	private EntryDBAdapter mDbAdapter;
 	private Dialog mEntryDialog;
 	private Button mToNaviButton;
+	private String mCurSearch;
+	private String mCurSearchNavi;
 	
 	private boolean mToNavi = false;
 
@@ -28,11 +33,19 @@ public class Dictionary extends ListActivity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	
+
+        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
+        
         setContentView(R.layout.dictionary);
+
+        Button cancelsearch = (Button)findViewById(R.id.CancelSearch);
+        cancelsearch.setOnClickListener(this);
+
         mToNaviButton = (Button)findViewById(R.id.DictionaryType);
         mToNaviButton.setOnClickListener(this);
+        
         mDbAdapter = new EntryDBAdapter(this);
+        checkIntentForSearch(getIntent());
         try
         {
 		    mDbAdapter.createDataBase();
@@ -43,26 +56,95 @@ public class Dictionary extends ListActivity implements OnClickListener {
         {
         }
 	}
+	
+	protected void onNewIntent(Intent intent)
+	{
+		if (checkIntentForSearch(intent))
+			fillData();
+	}
+	
+	private void setCurSearch(String search)
+	{
+		if (mToNavi)
+			mCurSearch = search;
+		else
+			mCurSearchNavi = search;
+	}
+	
+	private String getCurSearch()
+	{
+		if (mToNavi)
+			return mCurSearch;
+		else
+			return mCurSearchNavi;
+	}
+	
+	private boolean checkIntentForSearch(Intent intent)
+	{
+		if (Intent.ACTION_VIEW.equals(intent.getAction()))
+		{
+			String id = intent.getDataString();
+			try
+			{
+		    	checkForEntryDialog();
+		        fillFields(mDbAdapter.querySingleEntry(Integer.parseInt(id)), mEntryDialog);
+		        mEntryDialog.show();
+			}
+			catch (Exception ex)
+			{
+			}
+			return false;
+		}
+		if (Intent.ACTION_SEARCH.equals(intent.getAction()))
+		{
+			String search = intent.getStringExtra(SearchManager.QUERY);
+			if (search == "")
+				search = null;
+			setCurSearch(search);
+			return true;
+		}
+		else
+		{
+			setCurSearch(null);
+			return false;
+		}
+	}
 
     private void fillData() {
     	Cursor c;
+    	Cursor ci;
+    	String cursearch = getCurSearch();
+    	
+		Button cancel = (Button)findViewById(R.id.CancelSearch);
+    	if (cursearch != null)
+    	{
+    		cancel.setVisibility(Button.VISIBLE);
+    		cancel.setText(getString(R.string.CancelSearch).replace("$F$", cursearch));
+    	}
+    	else
+    		cancel.setVisibility(Button.GONE);
+    	
     	if (mToNavi)
     	{
     		mToNaviButton.setText(R.string.ToNavi);
-      		c = mDbAdapter.queryAllEntriesToNavi();
+      		c = mDbAdapter.queryAllEntryToNaviLetters(cursearch);
+      		ci = mDbAdapter.queryAllEntriesToNavi(cursearch);
     	}
     	else
     	{
     		mToNaviButton.setText(R.string.FromNavi);
-      		c = mDbAdapter.queryAllEntries();
+      		c = mDbAdapter.queryAllEntryLetters(cursearch);
+      		ci = mDbAdapter.queryAllEntries(cursearch);
     	}
     	startManagingCursor(c);
     	
-    	String[] from = new String[] { EntryDBAdapter.KEY_WORD, EntryDBAdapter.KEY_DEFINITION };
-
-    	int[] to = new int[] { R.id.EntryWord, R.id.EntryDefinition };
+    	String[] fromword = new String[] { EntryDBAdapter.KEY_WORD, EntryDBAdapter.KEY_DEFINITION };
+    	int[] toword = new int[] { R.id.EntryWord, R.id.EntryDefinition };
+    	String[] fromletter = new String[] { EntryDBAdapter.KEY_LETTER };
+    	int[] toletter = new int[] { R.id.DictionaryCategory };
     	
-    	SimpleCursorAdapter entries = new SimpleCursorAdapter(this, R.layout.entry_row, c, from, to);
+    	Adapter items = new SimpleCursorAdapter(this, R.layout.entry_row, ci, fromword, toword);
+    	CategoryNameCursorAdapter entries = new CategoryNameCursorAdapter(this, c, items, R.layout.entry_category, fromletter, toletter);
     	setListAdapter(entries);
 	}
     
@@ -122,7 +204,7 @@ public class Dictionary extends ListActivity implements OnClickListener {
 		if (!entry.moveToFirst())
 			return;
 		TextView text = (TextView)d.findViewById(R.id.EntryWord);
-		text.setText(entry.getString(entry.getColumnIndexOrThrow(EntryDBAdapter.KEY_WORD)));
+		text.setText(entry.getString(entry.getColumnIndexOrThrow(EntryDBAdapter.KEY_WORD)) + "  ");
 		
 		text = (TextView)d.findViewById(R.id.EntryPartOfSpeech);
 		text.setText(entry.getString(entry.getColumnIndexOrThrow(EntryDBAdapter.KEY_PART)));
@@ -133,11 +215,9 @@ public class Dictionary extends ListActivity implements OnClickListener {
 		text = (TextView)d.findViewById(R.id.EntryDefinition);
 		text.setText(formatString(entry.getString(entry.getColumnIndexOrThrow(EntryDBAdapter.KEY_DEFINITION))));
 	}
-    
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-
+	
+	private void checkForEntryDialog()
+	{
         if (mEntryDialog == null)
         {
         	mEntryDialog = new Dialog(this, android.R.style.Theme_Dialog);
@@ -146,6 +226,12 @@ public class Dictionary extends ListActivity implements OnClickListener {
             Button done = (Button)mEntryDialog.findViewById(R.id.DoneButton);
             done.setOnClickListener(this);
         }
+	}
+    
+	@Override
+    protected void onListItemClick (ListView l, View v, int position, long id) {
+    	super.onListItemClick (l, v, position, id);
+    	checkForEntryDialog();
         fillFields(mDbAdapter.querySingleEntry((int)id), mEntryDialog);
         mEntryDialog.show();
     }
@@ -155,6 +241,12 @@ public class Dictionary extends ListActivity implements OnClickListener {
 		if (v.getId() == R.id.DoneButton)
 		{
 			mEntryDialog.hide();
+			return;
+		}
+		else if (v.getId() == R.id.CancelSearch)
+		{
+			setCurSearch(null);
+			fillData();
 			return;
 		}
 		

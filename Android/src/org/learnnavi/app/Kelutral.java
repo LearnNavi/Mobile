@@ -3,7 +3,6 @@ package org.learnnavi.app;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 
 import android.app.Activity;
 import android.app.AlertDialog;

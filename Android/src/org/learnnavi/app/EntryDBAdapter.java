@@ -13,8 +13,8 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class EntryDBAdapter extends SQLiteOpenHelper {
-	private static String DB_PATH = "/data/data/org.learnnavi.app/databases/";
-	private static String DB_NAME = "dictionary.sqlite";
+	private static final String DB_PATH = "/data/data/org.learnnavi.app/databases/";
+	private static final String DB_NAME = "dictionary.sqlite";
 	private SQLiteDatabase myDataBase;
 	private final Context myContext;
 	
@@ -22,11 +22,22 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     public static final String KEY_DEFINITION = "definition";
     public static final String KEY_ROWID = "_id";
     public static final String KEY_IPA = "ipa";
+    public static final String KEY_LETTER = "letter";
     public static final String KEY_PART = "part_of_speech";
     
-    private static String QUERY_ALL = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, entries.english_definition AS definition FROM entries ORDER BY entries.entry_name COLLATE UNICODE";
-    private static String QUERY_ALL_TO_NAVI = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS definition, entries.english_definition AS word FROM entries ORDER BY entries.english_definition COLLATE UNICODE";
-    public static String QUERY_ENTRY = "SELECT replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, entries.english_definition AS definition, ipa, fps.description as part_of_speech FROM entries LEFT JOIN fancy_parts_of_speech fps USING (part_of_speech) WHERE _id = ?";
+    private static final String QUERY_ALL_LETTERS = "SELECT MIN(_id) AS _id, COUNT(*) AS _count, replace(replace(alpha, 'B', 'Ä'), 'J', 'Ì') AS letter FROM entries GROUP BY alpha ORDER BY alpha COLLATE UNICODE";
+    private static final String QUERY_ALL = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, replace(replace(alpha, 'B', 'Ä'), 'J', 'Ì') AS letter, entries.english_definition AS definition FROM entries ORDER BY alpha COLLATE UNICODE, entries.entry_name COLLATE UNICODE";
+    private static final String QUERY_FILTER_LETTERS = "SELECT MIN(_id) AS _id, COUNT(*) AS _count, replace(replace(alpha, 'B', 'Ä'), 'J', 'Ì') AS letter FROM entries WHERE entries.entry_name LIKE ? GROUP BY alpha ORDER BY alpha COLLATE UNICODE";
+    private static final String QUERY_FILTER = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, replace(replace(alpha, 'B', 'Ä'), 'J', 'Ì') AS letter, entries.english_definition AS definition FROM entries WHERE entries.entry_name LIKE ? ORDER BY alpha COLLATE UNICODE, entries.entry_name COLLATE UNICODE";
+//    private static String QUERY_GROUP = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, entries.english_definition AS definition FROM entries WHERE alpha = (SELECT alpha FROM entries WHERE _id = ?) ORDER BY alpha COLLATE UNICODE, entries.entry_name COLLATE UNICODE";
+    private static final String QUERY_ALL_TO_NAVI_LETTERS = "SELECT MIN(_id) AS _id, COUNT(*) AS _count, beta AS letter FROM entries GROUP BY beta ORDER BY beta COLLATE UNICODE";
+    private static final String QUERY_ALL_TO_NAVI = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS definition, entries.english_definition AS word, replace(replace(beta, 'B', 'Ä'), 'J', 'Ì') AS letter FROM entries ORDER BY beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE";
+    private static final String QUERY_FILTER_TO_NAVI_LETTERS = "SELECT MIN(_id) AS _id, COUNT(*) AS _count, beta AS letter FROM entries WHERE entries.english_definition LIKE ? GROUP BY beta ORDER BY beta COLLATE UNICODE";
+    private static final String QUERY_FILTER_TO_NAVI = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS definition, entries.english_definition AS word, replace(replace(beta, 'B', 'Ä'), 'J', 'Ì') AS letter FROM entries WHERE entries.english_definition LIKE ? ORDER BY beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE";
+//    private static String QUERY_GROUP_TO_NAVI = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS definition, entries.english_definition AS word FROM entries WHERE alpha = (SELECT alpha FROM entries WHERE _id = ?) ORDER BY beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE";
+    private static final String QUERY_ENTRY = "SELECT replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, entries.english_definition AS definition, ipa, fps.description as part_of_speech FROM entries LEFT JOIN fancy_parts_of_speech fps USING (part_of_speech) WHERE _id = ?";
+    
+    private static final String QUERY_FOR_SUGGEST = "SELECT _id, _id AS suggest_intent_data, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS suggest_text_1, entries.english_definition AS suggest_text_2 FROM entries WHERE entries.entry_name LIKE ? OR entries.english_definition LIKE ? ORDER BY beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE LIMIT 5";
 
 	public EntryDBAdapter(Context context) {
     	super(context, DB_NAME, null, 1);
@@ -127,15 +138,54 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     	myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
     }
     
-    public Cursor queryAllEntries()
+    private String fixFilterString(String filter)
     {
-    	return myDataBase.rawQuery(QUERY_ALL, null);
+    	return "%" + filter.toLowerCase().replace('ä', 'b').replace('ì', 'j') + "%";
     }
     
-    public Cursor queryAllEntriesToNavi()
+    private Cursor queryAllOrFilter(String allQuery, String filterQuery, String filter)
     {
-    	return myDataBase.rawQuery(QUERY_ALL_TO_NAVI, null);
+    	if (filter != null)
+    	{
+    		return myDataBase.rawQuery(filterQuery, new String[] { fixFilterString(filter) });
+    	}
+    	return myDataBase.rawQuery(allQuery, null);
     }
+    
+    public Cursor queryAllEntries(String filter)
+    {
+    	return queryAllOrFilter(QUERY_ALL, QUERY_FILTER, filter);
+    }
+    
+    public Cursor queryAllEntriesToNavi(String filter)
+    {
+    	return queryAllOrFilter(QUERY_ALL_TO_NAVI, QUERY_FILTER_TO_NAVI, filter);
+    }
+    
+    public Cursor queryAllEntryToNaviLetters(String filter)
+    {
+    	return queryAllOrFilter(QUERY_ALL_TO_NAVI_LETTERS, QUERY_FILTER_TO_NAVI_LETTERS, filter);
+    }
+    
+    public Cursor queryAllEntryLetters(String filter)
+    {
+    	return queryAllOrFilter(QUERY_ALL_LETTERS, QUERY_FILTER_LETTERS, filter);
+    }
+    
+    public Cursor queryForSuggest(String filter)
+    {
+    	return myDataBase.rawQuery(QUERY_FOR_SUGGEST, new String[] { fixFilterString(filter), "%" + filter + "%" });
+    }
+    
+//    public Cursor queryGroup(int groupId)
+//    {
+//    	return myDataBase.rawQuery(QUERY_GROUP, new String[] { Integer.toString(groupId) });
+//    }
+//    
+//    public Cursor queryGroupToNavi(int groupId)
+//    {
+//    	return myDataBase.rawQuery(QUERY_GROUP_TO_NAVI, new String[] { Integer.toString(groupId) });
+//    }
     
     public Cursor querySingleEntry(int rowId)
     {

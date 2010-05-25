@@ -33,6 +33,7 @@ public class DownloadUpdate extends AsyncTask<URL, Integer, File> implements OnC
 			mProgress.setMax(1000);
 			mProgress.setTitle(R.string.DownloadingUpdate);
 			mProgress.setButton(ProgressDialog.BUTTON_NEGATIVE, mContext.getText(android.R.string.cancel), this);
+			mProgress.setIndeterminate(false);
 			mProgress.show();
 		}
 	}

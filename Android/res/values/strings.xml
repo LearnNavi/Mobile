@@ -5,13 +5,15 @@
 <string name="ButtonKelutral">Kelutral</string>
 <string name="no_entries">No entries found.</string>
 <string name="VersionStringBeta">Version $V$ ($S$-$D$)</string>
-<string name="About">Learn Na'vi was created by Steven Lang aka \&quot;Omängum Fra'uti\&quot; and Michael Gillogly aka \&quot;Seze\&quot; from the Learn Na'vi online community.  It was created for the online community as a reference and learning tool.  Special thanks goes to Richard Littauer aka \&quot;Taronyu\&quot; for providing the dictionary content and all the members from the Learn Na'vi online community that helped with the development process...</string>
-<string name="Disclaimer">The Na'vi language was created by Paul Frommer. Much of the information displayed in this App was written by Prof. Frommer and is presented here for educational purposes only. Learn Na'vi is not affiliated with the official Avatar website, James Cameron, or the Twentieth Century-Fox Film Corporation. All trademarks and servicemarks are the properties of their respective owners.</string>
+<string name="About">Learn Na\'vi was created by Steven Lang aka \&quot;Omängum Fra'uti\&quot; and Michael Gillogly aka \&quot;Seze\&quot; from the Learn Na\'vi online community.  It was created for the online community as a reference and learning tool.  Special thanks goes to Richard Littauer aka \&quot;Taronyu\&quot; for providing the dictionary content and all the members from the Learn Na\'vi online community that helped with the development process.</string>
+<string name="Disclaimer">The Na\'vi language was created by Paul Frommer. Much of the information displayed in this App was written by Prof. Frommer and is presented here for educational purposes only. Learn Na\'vi is not affiliated with the official Avatar website, James Cameron, or the Twentieth Century-Fox Film Corporation. All trademarks and servicemarks are the properties of their respective owners.</string>
 <string name="VersionString">Version $V$</string>
 <string name="DBVersionString">Word List Version $D$</string>
 <string name="Done">Done</string>
 <string name="ToNavi">English / Na'vi</string>
 <string name="FromNavi">Na'vi / English</string>
 <string name="UpdateAvailable">An updated word list is available, download it now?</string>
-<string name="DownloadingUpdate">Downloading new word list...</string>
+<string name="DownloadingUpdate">Downloading new word list</string>
+<string name="SearchHint">Search Na\'vi words</string>
+<string name="CancelSearch">Words containing $F$</string>
 </resources>
