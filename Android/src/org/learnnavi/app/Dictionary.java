@@ -7,6 +7,7 @@ import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.SpannableString;
@@ -210,7 +211,10 @@ public class Dictionary extends ListActivity implements OnClickListener {
 		text.setText(entry.getString(entry.getColumnIndexOrThrow(EntryDBAdapter.KEY_PART)));
 
 		text = (TextView)d.findViewById(R.id.EntryIPA);
-		text.setText(entry.getString(entry.getColumnIndexOrThrow(EntryDBAdapter.KEY_IPA)));
+		String ipastr = entry.getString(entry.getColumnIndexOrThrow(EntryDBAdapter.KEY_IPA));
+		if (ipastr != null && ipastr != "")
+			ipastr = "[" + ipastr.replace('\'', '\u02bc') + "]";
+		text.setText(ipastr);
 
 		text = (TextView)d.findViewById(R.id.EntryDefinition);
 		text.setText(formatString(entry.getString(entry.getColumnIndexOrThrow(EntryDBAdapter.KEY_DEFINITION))));
@@ -225,6 +229,8 @@ public class Dictionary extends ListActivity implements OnClickListener {
             mEntryDialog.setContentView(R.layout.dictionary_entry);
             Button done = (Button)mEntryDialog.findViewById(R.id.DoneButton);
             done.setOnClickListener(this);
+    		TextView text = (TextView)mEntryDialog.findViewById(R.id.EntryIPA);
+    		text.setTypeface(Typeface.createFromAsset(getAssets(), "ipafont.ttf"));
         }
 	}
     
