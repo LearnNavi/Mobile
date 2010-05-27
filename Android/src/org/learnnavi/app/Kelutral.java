@@ -16,7 +16,9 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
@@ -101,15 +103,22 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
     private void loadAnimations()
     {
     	mFlipRightOut = new PageFlip3d(0.0f, 90.0f, 0.5f, 0.5f);
-    	mFlipRightOut.setDuration(500);
+    	mFlipRightOut.setDuration(350);
+    	mFlipRightOut.setInterpolator(new AccelerateInterpolator());
+    	
     	mFlipRightIn = new PageFlip3d(-90.0f, 0.0f, 0.5f, 0.5f);
-    	mFlipRightIn.setDuration(500);
-    	mFlipRightIn.setStartOffset(500);
+    	mFlipRightIn.setDuration(350);
+    	mFlipRightIn.setStartOffset(350);
+    	mFlipRightIn.setInterpolator(new DecelerateInterpolator());
+    	
     	mFlipLeftOut = new PageFlip3d(0.0f, -90.0f, 0.5f, 0.5f);
-    	mFlipLeftOut.setDuration(500);
+    	mFlipLeftOut.setDuration(350);
+    	mFlipLeftOut.setInterpolator(new AccelerateInterpolator());
+    	
     	mFlipLeftIn = new PageFlip3d(90.0f, 0.0f, 0.5f, 0.5f);
-    	mFlipLeftIn.setDuration(500);
-    	mFlipLeftIn.setStartOffset(500);
+    	mFlipLeftIn.setDuration(350);
+    	mFlipLeftIn.setStartOffset(350);
+    	mFlipLeftIn.setInterpolator(new DecelerateInterpolator());
     }
     
     private void loadResourcesPage()
