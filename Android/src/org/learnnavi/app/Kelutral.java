@@ -11,29 +11,179 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ViewAnimator;
 
 public class Kelutral extends Activity implements OnClickListener, DialogInterface.OnClickListener {
+	private int mMainIndex = -1;
+	private int mResourcesIndex = -1;
+	private int mAboutIndex = -1;
+	private int mDisclaimerIndex = -1;
+	private ViewAnimator mAnimator;
+	private Animation mFlipRightOut;
+	private Animation mFlipRightIn;
+	private Animation mFlipLeftOut;
+	private Animation mFlipLeftIn;
+	private int mBackAction = -1;
+	private boolean mTrackingBack = false;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.kelutral_main);
         
-        Button button = (Button)findViewById(R.id.ResourcesButton);
-        button.setOnClickListener(this);
-        button = (Button)findViewById(R.id.DictionaryButton);
-        button.setOnClickListener(this);
+        mAnimator = (ViewAnimator)findViewById(R.id.ViewAnimator01);
+        mMainIndex = loadPage(R.layout.main, R.id.MainView);
+        
+        mAnimator.setAnimateFirstView(false);
+        mAnimator.setDisplayedChild(mMainIndex);
+        
+        setupButton(R.id.ResourcesButton);
+        setupButton(R.id.DictionaryButton);
         
         recheckDb();
         
         CheckDictionaryVersion cdv = new CheckDictionaryVersion(this);
         cdv.execute(DBVersion);
+        
+		loadResourcesPage();
+		loadDisclaimerPage();
+		loadAboutPage();
+		loadAnimations();
     }
+
+    @Override
+    public boolean onKeyDown (int keyCode, KeyEvent event) 
+    {
+    	if (mBackAction > 0)
+    	{
+    		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+    		{
+    			mTrackingBack = true;
+    			return true;
+    		}
+    	}
+    	else
+    		mTrackingBack = false;
+    	return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onKeyUp (int keyCode, KeyEvent event) 
+    {
+    	if (mBackAction > 0 && mTrackingBack && keyCode == KeyEvent.KEYCODE_BACK)
+    	{
+    		int action = mBackAction;
+    		mBackAction = 0;
+    		mTrackingBack = false;
+    		handleButtonClick(action);
+    		return true;
+    	}
+    	else
+    		mTrackingBack = false;
+    	return super.onKeyUp(keyCode, event);
+    }
+    
+    private int loadPage(int resource, int id)
+    {
+    	View.inflate(this, resource, mAnimator);
+    	return mAnimator.indexOfChild(findViewById(id));
+    }
+    
+    private void loadAnimations()
+    {
+    	mFlipRightOut = new PageFlip3d(0.0f, 90.0f, 0.5f, 0.5f);
+    	mFlipRightOut.setDuration(500);
+    	mFlipRightIn = new PageFlip3d(-90.0f, 0.0f, 0.5f, 0.5f);
+    	mFlipRightIn.setDuration(500);
+    	mFlipRightIn.setStartOffset(500);
+    	mFlipLeftOut = new PageFlip3d(0.0f, -90.0f, 0.5f, 0.5f);
+    	mFlipLeftOut.setDuration(500);
+    	mFlipLeftIn = new PageFlip3d(90.0f, 0.0f, 0.5f, 0.5f);
+    	mFlipLeftIn.setDuration(500);
+    	mFlipLeftIn.setStartOffset(500);
+    }
+    
+    private void loadResourcesPage()
+    {
+    	if (mResourcesIndex >= 0)
+    		return;
+    	
+    	mResourcesIndex = loadPage(R.layout.resources, R.id.ResourcesView);
+    	
+        setupButton(R.id.ReturnFromResourcesButton);
+        setupButton(R.id.LearnNaviOrgButton);
+        setupButton(R.id.DisclaimerButton);
+        setupButton(R.id.AboutButton);
+    }
+    
+    private void loadAboutPage()
+    {
+    	if (mAboutIndex >= 0)
+    		return;
+    	
+    	mAboutIndex = loadPage(R.layout.about, R.id.AboutView);
+    	
+		TextView ver = (TextView)findViewById(R.id.VersionTextView);
+		ver.setText(getVersionString());
+		ver = (TextView)findViewById(R.id.DBVersionTextView);
+		ver.setText(getDBVersionString());
+    	
+    	setupButton(R.id.ReturnFromAboutButton);
+    }
+    
+    private void loadDisclaimerPage()
+    {
+    	if (mDisclaimerIndex >= 0)
+    		return;
+    	
+    	mDisclaimerIndex = loadPage(R.layout.disclaimer, R.id.DisclaimerView);
+    	
+    	setupButton(R.id.ReturnFromDisclaimerButton);
+    }
+    
+    private void SlideLeftTo(int index)
+    {
+    	mAnimator.setOutAnimation(this, R.anim.slide_left_out);
+    	mAnimator.setInAnimation(this, R.anim.slide_left_in);
+    	mAnimator.setDisplayedChild(index);
+    }
+
+    private void SlideRightTo(int index)
+    {
+    	mAnimator.setOutAnimation(this, R.anim.slide_right_out);
+    	mAnimator.setInAnimation(this, R.anim.slide_right_in);
+    	mAnimator.setDisplayedChild(index);
+    }
+
+    private void FlipTo(int index)
+    {
+    	mAnimator.setOutAnimation(mFlipLeftOut);
+    	mAnimator.setInAnimation(mFlipLeftIn);
+    	mAnimator.setDisplayedChild(index);
+    }
+
+    private void FlipFrom(int index)
+    {
+    	mAnimator.setOutAnimation(mFlipRightOut);
+    	mAnimator.setInAnimation(mFlipRightIn);
+    	mAnimator.setDisplayedChild(index);
+    }
+
+	private void setupButton(int id)
+	{
+		Button button = (Button)findViewById(id);
+        button.setOnClickListener(this);
+        button.getBackground().setAlpha(192);
+	}
     
     private String getFullVersionString()
     {
@@ -53,21 +203,89 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
         return verstr;
     }
     
+    private String getVersionString()
+    {
+        String verstr = getString(R.string.VersionString);
+        
+        PackageManager pm = getPackageManager();
+        try
+        {
+        	PackageInfo pi = pm.getPackageInfo(getPackageName(), 0);
+        	verstr = verstr.replace("$V$", pi.versionName);
+        }
+        catch (NameNotFoundException ex)
+        {
+        }
+        return verstr;
+    }
+    
+    private String getDBVersionString()
+    {
+        String verstr = getString(R.string.DBVersionString);
+
+        return verstr.replace("$D$", DBVersion);
+    }
+    
     private String DBVersion;
     
 	@Override
 	public void onClick(View v) {
-		switch (v.getId())
+		handleButtonClick(v.getId());
+	}
+	
+	private void handleButtonClick(int id)
+	{
+		switch (id)
 		{
 		case R.id.ResourcesButton:
-			Intent newIntent = new Intent();
-			newIntent.setClass(this, Resources.class);
-			startActivity(newIntent);
+			if (mAnimator.getDisplayedChild() != mMainIndex)
+				break;
+			SlideRightTo(mResourcesIndex);
+			mBackAction = R.id.ReturnFromResourcesButton;
 			break;
 		case R.id.DictionaryButton:
-			newIntent = new Intent();
+			if (mAnimator.getDisplayedChild() != mMainIndex)
+				break;
+			Intent newIntent = new Intent();
 			newIntent.setClass(this, Dictionary.class);
 			startActivity(newIntent);
+			break;
+		case R.id.ReturnFromResourcesButton:
+			if (mAnimator.getDisplayedChild() != mResourcesIndex)
+				break;
+			SlideLeftTo(mMainIndex);
+			mBackAction = 0;
+			break;
+		case R.id.LearnNaviOrgButton:
+			if (mAnimator.getDisplayedChild() != mResourcesIndex)
+				break;
+			newIntent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("http://www.learnnavi.org"));
+			startActivity(newIntent);
+			break;
+		case R.id.DisclaimerButton:
+			if (mAnimator.getDisplayedChild() != mResourcesIndex)
+				break;
+			FlipTo(mDisclaimerIndex);
+			mBackAction = R.id.ReturnFromDisclaimerButton;
+			break;
+		case R.id.AboutButton:
+			if (mAnimator.getDisplayedChild() != mResourcesIndex)
+				break;
+			FlipTo(mAboutIndex);
+			mBackAction = R.id.ReturnFromAboutButton;
+			break;
+		case R.id.ReturnFromAboutButton:
+			if (mAnimator.getDisplayedChild() != mAboutIndex)
+				break;
+			FlipFrom(mResourcesIndex);
+			mBackAction = R.id.ReturnFromResourcesButton;
+			break;
+		case R.id.ReturnFromDisclaimerButton:
+			if (mAnimator.getDisplayedChild() != mDisclaimerIndex)
+				break;
+			FlipFrom(mResourcesIndex);
+			mBackAction = R.id.ReturnFromResourcesButton;
 			break;
 		}
 	}
@@ -107,7 +325,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
         	DBVersion = "Err";
         }
 
-        TextView version = (TextView)findViewById(R.id.VersionTextView);
+        TextView version = (TextView)findViewById(R.id.FullVersionTextView);
         version.setText(getFullVersionString());
 	}
 }

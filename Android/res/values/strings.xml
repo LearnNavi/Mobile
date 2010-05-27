@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="app_name">&quot;Learn Na'vi Android&quot;</string>
+    <string name="app_name">&quot;Learn Na'vi&quot;</string>
 <string name="ButtonKelutral">Kelutral</string>
 <string name="no_entries">No entries found.</string>
 <string name="VersionStringBeta">Version $V$ ($S$-$D$)</string>

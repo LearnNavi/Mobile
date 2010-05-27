@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout android:layout_width='fill_parent' android:layout_height='fill_parent' android:background='@drawable/resources_background' xmlns:android='http://schemas.android.com/apk/res/android'>
+<LinearLayout android:layout_width='fill_parent' android:layout_height='fill_parent' android:background='@drawable/resources_background' xmlns:android='http://schemas.android.com/apk/res/android' android:id="@+id/ResourcesView">
   <LinearLayout android:layout_width='0dp' android:layout_height='fill_parent' android:layout_weight='52.5'></LinearLayout>
   <LinearLayout android:layout_width='0dp' android:orientation='vertical' android:layout_height='fill_parent' android:layout_weight='215'>
     <FrameLayout android:layout_width='fill_parent' android:layout_height='0dp' android:layout_weight='130'></FrameLayout>
     <Button android:layout_width='fill_parent' android:layout_marginBottom='2.5dp' android:layout_height='0dp' android:background='@drawable/about_button_image' android:layout_weight='45' android:id='@+id/AboutButton'></Button>
     <Button android:layout_width='fill_parent' android:layout_marginBottom='2.5dp' android:layout_height='0dp' android:background='@drawable/learn_navi_button_image' android:layout_weight='45' android:id='@+id/LearnNaviOrgButton' android:layout_marginTop='2.5dp'></Button>
     <Button android:layout_width='fill_parent' android:layout_marginBottom='2.5dp' android:layout_height='0dp' android:background='@drawable/disclaimer_button_image' android:id='@+id/DisclaimerButton' android:width='215dip' android:layout_weight='45' android:height='45dip' android:layout_marginTop='2.5dp'></Button>
-    <Button android:layout_width='fill_parent' android:layout_height='0dp' android:background='@drawable/return_home_button_image' android:id='@+id/ReturnHomeButton' android:width='215dip' android:layout_weight='45' android:height='45dip' android:layout_marginTop='2.5dp'></Button>
+    <Button android:layout_width='fill_parent' android:layout_height='0dp' android:background='@drawable/return_home_button_image' android:width='215dip' android:layout_weight='45' android:height='45dip' android:layout_marginTop='2.5dp' android:id="@+id/ReturnFromResourcesButton"></Button>
     <FrameLayout android:layout_width='fill_parent' android:layout_height='0dp' android:layout_weight='140'></FrameLayout>
   </LinearLayout>
   <LinearLayout android:layout_width='0dp' android:layout_height='fill_parent' android:layout_weight='52.5'></LinearLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout android:layout_width='fill_parent' android:orientation='vertical' android:layout_height='fill_parent' android:background='@drawable/home_screen_background' xmlns:android='http://schemas.android.com/apk/res/android'>
+<LinearLayout android:layout_width='fill_parent' android:orientation='vertical' android:layout_height='fill_parent' android:background='@drawable/home_screen_background' xmlns:android='http://schemas.android.com/apk/res/android' android:id="@+id/MainView">
   <FrameLayout android:layout_width='fill_parent' android:layout_height='0dip' android:layout_weight='200'></FrameLayout>
   <LinearLayout android:layout_width='fill_parent' android:layout_height='0dip' android:layout_weight='100'>
     <LinearLayout android:layout_width='0dp' android:layout_height='fill_parent' android:layout_weight='52.5'></LinearLayout>
@@ -11,7 +11,7 @@
     <LinearLayout android:layout_width='0dp' android:layout_height='fill_parent' android:layout_weight='52.5'></LinearLayout>
   </LinearLayout>
   <LinearLayout android:layout_width='wrap_content' android:layout_height='0px' android:layout_weight='150' android:layout_gravity='center_horizontal'>
-    <TextView android:layout_width='wrap_content' android:layout_height='wrap_content' android:textColor='#ff6200' android:layout_gravity='bottom|center_horizontal' android:id="@+id/VersionTextView" android:text="@string/VersionStringBeta"></TextView>
+    <TextView android:layout_width='wrap_content' android:layout_height='wrap_content' android:textColor='#ff6200' android:layout_gravity='bottom|center_horizontal' android:text="@string/VersionStringBeta" android:id="@+id/FullVersionTextView"></TextView>
   </LinearLayout>
   <FrameLayout android:layout_width='fill_parent' android:layout_height='0dp' android:layout_weight='30'></FrameLayout>
 </LinearLayout>

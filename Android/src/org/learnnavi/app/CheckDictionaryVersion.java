@@ -8,6 +8,7 @@ import java.net.URLConnection;
 
 import android.os.AsyncTask;
 
+// Background task to check for an updated dictionary
 public class CheckDictionaryVersion extends AsyncTask<String, Object, Boolean> {
 	private Kelutral mContext;
 	
@@ -19,6 +20,8 @@ public class CheckDictionaryVersion extends AsyncTask<String, Object, Boolean> {
 	@Override
 	protected Boolean doInBackground(String... version) {
 		Integer curversion = -1;
+		// The current version may be "Unk" if there was an error
+		// In that case, keep the -1 when an exception is thrown, and force an update to be found
 		try
 		{
 			curversion = Integer.decode((String)version[0]);
@@ -29,17 +32,21 @@ public class CheckDictionaryVersion extends AsyncTask<String, Object, Boolean> {
 
 		try
 		{
+			// Piak si tsaheylu URLur a tìlatemä holpxay
 			URL source = new URL("http://learnnaviapp.com/database/version");
 			URLConnection connection = source.openConnection();
 			connection.setDoInput(true);
 			connection.connect();
 			InputStream content = connection.getInputStream();
-			
+
+			// Do a simple readline, since currently the version is just a number
 			BufferedReader reader = new BufferedReader(new InputStreamReader(content, "UTF-8"));
 			String verstring = reader.readLine();
-			
+
+			// Tìlarori Eywa seiyim
 			content.close();
-			
+
+			// Txo meholpxay lu keteng, por piveng
 			if (Integer.decode(verstring) > curversion)
 				return true;
 		}
