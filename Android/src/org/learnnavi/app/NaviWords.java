@@ -7,8 +7,7 @@ import android.net.Uri;
 
 public class NaviWords extends ContentProvider {
 	public static final Uri CONTENT_URI = Uri.parse("content://org.learnnavi.mobile.naviword");
-	
-	EntryDBAdapter mDbAdapter;
+	private static Boolean mSearchType = null;
 	
 	@Override
 	public int delete(Uri arg0, String arg1, String[] arg2) {
@@ -28,16 +27,6 @@ public class NaviWords extends ContentProvider {
 
 	@Override
 	public boolean onCreate() {
-		try
-		{
-			mDbAdapter = new EntryDBAdapter(getContext());
-			mDbAdapter.openDataBase();
-		}
-		catch (Exception ex)
-		{
-			mDbAdapter = null;
-			return false;
-		}
 		return true;
 	}
 
@@ -45,7 +34,10 @@ public class NaviWords extends ContentProvider {
 	public Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {
 		// Brain dead, assume it is from a suggest query
-		return mDbAdapter.queryForSuggest(selectionArgs[0]);
+		EntryDBAdapter instance = EntryDBAdapter.getInstance(getContext()); 
+		if (instance.isOpen())
+			return instance.queryForSuggest(selectionArgs[0], mSearchType);
+		return instance.queryNull();
 	}
 
 	@Override
@@ -53,5 +45,9 @@ public class NaviWords extends ContentProvider {
 			String[] selectionArgs) {
 		return 0;
 	}
-
+	
+	public static void setSearchType(Boolean type)
+	{
+		mSearchType = type;
+	}
 }

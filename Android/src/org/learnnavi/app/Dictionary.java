@@ -12,6 +12,9 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -22,12 +25,12 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 public class Dictionary extends ListActivity implements OnClickListener {
-	private EntryDBAdapter mDbAdapter;
 	private Dialog mEntryDialog;
 	private Button mToNaviButton;
 	private String mCurSearch;
 	private String mCurSearchNavi;
 	
+	private boolean mDbIsOpen = false;
 	private boolean mToNavi = false;
 
 	/** Called when the activity is first created. */
@@ -45,17 +48,48 @@ public class Dictionary extends ListActivity implements OnClickListener {
         mToNaviButton = (Button)findViewById(R.id.DictionaryType);
         mToNaviButton.setOnClickListener(this);
         
-        mDbAdapter = new EntryDBAdapter(this);
         checkIntentForSearch(getIntent());
-        try
-        {
-		    mDbAdapter.createDataBase();
-		    mDbAdapter.openDataBase();
-		    fillData();
-        }
-        catch (IOException e)
-        {
-        }
+
+	    EntryDBAdapter.getInstance(this).openDataBase();
+	    mDbIsOpen = true;
+	    fillData();
+	}
+	
+	@Override
+	public void onStart()
+	{
+		super.onStart();
+		NaviWords.setSearchType(mToNavi);	
+	}
+	
+	@Override
+	public void onStop()
+	{
+		super.onStop();
+		NaviWords.setSearchType(null);	
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.dictionary_menu, menu);
+	    return true;
+	}
+	
+	/* Handles item selections */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	    case R.id.Search:
+	    	return onSearchRequested();
+	    }
+	    return false;
+	}	
+	
+	public boolean onSearchRequested()
+	{
+    	startSearch(getCurSearch(), true, null, false);
+    	return true;
 	}
 	
 	protected void onNewIntent(Intent intent)
@@ -88,7 +122,7 @@ public class Dictionary extends ListActivity implements OnClickListener {
 			try
 			{
 		    	checkForEntryDialog();
-		        fillFields(mDbAdapter.querySingleEntry(Integer.parseInt(id)), mEntryDialog);
+		        fillFields(EntryDBAdapter.getInstance(this).querySingleEntry(Integer.parseInt(id)), mEntryDialog);
 		        mEntryDialog.show();
 			}
 			catch (Exception ex)
@@ -128,14 +162,14 @@ public class Dictionary extends ListActivity implements OnClickListener {
     	if (mToNavi)
     	{
     		mToNaviButton.setText(R.string.ToNavi);
-      		c = mDbAdapter.queryAllEntryToNaviLetters(cursearch);
-      		ci = mDbAdapter.queryAllEntriesToNavi(cursearch);
+      		c = EntryDBAdapter.getInstance(this).queryAllEntryToNaviLetters(cursearch);
+      		ci = EntryDBAdapter.getInstance(this).queryAllEntriesToNavi(cursearch);
     	}
     	else
     	{
     		mToNaviButton.setText(R.string.FromNavi);
-      		c = mDbAdapter.queryAllEntryLetters(cursearch);
-      		ci = mDbAdapter.queryAllEntries(cursearch);
+      		c = EntryDBAdapter.getInstance(this).queryAllEntryLetters(cursearch);
+      		ci = EntryDBAdapter.getInstance(this).queryAllEntries(cursearch);
     	}
     	startManagingCursor(c);
     	
@@ -238,7 +272,7 @@ public class Dictionary extends ListActivity implements OnClickListener {
     protected void onListItemClick (ListView l, View v, int position, long id) {
     	super.onListItemClick (l, v, position, id);
     	checkForEntryDialog();
-        fillFields(mDbAdapter.querySingleEntry((int)id), mEntryDialog);
+        fillFields(EntryDBAdapter.getInstance(this).querySingleEntry((int)id), mEntryDialog);
         mEntryDialog.show();
     }
     
@@ -257,6 +291,18 @@ public class Dictionary extends ListActivity implements OnClickListener {
 		}
 		
 		mToNavi = !mToNavi;
+		NaviWords.setSearchType(mToNavi);	
 		fillData();
+	}
+
+	@Override
+	public void onDestroy()
+	{
+		if (mDbIsOpen)
+		{
+			mDbIsOpen = false;
+			EntryDBAdapter.getInstance(this).close();
+		}
+		super.onDestroy();
 	}
 }

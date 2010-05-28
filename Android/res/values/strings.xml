@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="MenuSearch">Search</string>
     
     <string name="app_name">&quot;Learn Na'vi&quot;</string>
 <string name="ButtonKelutral">Kelutral</string>
@@ -16,4 +17,5 @@
 <string name="DownloadingUpdate">Downloading new word list</string>
 <string name="SearchHint">Search Na\'vi words</string>
 <string name="CancelSearch">Words containing $F$</string>
+<string name="BetaInfo">Beta Information</string>
 </resources>

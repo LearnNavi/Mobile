@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 public class DownloadUpdate extends AsyncTask<URL, Integer, File> implements OnClickListener {
 	private Kelutral mContext;
 	private String mError;
+	private int mTotalProgress;
 	ProgressDialog mProgress;
 	
 	public DownloadUpdate(Kelutral context)
@@ -34,6 +35,7 @@ public class DownloadUpdate extends AsyncTask<URL, Integer, File> implements OnC
 			mProgress.setTitle(R.string.DownloadingUpdate);
 			mProgress.setButton(ProgressDialog.BUTTON_NEGATIVE, mContext.getText(android.R.string.cancel), this);
 			mProgress.setIndeterminate(false);
+			mProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 			mProgress.show();
 		}
 	}
@@ -49,6 +51,8 @@ public class DownloadUpdate extends AsyncTask<URL, Integer, File> implements OnC
 			connection.connect();
 			int totallen = connection.getContentLength();
 			int totread = 0;
+
+			mTotalProgress = totallen;
 			
 			InputStream i = connection.getInputStream();
 			outfile = new File("/data/data/org.learnnavi.app", "dbupdate.sqlite");
@@ -66,7 +70,7 @@ public class DownloadUpdate extends AsyncTask<URL, Integer, File> implements OnC
 					if (progress != curprogress)
 					{
 						curprogress = progress;
-						publishProgress(curprogress);
+						publishProgress(totread);
 					}
 				}
 			}
@@ -92,8 +96,15 @@ public class DownloadUpdate extends AsyncTask<URL, Integer, File> implements OnC
 	@Override
 	protected void onProgressUpdate(Integer... values)
 	{
-		if (!isCancelled() && values[0] >= 0 && values[0] <= 1000)
+		if (!isCancelled())
+		{
+			if (mTotalProgress != 0)
+			{
+				mProgress.setMax(mTotalProgress);
+				mTotalProgress = 0;
+			}
 			mProgress.setProgress(values[0]);
+		}
 	}
 	
 	@Override

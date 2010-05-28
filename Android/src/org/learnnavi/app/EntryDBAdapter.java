@@ -7,6 +7,7 @@ import java.io.OutputStream;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -17,6 +18,8 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
 	private static final String DB_NAME = "dictionary.sqlite";
 	private SQLiteDatabase myDataBase;
 	private final Context myContext;
+	private int mRefCount;
+	private String mDbVersion;
 	
     public static final String KEY_WORD = "word";
     public static final String KEY_DEFINITION = "definition";
@@ -29,23 +32,51 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     private static final String QUERY_ALL = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, replace(replace(alpha, 'B', 'Ä'), 'J', 'Ì') AS letter, entries.english_definition AS definition FROM entries ORDER BY alpha COLLATE UNICODE, entries.entry_name COLLATE UNICODE";
     private static final String QUERY_FILTER_LETTERS = "SELECT MIN(_id) AS _id, COUNT(*) AS _count, ' ' || replace(replace(alpha, 'B', 'Ä'), 'J', 'Ì') || ' ' AS letter FROM entries WHERE entries.entry_name LIKE ? GROUP BY alpha ORDER BY alpha COLLATE UNICODE";
     private static final String QUERY_FILTER = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, replace(replace(alpha, 'B', 'Ä'), 'J', 'Ì') AS letter, entries.english_definition AS definition FROM entries WHERE entries.entry_name LIKE ? ORDER BY alpha COLLATE UNICODE, entries.entry_name COLLATE UNICODE";
-//    private static String QUERY_GROUP = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, entries.english_definition AS definition FROM entries WHERE alpha = (SELECT alpha FROM entries WHERE _id = ?) ORDER BY alpha COLLATE UNICODE, entries.entry_name COLLATE UNICODE";
     private static final String QUERY_ALL_TO_NAVI_LETTERS = "SELECT MIN(_id) AS _id, COUNT(*) AS _count, ' ' || beta || ' ' AS letter FROM entries GROUP BY beta ORDER BY beta COLLATE UNICODE";
     private static final String QUERY_ALL_TO_NAVI = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS definition, entries.english_definition AS word, replace(replace(beta, 'B', 'Ä'), 'J', 'Ì') AS letter FROM entries ORDER BY beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE";
     private static final String QUERY_FILTER_TO_NAVI_LETTERS = "SELECT MIN(_id) AS _id, COUNT(*) AS _count, ' ' || beta || ' ' AS letter FROM entries WHERE entries.english_definition LIKE ? GROUP BY beta ORDER BY beta COLLATE UNICODE";
     private static final String QUERY_FILTER_TO_NAVI = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS definition, entries.english_definition AS word, replace(replace(beta, 'B', 'Ä'), 'J', 'Ì') AS letter FROM entries WHERE entries.english_definition LIKE ? ORDER BY beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE";
-//    private static String QUERY_GROUP_TO_NAVI = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS definition, entries.english_definition AS word FROM entries WHERE alpha = (SELECT alpha FROM entries WHERE _id = ?) ORDER BY beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE";
     private static final String QUERY_ENTRY = "SELECT replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, entries.english_definition AS definition, ipa, fps.description as part_of_speech FROM entries LEFT JOIN fancy_parts_of_speech fps USING (part_of_speech) WHERE _id = ?";
     
-    private static final String QUERY_FOR_SUGGEST = "SELECT _id, _id AS suggest_intent_data, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS suggest_text_1, entries.english_definition AS suggest_text_2 FROM entries WHERE entries.entry_name LIKE ? OR entries.english_definition LIKE ? ORDER BY beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE LIMIT 5";
+    private static final String QUERY_FOR_SUGGEST = "SELECT _id, _id AS suggest_intent_data, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS suggest_text_1, entries.english_definition AS suggest_text_2 FROM entries WHERE entries.entry_name LIKE ? OR entries.english_definition LIKE ? ORDER BY beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE LIMIT 25";
+    private static final String QUERY_FOR_SUGGEST_NAVI = "SELECT _id, _id AS suggest_intent_data, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS suggest_text_1, entries.english_definition AS suggest_text_2 FROM entries WHERE entries.entry_name LIKE ? ORDER BY alpha COLLATE UNICODE, entries.english_definition COLLATE UNICODE LIMIT 25";
+    private static final String QUERY_FOR_SUGGEST_NATIVE = "SELECT _id, _id AS suggest_intent_data, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS suggest_text_2, entries.english_definition AS suggest_text_1 FROM entries WHERE entries.english_definition LIKE ? ORDER BY beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE LIMIT 25";
 
-	public EntryDBAdapter(Context context) {
+	private EntryDBAdapter(Context context) {
     	super(context, DB_NAME, null, 1);
         this.myContext = context;
     }
+
+	private static EntryDBAdapter instance;
+	public static EntryDBAdapter getInstance(Context c)
+	{
+		if (instance == null)
+			reloadDB(c);
+		return instance;
+	}
+	
+	public static void reloadDB(Context c)
+	{
+		if (instance != null)
+			instance.close();
+		instance = new EntryDBAdapter(c.getApplicationContext());
+		try
+		{
+			instance.mDbVersion = instance.createDataBase();
+		}
+		catch (Exception ex)
+		{
+			instance.mDbVersion = "Unk";
+		}
+	}
+	
+	public String getDBVersion()
+	{
+		return mDbVersion;
+	}
 	
 	// Copy the database from the distribution if it doesn't exist, return DB version
-	public String createDataBase() throws IOException{
+	private String createDataBase() throws IOException{
 		 
     	String ret = checkDataBase();
  
@@ -133,6 +164,12 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
 
     // Open the database
     public void openDataBase() throws SQLException{
+    	if (myDataBase != null)
+    	{
+    		mRefCount++;
+    		return;
+    	}
+    	mRefCount = 1;
     	//Open the database
         String myPath = DB_PATH + DB_NAME;
     	myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
@@ -172,20 +209,15 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     	return queryAllOrFilter(QUERY_ALL_LETTERS, QUERY_FILTER_LETTERS, filter);
     }
     
-    public Cursor queryForSuggest(String filter)
+    public Cursor queryForSuggest(String filter, Boolean type)
     {
-    	return myDataBase.rawQuery(QUERY_FOR_SUGGEST, new String[] { fixFilterString(filter), "%" + filter + "%" });
+    	if (type == null) // Unspecified (Global search, or unified search)
+    		return myDataBase.rawQuery(QUERY_FOR_SUGGEST, new String[] { fixFilterString(filter), "%" + filter + "%" });
+    	else if (type) // Native to Na'vi
+    		return myDataBase.rawQuery(QUERY_FOR_SUGGEST_NATIVE, new String[] { fixFilterString(filter) });
+    	else // Na'vi to native
+    		return myDataBase.rawQuery(QUERY_FOR_SUGGEST_NAVI, new String[] { "%" + filter + "%" });
     }
-    
-//    public Cursor queryGroup(int groupId)
-//    {
-//    	return myDataBase.rawQuery(QUERY_GROUP, new String[] { Integer.toString(groupId) });
-//    }
-//    
-//    public Cursor queryGroupToNavi(int groupId)
-//    {
-//    	return myDataBase.rawQuery(QUERY_GROUP_TO_NAVI, new String[] { Integer.toString(groupId) });
-//    }
     
     public Cursor querySingleEntry(int rowId)
     {
@@ -194,9 +226,14 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     
     @Override
 	public synchronized void close() {
+    	mRefCount--;
+    	if (mRefCount > 0)
+    		return;
+
     	if(myDataBase != null)
     		myDataBase.close();
- 
+
+    	instance = null;
     	super.close();
 	}
     
@@ -208,5 +245,15 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Probably should delete the dataabse and re-copy it
+	}
+	
+	public boolean isOpen()
+	{
+		return (instance != null);
+	}
+	
+	public Cursor queryNull()
+	{
+		return new MatrixCursor(new String[] { "_id" });
 	}
 }

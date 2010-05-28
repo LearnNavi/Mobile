@@ -14,6 +14,9 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AccelerateInterpolator;
@@ -93,6 +96,26 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
     		mTrackingBack = false;
     	return super.onKeyUp(keyCode, event);
     }
+    
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.main_menu, menu);
+	    return true;
+	}
+	
+	/* Handles item selections */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	    case R.id.BetaInfo:
+			Intent newIntent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("http://forum.learnnavi.org/mobile-apps/"));
+			startActivity(newIntent);
+			return true;
+	    }
+	    return false;
+	}	
     
     private int loadPage(int resource, int id)
     {
@@ -323,16 +346,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 	}
 
 	public void recheckDb() {
-        EntryDBAdapter tmpdb = new EntryDBAdapter(this);
-        try
-        {
-        	DBVersion = tmpdb.createDataBase();
-        	tmpdb.close();
-        }
-        catch (IOException ex)
-        {
-        	DBVersion = "Err";
-        }
+		DBVersion = EntryDBAdapter.getInstance(this).getDBVersion();
 
         TextView version = (TextView)findViewById(R.id.FullVersionTextView);
         version.setText(getFullVersionString());
