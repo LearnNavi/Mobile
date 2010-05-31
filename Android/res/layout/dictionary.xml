@@ -4,7 +4,7 @@
   android:layout_height="wrap_content" android:layout_width="fill_parent" android:orientation="vertical">
 
   <Button android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/DictionaryType"></Button><Button android:layout_height="wrap_content" android:id="@+id/CancelSearch" android:text="@string/CancelSearch" android:layout_width="fill_parent" android:visibility="gone"></Button><ListView android:id="@android:id/list"
-        android:layout_height="wrap_content" android:layout_width="fill_parent"/>
+        android:layout_height="wrap_content" android:layout_width="fill_parent" android:fastScrollEnabled="true"/>
   <TextView android:id="@android:id/empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
