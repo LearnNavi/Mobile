@@ -1,7 +1,5 @@
 package org.learnnavi.app;
 
-import java.io.IOException;
-
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.SearchManager;
@@ -183,10 +181,15 @@ public class Dictionary extends ListActivity implements OnClickListener {
     	setListAdapter(entries);
 	}
     
+    // For now, deny any HTML display from the dictionary
     private String escapeHtml(String source)
     {
+    	// Create a string from the source, since it's not
+    	// doing it from HTML, it's a literal string
     	SpannableString s = new SpannableString(source);
+    	// Turning it to HTML replaces any HTML code with entities
     	String ret = Html.toHtml(s);
+    	// Remove the wrapping paragraph
     	if (ret.startsWith("<p>"))
     	{
     		ret = ret.substring(3, ret.lastIndexOf("</p>"));
@@ -197,6 +200,10 @@ public class Dictionary extends ListActivity implements OnClickListener {
     
     private Spanned formatString(String orig)
     {
+    	// ** Was used to format simple tex markup
+    	//    But new DB versions don't do that
+    	//    Can be replaced with a call to escapeHtml
+    	//    Or nothing at all, since now no HTML formatting is in use
     	StringBuilder ret = new StringBuilder("");
     	int idx = orig.indexOf('{');
     	while (idx > 0)

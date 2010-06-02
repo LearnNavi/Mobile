@@ -14,6 +14,7 @@ public class PageFlip3d extends Animation {
 	private int mScaleY;
 	private Camera mCamera;
 
+	// A little non-standard here...  Is there a way to get this definable in XML?
 	public PageFlip3d(float fromDegrees, float toDegrees, float centerX,
 			float centerY) {
 		mFromDegrees = fromDegrees;
@@ -26,6 +27,7 @@ public class PageFlip3d extends Animation {
 	public void initialize(int width, int height, int parentWidth,
 			int parentHeight) {
 		super.initialize(width, height, parentWidth, parentHeight);
+		// Store the passed in dimensions and initialize the camera
 		mCamera = new Camera();
 		mScaleX = width;
 		mScaleY = height;
@@ -37,6 +39,7 @@ public class PageFlip3d extends Animation {
 		float degrees = fromDegrees
 				+ ((mToDegrees - fromDegrees) * interpolatedTime);
 
+		// Scale the center by the size to get the pixel center
 		final float centerX = mCenterX * mScaleX;
 		final float centerY = mCenterY * mScaleY;
 		final Camera camera = mCamera;
@@ -45,13 +48,14 @@ public class PageFlip3d extends Animation {
 
 		camera.save();
 
+		// Use the camera to get the matrix rotation along the Y axis
 		camera.rotateY(degrees);
-
 		camera.getMatrix(matrix);
+
 		camera.restore();
 
+		// Apply matrix translation to the result to set the center.
 		matrix.preTranslate(-centerX, -centerY);
 		matrix.postTranslate(centerX, centerY);
 	}
-
 }

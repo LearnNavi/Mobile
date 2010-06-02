@@ -24,6 +24,7 @@ public class DownloadUpdate extends AsyncTask<URL, Integer, File> implements OnC
 		mContext = context;
 	}
 	
+	// Initialize the progress dialog
 	@Override
 	protected void onPreExecute()
 	{
@@ -45,6 +46,7 @@ public class DownloadUpdate extends AsyncTask<URL, Integer, File> implements OnC
 		File outfile = null;
 		try
 		{
+			// Connect to the URL
 			int curprogress = -1;
 			URLConnection connection = params[0].openConnection();
 			connection.setDoInput(true);
@@ -53,19 +55,23 @@ public class DownloadUpdate extends AsyncTask<URL, Integer, File> implements OnC
 			int totread = 0;
 
 			mTotalProgress = totallen;
-			
+
+			// Open the IO streams
 			InputStream i = connection.getInputStream();
 			outfile = new File("/data/data/org.learnnavi.app", "dbupdate.sqlite");
 			FileOutputStream f = new FileOutputStream(outfile);
-			
+
+			// Small buffer, for a small file
 			byte[] buffer = new byte[1024];
 			int read;
+			// Make sure it wasn't cancelled
 			while (!isCancelled() && (read = i.read(buffer)) > 0)
 			{
 				totread += read;
 				f.write(buffer, 0, read);
 				if (totallen != 0)
 				{
+					// Don't go updating the progress excessively
 					int progress = (int)((long)totread * 1000 / totallen);
 					if (progress != curprogress)
 					{
@@ -75,27 +81,33 @@ public class DownloadUpdate extends AsyncTask<URL, Integer, File> implements OnC
 				}
 			}
 			f.close();
-			
+
+			// If it's cancelled, delete the file
 			if (isCancelled())
 			{
 				outfile.delete();
 				return null;
 			}
-			
+
+			// Return the shiny new file
 			return outfile;
 		}
 		catch (IOException ex)
 		{
+			// On exception, treat it like a cancel
 			if (outfile != null && outfile.exists())
 				outfile.delete();
 			mError = ex.getLocalizedMessage();
 		}
+		// Return null like it was cancelled
 		return null;
 	}
 	
 	@Override
 	protected void onProgressUpdate(Integer... values)
 	{
+		// No need to update progress if it was cancelled
+		// The progress dialog is already closed by then
 		if (!isCancelled())
 		{
 			if (mTotalProgress != 0)
@@ -115,6 +127,7 @@ public class DownloadUpdate extends AsyncTask<URL, Integer, File> implements OnC
 		{
 			if (result == null || !result.exists())
 			{
+				// Report the error if the file was not downloaded
 				if (mError != null)
 				{
 					AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
@@ -126,12 +139,15 @@ public class DownloadUpdate extends AsyncTask<URL, Integer, File> implements OnC
 			}
 			else
 			{
+				// Copy the file over the live DB
 				result.renameTo(new File("/data/data/org.learnnavi.app/databases/", "dictionary.sqlite"));
+				// Force the activity to reload the DB and update the version string
 				mContext.recheckDb();
 			}
 		}
 	}
 
+	// Clicked the cancel button of the progress dialog
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
 		cancel(false);
