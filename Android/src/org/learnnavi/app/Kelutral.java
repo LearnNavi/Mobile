@@ -5,6 +5,7 @@ import java.net.URL;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -26,6 +27,8 @@ import android.widget.TextView;
 import android.widget.ViewAnimator;
 
 public class Kelutral extends Activity implements OnClickListener, DialogInterface.OnClickListener {
+	static public final int UPDATEREQ_DLG = 101;
+	
 	private int mMainIndex = -1;
 	private int mResourcesIndex = -1;
 	private int mAboutIndex = -1;
@@ -46,33 +49,73 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
         
         // Get references to the animator and set the first page
         mAnimator = (ViewAnimator)findViewById(R.id.ViewAnimator01);
-        mMainIndex = loadPage(R.layout.main, R.id.MainView);
+        int showindex;
+        if (savedInstanceState != null && savedInstanceState.containsKey("CurrentView"))
+        {
+        	int curpage = savedInstanceState.getInt("CurrentView");
+        	showindex = loadPage(curpage);
+        	switch (curpage)
+        	{
+        	case R.id.ResourcesView:
+        		mBackAction = R.id.ReturnFromResourcesButton;
+        		break;
+        	case R.id.AboutView:
+        		mBackAction = R.id.ReturnFromAboutButton;
+        		break;
+        	case R.id.DisclaimerView:
+        		mBackAction = R.id.ReturnFromDisclaimerButton;
+        		break;
+        	}
+        }
+        else
+        {
+        	showindex = loadPage(R.id.MainView);
+        }
 
         // Display the first page
         // ** If this ever supports landscape orientation,
         //    this will need to be modified to load the page
         //    displayed on orientation changes
         mAnimator.setAnimateFirstView(false);
-        mAnimator.setDisplayedChild(mMainIndex);
-
-        // Set the callback and alpha for the buttons
-        setupButton(R.id.ResourcesButton);
-        setupButton(R.id.DictionaryButton);
+        mAnimator.setDisplayedChild(showindex);
 
         // Check if the dictionary needs to be re-loaded
         recheckDb();
 
-        // Start background thread to check for updated dictionaries
-        CheckDictionaryVersion cdv = new CheckDictionaryVersion(this);
-        cdv.execute(DBVersion);
+        if (savedInstanceState == null || !savedInstanceState.containsKey("SkipDBCheck") || !savedInstanceState.getBoolean("SkipDBCheck"))
+        {
+            // Start background thread to check for updated dictionaries
+            CheckDictionaryVersion cdv = new CheckDictionaryVersion(this);
+            cdv.execute(DBVersion);
+        }
 
+    }
+    
+    @Override
+    public void onResume()
+    {
+    	super.onResume();
+    	
         // Load the remaining pages - on demand loading was causing pauses
         // Perhaps find some way to load these one at a time after the main page loads
+		loadMainPage();
 		loadResourcesPage();
 		loadDisclaimerPage();
 		loadAboutPage();
 		loadAnimations();
     }
+    
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState)
+	{
+		// Save the search and direction
+		// Future: Save the part of speech filter
+		// Other things like position of the scroll is handled automatically
+		super.onSaveInstanceState(savedInstanceState);
+
+		savedInstanceState.putInt("CurrentView", mAnimator.getChildAt(mAnimator.getDisplayedChild()).getId());
+		savedInstanceState.putBoolean("SkipDBCheck", true);
+	}
 
     @Override
     public boolean onKeyDown (int keyCode, KeyEvent event) 
@@ -148,7 +191,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
     	View.inflate(this, resource, mAnimator);
     	return mAnimator.indexOfChild(findViewById(id));
     }
-
+    
     // Initialize the animations for use by the view animator
     private void loadAnimations()
     {
@@ -169,6 +212,48 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
     	mFlipLeftIn.setDuration(350);
     	mFlipLeftIn.setStartOffset(350);
     	mFlipLeftIn.setInterpolator(new DecelerateInterpolator());
+    }
+    
+    private int loadPage(int id)
+    {
+    	// Load a page by ID and return the index
+    	switch (id)
+    	{
+    	case R.id.ResourcesView:
+    		loadResourcesPage();
+    		return mResourcesIndex;
+    	case R.id.AboutView:
+    		loadAboutPage();
+    		return mAboutIndex;
+    	case R.id.DisclaimerView:
+    		loadDisclaimerPage();
+    		return mDisclaimerIndex;
+    	case R.id.MainView:
+   		default:
+    		loadMainPage();
+    		return mMainIndex;
+    	}
+    }
+
+    private void loadMainPage()
+    {
+    	// Only load it once
+    	if (mMainIndex >= 0)
+    		return;
+
+    	// Load the main page and initialize the callback and alpha of its buttons
+        mMainIndex = loadPage(R.layout.main, R.id.MainView);
+        
+        if (DBVersion != null)
+        {
+			// Update the version string for beta releases
+	        TextView version = (TextView)findViewById(R.id.FullVersionTextView);
+	       	version.setText(getFullVersionString());
+        }
+        
+        // Set the callback and alpha for the buttons
+        setupButton(R.id.ResourcesButton);
+        setupButton(R.id.DictionaryButton);
     }
     
     private void loadResourcesPage()
@@ -198,8 +283,11 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
     	// Set the version strings in about
 		TextView ver = (TextView)findViewById(R.id.VersionTextView);
 		ver.setText(getVersionString());
-		ver = (TextView)findViewById(R.id.DBVersionTextView);
-		ver.setText(getDBVersionString());
+		if (DBVersion != null)
+		{
+			ver = (TextView)findViewById(R.id.DBVersionTextView);
+			ver.setText(getDBVersionString());
+		}
     	
     	setupButton(R.id.ReturnFromAboutButton);
     }
@@ -395,16 +483,21 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 		}
 	}
 
-	// Callback when an update is available
-	public void updateAvailable() {
-		// Create a simple alert prompt asking to update
-		// ** Once a menu option to enable/disable is in place,
-		//    this dialog should include a check box to disable checking
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		alert.setMessage(R.string.UpdateAvailable);
-		alert.setNegativeButton(android.R.string.no, null);
-		alert.setPositiveButton(android.R.string.yes, this);
-		alert.create().show();
+	@Override
+	protected Dialog onCreateDialog(int id)
+	{
+		if (id == UPDATEREQ_DLG)
+		{
+			// Create a simple alert prompt asking to update
+			// ** Once a menu option to enable/disable is in place,
+			//    this dialog should include a check box to disable checking
+			AlertDialog.Builder alert = new AlertDialog.Builder(this);
+			alert.setMessage(R.string.UpdateAvailable);
+			alert.setNegativeButton(android.R.string.no, null);
+			alert.setPositiveButton(android.R.string.yes, this);
+			return alert.create();
+		}
+		return super.onCreateDialog(id);
 	}
 
 	@Override
@@ -431,6 +524,11 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 
 		// Update the version string for beta releases
         TextView version = (TextView)findViewById(R.id.FullVersionTextView);
-        version.setText(getFullVersionString());
+        if (version != null)
+        	version.setText(getFullVersionString());
+        version = (TextView)findViewById(R.id.DBVersionTextView);
+        if (version != null)
+        	version.setText(getDBVersionString());
+
 	}
 }

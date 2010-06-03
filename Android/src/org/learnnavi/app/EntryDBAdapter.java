@@ -46,7 +46,7 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     // Query words that match a filter sorted/searched by English word
     private static final String QUERY_FILTER_TO_NAVI = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS definition, entries.english_definition AS word, replace(replace(beta, 'B', 'Ä'), 'J', 'Ì') AS letter FROM entries WHERE entries.english_definition LIKE ? ORDER BY beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE";
     // Query a single entry by ID
-    private static final String QUERY_ENTRY = "SELECT replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, entries.english_definition AS definition, ipa, fps.description as part_of_speech FROM entries LEFT JOIN fancy_parts_of_speech fps USING (part_of_speech) WHERE _id = ?";
+    private static final String QUERY_ENTRY = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, entries.english_definition AS definition, ipa, fps.description as part_of_speech FROM entries LEFT JOIN fancy_parts_of_speech fps USING (part_of_speech) WHERE _id = ?";
 
     // Query used by the search suggest when neither to or from Na'vi is requested
     private static final String QUERY_FOR_SUGGEST = "SELECT _id, _id AS suggest_intent_data, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS suggest_text_1, entries.english_definition AS suggest_text_2 FROM entries WHERE entries.entry_name LIKE ? OR entries.english_definition LIKE ? ORDER BY LENGTH(entries.entry_name), beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE LIMIT 25";
