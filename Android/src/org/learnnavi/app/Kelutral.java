@@ -41,6 +41,8 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 	private int mBackAction = -1;
 	private boolean mTrackingBack = false;
 	
+	private DownloadUpdate mDownloadUpdate;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,7 +90,18 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
             CheckDictionaryVersion cdv = new CheckDictionaryVersion(this);
             cdv.execute(DBVersion);
         }
-
+        
+        mDownloadUpdate = (DownloadUpdate)getLastNonConfigurationInstance();
+        if (mDownloadUpdate != null)
+        	mDownloadUpdate.reParent(this);
+    }
+    
+    @Override
+    public Object onRetainNonConfigurationInstance()
+    {
+    	if (mDownloadUpdate != null)
+    		mDownloadUpdate.unParent();
+    	return mDownloadUpdate;
     }
     
     @Override
@@ -398,6 +411,8 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 	// Perform actions for button click, depending on the id of the button
 	private void handleButtonClick(int id)
 	{
+		if (mDownloadUpdate != null)
+			return;
 		switch (id)
 		{
 		//
@@ -509,8 +524,8 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 		{
 			// Start background download process
 			DBurl = new URL("http://learnnaviapp.com/database/dictionary.sqlite");
-			DownloadUpdate du = new DownloadUpdate(this);
-			du.execute(DBurl);
+			mDownloadUpdate = new DownloadUpdate(this);
+			mDownloadUpdate.execute(DBurl);
 		}
 		catch (MalformedURLException ex)
 		{
@@ -530,5 +545,17 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
         if (version != null)
         	version.setText(getDBVersionString());
 
+	}
+	
+	public void downloadComplete(boolean success)
+	{
+		// Callback from update download
+		mDownloadUpdate = null;
+		
+		if (success)
+		{
+			EntryDBAdapter.reloadDB(this);
+			recheckDb();
+		}
 	}
 }

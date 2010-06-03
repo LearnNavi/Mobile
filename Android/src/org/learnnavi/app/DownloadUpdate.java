@@ -122,29 +122,66 @@ public class DownloadUpdate extends AsyncTask<URL, Integer, File> implements OnC
 	@Override
 	protected void onPostExecute(File result)
 	{
-		mProgress.hide();
+		if (mProgress != null)
+		{
+			mProgress.hide();
+			mProgress = null;
+		}
 		if (!isCancelled())
 		{
 			if (result == null || !result.exists())
 			{
-				// Report the error if the file was not downloaded
-				if (mError != null)
+				if (mContext != null)
 				{
-					AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
-					alert.setCancelable(true);
-					alert.setMessage(mError);
-					alert.setNeutralButton(android.R.string.ok, null);
-					alert.create().show();
+					// Report the error if the file was not downloaded
+					if (mError != null)
+					{
+						AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+						alert.setCancelable(true);
+						alert.setMessage(mError);
+						alert.setNeutralButton(android.R.string.ok, null);
+						alert.create().show();
+					}
+					mContext.downloadComplete(false);
 				}
 			}
 			else
 			{
 				// Copy the file over the live DB
 				result.renameTo(new File("/data/data/org.learnnavi.app/databases/", "dictionary.sqlite"));
-				// Force the activity to reload the DB and update the version string
-				mContext.recheckDb();
+				if (mContext != null)
+				{
+					// Force the activity to reload the DB and update the version string
+					mContext.downloadComplete(true);
+				}
 			}
 		}
+		else if (mContext != null)
+			mContext.downloadComplete(false);
+	}
+	
+	public void unParent()
+	{
+		if (mProgress != null)
+			mProgress.hide();
+		mContext = null;
+	}
+	
+	public void reParent(Kelutral context)
+	{
+		mContext = context;
+		if (mProgress != null)
+		{
+			mProgress.setOwnerActivity(context);
+			mProgress.show();
+		}
+		else if (mError != null)
+			// This will just show the error
+			onPostExecute(null);
+		else
+			// There is an edge case where it wasn't cancelled, no error but no file return
+			// However that shouldn't happen, and the resulting call should be harmless anyway
+			mContext.downloadComplete(!isCancelled());
 	}
 
 	// Clicked the cancel button of the progress dialog
