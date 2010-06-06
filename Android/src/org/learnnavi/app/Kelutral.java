@@ -30,6 +30,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 	static public final int UPDATEREQ_DLG = 101;
 	// Really half the duration of the flip
 	static public final int FLIPANIM_SPEED = 500;
+	static public final float FLIPANIM_DEPTH = 0.4f;
 	
 	private int mMainIndex = -1;
 	private int mResourcesIndex = -1;
@@ -212,22 +213,22 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
     // Initialize the animations for use by the view animator
     private void loadAnimations()
     {
-    	mFlipRightOut = new PageFlip3d(0.0f, 90.0f, 0.5f, 0.5f);
+    	mFlipRightOut = new PageFlip3d(0.0f, 90.0f, 0.5f, 0.5f, FLIPANIM_DEPTH);
     	mFlipRightOut.setDuration(FLIPANIM_SPEED);
     	mFlipRightOut.setStartOffset(50);
     	mFlipRightOut.setInterpolator(new AccelerateInterpolator());
     	
-    	mFlipRightIn = new PageFlip3d(-90.0f, 0.0f, 0.5f, 0.5f);
+    	mFlipRightIn = new PageFlip3d(-90.0f, 0.0f, 0.5f, 0.5f, FLIPANIM_DEPTH);
     	mFlipRightIn.setDuration(FLIPANIM_SPEED);
     	mFlipRightIn.setStartOffset(FLIPANIM_SPEED + 50);
     	mFlipRightIn.setInterpolator(new DecelerateInterpolator());
     	
-    	mFlipLeftOut = new PageFlip3d(0.0f, -90.0f, 0.5f, 0.5f);
+    	mFlipLeftOut = new PageFlip3d(0.0f, -90.0f, 0.5f, 0.5f, FLIPANIM_DEPTH);
     	mFlipLeftOut.setDuration(FLIPANIM_SPEED);
     	mFlipLeftOut.setStartOffset(50);
     	mFlipLeftOut.setInterpolator(new AccelerateInterpolator());
     	
-    	mFlipLeftIn = new PageFlip3d(90.0f, 0.0f, 0.5f, 0.5f);
+    	mFlipLeftIn = new PageFlip3d(90.0f, 0.0f, 0.5f, 0.5f, FLIPANIM_DEPTH);
     	mFlipLeftIn.setDuration(FLIPANIM_SPEED);
     	mFlipLeftIn.setStartOffset(FLIPANIM_SPEED + 50);
     	mFlipLeftIn.setInterpolator(new DecelerateInterpolator());

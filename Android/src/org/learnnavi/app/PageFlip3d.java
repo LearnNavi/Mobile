@@ -10,19 +10,29 @@ public class PageFlip3d extends Animation {
 	private final float mToDegrees;
 	private final float mCenterX;
 	private final float mCenterY;
+	private final float mDepth;
 	private int mScaleX;
 	private int mScaleY;
 	private Camera mCamera;
 
-	// A little non-standard here...  Is there a way to get this definable in XML?
 	public PageFlip3d(float fromDegrees, float toDegrees, float centerX,
 			float centerY) {
 		mFromDegrees = fromDegrees;
 		mToDegrees = toDegrees;
 		mCenterX = centerX;
 		mCenterY = centerY;
+		mDepth = 1.0f;
 	}
 
+	public PageFlip3d(float fromDegrees, float toDegrees, float centerX,
+			float centerY, float depthZ) {
+		mFromDegrees = fromDegrees;
+		mToDegrees = toDegrees;
+		mCenterX = centerX;
+		mCenterY = centerY;
+		mDepth = depthZ;
+	}
+	
 	@Override
 	public void initialize(int width, int height, int parentWidth,
 			int parentHeight) {
@@ -59,17 +69,21 @@ public class PageFlip3d extends Animation {
 		matrix.postTranslate(centerX, centerY);
 		
 		// Scale so the edge points JUST fit on screen
-		float[] points = new float[] { 0, 0, 0, mScaleY, mScaleX, 0, mScaleX, mScaleY };
+		float sidepoint = (mScaleX * (1.0f - mDepth)) / 2.0f;
+		float[] points = new float[] { sidepoint, 0, sidepoint, mScaleY, mScaleX - sidepoint, 0, mScaleX - sidepoint, mScaleY };
 		matrix.mapPoints(points);
+		matrix.preScale(mDepth, 1.0f, centerX, centerY);
 		if (points[1] < 0)
 		{
 			float scale = mScaleY / (points[3] - points[1]);
-			matrix.postScale(scale, scale, centerX, centerY);
+			matrix.postScale(scale / mDepth, scale, centerX, centerY);
 		}
 		else if (points[5] < 0)
 		{
 			float scale = mScaleY / (points[7] - points[5]);
-			matrix.postScale(scale, scale, centerX, centerY);
+			matrix.postScale(scale / mDepth, scale, centerX, centerY);
 		}
+		else
+			matrix.postScale(1.0f / mDepth, 1.0f, centerX, centerY);
 	}
 }
