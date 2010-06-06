@@ -57,5 +57,19 @@ public class PageFlip3d extends Animation {
 		// Apply matrix translation to the result to set the center.
 		matrix.preTranslate(-centerX, -centerY);
 		matrix.postTranslate(centerX, centerY);
+		
+		// Scale so the edge points JUST fit on screen
+		float[] points = new float[] { 0, 0, 0, mScaleY, mScaleX, 0, mScaleX, mScaleY };
+		matrix.mapPoints(points);
+		if (points[1] < 0)
+		{
+			float scale = mScaleY / (points[3] - points[1]);
+			matrix.postScale(scale, scale, centerX, centerY);
+		}
+		else if (points[5] < 0)
+		{
+			float scale = mScaleY / (points[7] - points[5]);
+			matrix.postScale(scale, scale, centerX, centerY);
+		}
 	}
 }

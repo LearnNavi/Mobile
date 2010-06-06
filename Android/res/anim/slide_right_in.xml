@@ -6,4 +6,5 @@
        android:fromYDelta="0%"
        android:toYDelta="0%"
        android:fillAfter="false"
-       android:duration="700" />
+       android:duration="1000"
+       android:startOffset="50" />
