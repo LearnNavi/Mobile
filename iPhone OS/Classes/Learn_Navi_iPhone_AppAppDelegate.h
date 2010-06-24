@@ -34,6 +34,7 @@
 - (void)launchApp:(id)sender;
 - (void)updateDatabase:(id)sender;
 - (void)startUpdate:(id)sender;
+- (void)checkDatabaseVersion:(id)sender;
 - (void)updateFinished:(id)sender;
 
 @end

@@ -94,7 +94,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 	appViewController.navController = thisNavigationController;
 	[window addSubview:appViewController.navigationController.view];
 	[window makeKeyAndVisible];
-	
+	[self performSelectorInBackground:@selector(checkDatabaseVersion:) withObject:nil];
+
 }
 
 
@@ -267,7 +268,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 	// Check if the database has already been created in the users filesystem
 	success = [fileManager fileExistsAtPath:databasePath];
-	double databaseVersion = 0;
 	NSString *databasePathFromApp = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:databaseName];
 	// If the database already exists then return without doing anything
 	if(success) {
@@ -305,7 +305,23 @@ void uncaughtExceptionHandler(NSException *exception) {
 	}
 	// Copy the database from the package to the users filesystem
 	
-	databaseVersion = [self getDatabaseVersion:databasePath];
+	[self registerDatabaseInfo:databasePath];
+	
+	[fileManager release];
+	return;
+
+}
+
+- (void) checkDatabaseVersion:(id)sender{
+	// Check if the SQL database has already been saved to the users phone, if not then copy it over
+	NSString *databaseName = @"dictionary.sqlite";
+	
+	NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsDir = [documentPaths objectAtIndex:0];
+	NSString *databasePath = [documentsDir stringByAppendingPathComponent:databaseName];
+	
+	
+	double databaseVersion = [self getDatabaseVersion:databasePath];
 	
 	// Check the web for updates to the database, if enabled
 	UIApplication* app = [UIApplication sharedApplication];
@@ -336,7 +352,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 		}
 		
 		
-		 
+		
 	}
 	
 	
@@ -349,10 +365,10 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 	[self registerDatabaseInfo:databasePath];
 	
-	[fileManager release];
 	return;
-
+	
 }
+
 
 - (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	// the user clicked one of the OK/Cancel buttons
