@@ -313,6 +313,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void) checkDatabaseVersion:(id)sender{
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 	// Check if the SQL database has already been saved to the users phone, if not then copy it over
 	NSString *databaseName = @"dictionary.sqlite";
 	
@@ -364,7 +365,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 	
 	[self registerDatabaseInfo:databasePath];
-	
+	[pool release];
 	return;
 	
 }
