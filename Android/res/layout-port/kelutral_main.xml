@@ -1,2 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ViewAnimator android:id="@+id/ViewAnimator01" xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="fill_parent" android:layout_width="fill_parent"/>
+<ViewAnimator android:id="@+id/ViewAnimator01" xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="fill_parent" android:layout_width="fill_parent">
+<LinearLayout android:layout_width='fill_parent' android:orientation='vertical' android:layout_height='fill_parent' android:background='@drawable/home_screen_background' xmlns:android='http://schemas.android.com/apk/res/android' android:id="@+id/MainView">
+  <FrameLayout android:layout_width='fill_parent' android:layout_height='0dip' android:layout_weight='200'></FrameLayout>
+  <LinearLayout android:layout_width='fill_parent' android:layout_height='0dip' android:layout_weight='100'>
+    <LinearLayout android:layout_width='0dp' android:layout_height='fill_parent' android:layout_weight='52.5'></LinearLayout>
+    <LinearLayout android:layout_width='0dp' android:orientation='vertical' android:layout_height='fill_parent' android:layout_weight='215'>
+      <Button android:layout_width='fill_parent' android:layout_marginBottom='2.5dip' android:layout_height='0dip' android:clickable='true' android:background='@drawable/dictionary_button_image' android:layout_weight='1' android:id='@+id/DictionaryButton'></Button>
+      <Button android:layout_width='fill_parent' android:layout_height='0dip' android:background='@drawable/resources_button_image' android:id='@+id/ResourcesButton' android:width='215dip' android:clickable='true' android:layout_weight='1' android:layout_marginTop='2.5dip'></Button>
+    </LinearLayout>
+    <LinearLayout android:layout_width='0dp' android:layout_height='fill_parent' android:layout_weight='52.5'></LinearLayout>
+  </LinearLayout>
+  <LinearLayout android:layout_width='wrap_content' android:layout_height='0px' android:layout_weight='150' android:layout_gravity='center_horizontal'>
+    <TextView android:layout_width='wrap_content' android:layout_height='wrap_content' android:textColor='#ff6200' android:layout_gravity='bottom|center_horizontal' android:text="@string/VersionStringBeta" android:id="@+id/FullVersionTextView"></TextView>
+  </LinearLayout>
+  <FrameLayout android:layout_width='fill_parent' android:layout_height='0dp' android:layout_weight='30'></FrameLayout>
+</LinearLayout>
+<LinearLayout android:layout_width='fill_parent' android:layout_height='fill_parent' android:background='@drawable/resources_background' xmlns:android='http://schemas.android.com/apk/res/android' android:id="@+id/ResourcesView">
+  <LinearLayout android:layout_width='0dp' android:layout_height='fill_parent' android:layout_weight='52.5'></LinearLayout>
+  <LinearLayout android:layout_width='0dp' android:orientation='vertical' android:layout_height='fill_parent' android:layout_weight='215'>
+    <FrameLayout android:layout_width='fill_parent' android:layout_height='0dp' android:layout_weight='130'></FrameLayout>
+    <Button android:layout_width='fill_parent' android:layout_marginBottom='2.5dp' android:layout_height='0dp' android:background='@drawable/about_button_image' android:layout_weight='45' android:id='@+id/AboutButton'></Button>
+    <Button android:layout_width='fill_parent' android:layout_marginBottom='2.5dp' android:layout_height='0dp' android:background='@drawable/learn_navi_button_image' android:layout_weight='45' android:id='@+id/LearnNaviOrgButton' android:layout_marginTop='2.5dp'></Button>
+    <Button android:layout_width='fill_parent' android:layout_marginBottom='2.5dp' android:layout_height='0dp' android:background='@drawable/disclaimer_button_image' android:id='@+id/DisclaimerButton' android:width='215dip' android:layout_weight='45' android:height='45dip' android:layout_marginTop='2.5dp'></Button>
+    <Button android:layout_width='fill_parent' android:layout_height='0dp' android:background='@drawable/return_home_button_image' android:width='215dip' android:layout_weight='45' android:height='45dip' android:layout_marginTop='2.5dp' android:id="@+id/ReturnFromResourcesButton"></Button>
+    <FrameLayout android:layout_width='fill_parent' android:layout_height='0dp' android:layout_weight='140'></FrameLayout>
+  </LinearLayout>
+  <LinearLayout android:layout_width='0dp' android:layout_height='fill_parent' android:layout_weight='52.5'></LinearLayout>
+</LinearLayout>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:background="@drawable/about_background" android:id="@+id/AboutView">
+<FrameLayout android:layout_height="0dp" android:layout_width="fill_parent" android:layout_weight="80">
+
+
+</FrameLayout><LinearLayout android:orientation="vertical" android:layout_height="0dp" android:layout_width="fill_parent" android:layout_weight="325"><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/VersionString" android:layout_gravity="center_horizontal" android:textStyle="bold" android:textSize="22sp" android:textColor="#ff6200" android:id="@+id/VersionTextView" android:shadowColor="#000" android:shadowDx="2.0" android:shadowDy="2.0" android:shadowRadius="5.0"></TextView><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:text="@string/DBVersionString" android:textColor="#ffd080" android:textSize="12sp" android:id="@+id/DBVersionTextView" android:shadowColor="#000" android:shadowDx="1.0" android:shadowDy="1.0" android:shadowRadius="3.0"></TextView>
+<FrameLayout android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="1"><TextView android:layout_width="wrap_content" android:text="@string/About" android:scrollbars="vertical" android:layout_height="wrap_content" android:paddingLeft="25dp" android:paddingRight="25dp" android:layout_gravity="center" android:shadowDx="0.0" android:shadowDy="0.0" android:shadowRadius="2.0" android:shadowColor="#000" android:textColor="#fff"></TextView></FrameLayout>
+</LinearLayout><LinearLayout android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="50"><FrameLayout android:layout_height="fill_parent" android:layout_width="0dp" android:layout_weight="52.5"></FrameLayout><Button android:layout_width="0dp" android:layout_weight="215" android:background="@drawable/return_home_button_image" android:layout_height="fill_parent" android:id="@+id/ReturnFromAboutButton"></Button>
+<FrameLayout android:layout_height="fill_parent" android:layout_width="0dp" android:layout_weight="52.5"></FrameLayout>
+
+</LinearLayout><FrameLayout android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="30"></FrameLayout>
+
+
+
+
+</LinearLayout>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:background="@drawable/disclaimer_background" android:id="@+id/DisclaimerView">
+<FrameLayout android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="405"><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/Disclaimer" android:layout_gravity="center" android:padding="25dp" android:shadowColor="#000" android:shadowDx="0.0" android:shadowDy="0.0" android:shadowRadius="2.0" android:textColor="#fff"></TextView></FrameLayout><LinearLayout android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="50"><FrameLayout android:layout_height="fill_parent" android:layout_width="0dp" android:layout_weight="52.5"></FrameLayout><Button android:layout_width="0dp" android:layout_weight="215" android:background="@drawable/return_home_button_image" android:layout_height="fill_parent" android:id="@+id/ReturnFromDisclaimerButton"></Button>
+<FrameLayout android:layout_height="fill_parent" android:layout_width="0dp" android:layout_weight="52.5"></FrameLayout>
+
+</LinearLayout><FrameLayout android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="30"></FrameLayout>
+
+
+
+
+</LinearLayout>
+</ViewAnimator>

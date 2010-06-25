@@ -13,12 +13,16 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
@@ -31,7 +35,13 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 	// Really half the duration of the flip
 	static public final int FLIPANIM_SPEED = 500;
 	static public final float FLIPANIM_DEPTH = 0.4f;
-	
+	// For detecting fling gestures between screens
+    private static final int SWIPE_MIN_DISTANCE = 120;
+    private static final int SWIPE_MAX_OFF_PATH = 250;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+    private GestureDetector mGestureDetector;
+    private MyGestureDetector mMyGestureDetector;
+    
 	private int mMainIndex = -1;
 	private int mResourcesIndex = -1;
 	private int mAboutIndex = -1;
@@ -51,9 +61,15 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.kelutral_main);
+
+        mMyGestureDetector = new MyGestureDetector();
+        mGestureDetector = new GestureDetector(mMyGestureDetector);
         
         // Get references to the animator and set the first page
         mAnimator = (ViewAnimator)findViewById(R.id.ViewAnimator01);
+        mAnimator.setOnTouchListener(mMyGestureDetector);
+        mAnimator.setLongClickable(true);
+
         int showindex;
         if (savedInstanceState != null && savedInstanceState.containsKey("CurrentView"))
         {
@@ -202,9 +218,8 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 	}	
 
 	// Helper to load a view for the view animator, and return the newly added index
-    private int loadPage(int resource, int id)
+    private int findPage(int id)
     {
-    	View.inflate(this, resource, mAnimator);
     	View retview = findViewById(id);
     	retview.setDrawingCacheEnabled(true);
     	return mAnimator.indexOfChild(retview);
@@ -262,7 +277,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
     		return;
 
     	// Load the main page and initialize the callback and alpha of its buttons
-        mMainIndex = loadPage(R.layout.main, R.id.MainView);
+        mMainIndex = findPage(R.id.MainView);
         
         if (DBVersion != null)
         {
@@ -283,7 +298,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
     		return;
 
     	// Load the resources page and initialize the callback and alpha of its buttons
-    	mResourcesIndex = loadPage(R.layout.resources, R.id.ResourcesView);
+    	mResourcesIndex = findPage(R.id.ResourcesView);
     	
         setupButton(R.id.ReturnFromResourcesButton);
         setupButton(R.id.LearnNaviOrgButton);
@@ -298,7 +313,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
     		return;
     	
     	// Load the about page and initialize the callback and alpha of its button
-    	mAboutIndex = loadPage(R.layout.about, R.id.AboutView);
+    	mAboutIndex = findPage(R.id.AboutView);
 
     	// Set the version strings in about
 		TextView ver = (TextView)findViewById(R.id.VersionTextView);
@@ -319,13 +334,13 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
     		return;
     	
     	// Load the disclaimer page and initialize the callback and alpha of its button
-    	mDisclaimerIndex = loadPage(R.layout.disclaimer, R.id.DisclaimerView);
+    	mDisclaimerIndex = findPage(R.id.DisclaimerView);
     	
     	setupButton(R.id.ReturnFromDisclaimerButton);
     }
 
     // Switch views by sliding the view in from the right
-    private void SlideLeftTo(int index)
+    private void slideLeftTo(int index)
     {
     	mAnimator.setOutAnimation(this, R.anim.slide_left_out);
     	mAnimator.setInAnimation(this, R.anim.slide_left_in);
@@ -333,7 +348,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
     }
 
     // Switch views by sliding the view in from the left
-    private void SlideRightTo(int index)
+    private void slideRightTo(int index)
     {
     	mAnimator.setOutAnimation(this, R.anim.slide_right_out);
     	mAnimator.setInAnimation(this, R.anim.slide_right_in);
@@ -341,7 +356,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
     }
 
     // Switch views by doing a page flip left
-    private void FlipTo(int index)
+    private void flipTo(int index)
     {
     	mAnimator.setOutAnimation(mFlipLeftOut);
     	mAnimator.setInAnimation(mFlipLeftIn);
@@ -349,7 +364,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
     }
 
     // Switch views by doing a page flip right
-    private void FlipFrom(int index)
+    private void flipFrom(int index)
     {
     	mAnimator.setOutAnimation(mFlipRightOut);
     	mAnimator.setInAnimation(mFlipRightIn);
@@ -431,7 +446,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 				break;
 			// Slide from main page to resources
 			// Back button to return to main page
-			SlideRightTo(mResourcesIndex);
+			slideRightTo(mResourcesIndex);
 			mBackAction = R.id.ReturnFromResourcesButton;
 			break;
 		case R.id.DictionaryButton:
@@ -451,7 +466,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 				break;
 			// Slide from resources page to main page
 			// Back button default action
-			SlideLeftTo(mMainIndex);
+			slideLeftTo(mMainIndex);
 			mBackAction = 0;
 			break;
 		case R.id.LearnNaviOrgButton:
@@ -467,7 +482,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 				break;
 			// Page flip to disclaimer view
 			// Back button returns to resources view
-			FlipTo(mDisclaimerIndex);
+			flipTo(mDisclaimerIndex);
 			mBackAction = R.id.ReturnFromDisclaimerButton;
 			break;
 		case R.id.AboutButton:
@@ -475,7 +490,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 				break;
 			// Page flip to about view
 			// Back button returns to resources view
-			FlipTo(mAboutIndex);
+			flipTo(mAboutIndex);
 			mBackAction = R.id.ReturnFromAboutButton;
 			break;
 		//
@@ -487,7 +502,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 				break;
 			// Page flip back to resources view
 			// Back button returns to main view
-			FlipFrom(mResourcesIndex);
+			flipFrom(mResourcesIndex);
 			mBackAction = R.id.ReturnFromResourcesButton;
 			break;
 		//
@@ -499,7 +514,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 				break;
 			// Page flip back to resources view
 			// Back button returns to main view
-			FlipFrom(mResourcesIndex);
+			flipFrom(mResourcesIndex);
 			mBackAction = R.id.ReturnFromResourcesButton;
 			break;
 		}
@@ -565,4 +580,52 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 			recheckDb();
 		}
 	}
+	
+    class MyGestureDetector extends SimpleOnGestureListener implements OnTouchListener
+    {
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
+        {
+            try
+            {
+                if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
+                    return false;
+                // right to left swipe
+                if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+                {
+                	if (mAnimator.getDisplayedChild() == mMainIndex)
+                	{
+                		handleButtonClick(R.id.ResourcesButton);
+                	}
+                	else if (mAnimator.getDisplayedChild() == mResourcesIndex)
+                	{
+                		handleButtonClick(R.id.AboutButton);
+                	}
+                }
+                else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+                {
+                	if (mBackAction > 0)
+                	{
+	            		int action = mBackAction;
+	            		mBackAction = 0;
+	            		mTrackingBack = false;
+	            		
+	            		// Pretend like a button was pressed
+	            		handleButtonClick(action);
+                	}
+                }
+            }
+            catch (Exception e)
+            {
+                // nothing
+            }
+            return false;
+        }
+        
+        @Override
+        public boolean onTouch(View v, MotionEvent event)
+        {
+            return mGestureDetector == null ? false : mGestureDetector.onTouchEvent(event);
+        }
+    }
 }
