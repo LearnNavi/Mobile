@@ -10,7 +10,6 @@
 #import "DictionaryTableViewController.h"
 #import "Learn_Navi_iPhone_AppAppDelegate.h"
 #import "AppViewController.h"
-#import "FlurryAPI.h"
 #import "LoadingView.h"
 
 @implementation Learn_Navi_iPhone_AppAppDelegate
@@ -24,7 +23,7 @@
 }
 
 void uncaughtExceptionHandler(NSException *exception) {
-    [FlurryAPI logError:@"Uncaught" message:@"Crash!" exception:exception];
+   
 }
 
 #pragma mark -
@@ -64,8 +63,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
 	//Tracking Code
-	[FlurryAPI startSessionWithLocationServices:@"AIUXWAWDAFLHEUHXPUCC"];
-	[FlurryAPI setSessionReportsOnCloseEnabled:YES];
+	
 	[self launchApp:self];
 	
 	return NO;

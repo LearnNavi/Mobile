@@ -632,17 +632,67 @@
 		// Loop through the results and add them to the feeds array
 		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
 			// Read the data from the result row
-			NSString *aEntry_Name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
-			NSString *aNavi_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
-			NSString *aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
-			NSString *aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
-			NSString *aIpa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
-			NSString *aImageURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
-			NSString *aAudioURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
-			NSString *aFancy_type = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 7)];
-			NSString *aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 8)];
-			NSString *aBeta = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 9)];
-			//NSString *aFancy_type = @"";
+			NSString *aEntry_Name;
+			NSString *aNavi_definition;
+			NSString *aEnglish_definition;
+			NSString *aPart_of_speech;
+			NSString *aIpa;
+			NSString *aImageURL;
+			NSString *aAudioURL;
+			NSString *aFancy_type;
+			NSString *aAlpha;
+			NSString *aBeta;
+			
+			if(sqlite3_column_text(compiledStatement, 0) != NULL) {
+				aEntry_Name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+			} else {
+				aEntry_Name = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 1) != NULL) {
+				aNavi_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+			} else {
+				aNavi_definition = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 2) != NULL) {
+				aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+			} else {
+				aEnglish_definition = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 3) != NULL) {
+				aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
+			} else {
+				aPart_of_speech = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 4) != NULL) {
+				aIpa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
+			} else {
+				aIpa = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 5) != NULL) {
+				aImageURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
+			} else {
+				aImageURL = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 6) != NULL) {
+				aAudioURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
+			} else {
+				aAudioURL = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 7) != NULL) {
+				aFancy_type = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 7)];
+			} else {
+				aFancy_type = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 8) != NULL) {
+				aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 8)];
+			} else {
+				aAlpha = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 9) != NULL) {
+				aBeta = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 9)];
+			} else {
+				aBeta = @"";
+			}			//NSString *aFancy_type = @"";
 			aEntry_Name = [self convertStringFromDatabase:aEntry_Name];
 			
 			
@@ -675,17 +725,71 @@
 		// Loop through the results and add them to the feeds array
 		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
 			// Read the data from the result row
-			NSString *aEntry_Name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
-			NSString *aNavi_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
-			NSString *aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
-			NSString *aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
-			NSString *aIpa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
-			NSString *aImageURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
-			NSString *aAudioURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
-			NSString *aFancy_type = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 7)];
-			NSString *aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 8)];
-			NSString *aBeta = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 9)];
-			//NSString *aFancy_type = @"";
+			
+			NSString *aEntry_Name;
+			NSString *aNavi_definition;
+			NSString *aEnglish_definition;
+			NSString *aPart_of_speech;
+			NSString *aIpa;
+			NSString *aImageURL;
+			NSString *aAudioURL;
+			NSString *aFancy_type;
+			NSString *aAlpha;
+			NSString *aBeta;
+			
+			if(sqlite3_column_text(compiledStatement, 0) != NULL) {
+				aEntry_Name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+			} else {
+				aEntry_Name = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 1) != NULL) {
+				aNavi_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+			} else {
+				aNavi_definition = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 2) != NULL) {
+				aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+			} else {
+				aEnglish_definition = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 3) != NULL) {
+				aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
+			} else {
+				aPart_of_speech = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 4) != NULL) {
+				aIpa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
+			} else {
+				aIpa = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 5) != NULL) {
+				aImageURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
+			} else {
+				aImageURL = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 6) != NULL) {
+				aAudioURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
+			} else {
+				aAudioURL = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 7) != NULL) {
+				aFancy_type = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 7)];
+			} else {
+				aFancy_type = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 8) != NULL) {
+				aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 8)];
+			} else {
+				aAlpha = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 9) != NULL) {
+				aBeta = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 9)];
+			} else {
+				aBeta = @"";
+			}			//NSString *aFancy_type = @"";
+			
+			
+						//NSString *aFancy_type = @"";
 			// Create a new animal object with the data from the database
 			aEntry_Name = [self convertStringFromDatabase:aEntry_Name];
 			
@@ -718,16 +822,67 @@
 		// Loop through the results and add them to the feeds array
 		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
 			// Read the data from the result row
-			NSString *aEntry_Name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
-			NSString *aNavi_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
-			NSString *aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
-			NSString *aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
-			NSString *aIpa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
-			NSString *aImageURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
-			NSString *aAudioURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
-			NSString *aFancy_type = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 7)];
-			NSString *aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 8)];
-			NSString *aBeta = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 9)];
+			NSString *aEntry_Name;
+			NSString *aNavi_definition;
+			NSString *aEnglish_definition;
+			NSString *aPart_of_speech;
+			NSString *aIpa;
+			NSString *aImageURL;
+			NSString *aAudioURL;
+			NSString *aFancy_type;
+			NSString *aAlpha;
+			NSString *aBeta;
+			
+			if(sqlite3_column_text(compiledStatement, 0) != NULL) {
+				aEntry_Name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+			} else {
+				aEntry_Name = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 1) != NULL) {
+				aNavi_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+			} else {
+				aNavi_definition = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 2) != NULL) {
+				aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+			} else {
+				aEnglish_definition = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 3) != NULL) {
+				aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
+			} else {
+				aPart_of_speech = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 4) != NULL) {
+				aIpa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
+			} else {
+				aIpa = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 5) != NULL) {
+				aImageURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
+			} else {
+				aImageURL = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 6) != NULL) {
+				aAudioURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
+			} else {
+				aAudioURL = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 7) != NULL) {
+				aFancy_type = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 7)];
+			} else {
+				aFancy_type = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 8) != NULL) {
+				aAlpha = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 8)];
+			} else {
+				aAlpha = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 9) != NULL) {
+				aBeta = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 9)];
+			} else {
+				aBeta = @"";
+			}			//NSString *aFancy_type = @"";
 			//NSString *aFancy_type = @"";
 			// Create a new animal object with the data from the database
 			aEntry_Name = [self convertStringFromDatabase:aEntry_Name];

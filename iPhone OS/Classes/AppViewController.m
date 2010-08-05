@@ -76,7 +76,6 @@
 
 - (IBAction) launchDictionary:(id)sender {
 	
-	[FlurryAPI logEvent:@"Dictionary_Selected"];
 	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 	NSString *mode = [prefs stringForKey:@"dictionary_language"];
 	BOOL currentMode;
@@ -114,7 +113,6 @@
 
 - (IBAction) launchPhraseBook:(id)sender {
 	
-	[FlurryAPI logEvent:@"PhraseBook_Selected"];
 	
 	NSLog(@"Start the Phrase Book");
 	
@@ -122,7 +120,6 @@
 
 - (IBAction) launchPractice:(id)sender {
 	
-	[FlurryAPI logEvent:@"Practice_Selected"];
 	
 	NSLog(@"Start the Practice");
 	
@@ -130,7 +127,6 @@
 
 - (IBAction) launchNaviLanguage:(id)sender {
 	
-	[FlurryAPI logEvent:@"Language_Guide_Selected"];
 	
 	if([self languageGuideController] == nil) {
 		languageGuideController = [[languageGuideViewController alloc] initWithNibName:@"languageGuideViewController" bundle:[NSBundle mainBundle]];
@@ -143,7 +139,6 @@
 
 - (IBAction) launchResources:(id)sender {
 	
-	[FlurryAPI logEvent:@"Resources_Selected"];
 	
 	if([self resources] == nil) {
 		resources = [[ResourcesViewController alloc] initWithNibName:@"ResourcesViewController" bundle:[NSBundle mainBundle]];

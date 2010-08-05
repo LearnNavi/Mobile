@@ -66,10 +66,10 @@
 		0443F0C2110E2C2C00CEAB58 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F0C1110E2C2C00CEAB58 /* SystemConfiguration.framework */; };
 		0443F0C6110E2C3F00CEAB58 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F0C5110E2C3F00CEAB58 /* libsqlite3.0.dylib */; };
 		0443F0C8110E2C5300CEAB58 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F0C7110E2C5300CEAB58 /* libz.1.2.3.dylib */; };
-		0443F165110E3D5600CEAB58 /* libFlurryWithLocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F164110E3D5600CEAB58 /* libFlurryWithLocation.a */; };
 		0443F204110E5ED100CEAB58 /* Refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 0443F202110E5ED100CEAB58 /* Refresh.png */; };
 		047B445E10FAFA41007B9236 /* HomeScreenBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 047B445D10FAFA41007B9236 /* HomeScreenBackground.png */; };
 		047B448B10FB7B07007B9236 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 047B448A10FB7B07007B9236 /* Default.png */; };
+		049CF054120B22DB00318952 /* libFlurryWithLocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 049CF053120B22DB00318952 /* libFlurryWithLocation.a */; };
 		04C40DEE10FCF184001251C2 /* dist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04C40DED10FCF184001251C2 /* dist.plist */; };
 		04C40F1210FD0B79001251C2 /* essai1.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C40F1110FD0B79001251C2 /* essai1.png */; };
 		04C40F3710FD2FA6001251C2 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C40F3510FD2FA6001251C2 /* icon.png */; };
@@ -150,10 +150,10 @@
 		0443F0C5110E2C3F00CEAB58 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		0443F0C7110E2C5300CEAB58 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		0443F163110E3D5600CEAB58 /* FlurryAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAPI.h; sourceTree = "<group>"; };
-		0443F164110E3D5600CEAB58 /* libFlurryWithLocation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryWithLocation.a; path = FlurryLibWithLocation/libFlurryWithLocation.a; sourceTree = "<group>"; };
 		0443F202110E5ED100CEAB58 /* Refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Refresh.png; sourceTree = "<group>"; };
 		047B445D10FAFA41007B9236 /* HomeScreenBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeScreenBackground.png; sourceTree = "<group>"; };
 		047B448A10FB7B07007B9236 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		049CF053120B22DB00318952 /* libFlurryWithLocation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryWithLocation.a; path = FlurryLibWithLocation/libFlurryWithLocation.a; sourceTree = "<group>"; };
 		04C40DED10FCF184001251C2 /* dist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dist.plist; sourceTree = "<group>"; };
 		04C40F1110FD0B79001251C2 /* essai1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = essai1.png; sourceTree = "<group>"; };
 		04C40F3510FD2FA6001251C2 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
@@ -186,8 +186,8 @@
 				0443F0C2110E2C2C00CEAB58 /* SystemConfiguration.framework in Frameworks */,
 				0443F0C6110E2C3F00CEAB58 /* libsqlite3.0.dylib in Frameworks */,
 				0443F0C8110E2C5300CEAB58 /* libz.1.2.3.dylib in Frameworks */,
-				0443F165110E3D5600CEAB58 /* libFlurryWithLocation.a in Frameworks */,
 				04DE20FA119F750E004093C8 /* QuartzCore.framework in Frameworks */,
+				049CF054120B22DB00318952 /* libFlurryWithLocation.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,7 +338,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0443F164110E3D5600CEAB58 /* libFlurryWithLocation.a */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
@@ -347,6 +346,7 @@
 				0443F0C5110E2C3F00CEAB58 /* libsqlite3.0.dylib */,
 				0443F0C7110E2C5300CEAB58 /* libz.1.2.3.dylib */,
 				04DE20F9119F750E004093C8 /* QuartzCore.framework */,
+				049CF053120B22DB00318952 /* libFlurryWithLocation.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -562,11 +562,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_OUTPUT_FORMAT = xml;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PREBINDING = NO;
 				PRODUCT_NAME = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos4.0;
 				VALIDATE_PRODUCT = NO;
 			};
 			name = "Beta Build";
@@ -634,16 +634,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Gillogly (MFG7NCM739)";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_OUTPUT_FORMAT = xml;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PREBINDING = NO;
 				PRODUCT_NAME = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos3.0;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1C44399D-A461-47A4-9B2A-FFFE4C163765";
+				SDKROOT = iphoneos4.0;
 			};
 			name = Debug;
 		};
@@ -656,11 +657,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_OUTPUT_FORMAT = xml;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PREBINDING = NO;
 				PRODUCT_NAME = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3895E4A3-1EF1-4E5D-A3B0-A16D25CA02A4";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Release;
 		};
