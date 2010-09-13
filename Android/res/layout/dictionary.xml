@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_height="wrap_content" android:layout_width="fill_parent" android:orientation="vertical">
+  android:layout_width="fill_parent" android:orientation="vertical" android:layout_height="fill_parent">
 
-  <Button android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/DictionaryType"></Button><Button android:layout_height="wrap_content" android:id="@+id/CancelSearch" android:text="@string/CancelSearch" android:layout_width="fill_parent" android:visibility="gone"></Button><ListView android:id="@android:id/list"
-        android:layout_height="wrap_content" android:layout_width="fill_parent" android:fastScrollEnabled="true"/>
-  <TextView android:id="@android:id/empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/no_entries"/>
-
-
+  <Button style="?android:attr/buttonStyleSmall" android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/DictionaryType"></Button>
+  <Button style="?android:attr/buttonStyleSmall" android:layout_height="wrap_content" android:id="@+id/CancelSearch" android:text="@string/CancelSearch" android:layout_width="fill_parent" android:visibility="gone"></Button>
+  <FrameLayout android:layout_height="fill_parent" android:layout_width="fill_parent" android:layout_weight="1">
+    <ListView android:id="@android:id/list" android:layout_height="wrap_content" android:layout_width="fill_parent" android:fastScrollEnabled="true"></ListView>
+    <TextView android:id="@android:id/empty" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/no_entries" />
+  </FrameLayout>
+  <Spinner style="?android:attr/buttonStyleSmall" android:id="@+id/Spinner01" android:layout_height="wrap_content" android:layout_width="fill_parent" android:entries="@array/partsOfSpeech"></Spinner>
 </LinearLayout>

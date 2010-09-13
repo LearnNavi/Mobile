@@ -14,12 +14,15 @@ import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemSelectedListener;
 
-public class Dictionary extends ListActivity implements OnClickListener {
+public class Dictionary extends ListActivity implements OnClickListener, OnItemSelectedListener {
 	private final int ENTRY_DIALOG = 100; 
 	
 	static private Button mToNaviButton;
@@ -48,6 +51,10 @@ public class Dictionary extends ListActivity implements OnClickListener {
         // Setup the handler for clicking the dictionary direction button
         mToNaviButton = (Button)findViewById(R.id.DictionaryType);
         mToNaviButton.setOnClickListener(this);
+        
+        // Callback to reload the list on part of speech filter change - this will be called before the activity is done loading
+    	Spinner s = (Spinner)findViewById(R.id.Spinner01);
+    	s.setOnItemSelectedListener(this);
 
         // Check if this was created as the result of a search (Shouldn't happen currently)
         checkIntentForSearch(getIntent());
@@ -55,7 +62,7 @@ public class Dictionary extends ListActivity implements OnClickListener {
         // Open the DB
 	    EntryDBAdapter.getInstance(this).openDataBase();
 	    mDbIsOpen = true;
-
+	    
 	    // Check if there is saved state and restore it if so
 	    if (savedInstanceState != null)
 	    {
@@ -69,8 +76,7 @@ public class Dictionary extends ListActivity implements OnClickListener {
 	    		mViewingItem = savedInstanceState.getInt("ViewingItem");
 	    }
 
-	    // Populate the list
-	    fillData();
+	    // Populate the list is done automatically by the spinner callback
 	}
 	
 	@Override
@@ -192,6 +198,27 @@ public class Dictionary extends ListActivity implements OnClickListener {
     	Cursor ci;
     	String cursearch = getCurSearch();
     	
+    	String partOfSpeech = null;
+    	Spinner s = (Spinner)findViewById(R.id.Spinner01);
+    	switch (s.getSelectedItemPosition())
+    	{
+    	case 1:
+    		partOfSpeech = EntryDBAdapter.FILTER_NOUN;
+    		break;
+    	case 2:
+    		partOfSpeech = EntryDBAdapter.FILTER_PNOUN;
+    		break;
+    	case 3:
+    		partOfSpeech = EntryDBAdapter.FILTER_VERB;
+    		break;
+    	case 4:
+    		partOfSpeech = EntryDBAdapter.FILTER_ADJ;
+    		break;
+    	case 5:
+    		partOfSpeech = EntryDBAdapter.FILTER_ADV;
+    		break;
+    	}
+    	
 		Button cancel = (Button)findViewById(R.id.CancelSearch);
     	if (cursearch != null)
     	{
@@ -207,15 +234,15 @@ public class Dictionary extends ListActivity implements OnClickListener {
     	{
     		// Query the dictionary to Na'vi
     		mToNaviButton.setText(R.string.ToNavi);
-      		c = EntryDBAdapter.getInstance(this).queryAllEntryToNaviLetters(cursearch);
-      		ci = EntryDBAdapter.getInstance(this).queryAllEntriesToNavi(cursearch);
+      		c = EntryDBAdapter.getInstance(this).queryAllEntryToNaviLetters(cursearch, partOfSpeech);
+      		ci = EntryDBAdapter.getInstance(this).queryAllEntriesToNavi(cursearch, partOfSpeech);
     	}
     	else
     	{
     		// Query the dictionary form Na'vi
     		mToNaviButton.setText(R.string.FromNavi);
-      		c = EntryDBAdapter.getInstance(this).queryAllEntryLetters(cursearch);
-      		ci = EntryDBAdapter.getInstance(this).queryAllEntries(cursearch);
+      		c = EntryDBAdapter.getInstance(this).queryAllEntryLetters(cursearch, partOfSpeech);
+      		ci = EntryDBAdapter.getInstance(this).queryAllEntries(cursearch, partOfSpeech);
     	}
     	startManagingCursor(c);
     	startManagingCursor(ci);
@@ -340,5 +367,16 @@ public class Dictionary extends ListActivity implements OnClickListener {
 			EntryDBAdapter.getInstance(this).close();
 		}
 		super.onDestroy();
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+			long arg3) {
+		fillData();
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
+		// Do nothing
 	}
 }

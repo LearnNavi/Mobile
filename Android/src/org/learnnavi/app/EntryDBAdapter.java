@@ -29,31 +29,101 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     public static final String KEY_LETTER = "letter";
     public static final String KEY_PART = "part_of_speech";
 
-    // Query just the first letters for all words
-    private static final String QUERY_ALL_LETTERS = "SELECT MIN(_id) AS _id, COUNT(*) AS _count, ' ' || replace(replace(alpha, 'B', 'Ä'), 'J', 'Ì') || ' ' AS letter FROM entries GROUP BY alpha ORDER BY alpha COLLATE UNICODE";
-    // Query all words
-    private static final String QUERY_ALL = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, replace(replace(alpha, 'B', 'Ä'), 'J', 'Ì') AS letter, entries.english_definition AS definition FROM entries ORDER BY alpha COLLATE UNICODE, entries.entry_name COLLATE UNICODE";
-    // Query just the first letters for words that match a filter
-    private static final String QUERY_FILTER_LETTERS = "SELECT MIN(_id) AS _id, COUNT(*) AS _count, ' ' || replace(replace(alpha, 'B', 'Ä'), 'J', 'Ì') || ' ' AS letter FROM entries WHERE entries.entry_name LIKE ? GROUP BY alpha ORDER BY alpha COLLATE UNICODE";
-    // Query words that match a filter
-    private static final String QUERY_FILTER = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, replace(replace(alpha, 'B', 'Ä'), 'J', 'Ì') AS letter, entries.english_definition AS definition FROM entries WHERE entries.entry_name LIKE ? ORDER BY alpha COLLATE UNICODE, entries.entry_name COLLATE UNICODE";
-    // Query just the first English letters for all words
-    private static final String QUERY_ALL_TO_NAVI_LETTERS = "SELECT MIN(_id) AS _id, COUNT(*) AS _count, ' ' || beta || ' ' AS letter FROM entries GROUP BY beta ORDER BY beta COLLATE UNICODE";
-    // Query all words sorted by English word
-    private static final String QUERY_ALL_TO_NAVI = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS definition, entries.english_definition AS word, replace(replace(beta, 'B', 'Ä'), 'J', 'Ì') AS letter FROM entries ORDER BY beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE";
-    // Query just the first English letters for words that match a filter
-    private static final String QUERY_FILTER_TO_NAVI_LETTERS = "SELECT MIN(_id) AS _id, COUNT(*) AS _count, ' ' || beta || ' ' AS letter FROM entries WHERE entries.english_definition LIKE ? GROUP BY beta ORDER BY beta COLLATE UNICODE";
-    // Query words that match a filter sorted/searched by English word
-    private static final String QUERY_FILTER_TO_NAVI = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS definition, entries.english_definition AS word, replace(replace(beta, 'B', 'Ä'), 'J', 'Ì') AS letter FROM entries WHERE entries.english_definition LIKE ? ORDER BY beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE";
+    // Undo ì->j and ä->b substitution for the Na'vi word
+    private static final String QUERY_PART_NAVI_WORD = "replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì')";
+    // Undo ì->j and ä->b substitution for the Na'vi letter
+    private static final String QUERY_PART_NAVI_LETTER = "replace(replace(alpha, 'B', 'Ä'), 'J', 'Ì')";
+    
+    // Basic query by Na'vi word
+    private static final String QUERY_PART_NAVI_START = "SELECT _id, " + QUERY_PART_NAVI_WORD + " AS word, " + QUERY_PART_NAVI_LETTER + " AS letter, entries.english_definition AS definition FROM entries ";
+    private static final String QUERY_PART_NAVI_END = "ORDER BY alpha COLLATE UNICODE, entries.entry_name COLLATE UNICODE";
+
+    // Query the first letter of Na'vi words
+    private static final String QUERY_PART_NAVI_LETTER_START = "SELECT MIN(_id) AS _id, COUNT(*) AS _count, ' ' || " + QUERY_PART_NAVI_LETTER + " || ' ' AS letter FROM entries ";
+    private static final String QUERY_PART_NAVI_LETTER_END = "GROUP BY alpha ORDER BY alpha COLLATE UNICODE";
+
+    // Filter Na'vi word query
+    private static final String QUERY_PART_NAVI_FILTER_WHERE = "entries.entry_name LIKE ? ";
+
+    // Basic query by translation
+    private static final String QUERY_PART_TO_NAVI_START = "SELECT _id, " + QUERY_PART_NAVI_WORD + " AS definition, entries.english_definition AS word, beta AS letter FROM entries ";
+    private static final String QUERY_PART_TO_NAVI_END = "ORDER BY beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE";
+    
+    // Query the first letter of translation
+    private static final String QUERY_PART_TO_NAVI_LETTER_START = "SELECT MIN(_id) AS _id, COUNT(*) AS _count, ' ' || beta || ' ' AS letter FROM entries ";
+    private static final String QUERY_PART_TO_NAVI_LETTER_END = "GROUP BY beta ORDER BY beta COLLATE UNICODE";
+    
+    // Filter translated word query
+    private static final String QUERY_PART_TO_NAVI_FILTER_WHERE = "entries.english_definition LIKE ? ";
+    
     // Query a single entry by ID
-    private static final String QUERY_ENTRY = "SELECT _id, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS word, entries.english_definition AS definition, ipa, fps.description as part_of_speech FROM entries LEFT JOIN fancy_parts_of_speech fps USING (part_of_speech) WHERE _id = ?";
+    private static final String QUERY_ENTRY = "SELECT _id, " + QUERY_PART_NAVI_WORD + " AS word, entries.english_definition AS definition, ipa, fps.description as part_of_speech FROM entries LEFT JOIN fancy_parts_of_speech fps USING (part_of_speech) WHERE _id = ?";
 
     // Query used by the search suggest when neither to or from Na'vi is requested
-    private static final String QUERY_FOR_SUGGEST = "SELECT _id, _id AS suggest_intent_data, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS suggest_text_1, entries.english_definition AS suggest_text_2 FROM entries WHERE entries.entry_name LIKE ? OR entries.english_definition LIKE ? ORDER BY LENGTH(entries.entry_name), beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE LIMIT 25";
+    private static final String QUERY_FOR_SUGGEST = "SELECT _id, _id AS suggest_intent_data, " + QUERY_PART_NAVI_WORD + " AS suggest_text_1, entries.english_definition AS suggest_text_2 FROM entries WHERE entries.entry_name LIKE ? OR entries.english_definition LIKE ? ORDER BY LENGTH(entries.entry_name), beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE LIMIT 25";
     // Query used by the search suggest when Na'vi words are being searched
-    private static final String QUERY_FOR_SUGGEST_NAVI = "SELECT _id, _id AS suggest_intent_data, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS suggest_text_1, entries.english_definition AS suggest_text_2 FROM entries WHERE entries.entry_name LIKE ? ORDER BY LENGTH(entries.entry_name), alpha COLLATE UNICODE, entries.english_definition COLLATE UNICODE LIMIT 25";
+    private static final String QUERY_FOR_SUGGEST_NAVI = "SELECT _id, _id AS suggest_intent_data, " + QUERY_PART_NAVI_WORD + " AS suggest_text_1, entries.english_definition AS suggest_text_2 FROM entries WHERE entries.entry_name LIKE ? ORDER BY LENGTH(entries.entry_name), alpha COLLATE UNICODE, entries.english_definition COLLATE UNICODE LIMIT 25";
     // Query used by the search suggest when English words are being searched
-    private static final String QUERY_FOR_SUGGEST_NATIVE = "SELECT _id, _id AS suggest_intent_data, replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì') AS suggest_text_2, entries.english_definition AS suggest_text_1 FROM entries WHERE entries.english_definition LIKE ? ORDER BY LENGTH(entries.english_definition), beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE LIMIT 25";
+    private static final String QUERY_FOR_SUGGEST_NATIVE = "SELECT _id, _id AS suggest_intent_data, " + QUERY_PART_NAVI_WORD + " AS suggest_text_2, entries.english_definition AS suggest_text_1 FROM entries WHERE entries.english_definition LIKE ? ORDER BY LENGTH(entries.english_definition), beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE LIMIT 25";
+    
+    // Part of speech filter clauses
+    public static final String FILTER_ALL = null;
+    public static final String FILTER_NOUN = "(part_of_speech LIKE '%^prop.n.^%' OR part_of_speech LIKE '%^n.^%') ";
+    public static final String FILTER_PNOUN = "(part_of_speech LIKE '%^pn.^%') ";
+    public static final String FILTER_VERB = "(part_of_speech LIKE '^sv%' OR part_of_speech LIKE '^v%') ";
+    public static final String FILTER_ADJ = "(part_of_speech LIKE '%^adj.^%') ";
+    public static final String FILTER_ADV = "(part_of_speech LIKE '%^adv.^%') ";
+    
+    // Construct a query from the parts for the desired result
+    private static String createQuery(boolean queryNavi, boolean queryLetter, boolean queryFilter, String queryPOS)
+    {
+    	StringBuffer ret = new StringBuffer();
+    	
+    	if (queryNavi)
+    	{
+    		if (queryLetter)
+    			ret.append(QUERY_PART_NAVI_LETTER_START);
+    		else
+    			ret.append(QUERY_PART_NAVI_START);
+    		if (queryFilter)
+    			ret.append("WHERE " + QUERY_PART_NAVI_FILTER_WHERE + "AND part_of_speech like '%^adj.^' ");
+    		if (queryPOS != null)
+    		{
+    			if (queryFilter)
+    				ret.append("AND ");
+      			else
+    				ret.append("WHERE ");
+				ret.append(queryPOS);
+    		}
+    		if (queryLetter)
+    			ret.append(QUERY_PART_NAVI_LETTER_END);
+    		else
+    			ret.append(QUERY_PART_NAVI_END);
+    	}
+    	else
+    	{
+    		if (queryLetter)
+    			ret.append(QUERY_PART_TO_NAVI_LETTER_START);
+    		else
+    			ret.append(QUERY_PART_TO_NAVI_START);
+    		if (queryFilter)
+    			ret.append("WHERE " + QUERY_PART_TO_NAVI_FILTER_WHERE);
+    		if (queryPOS != null)
+    		{
+    			if (queryFilter)
+    				ret.append("AND ");
+      			else
+    				ret.append("WHERE ");
+				ret.append(queryPOS);
+    		}
+    		if (queryLetter)
+    			ret.append(QUERY_PART_TO_NAVI_LETTER_END);
+    		else
+    			ret.append(QUERY_PART_TO_NAVI_END);
+    	}
+    	
+    	return ret.toString();
+    }
 
     // Private only, operated on a single instance
 	private EntryDBAdapter(Context context) {
@@ -207,37 +277,37 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     }
 
     // Perform full or filtered query, null filter returns full query
-    private Cursor queryAllOrFilter(String allQuery, String filterQuery, String filter)
+    private Cursor queryAllOrFilter(boolean naviQuery, boolean letterQuery, String filter, String partOfSpeech)
     {
     	if (filter != null)
     	{
-    		return myDataBase.rawQuery(filterQuery, new String[] { fixFilterString(filter) });
+    		return myDataBase.rawQuery(createQuery(naviQuery, letterQuery, true, partOfSpeech), new String[] { fixFilterString(filter) });
     	}
-    	return myDataBase.rawQuery(allQuery, null);
+    	return myDataBase.rawQuery(createQuery(naviQuery, letterQuery, false, partOfSpeech), null);
     }
 
     // Query on all words, optionally applying a filter
-    public Cursor queryAllEntries(String filter)
+    public Cursor queryAllEntries(String filter, String partOfSpeech)
     {
-    	return queryAllOrFilter(QUERY_ALL, QUERY_FILTER, filter);
+    	return queryAllOrFilter(true, false, filter, partOfSpeech);
     }
 
     // Query on letters for words, optionally applying a filter
-    public Cursor queryAllEntryLetters(String filter)
+    public Cursor queryAllEntryLetters(String filter, String partOfSpeech)
     {
-    	return queryAllOrFilter(QUERY_ALL_LETTERS, QUERY_FILTER_LETTERS, filter);
+    	return queryAllOrFilter(true, true, filter, partOfSpeech);
     }
     
     // Query on all words for X > Na'vi dictionary, optionally applying a filter
-    public Cursor queryAllEntriesToNavi(String filter)
+    public Cursor queryAllEntriesToNavi(String filter, String partOfSpeech)
     {
-    	return queryAllOrFilter(QUERY_ALL_TO_NAVI, QUERY_FILTER_TO_NAVI, filter);
+    	return queryAllOrFilter(false, false, filter, partOfSpeech);
     }
     
     // Query on English letters for words, optionally applying a filter
-    public Cursor queryAllEntryToNaviLetters(String filter)
+    public Cursor queryAllEntryToNaviLetters(String filter, String partOfSpeech)
     {
-    	return queryAllOrFilter(QUERY_ALL_TO_NAVI_LETTERS, QUERY_FILTER_TO_NAVI_LETTERS, filter);
+    	return queryAllOrFilter(false, true, filter, partOfSpeech);
     }
     
     // Perform a simple query to offer results for suggest
