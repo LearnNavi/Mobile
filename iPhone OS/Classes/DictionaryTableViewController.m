@@ -4,7 +4,7 @@
 //
 //  Created by Michael Gillogly on 1/20/10.
 //  Copyright 2010 LearnNa'vi.org Community. All rights reserved.
-//
+//aInfixes
 
 #import "DictionaryEntry.h"
 #import "DictionaryTableViewController.h"
@@ -116,16 +116,16 @@
 	
 	cellSizeChanged = YES;
 	
-	NSString *queryAlpha = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.alpha = \"%%@\" ORDER BY entries.entry_name  LIMIT %%d,1";
-	NSString *queryAlphaIndex = @"SELECT alpha,COUNT(*) FROM entries WHERE part_of_speech like '%%^%@^%%' GROUP BY alpha";
-	NSString *queryBeta = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.beta = \"%%@\" ORDER BY entries.english_definition LIMIT %%d,1";
-	NSString *queryBetaIndex = @"SELECT beta,COUNT(*) FROM entries WHERE part_of_speech like '%%^%@^%%' GROUP BY beta";
+	NSString *queryAlpha = @"SELECT id, navi, navi_no_specials, ipa, infixes, definition, partOfSpeech, fancyPartOfSpeech, alpha, beta, version FROM entries WHERE partOfSpeech like '%%%%^%@^%%%%' AND alpha = \"%%@\" ORDER BY navi_no_specials  LIMIT %%d,1";
+	NSString *queryAlphaIndex = @"SELECT alpha,COUNT(*) FROM entries WHERE partOfSpeech like '%%%%^%@^%%%%' GROUP BY alpha";
+	NSString *queryBeta = @"SELECT id, navi, navi_no_specials, ipa, infixes, definition, partOfSpeech, fancyPartOfSpeech, alpha, beta, version FROM entries WHERE partOfSpeech like '%%%%^%@^%%%%' AND beta = \"%%@\" ORDER BY definition LIMIT %%d,1";
+	NSString *queryBetaIndex = @"SELECT beta,COUNT(*) FROM entries WHERE partOfSpeech like '%%%%^%@^%%%%' GROUP BY beta";
 	
 	//Search Versions
-	NSString *querySearchAlpha = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.alpha = \"%%@\" AND entry_name like \"%%%%%%@%%%%\" ORDER BY entries.entry_name  LIMIT %%d,1";
-	NSString *querySearchAlphaIndex = @"SELECT alpha,COUNT(*) FROM entries WHERE part_of_speech like '%%^%@^%%' AND entry_name like \"%%%%%%@%%%%\" GROUP BY alpha";
-	NSString *querySearchBeta = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech ON entries.part_of_speech = fancy_parts_of_speech.part_of_speech WHERE entries.part_of_speech like '%%%%^%@^%%%%' AND entries.beta = \"%%@\" AND english_definition like \"%%%%%%@%%%%\" ORDER BY entries.english_definition LIMIT %%d,1";
-	NSString *querySearchBetaIndex = @"SELECT beta,COUNT(*) FROM entries WHERE part_of_speech like '%%^%@^%%' AND english_definition like \"%%%%%%@%%%%\" GROUP BY beta";
+	NSString *querySearchAlpha = @"SELECT id, navi, navi_no_specials, ipa, infixes, definition, partOfSpeech, fancyPartOfSpeech, alpha, beta, version FROM entries WHERE partOfSpeech like '%%%%^%@^%%%%' AND alpha = \"%%@\" AND navi like \"%%%%%%@%%%%\" ORDER BY navi_no_specials  LIMIT %%d,1";
+	NSString *querySearchAlphaIndex = @"SELECT alpha,COUNT(*) FROM entries WHERE partOfSpeech like '%%%%^%@^%%%%' AND navi like \"%%%%%%@%%%%\" GROUP BY alpha";
+	NSString *querySearchBeta = @"SELECT id, navi, navi_no_specials, ipa, infixes, definition, partOfSpeech, fancyPartOfSpeech, alpha, beta, version FROM entries WHERE partOfSpeech like '%%%%^%@^%%%%' AND beta = \"%%@\" AND definition like \"%%%%%%@%%%%\" ORDER BY definition LIMIT %%d,1";
+	NSString *querySearchBetaIndex = @"SELECT beta,COUNT(*) FROM entries WHERE partOfSpeech like '%%%%^%@^%%%%' AND definition like \"%%%%%%@%%%%\" GROUP BY beta";
 	
 	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 	
@@ -135,10 +135,10 @@
 				// All
 				// Do nothing
 				queryIndex = @"SELECT alpha,COUNT(*) FROM entries GROUP BY alpha";
-				query = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.alpha = \"%@\" ORDER BY entries.entry_name LIMIT %d,1";
+				query = @"SELECT id, navi, navi_no_specials, ipa, infixes, definition, partOfSpeech, fancyPartOfSpeech, alpha, beta, version FROM entries WHERE alpha = \"%@\" ORDER BY navi_no_specials LIMIT %d,1";
 				
-				querySearchIndex = @"SELECT alpha,COUNT(*) FROM entries WHERE entry_name like \"%%%@%%\" GROUP BY alpha";
-				querySearch = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.alpha = \"%@\" AND entry_name like \"%%%@%%\" ORDER BY entries.entry_name LIMIT %d,1";
+				querySearchIndex = @"SELECT alpha,COUNT(*) FROM entries WHERE navi like \"%%%@%%\" GROUP BY alpha";
+				querySearch = @"SELECT id, navi, navi_no_specials, ipa, infixes, definition, partOfSpeech, fancyPartOfSpeech, alpha, beta, version FROM entries WHERE alpha = \"%@\" AND navi like \"%%%@%%\" ORDER BY navi_no_specials LIMIT %d,1";
 				
 				break;
 			case 1:
@@ -188,10 +188,10 @@
 				// All
 				// Do nothing
 				queryIndex = @"SELECT beta,COUNT(*) FROM entries GROUP BY beta";
-				query = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.beta = \"%@\" ORDER BY entries.english_definition LIMIT %d,1";
+				query = @"SELECT id, navi, navi_no_specials, ipa, infixes, definition, partOfSpeech, fancyPartOfSpeech, alpha, beta, version FROM entries WHERE beta = \"%@\" ORDER BY definition LIMIT %d,1";
 				
-				querySearchIndex = @"SELECT beta,COUNT(*) FROM entries WHERE english_definition like \"%%%@%%\" GROUP BY beta";
-				querySearch = @"SELECT entries.entry_name, entries.navi_definition, entries.english_definition, entries.part_of_speech, entries.ipa, entries.image, entries.audio, fancy_parts_of_speech.description, entries.alpha, entries.beta FROM entries,fancy_parts_of_speech WHERE entries.part_of_speech = fancy_parts_of_speech.part_of_speech AND entries.beta = \"%@\" AND english_definition like \"%%%@%%\" ORDER BY entries.english_definition LIMIT %d,1";
+				querySearchIndex = @"SELECT beta,COUNT(*) FROM entries WHERE definition like \"%%%@%%\" GROUP BY beta";
+				querySearch = @"SELECT id, navi, navi_no_specials, ipa, infixes, definition, partOfSpeech, fancyPartOfSpeech, alpha, beta, version FROM entries WHERE beta = \"%@\" AND definition like \"%%%@%%\" ORDER BY definition LIMIT %d,1";
 				
 				break;
 			case 1:
@@ -449,10 +449,10 @@
 	UILabel *lblTemp2 = (UILabel *)[cell viewWithTag:2];
 
 	if(currentMode){
-		lblTemp1.text = entry.entryName;
+		lblTemp1.text = entry.navi;
 		lblTemp2.text = entry.english_definition;
 	} else {
-		lblTemp2.text = entry.entryName;
+		lblTemp2.text = entry.navi;
 		lblTemp1.text = entry.english_definition;
 	}
 	
@@ -601,7 +601,7 @@
 	// Data preloaded in sqlite database;
 	// need to load it into memory
 	//
-	databaseName = @"dictionary.sqlite";
+	databaseName = @"database.sqlite";
 	
 	NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDir = [documentPaths objectAtIndex:0];
@@ -632,51 +632,52 @@
 		// Loop through the results and add them to the feeds array
 		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
 			// Read the data from the result row
-			NSString *aEntry_Name;
-			NSString *aNavi_definition;
+			NSString *aID;
+			NSString *aNavi;
+			NSString *aNavi_no_specials;
+			NSString *aIpa;
+			NSString *aInfixes;
 			NSString *aEnglish_definition;
 			NSString *aPart_of_speech;
-			NSString *aIpa;
-			NSString *aImageURL;
-			NSString *aAudioURL;
 			NSString *aFancy_type;
 			NSString *aAlpha;
 			NSString *aBeta;
+			int aVersion;
 			
 			if(sqlite3_column_text(compiledStatement, 0) != NULL) {
-				aEntry_Name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+				aID = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
 			} else {
-				aEntry_Name = @"";
+				aID = @"";
 			}
 			if(sqlite3_column_text(compiledStatement, 1) != NULL) {
-				aNavi_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+				aNavi = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
 			} else {
-				aNavi_definition = @"";
+				aNavi = @"";
 			}
 			if(sqlite3_column_text(compiledStatement, 2) != NULL) {
-				aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+				aNavi_no_specials = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
 			} else {
-				aEnglish_definition = @"";
+				aNavi_no_specials = @"";
 			}
 			if(sqlite3_column_text(compiledStatement, 3) != NULL) {
-				aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
-			} else {
-				aPart_of_speech = @"";
-			}
-			if(sqlite3_column_text(compiledStatement, 4) != NULL) {
-				aIpa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
+				aIpa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
 			} else {
 				aIpa = @"";
 			}
-			if(sqlite3_column_text(compiledStatement, 5) != NULL) {
-				aImageURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
+			if(sqlite3_column_text(compiledStatement, 4) != NULL) {
+				aInfixes = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
 			} else {
-				aImageURL = @"";
+				aInfixes = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 5) != NULL) {
+				aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
+			} else {
+				aEnglish_definition = @"";
 			}
 			if(sqlite3_column_text(compiledStatement, 6) != NULL) {
-				aAudioURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
+				aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
 			} else {
-				aAudioURL = @"";
+				aPart_of_speech = @"";
 			}
 			if(sqlite3_column_text(compiledStatement, 7) != NULL) {
 				aFancy_type = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 7)];
@@ -693,12 +694,14 @@
 			} else {
 				aBeta = @"";
 			}			//NSString *aFancy_type = @"";
-			aEntry_Name = [self convertStringFromDatabase:aEntry_Name];
-			
+			if(sqlite3_column_text(compiledStatement, 10) != NULL) {
+				aVersion = (int)sqlite3_column_text(compiledStatement, 9);
+			} else {
+				aVersion = 0;
+			}
 			
 			// Create a new animal object with the data from the database
-			entry = [DictionaryEntry entryWithName:aEntry_Name english_definition:aEnglish_definition navi_definition:aNavi_definition part_of_speech:aPart_of_speech ipa:aIpa imageURL:aImageURL audioURL:aAudioURL andFancyType:aFancy_type alpha:aAlpha beta:aBeta];
-			
+			entry = [DictionaryEntry entryWithID:aID navi:aNavi navi_no_specials:aNavi_no_specials english_definition:aEnglish_definition infixes:aInfixes part_of_speech:aPart_of_speech ipa:aIpa andFancyType:aFancy_type alpha:aAlpha beta:aBeta version:aVersion];
 		}
 	} else {
 		NSLog(@"Error 604");
@@ -726,51 +729,52 @@
 		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
 			// Read the data from the result row
 			
-			NSString *aEntry_Name;
-			NSString *aNavi_definition;
+			NSString *aID;
+			NSString *aNavi;
+			NSString *aNavi_no_specials;
+			NSString *aIpa;
+			NSString *aInfixes;
 			NSString *aEnglish_definition;
 			NSString *aPart_of_speech;
-			NSString *aIpa;
-			NSString *aImageURL;
-			NSString *aAudioURL;
 			NSString *aFancy_type;
 			NSString *aAlpha;
 			NSString *aBeta;
+			int aVersion;
 			
 			if(sqlite3_column_text(compiledStatement, 0) != NULL) {
-				aEntry_Name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+				aID = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
 			} else {
-				aEntry_Name = @"";
+				aID = @"";
 			}
 			if(sqlite3_column_text(compiledStatement, 1) != NULL) {
-				aNavi_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+				aNavi = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
 			} else {
-				aNavi_definition = @"";
+				aNavi = @"";
 			}
 			if(sqlite3_column_text(compiledStatement, 2) != NULL) {
-				aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+				aNavi_no_specials = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
 			} else {
-				aEnglish_definition = @"";
+				aNavi_no_specials = @"";
 			}
 			if(sqlite3_column_text(compiledStatement, 3) != NULL) {
-				aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
-			} else {
-				aPart_of_speech = @"";
-			}
-			if(sqlite3_column_text(compiledStatement, 4) != NULL) {
-				aIpa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
+				aIpa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
 			} else {
 				aIpa = @"";
 			}
-			if(sqlite3_column_text(compiledStatement, 5) != NULL) {
-				aImageURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
+			if(sqlite3_column_text(compiledStatement, 4) != NULL) {
+				aInfixes = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
 			} else {
-				aImageURL = @"";
+				aInfixes = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 5) != NULL) {
+				aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
+			} else {
+				aEnglish_definition = @"";
 			}
 			if(sqlite3_column_text(compiledStatement, 6) != NULL) {
-				aAudioURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
+				aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
 			} else {
-				aAudioURL = @"";
+				aPart_of_speech = @"";
 			}
 			if(sqlite3_column_text(compiledStatement, 7) != NULL) {
 				aFancy_type = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 7)];
@@ -788,22 +792,23 @@
 				aBeta = @"";
 			}			//NSString *aFancy_type = @"";
 			
+			if(sqlite3_column_text(compiledStatement, 10) != NULL) {
+				aVersion = (int)sqlite3_column_text(compiledStatement, 9);
+			} else {
+				aVersion = 0;
+			}
 			
-						//NSString *aFancy_type = @"";
 			// Create a new animal object with the data from the database
-			aEntry_Name = [self convertStringFromDatabase:aEntry_Name];
-			
-			entry = [DictionaryEntry entryWithName:aEntry_Name english_definition:aEnglish_definition navi_definition:aNavi_definition part_of_speech:aPart_of_speech ipa:aIpa imageURL:aImageURL audioURL:aAudioURL andFancyType:aFancy_type alpha:aAlpha beta:aBeta];
-			//NSLog(@"Entry: %@", aEntry_Name);
+			entry = [DictionaryEntry entryWithID:aID navi:aNavi navi_no_specials:aNavi_no_specials english_definition:aEnglish_definition infixes:aInfixes part_of_speech:aPart_of_speech ipa:aIpa andFancyType:aFancy_type alpha:aAlpha beta:aBeta version:aVersion];
 		}
 	} else {
-		NSLog(@"Error 629");
+		NSLog(@"Error 639: %@", queryString);
 	}
 	// Release the compiled statement from memory
 	sqlite3_finalize(compiledStatement);
 		
 	
-	
+	//NSLog(@"Query: %@", queryString);
 	return entry;
 	
 }
@@ -822,51 +827,52 @@
 		// Loop through the results and add them to the feeds array
 		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
 			// Read the data from the result row
-			NSString *aEntry_Name;
-			NSString *aNavi_definition;
+			NSString *aID;
+			NSString *aNavi;
+			NSString *aNavi_no_specials;
+			NSString *aIpa;
+			NSString *aInfixes;
 			NSString *aEnglish_definition;
 			NSString *aPart_of_speech;
-			NSString *aIpa;
-			NSString *aImageURL;
-			NSString *aAudioURL;
 			NSString *aFancy_type;
 			NSString *aAlpha;
 			NSString *aBeta;
+			int aVersion;
 			
 			if(sqlite3_column_text(compiledStatement, 0) != NULL) {
-				aEntry_Name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+				aID = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
 			} else {
-				aEntry_Name = @"";
+				aID = @"";
 			}
 			if(sqlite3_column_text(compiledStatement, 1) != NULL) {
-				aNavi_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+				aNavi = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
 			} else {
-				aNavi_definition = @"";
+				aNavi = @"";
 			}
 			if(sqlite3_column_text(compiledStatement, 2) != NULL) {
-				aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+				aNavi_no_specials = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
 			} else {
-				aEnglish_definition = @"";
+				aNavi_no_specials = @"";
 			}
 			if(sqlite3_column_text(compiledStatement, 3) != NULL) {
-				aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
-			} else {
-				aPart_of_speech = @"";
-			}
-			if(sqlite3_column_text(compiledStatement, 4) != NULL) {
-				aIpa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
+				aIpa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
 			} else {
 				aIpa = @"";
 			}
-			if(sqlite3_column_text(compiledStatement, 5) != NULL) {
-				aImageURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
+			if(sqlite3_column_text(compiledStatement, 4) != NULL) {
+				aInfixes = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
 			} else {
-				aImageURL = @"";
+				aInfixes = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 5) != NULL) {
+				aEnglish_definition = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
+			} else {
+				aEnglish_definition = @"";
 			}
 			if(sqlite3_column_text(compiledStatement, 6) != NULL) {
-				aAudioURL = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
+				aPart_of_speech = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
 			} else {
-				aAudioURL = @"";
+				aPart_of_speech = @"";
 			}
 			if(sqlite3_column_text(compiledStatement, 7) != NULL) {
 				aFancy_type = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 7)];
@@ -883,14 +889,18 @@
 			} else {
 				aBeta = @"";
 			}			//NSString *aFancy_type = @"";
-			//NSString *aFancy_type = @"";
+			if(sqlite3_column_text(compiledStatement, 10) != NULL) {
+				aVersion = (int)sqlite3_column_text(compiledStatement, 9);
+			} else {
+				aVersion = 0;
+			}
+			
 			// Create a new animal object with the data from the database
-			aEntry_Name = [self convertStringFromDatabase:aEntry_Name];
-			entry = [DictionaryEntry entryWithName:aEntry_Name english_definition:aEnglish_definition navi_definition:aNavi_definition part_of_speech:aPart_of_speech ipa:aIpa imageURL:aImageURL audioURL:aAudioURL andFancyType:aFancy_type alpha:aAlpha beta:aBeta];
-			//NSLog(@"Entry: %@", aEntry_Name);
+			entry = [DictionaryEntry entryWithID:aID navi:aNavi navi_no_specials:aNavi_no_specials english_definition:aEnglish_definition infixes:aInfixes part_of_speech:aPart_of_speech ipa:aIpa andFancyType:aFancy_type alpha:aAlpha beta:aBeta version:aVersion];
+			
 		}
 	} else {
-		NSLog(@"Error 629");
+		NSLog(@"Error 629: %@", queryString);
 	}
 	// Release the compiled statement from memory
 	sqlite3_finalize(compiledStatement);
@@ -944,7 +954,7 @@
 			
 		}
 	} else {
-		NSLog(@"Error 701: %@ %@", databasePath, queryIndex);
+		NSLog(@"Error 701: %@ %@ %d", databasePath, queryIndex, sqlResult);
 	}
 	// Release the compiled statement from memory
 	sqlite3_finalize(compiledStatement);

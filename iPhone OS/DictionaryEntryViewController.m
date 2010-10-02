@@ -44,10 +44,10 @@
 	//[[self navigationItem] setTitle:@"Entry"];
 	if(mode){
 		[definition setText:[self.entry english_definition]];
-		[term setText:[self.entry entryName]];
+		[term setText:[self.entry navi]];
 		
 	} else {
-		[definition setText:[self.entry entryName]];
+		[definition setText:[self.entry navi]];
 		[term setText:[self.entry english_definition]];
 		
 	}
@@ -67,7 +67,7 @@
     
 	[super viewDidLoad];
 	
-	self.title = [self.entry entryName];
+	self.title = [self.entry navi];
 	
 	/*UIBarButtonItem *flexibleSpaceButtonItem = [[UIBarButtonItem alloc]
 												initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace

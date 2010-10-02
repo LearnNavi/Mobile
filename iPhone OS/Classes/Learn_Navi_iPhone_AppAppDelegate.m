@@ -254,7 +254,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (void) checkAndCreateDatabase{
 	// Check if the SQL database has already been saved to the users phone, if not then copy it over
 	BOOL success;
-	NSString *databaseName = @"dictionary.sqlite";
+	NSString *databaseName = @"database.sqlite";
 	
 	NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDir = [documentPaths objectAtIndex:0];
@@ -313,7 +313,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (void) checkDatabaseVersion:(id)sender{
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 	// Check if the SQL database has already been saved to the users phone, if not then copy it over
-	NSString *databaseName = @"dictionary.sqlite";
+	NSString *databaseName = @"database.sqlite";
 	
 	NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDir = [documentPaths objectAtIndex:0];
@@ -327,7 +327,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	app.networkActivityIndicatorVisible = YES; // to stop it, set this to NO
 	
 	NSError *errVersion = [[[NSError alloc] init] autorelease];
-	NSString *versionUrl = [[NSString stringWithFormat:@"http://learnnaviapp.com/database/version"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *versionUrl = [[NSString stringWithFormat:@"http://learnnaviapp.com/database/database.version"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *versionFile = [NSString stringWithContentsOfURL:[NSURL URLWithString:versionUrl] encoding:NSUTF8StringEncoding error:&errVersion];
 	if(errVersion.code != 0) {
 		// HANDLE ERROR HERE
@@ -406,7 +406,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	UIApplication* app = [UIApplication sharedApplication];
 	app.networkActivityIndicatorVisible = YES; // to stop it, set this to NO
 	
-	NSString *databaseUrl = [[NSString stringWithFormat:@"http://learnnaviapp.com/database/dictionary.sqlite"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *databaseUrl = [[NSString stringWithFormat:@"http://learnnaviapp.com/database/database.sqlite"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSData *newDatabase = [NSData dataWithContentsOfURL:[NSURL URLWithString:databaseUrl]];
 	
 	if(newDatabase == nil){
@@ -416,7 +416,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 		//Delete current database
 		NSFileManager *fileManager = [NSFileManager defaultManager];
 		
-		NSString *databaseName = @"dictionary.sqlite";
+		NSString *databaseName = @"database.sqlite";
 		
 		NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 		NSString *documentsDir = [documentPaths objectAtIndex:0];
@@ -481,17 +481,17 @@ void uncaughtExceptionHandler(NSException *exception) {
 		return;
 	} 
 	NSString *versionString;
-	NSString *dictionaryVersionString;
+	NSString *dictionaryDateString;
 	NSString *dateString;
 	
-	const char *sqlStatement = "select version,dictionary_version,date from version";
+	const char *sqlStatement = "select version,dictionary_date,date from version";
 	sqlite3_stmt *compiledStatement;
 	if(sqlite3_prepare_v2(dBase, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
 		// Loop through the results and add them to the feeds array
 		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
 			// Read the data from the result row
 			versionString = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
-			dictionaryVersionString = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+			dictionaryDateString = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
 			dateString = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
 			//NSLog(@"Version: %@",versionString);
 		}
@@ -508,7 +508,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	//Register settings
 	
 	[[NSUserDefaults standardUserDefaults]
-	 setObject:dictionaryVersionString forKey:@"dictionary_version"];
+	 setObject:dictionaryDateString forKey:@"dictionary_version"];
 	[[NSUserDefaults standardUserDefaults]
 	 setObject:versionString forKey:@"database_version"];
 	[[NSUserDefaults standardUserDefaults]

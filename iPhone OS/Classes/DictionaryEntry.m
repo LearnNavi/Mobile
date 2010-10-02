@@ -11,31 +11,32 @@
 
 @implementation DictionaryEntry
 
-@synthesize entryName, english_definition, navi_definition, part_of_speech, ipa, imageURL, audioURL, fancyType, alpha, beta;
+@synthesize ID, version, navi, navi_no_specials, english_definition, infixes, part_of_speech, ipa, fancyType, alpha, beta;
 
-+ (id)entryWithName:(NSString *)entryName english_definition:(NSString *)english_definition navi_definition:(NSString *)navi_definition part_of_speech:(NSString *)part_of_speech ipa:(NSString *)ipa imageURL:(NSString *)imageURL audioURL:(NSString *)audioURL andFancyType:(NSString *)fancyType alpha:(NSString *)alpha beta:(NSString *)beta {
++ (id)entryWithID:(NSString *)ID navi:(NSString *)navi navi_no_specials:(NSString *)navi_no_specials english_definition:(NSString *)english_definition infixes:(NSString *)infixes part_of_speech:(NSString *)part_of_speech ipa:(NSString *)ipa andFancyType:(NSString *)fancyType alpha:(NSString *)alpha beta:(NSString *)beta version:(int)version{
 	DictionaryEntry *newEntry = [[[self alloc] init] autorelease];
-	newEntry.entryName = entryName;
+	newEntry.ID = ID;
 	newEntry.part_of_speech = part_of_speech;
 	newEntry.english_definition = english_definition;
-	newEntry.navi_definition = navi_definition;
+	newEntry.infixes = infixes;
 	newEntry.ipa = ipa;
-	newEntry.imageURL = imageURL;
-	newEntry.audioURL = audioURL;
+	newEntry.navi = navi;
+	newEntry.navi_no_specials = navi_no_specials;
 	newEntry.fancyType = fancyType;
 	newEntry.alpha = alpha;
 	newEntry.beta = beta;
+	newEntry.version = version;
 	return newEntry;
 }
 
+
 - (void) dealloc {
-	[entryName release];
+	[ID release];
+	[navi release];
+	[navi_no_specials release];
 	[part_of_speech release];
 	[english_definition release];
-	[navi_definition release];
 	[ipa release];
-	[imageURL release];
-	[audioURL release];
 	[fancyType release];
 	[alpha release];
 	[beta release];
@@ -43,8 +44,8 @@
 }
 
 int stringSort( id obj1, id obj2, void *context){
-	NSString *entry1 = [(DictionaryEntry *)obj1 entryName];
-	NSString *entry2 = [(DictionaryEntry *)obj2 entryName];
+	NSString *entry1 = [(DictionaryEntry *)obj1 navi_no_specials];
+	NSString *entry2 = [(DictionaryEntry *)obj2 navi_no_specials];
 	
 	return [entry1 compare:entry2 options:NSCaseInsensitiveSearch];
 	
