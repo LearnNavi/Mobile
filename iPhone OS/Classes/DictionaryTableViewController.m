@@ -15,7 +15,7 @@
 
 
 @synthesize dictionaryContent, dictionarySearchContent, dictionaryContentIndex, dictionaryContentIndexMod, dictionarySearchContentIndex, dictionarySearchContentIndexMod, indexCounts, query, queryIndex; 
-@synthesize querySearch, querySearchIndex, search_term, savedSearchTerm, savedScopeButtonIndex, searchWasActive, viewController, segmentedControl, currentMode, databasePath, indexSearchCounts;
+@synthesize querySearch, querySearchIndex, search_term, savedSearchTerm, savedScopeButtonIndex, searchWasActive, viewController, segmentedControl, currentMode, databasePath, indexSearchCounts, dictionaryUpdates;
 
 /*
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -447,6 +447,8 @@
 	UILabel *lblTemp1 = (UILabel *)[cell viewWithTag:1];
 	
 	UILabel *lblTemp2 = (UILabel *)[cell viewWithTag:2];
+	
+	UILabel *lblTemp3 = (UILabel *)[cell viewWithTag:3];
 
 	if(currentMode){
 		lblTemp1.text = entry.navi;
@@ -454,6 +456,29 @@
 	} else {
 		lblTemp2.text = entry.navi;
 		lblTemp1.text = entry.english_definition;
+	}
+
+	CGSize expectedSize = [[lblTemp1 text] sizeWithFont:[lblTemp1 font] constrainedToSize:CGSizeMake(290, 25) lineBreakMode:[lblTemp1 lineBreakMode]];
+	
+
+	[lblTemp1 setFrame:CGRectMake(10, 5, expectedSize.width, 25)];
+	[lblTemp3 setFrame:CGRectMake(20 + expectedSize.width, 5, 290, 25)];
+	
+	if ([dictionaryUpdates objectForKey:[entry ID]] != nil) {
+		//NSLog(@"%@",[dictionaryUpdates objectForKey:[entry ID]]);
+		//cell.contentView.backgroundColor = [UIColor greenColor];
+		if ([(NSString *)[dictionaryUpdates objectForKey:[entry ID]] compare:@"Entry Added"] == 0) {
+			[lblTemp3 setText:@"NEW"];
+			[lblTemp3 setTextColor:[UIColor greenColor]];
+		} else {
+			[lblTemp3 setText:@"Updated"];
+			[lblTemp3 setTextColor:[UIColor orangeColor]];
+		}
+		//[lblTemp3 setText:[dictionaryUpdates objectForKey:[entry ID]]];
+		[lblTemp3 setHidden:NO];
+	} else {
+		//cell.contentView.backgroundColor = [UIColor whiteColor];
+		[lblTemp3 setHidden:YES];
 	}
 	
 	
@@ -467,6 +492,7 @@
 	CGRect CellFrame = CGRectMake(0, 0, 300, 60);
 	CGRect Label1Frame = CGRectMake(10, 5, 290, 25);
 	CGRect Label2Frame = CGRectMake(10, 28, 290, 25);
+	CGRect Label3Frame = CGRectMake(300, 0, 300, 60); 
 	UILabel *lblTemp;
 	
 	cell = [[[UITableViewCell alloc] initWithFrame:CellFrame reuseIdentifier:cellIdentifier] autorelease];
@@ -484,6 +510,15 @@
 	lblTemp.tag = 2;
 	lblTemp.font = [UIFont boldSystemFontOfSize:12];
 	lblTemp.textColor = [UIColor lightGrayColor];
+	[cell.contentView addSubview:lblTemp];
+	[lblTemp release];
+	
+	lblTemp = [[UILabel alloc] initWithFrame:Label3Frame];
+	[lblTemp setBackgroundColor:[UIColor colorWithWhite:0.93 alpha:0.0]];
+	[lblTemp setHidden:YES];
+	lblTemp.tag = 3;
+	[lblTemp setTextColor:[UIColor grayColor]];
+	[lblTemp setFont:[UIFont italicSystemFontOfSize:15]];
 	[cell.contentView addSubview:lblTemp];
 	[lblTemp release];
 	
@@ -612,7 +647,52 @@
 		NSLog(@"Error 646");
 	}
 	
-
+	//Pull out whats changed since last version
+	
+	if (dictionaryUpdates != nil) {
+		[dictionaryUpdates release];
+		dictionaryUpdates = nil;
+	}
+	
+	dictionaryUpdates = [[NSMutableDictionary alloc] init];
+	
+	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+	NSString *dictionary_preupdate_version = [prefs stringForKey:@"database_pre-update_version"];
+	
+	NSString *queryString = [NSString stringWithFormat:@"select id, min(version), MIN(description) from changelog where version > %@ GROUP BY id ORDER by version", dictionary_preupdate_version];
+	//NSLog(@"%@", queryString);
+	sqlite3_stmt *compiledStatement;
+	int sqlResult = sqlite3_prepare_v2(database, [queryString UTF8String], -1, &compiledStatement, NULL);
+	if(sqlResult == SQLITE_OK) {
+		// Loop through the results and add them to the feeds array
+		while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
+			NSString *aID;
+			NSString *aVersion;
+			NSString *aDescription;
+			
+			if(sqlite3_column_text(compiledStatement, 0) != NULL) {
+				aID = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 0)];
+			} else {
+				aID = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 1) != NULL) {
+				aVersion = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+			} else {
+				aVersion = @"";
+			}
+			if(sqlite3_column_text(compiledStatement, 2) != NULL) {
+				aDescription = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+			} else {
+				aDescription = @"";
+			}
+			
+			//NSLog(@"id: %@  ver: %@  desc: %@",aID,aVersion,aDescription);
+			[dictionaryUpdates setObject:aDescription forKey:aID];
+			
+		}
+		
+	}
+	//NSLog(@"%@",dictionaryUpdates);
 }
 
 

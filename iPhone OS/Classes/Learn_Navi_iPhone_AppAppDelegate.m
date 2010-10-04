@@ -338,6 +338,9 @@ void uncaughtExceptionHandler(NSException *exception) {
 		if(databaseVersion < [versionFile doubleValue]){
 			// New database available
 			// Prompt user to download new version
+			
+			
+			
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dictionary Update Ready" message:@"There is a new version of the dictionary available for download.  Would you like to update now?" 
 														   delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
 			[alert show];
@@ -413,14 +416,22 @@ void uncaughtExceptionHandler(NSException *exception) {
 		NSLog(@"Error downloading database");
 		
 	} else {
-		//Delete current database
-		NSFileManager *fileManager = [NSFileManager defaultManager];
 		
 		NSString *databaseName = @"database.sqlite";
 		
 		NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 		NSString *documentsDir = [documentPaths objectAtIndex:0];
 		NSString *databasePath = [documentsDir stringByAppendingPathComponent:databaseName];
+		
+		
+		//Store database version before update.
+		NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+		[prefs setObject:[prefs stringForKey:@"database_version"] forKey:@"database_pre-update_version"];
+		
+		//Delete current database
+		NSFileManager *fileManager = [NSFileManager defaultManager];
+		
+		
 		
 		[fileManager removeItemAtPath:databasePath error:nil];
 		[fileManager createFileAtPath:databasePath contents:newDatabase attributes:nil];
@@ -533,7 +544,12 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (NSString *)versionString {
 	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 	NSString *dictionary_version = [prefs stringForKey:@"database_version"];
-	return [NSString stringWithFormat:@"Version %@ (%@-%@)",[self bundleVersionNumber], [self bundleShortVersionString], dictionary_version];
+	NSString *dictionary_preupdate_version = [prefs stringForKey:@"database_pre-update_version"];
+	if (dictionary_preupdate_version == nil) {
+		dictionary_preupdate_version = @"0";
+		[prefs setObject:@"0" forKey:@"database_pre-update_version"];
+	}
+	return [NSString stringWithFormat:@"Version %@ (%@-%@-%@)",[self bundleVersionNumber], [self bundleShortVersionString], dictionary_version, dictionary_preupdate_version];
 }
 
 

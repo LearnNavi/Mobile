@@ -11,7 +11,7 @@
 
 @implementation DictionaryEntryViewController
 
-@synthesize segmentedControl, entry, definition, term, fancyType, mode, ipa;
+@synthesize segmentedControl, entry, definition, term, fancyType, mode, ipa, infixes;
 
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -54,6 +54,16 @@
 	
 	
 	[ipa setText:[self.entry ipa]];
+	if([[self.entry infixes] compare:@""] != 0){
+		//We have an entry that supports infixes
+		
+		
+		
+		[infixes setText:[self.entry infixes]];
+	} else {
+		[infixes setText:@""];
+		
+	}
 
 	
 	[fancyType setText:[self.entry fancyType]];

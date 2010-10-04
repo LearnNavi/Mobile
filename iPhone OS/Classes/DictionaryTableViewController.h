@@ -19,6 +19,7 @@
 	NSMutableArray *dictionarySearchContentIndexMod;
 	NSMutableDictionary *indexCounts;
 	NSMutableDictionary *indexSearchCounts;
+	NSMutableDictionary *dictionaryUpdates;
 	NSString *savedSearchTerm;
 	NSInteger savedScopeButtonIndex;
 	BOOL searchWasActive;
@@ -39,7 +40,7 @@
 
 @property (nonatomic, retain) NSMutableArray *dictionaryContent, *dictionarySearchContent;
 @property (nonatomic, retain) NSMutableArray *dictionaryContentIndex, *dictionaryContentIndexMod, *dictionarySearchContentIndex, *dictionarySearchContentIndexMod;
-@property (nonatomic, retain) NSMutableDictionary *indexCounts, *indexSearchCounts;
+@property (nonatomic, retain) NSMutableDictionary *indexCounts, *indexSearchCounts, *dictionaryUpdates;
 @property (nonatomic, retain) UIViewController *viewController;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
 @property (nonatomic, retain) NSString *query, *queryIndex, *querySearch, *querySearchIndex, *databasePath, *search_term;

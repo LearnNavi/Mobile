@@ -32,8 +32,13 @@
 - (NSString *)versionString {
 	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 	NSString *dictionary_version = [prefs stringForKey:@"database_version"];
+	NSString *dictionary_preupdate_version = [prefs stringForKey:@"database_pre-update_version"];
+	if (dictionary_preupdate_version == nil) {
+		dictionary_preupdate_version = @"0";
+		[prefs setObject:@"0" forKey:@"database_pre-update_version"];
+	}
+	return [NSString stringWithFormat:@"Version %@ (%@-%@-%@)",[self bundleVersionNumber], [self bundleShortVersionString], dictionary_version, dictionary_preupdate_version];
 	
-	return [NSString stringWithFormat:@"Version %@ (%@-%@)",[self bundleVersionNumber], [self bundleShortVersionString], dictionary_version];
 }
 
 
