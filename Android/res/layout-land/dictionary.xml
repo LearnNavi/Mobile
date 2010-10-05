@@ -7,9 +7,10 @@
     <Button style="?android:attr/buttonStyleSmall" android:layout_height="wrap_content" android:id="@+id/DictionaryType" android:layout_weight="0.5" android:layout_width="fill_parent"></Button>
     <Button style="?android:attr/buttonStyleSmall" android:layout_height="wrap_content" android:id="@+id/CancelSearch" android:text="@string/CancelSearch" android:layout_weight="0.5" android:layout_width="fill_parent" android:visibility="gone"></Button>
   </LinearLayout>
-  <FrameLayout android:id="@+id/FrameLayout01" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_weight="1">
+  <FrameLayout android:id="@+id/FrameLayout01" android:layout_height="fill_parent" android:layout_weight="1" android:layout_width="fill_parent">
     <ListView android:id="@android:id/list" android:layout_width="fill_parent" android:layout_height="wrap_content" android:fastScrollEnabled="true"></ListView>
     <TextView android:id="@android:id/empty" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/no_entries" />
   </FrameLayout>
-  <Spinner style="?android:attr/buttonStyleSmall" android:id="@+id/Spinner01" android:layout_height="wrap_content" android:layout_width="fill_parent" android:entries="@array/partsOfSpeech"></Spinner>
+  <Spinner style="?android:attr/buttonStyleSmall" android:id="@+id/Spinner01" android:layout_height="wrap_content" android:layout_width="fill_parent" android:entries="@array/partsOfSpeech" android:layout_marginLeft="20dip" android:layout_marginRight="20dip"></Spinner>
+
 </LinearLayout>

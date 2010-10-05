@@ -70,7 +70,7 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     public static final String FILTER_ALL = null;
     public static final String FILTER_NOUN = "(part_of_speech LIKE '%^prop.n.^%' OR part_of_speech LIKE '%^n.^%') ";
     public static final String FILTER_PNOUN = "(part_of_speech LIKE '%^pn.^%') ";
-    public static final String FILTER_VERB = "(part_of_speech LIKE '^sv%' OR part_of_speech LIKE '^v%') ";
+    public static final String FILTER_VERB = "(part_of_speech LIKE '%^sv%' OR part_of_speech LIKE '%^v%') ";
     public static final String FILTER_ADJ = "(part_of_speech LIKE '%^adj.^%') ";
     public static final String FILTER_ADV = "(part_of_speech LIKE '%^adv.^%') ";
     
@@ -86,7 +86,7 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     		else
     			ret.append(QUERY_PART_NAVI_START);
     		if (queryFilter)
-    			ret.append("WHERE " + QUERY_PART_NAVI_FILTER_WHERE + "AND part_of_speech like '%^adj.^' ");
+    			ret.append("WHERE " + QUERY_PART_NAVI_FILTER_WHERE);
     		if (queryPOS != null)
     		{
     			if (queryFilter)
