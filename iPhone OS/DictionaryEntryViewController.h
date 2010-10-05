@@ -17,13 +17,14 @@
 	UITextView *definition;
 	UILabel *ipa;
 	UILabel *infixes;
+	UILabel *infixHeader;
 	BOOL mode;
 }
 
 @property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
 @property (nonatomic, retain) IBOutlet UILabel *fancyType, *term, *ipa;
 @property (nonatomic, retain) IBOutlet UITextView *definition;
-@property (nonatomic, retain) IBOutlet UILabel *infixes;
+@property (nonatomic, retain) IBOutlet UILabel *infixes, *infixHeader;
 @property (nonatomic, retain) DictionaryEntry *entry;
 @property (nonatomic) BOOL mode;
 

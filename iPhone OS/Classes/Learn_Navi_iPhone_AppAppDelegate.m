@@ -173,8 +173,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 	NSURL *url = [[NSURL alloc] initWithScheme:@"http" host:host path:urlString];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
 	NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-	returnData;
-	//NSLog(@"Register URL: %@", url);
+	//returnData;
+	NSLog(@"Register URL: %@", url);
 	//NSLog(@"Return Data: %@", returnData);
 	
 #endif
@@ -462,7 +462,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 		return 0;
 	} 
 	NSString *versionString;
-	const char *sqlStatement = "select version from version";
+	const char *sqlStatement = "select MAX(version) from version";
 	sqlite3_stmt *compiledStatement;
 	if(sqlite3_prepare_v2(dBase, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
 		// Loop through the results and add them to the feeds array

@@ -11,7 +11,7 @@
 
 @implementation DictionaryEntryViewController
 
-@synthesize segmentedControl, entry, definition, term, fancyType, mode, ipa, infixes;
+@synthesize segmentedControl, entry, definition, term, fancyType, mode, ipa, infixes, infixHeader;
 
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -58,11 +58,11 @@
 		//We have an entry that supports infixes
 		
 		
-		
+		[infixHeader setText:@"Infix Positions"];
 		[infixes setText:[self.entry infixes]];
 	} else {
 		[infixes setText:@""];
-		
+		[infixHeader setText:@""];
 	}
 
 	
@@ -79,6 +79,7 @@
 	
 	self.title = [self.entry navi];
 	
+
 	/*UIBarButtonItem *flexibleSpaceButtonItem = [[UIBarButtonItem alloc]
 												initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
 												target:nil action:nil];
