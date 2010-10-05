@@ -639,7 +639,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Michael Gillogly";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Gillogly (MFG7NCM739)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -648,7 +648,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PREBINDING = NO;
 				PRODUCT_NAME = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "295E0137-879F-4F02-A6F2-D9B78912D002";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EA21DC5A-0041-4771-BF6C-EFEC53026EE3";
 				SDKROOT = iphoneos4.1;
 			};
 			name = Debug;
