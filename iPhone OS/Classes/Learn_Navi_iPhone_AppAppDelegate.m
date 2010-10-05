@@ -174,7 +174,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
 	NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
 	//returnData;
-	NSLog(@"Register URL: %@", url);
+	//NSLog(@"Register URL: %@", url);
 	//NSLog(@"Return Data: %@", returnData);
 	
 #endif
