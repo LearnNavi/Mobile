@@ -13,15 +13,21 @@
 	UITextView *contentText;
 	UITextView *contentTextShadow;
 	UIImageView *bg_image;
+	UILabel *versionText;
 	BOOL type;
 }
 
 @property (nonatomic, retain) IBOutlet UITextView *contentText, *contentTextShadow;
 @property (nonatomic, retain) IBOutlet UIImageView *bg_image;
+@property (nonatomic, retain) IBOutlet UILabel *versionText;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil type:(BOOL)contentType;
 - (IBAction)doneReading:(id)sender;
 - (void)setupAbout;
 - (void)setupDisclaimer;
+
+- (NSString *)versionString;
+- (NSString *)bundleShortVersionString;
+- (NSString *)bundleVersionNumber;
 
 @end

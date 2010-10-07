@@ -42,15 +42,15 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 	//[[self navigationItem] setTitle:@"Entry"];
-	if(mode){
+	//if(mode){
 		[definition setText:[self.entry english_definition]];
 		[term setText:[self.entry navi]];
 		
-	} else {
-		[definition setText:[self.entry navi]];
-		[term setText:[self.entry english_definition]];
+	//} else {
+		//[definition setText:[self.entry navi]];
+		//[term setText:[self.entry english_definition]];
 		
-	}
+	//}
 	
 	
 	[ipa setText:[self.entry ipa]];

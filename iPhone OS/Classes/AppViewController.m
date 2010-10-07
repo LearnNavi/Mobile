@@ -49,7 +49,7 @@
 	//Update the App version string
 	NSLog(@"%@", [self versionString]);
 	[betaText setText:[self versionString]];
-
+	[betaText setHidden:YES];
 }
 
 
