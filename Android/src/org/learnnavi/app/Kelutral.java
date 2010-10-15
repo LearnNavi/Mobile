@@ -545,7 +545,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 		try
 		{
 			// Start background download process
-			DBurl = new URL("http://learnnaviapp.com/database/dictionary.sqlite");
+			DBurl = new URL("http://learnnaviapp.com/database/database.sqlite");
 			mDownloadUpdate = new DownloadUpdate(this);
 			mDownloadUpdate.execute(DBurl);
 		}

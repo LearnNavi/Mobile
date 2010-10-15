@@ -33,7 +33,7 @@ public class CheckDictionaryVersion extends AsyncTask<String, Object, Boolean> {
 		try
 		{
 			// Piak si tsaheylu URLur a tìlatemä holpxay
-			URL source = new URL("http://learnnaviapp.com/database/version");
+			URL source = new URL("http://learnnaviapp.com/database/database.version");
 			URLConnection connection = source.openConnection();
 			connection.setDoInput(true);
 			connection.connect();

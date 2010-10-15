@@ -15,11 +15,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class EntryDBAdapter extends SQLiteOpenHelper {
 	private static final String DB_PATH = "/data/data/org.learnnavi.app/databases/";
-	private static final String DB_NAME = "dictionary.sqlite";
+	private static final String DB_NAME = "database.sqlite";
 	private SQLiteDatabase myDataBase;
 	private final Context myContext;
 	private int mRefCount;
 	private String mDbVersion;
+	
+	// Hard coded for now until the option is implemented
+	private static final String LOCALE = "eng";
 	
 	// Column names for use by other classes
     public static final String KEY_WORD = "word";
@@ -30,49 +33,49 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     public static final String KEY_PART = "part_of_speech";
 
     // Undo ì->j and ä->b substitution for the Na'vi word
-    private static final String QUERY_PART_NAVI_WORD = "replace(replace(replace(replace(entries.entry_name, 'b', 'ä'), 'j', 'ì'), 'B', 'Ä'), 'J', 'Ì')";
+    private static final String QUERY_PART_NAVI_WORD = "metaWords.navi";
     // Undo ì->j and ä->b substitution for the Na'vi letter
-    private static final String QUERY_PART_NAVI_LETTER = "replace(replace(alpha, 'B', 'Ä'), 'J', 'Ì')";
+    private static final String QUERY_PART_NAVI_LETTER = "replace(replace(metaWords.alpha, 'B', 'Ä'), 'J', 'Ì')";
     
     // Basic query by Na'vi word
-    private static final String QUERY_PART_NAVI_START = "SELECT _id, " + QUERY_PART_NAVI_WORD + " AS word, " + QUERY_PART_NAVI_LETTER + " AS letter, entries.english_definition AS definition FROM entries ";
-    private static final String QUERY_PART_NAVI_END = "ORDER BY alpha COLLATE UNICODE, entries.entry_name COLLATE UNICODE";
+    private static final String QUERY_PART_NAVI_START = "SELECT metaWords.id AS _id, " + QUERY_PART_NAVI_WORD + " AS word, " + QUERY_PART_NAVI_LETTER + " AS letter, localizedWords.localized AS definition FROM localizedWords JOIN metaWords ON (localizedWords.id = metaWords.id) WHERE localizedWords.languageCode = ? ";
+    private static final String QUERY_PART_NAVI_END = "ORDER BY metaWords.alpha COLLATE UNICODE, metaWords.navi_no_specials COLLATE UNICODE";
 
     // Query the first letter of Na'vi words
-    private static final String QUERY_PART_NAVI_LETTER_START = "SELECT MIN(_id) AS _id, COUNT(*) AS _count, ' ' || " + QUERY_PART_NAVI_LETTER + " || ' ' AS letter FROM entries ";
-    private static final String QUERY_PART_NAVI_LETTER_END = "GROUP BY alpha ORDER BY alpha COLLATE UNICODE";
+    private static final String QUERY_PART_NAVI_LETTER_START = "SELECT MIN(metaWords.id) AS _id, COUNT(*) AS _count, ' ' || " + QUERY_PART_NAVI_LETTER + " || ' ' AS letter FROM localizedWords JOIN metaWords ON (localizedWords.id = metaWords.id) WHERE localizedWords.languageCode = ? ";
+    private static final String QUERY_PART_NAVI_LETTER_END = "GROUP BY metaWords.alpha ORDER BY metaWords.alpha COLLATE UNICODE";
 
     // Filter Na'vi word query
-    private static final String QUERY_PART_NAVI_FILTER_WHERE = "entries.entry_name LIKE ? ";
+    private static final String QUERY_PART_NAVI_FILTER_WHERE = "metaWords.navi LIKE ? ";
 
     // Basic query by translation
-    private static final String QUERY_PART_TO_NAVI_START = "SELECT _id, " + QUERY_PART_NAVI_WORD + " AS definition, entries.english_definition AS word, beta AS letter FROM entries ";
-    private static final String QUERY_PART_TO_NAVI_END = "ORDER BY beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE";
+    private static final String QUERY_PART_TO_NAVI_START = "SELECT metaWords.id AS _id, " + QUERY_PART_NAVI_WORD + " AS definition, localizedWords.localized AS word, localizedWords.alpha AS letter FROM localizedWords JOIN metaWords ON (localizedWords.id = metaWords.id) WHERE localizedWords.languageCode = ? ";
+    private static final String QUERY_PART_TO_NAVI_END = "ORDER BY localizedWords.alpha COLLATE UNICODE, localizedWords.localized COLLATE UNICODE";
     
     // Query the first letter of translation
-    private static final String QUERY_PART_TO_NAVI_LETTER_START = "SELECT MIN(_id) AS _id, COUNT(*) AS _count, ' ' || beta || ' ' AS letter FROM entries ";
-    private static final String QUERY_PART_TO_NAVI_LETTER_END = "GROUP BY beta ORDER BY beta COLLATE UNICODE";
+    private static final String QUERY_PART_TO_NAVI_LETTER_START = "SELECT MIN(localizedWords.id) AS _id, COUNT(*) AS _count, ' ' || localizedWords.alpha || ' ' AS letter FROM localizedWords JOIN metaWords ON (localizedWords.id = metaWords.id) WHERE localizedWords.languageCode = ? ";
+    private static final String QUERY_PART_TO_NAVI_LETTER_END = "GROUP BY localizedWords.alpha ORDER BY localizedWords.alpha COLLATE UNICODE";
     
     // Filter translated word query
-    private static final String QUERY_PART_TO_NAVI_FILTER_WHERE = "entries.english_definition LIKE ? ";
+    private static final String QUERY_PART_TO_NAVI_FILTER_WHERE = "localizedWords.localized LIKE ? ";
     
     // Query a single entry by ID
-    private static final String QUERY_ENTRY = "SELECT _id, " + QUERY_PART_NAVI_WORD + " AS word, entries.english_definition AS definition, ipa, fps.description as part_of_speech FROM entries LEFT JOIN fancy_parts_of_speech fps USING (part_of_speech) WHERE _id = ?";
+    private static final String QUERY_ENTRY = "SELECT metaWords.id AS _id, " + QUERY_PART_NAVI_WORD + " AS word, localizedWords.localized AS definition, metaWords.ipa, ps.description as part_of_speech FROM localizedWords JOIN metaWords ON (localizedWords.id = metaWords.id) LEFT JOIN partsOfSpeech ps USING (partOfSpeech) WHERE metaWords.id = ? AND localizedWords.languageCode = ?";
 
     // Query used by the search suggest when neither to or from Na'vi is requested
-    private static final String QUERY_FOR_SUGGEST = "SELECT _id, _id AS suggest_intent_data, " + QUERY_PART_NAVI_WORD + " AS suggest_text_1, entries.english_definition AS suggest_text_2 FROM entries WHERE entries.entry_name LIKE ? OR entries.english_definition LIKE ? ORDER BY LENGTH(entries.entry_name), beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE LIMIT 25";
+    private static final String QUERY_FOR_SUGGEST = "SELECT metaWords.id AS _id, metaWords.id AS suggest_intent_data, " + QUERY_PART_NAVI_WORD + " AS suggest_text_1, localizedWords.localized AS suggest_text_2 FROM localizedWords JOIN metaWords ON (localizedWords.id = metaWords.id) WHERE (metaWords.navi LIKE ? OR localizedWords.localized LIKE ?) AND localizedWords.languageCode = ? ORDER BY LENGTH(metaWords.navi), localizedWords.alpha COLLATE UNICODE, localizedWords.localized COLLATE UNICODE LIMIT 25";
     // Query used by the search suggest when Na'vi words are being searched
-    private static final String QUERY_FOR_SUGGEST_NAVI = "SELECT _id, _id AS suggest_intent_data, " + QUERY_PART_NAVI_WORD + " AS suggest_text_1, entries.english_definition AS suggest_text_2 FROM entries WHERE entries.entry_name LIKE ? ORDER BY LENGTH(entries.entry_name), alpha COLLATE UNICODE, entries.english_definition COLLATE UNICODE LIMIT 25";
+    private static final String QUERY_FOR_SUGGEST_NAVI = "SELECT metaWords.id AS _id, metaWords.id AS suggest_intent_data, " + QUERY_PART_NAVI_WORD + " AS suggest_text_1, localizedWords.localized AS suggest_text_2 FROM localizedWords JOIN metaWords ON (localizedWords.id = metaWords.id) WHERE metaWords.navi LIKE ? AND localizedWords.languageCode = ? ORDER BY LENGTH(metaWords.navi), metaWords.alpha COLLATE UNICODE, metaWords.navi_no_specials COLLATE UNICODE LIMIT 25";
     // Query used by the search suggest when English words are being searched
-    private static final String QUERY_FOR_SUGGEST_NATIVE = "SELECT _id, _id AS suggest_intent_data, " + QUERY_PART_NAVI_WORD + " AS suggest_text_2, entries.english_definition AS suggest_text_1 FROM entries WHERE entries.english_definition LIKE ? ORDER BY LENGTH(entries.english_definition), beta COLLATE UNICODE, entries.english_definition COLLATE UNICODE LIMIT 25";
+    private static final String QUERY_FOR_SUGGEST_NATIVE = "SELECT metaWords.id AS _id, metaWords.id AS suggest_intent_data, " + QUERY_PART_NAVI_WORD + " AS suggest_text_2, localizedWords.localized AS suggest_text_1 FROM localizedWords JOIN metaWords ON (localizedWords.id = metaWords.id) WHERE localizedWords.localized LIKE ? AND localizedWords.languageCode = ? ORDER BY LENGTH(localizedWords.localized), localizedWords.alpha COLLATE UNICODE, localizedWords.localized COLLATE UNICODE LIMIT 25";
     
     // Part of speech filter clauses
     public static final String FILTER_ALL = null;
-    public static final String FILTER_NOUN = "(part_of_speech LIKE '%^prop.n.^%' OR part_of_speech LIKE '%^n.^%') ";
-    public static final String FILTER_PNOUN = "(part_of_speech LIKE '%^pn.^%') ";
-    public static final String FILTER_VERB = "(part_of_speech LIKE '%^sv%' OR part_of_speech LIKE '%^v%') ";
-    public static final String FILTER_ADJ = "(part_of_speech LIKE '%^adj.^%') ";
-    public static final String FILTER_ADV = "(part_of_speech LIKE '%^adv.^%') ";
+    public static final String FILTER_NOUN = "(metaWords.partOfSpeech LIKE '%^prop.n.^%' OR metaWords.partOfSpeech LIKE '%^n.^%') ";
+    public static final String FILTER_PNOUN = "(metaWords.partOfSpeech LIKE '%^pn.^%') ";
+    public static final String FILTER_VERB = "(metaWords.partOfSpeech LIKE '%^sv%' OR metaWords.partOfSpeech LIKE '%^v%') ";
+    public static final String FILTER_ADJ = "(metaWords.partOfSpeech LIKE '%^adj.^%') ";
+    public static final String FILTER_ADV = "(metaWords.partOfSpeech LIKE '%^adv.^%') ";
     
     // Construct a query from the parts for the desired result
     private static String createQuery(boolean queryNavi, boolean queryLetter, boolean queryFilter, String queryPOS)
@@ -86,14 +89,10 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     		else
     			ret.append(QUERY_PART_NAVI_START);
     		if (queryFilter)
-    			ret.append("WHERE " + QUERY_PART_NAVI_FILTER_WHERE);
+    			ret.append("AND " + QUERY_PART_NAVI_FILTER_WHERE);
     		if (queryPOS != null)
     		{
-    			if (queryFilter)
-    				ret.append("AND ");
-      			else
-    				ret.append("WHERE ");
-				ret.append(queryPOS);
+    			ret.append("AND " + queryPOS);
     		}
     		if (queryLetter)
     			ret.append(QUERY_PART_NAVI_LETTER_END);
@@ -107,14 +106,10 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     		else
     			ret.append(QUERY_PART_TO_NAVI_START);
     		if (queryFilter)
-    			ret.append("WHERE " + QUERY_PART_TO_NAVI_FILTER_WHERE);
+    			ret.append("AND " + QUERY_PART_TO_NAVI_FILTER_WHERE);
     		if (queryPOS != null)
     		{
-    			if (queryFilter)
-    				ret.append("AND ");
-      			else
-    				ret.append("WHERE ");
-				ret.append(queryPOS);
+    			ret.append("AND " + queryPOS);
     		}
     		if (queryLetter)
     			ret.append(QUERY_PART_TO_NAVI_LETTER_END);
@@ -223,7 +218,7 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     {
     	// Simple query of the database version
     	String ret;
-    	Cursor c = db.rawQuery("SELECT version FROM version", null);
+    	Cursor c = db.rawQuery("SELECT version FROM version ORDER BY version DESC LIMIT 1", null);
     	if (c.moveToFirst())
     		ret = c.getString(0);
     	else
@@ -281,9 +276,9 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     {
     	if (filter != null)
     	{
-    		return myDataBase.rawQuery(createQuery(naviQuery, letterQuery, true, partOfSpeech), new String[] { fixFilterString(filter) });
+    		return myDataBase.rawQuery(createQuery(naviQuery, letterQuery, true, partOfSpeech), new String[] { LOCALE, fixFilterString(filter) });
     	}
-    	return myDataBase.rawQuery(createQuery(naviQuery, letterQuery, false, partOfSpeech), null);
+    	return myDataBase.rawQuery(createQuery(naviQuery, letterQuery, false, partOfSpeech), new String[] { LOCALE });
     }
 
     // Query on all words, optionally applying a filter
@@ -314,17 +309,17 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     public Cursor queryForSuggest(String filter, Boolean type)
     {
     	if (type == null) // Unspecified (Global search, or unified search)
-    		return myDataBase.rawQuery(QUERY_FOR_SUGGEST, new String[] { fixFilterString(filter), "%" + filter + "%" });
+    		return myDataBase.rawQuery(QUERY_FOR_SUGGEST, new String[] { fixFilterString(filter), "%" + filter + "%", LOCALE });
     	else if (type) // Native to Na'vi
-    		return myDataBase.rawQuery(QUERY_FOR_SUGGEST_NATIVE, new String[] { fixFilterString(filter) });
+    		return myDataBase.rawQuery(QUERY_FOR_SUGGEST_NATIVE, new String[] { fixFilterString(filter), LOCALE });
     	else // Na'vi to native
-    		return myDataBase.rawQuery(QUERY_FOR_SUGGEST_NAVI, new String[] { "%" + filter + "%" });
+    		return myDataBase.rawQuery(QUERY_FOR_SUGGEST_NAVI, new String[] { "%" + filter + "%", LOCALE });
     }
 
     // Return the fields for a single dictionary entry
     public Cursor querySingleEntry(int rowId)
     {
-    	return myDataBase.rawQuery(QUERY_ENTRY, new String[] { Integer.toString(rowId) });
+    	return myDataBase.rawQuery(QUERY_ENTRY, new String[] { Integer.toString(rowId), LOCALE });
     }
     
     // Perform a refcounted close operation
