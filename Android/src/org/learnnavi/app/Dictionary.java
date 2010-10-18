@@ -1,5 +1,8 @@
 package org.learnnavi.app;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.SearchManager;
@@ -33,6 +36,9 @@ public class Dictionary extends ListActivity implements OnClickListener, OnItemS
 	
 	private boolean mDbIsOpen = false;
 	private boolean mToNavi = false;
+	
+	static private final Pattern IPAVowelPattern = Pattern.compile("[aeiou\u00e6\u025b\u026a\u0323]");
+	static private final Pattern NaviVowelPattern = Pattern.compile("[aeiou\u00e4\u00ec]|ll|rr");
 
 	/** Called when the activity is first created. */
 	@Override
@@ -267,18 +273,85 @@ public class Dictionary extends ListActivity implements OnClickListener, OnItemS
 		if (!entry.moveToFirst())
 			return;
 
+		String word = entry.getString(entry.getColumnIndexOrThrow(EntryDBAdapter.KEY_WORD));
 		// Pad the word with spaces so it doesn't get cut off
 		TextView text = (TextView)d.findViewById(R.id.EntryWord);
-		text.setText(entry.getString(entry.getColumnIndexOrThrow(EntryDBAdapter.KEY_WORD)) + "  ");
+		text.setText(word + "  ");
 		
 		text = (TextView)d.findViewById(R.id.EntryPartOfSpeech);
 		text.setText(entry.getString(entry.getColumnIndexOrThrow(EntryDBAdapter.KEY_PART)));
 
 		text = (TextView)d.findViewById(R.id.EntryIPA);
 		String ipastr = entry.getString(entry.getColumnIndexOrThrow(EntryDBAdapter.KEY_IPA));
+
+		String infixes = null;
+		if (ipastr != null && ipastr != "")
+		{
+			// First establish where the infix positions are, from the IPA
+			int firstpart = ipastr.indexOf('\u00b7');
+			if (firstpart >= 0)
+			{
+				int length = ipastr.indexOf(']');
+				if (length < 0)
+					length = ipastr.length();
+				int lastpart = ipastr.lastIndexOf('\u00b7', length);
+				// Next count syllables in the word
+				Matcher wordmatch = NaviVowelPattern.matcher(word);
+				int syllables = 0;
+				while (wordmatch.find())
+					++syllables;
+				// Count the syllables before the infixes
+				int pos1 = 0, pos2 = 0;
+				Matcher ipamatch = IPAVowelPattern.matcher(ipastr);
+				while (ipamatch.find() && ipamatch.start() < lastpart)
+				{
+					if (ipamatch.start() < firstpart)
+						++pos1;
+					++pos2;
+				}
+				// Sanity check
+				if (pos2 < syllables)
+				{
+					wordmatch.reset();
+					StringBuilder sb = new StringBuilder();
+					// Find the first infix position in the word itself
+					for (int loop = 0; loop <= pos1; loop++)
+					{
+						wordmatch.find();
+					}
+					sb.append(word.substring(0, wordmatch.start()));
+					sb.append("<1>");
+					// Find the first infix position in the word itself, if it is different
+					if (pos1 != pos2)
+					{
+						int ofs1 = wordmatch.start();
+						for (int loop = pos1; loop < pos2; loop++)
+						{
+							wordmatch.find();
+						}
+						sb.append(word.substring(ofs1, wordmatch.start()));
+					}
+					sb.append("<2>");
+					sb.append(word.substring(wordmatch.start()));
+					infixes = sb.toString();
+				}
+			}
+		}
+		text = (TextView)d.findViewById(R.id.EntryInfixes);
+		if (infixes != null)
+		{
+			text.setText(infixes);
+			text.setVisibility(text.VISIBLE);
+		}
+		else
+		{
+			text.setVisibility(text.GONE);
+		}
+		
 		// Replace the ejective marker from ' to something more visible in the IPA font, and add [] around the text
 		if (ipastr != null && ipastr != "")
 			ipastr = "[" + ipastr.replace('\'', '\u02bc') + "]";
+		text = (TextView)d.findViewById(R.id.EntryIPA);
 		text.setText(ipastr);
 
 		text = (TextView)d.findViewById(R.id.EntryDefinition);
