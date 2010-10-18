@@ -148,7 +148,7 @@ public class DownloadUpdate extends AsyncTask<URL, Integer, File> implements OnC
 			else
 			{
 				// Copy the file over the live DB
-				result.renameTo(new File("/data/data/org.learnnavi.app/databases/", "dictionary.sqlite"));
+				result.renameTo(new File("/data/data/org.learnnavi.app/databases/", "database.sqlite"));
 				if (mContext != null)
 				{
 					// Force the activity to reload the DB and update the version string
