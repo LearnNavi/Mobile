@@ -61,7 +61,6 @@ public class CheckDictionaryVersion extends AsyncTask<String, Object, Boolean> {
 	protected void onPostExecute(Boolean result)
 	{
 		if (result)
-			mContext.showDialog(Kelutral.UPDATEREQ_DLG);
-
+			mContext.onUpdateAvailable();
 	}
 }

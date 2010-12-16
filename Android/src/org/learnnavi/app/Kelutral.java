@@ -8,11 +8,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -30,7 +32,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
 
-public class Kelutral extends Activity implements OnClickListener, DialogInterface.OnClickListener {
+public class Kelutral extends Activity implements OnClickListener, DialogInterface.OnClickListener, DbDownloadWatcher {
 	static public final int UPDATEREQ_DLG = 101;
 	// Really half the duration of the flip
 	static public final int FLIPANIM_SPEED = 500;
@@ -103,7 +105,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
         // Check if the dictionary needs to be re-loaded
         recheckDb();
 
-        if (savedInstanceState == null || !savedInstanceState.containsKey("SkipDBCheck") || !savedInstanceState.getBoolean("SkipDBCheck"))
+        if (canCheckForUpdate(savedInstanceState))
         {
             // Start background thread to check for updated dictionaries
             CheckDictionaryVersion cdv = new CheckDictionaryVersion(this);
@@ -112,7 +114,16 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
         
         mDownloadUpdate = (DownloadUpdate)getLastNonConfigurationInstance();
         if (mDownloadUpdate != null)
-        	mDownloadUpdate.reParent(this);
+        	mDownloadUpdate.reParent(this, this);
+    }
+    
+    private boolean canCheckForUpdate(Bundle savedInstanceState)
+    {
+    	if (savedInstanceState != null && savedInstanceState.containsKey("SkipDBCheck") && savedInstanceState.getBoolean("SkipDBCheck"))
+    		return false;
+    	
+    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+    	return prefs.getBoolean("check_update", true);
     }
     
     @Override
@@ -127,6 +138,8 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
     public void onResume()
     {
     	super.onResume();
+    	
+    	recheckDb();
     	
         // Load the remaining pages - on demand loading was causing pauses
         // Perhaps find some way to load these one at a time after the main page loads
@@ -207,12 +220,16 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Nothing earth shattering here
 	    switch (item.getItemId()) {
-	    case R.id.BetaInfo:
+	    case R.id.AppInfo:
 	    	// Place holder menu item
 			Intent newIntent = new Intent(Intent.ACTION_VIEW,
 					Uri.parse("http://forum.learnnavi.org/mobile-apps/"));
 			startActivity(newIntent);
 			return true;
+	    case R.id.Preferences:
+	    	newIntent = new Intent(getBaseContext(), Preferences.class);
+	    	startActivity(newIntent);
+	    	return true;
 	    }
 	    return false;
 	}	
@@ -546,7 +563,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 		{
 			// Start background download process
 			DBurl = new URL("http://learnnaviapp.com/database/database.sqlite");
-			mDownloadUpdate = new DownloadUpdate(this);
+			mDownloadUpdate = new DownloadUpdate(this, this);
 			mDownloadUpdate.execute(DBurl);
 		}
 		catch (MalformedURLException ex)
@@ -628,4 +645,27 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
             return mGestureDetector == null ? false : mGestureDetector.onTouchEvent(event);
         }
     }
+
+	public void onUpdateAvailable() {
+    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+    	if (prefs.getBoolean("update_ask", true))
+    		showDialog(UPDATEREQ_DLG);
+    	else
+    	{
+    		// Handle dialog box button clicks
+    		// Only called for YES button clicks
+    		URL DBurl = null;
+    		try
+    		{
+    			// Start background download process
+    			DBurl = new URL("http://learnnaviapp.com/database/database.sqlite");
+    			mDownloadUpdate = new DownloadUpdate(this, this);
+    			mDownloadUpdate.execute(DBurl);
+    		}
+    		catch (MalformedURLException ex)
+    		{
+    			return;
+    		}
+    	}
+	}
 }

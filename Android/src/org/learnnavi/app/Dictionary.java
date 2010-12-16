@@ -341,11 +341,11 @@ public class Dictionary extends ListActivity implements OnClickListener, OnItemS
 		if (infixes != null)
 		{
 			text.setText(infixes);
-			text.setVisibility(text.VISIBLE);
+			text.setVisibility(View.VISIBLE);
 		}
 		else
 		{
-			text.setVisibility(text.GONE);
+			text.setVisibility(View.GONE);
 		}
 		
 		// Replace the ejective marker from ' to something more visible in the IPA font, and add [] around the text

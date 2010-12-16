@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="SkipUpdateCheck">Do not check for an updated word list</string>
+    <string name="DoUpdateCheck">Check for an updated word list every launch</string>
+    <string name="CheckForUpdates">Check for new wordlists</string>
     <string name="MenuSearch">Search</string>
     
     <string name="app_name">&quot;Learn Na'vi&quot;</string>
@@ -17,5 +20,11 @@
 <string name="DownloadingUpdate">Downloading new word list</string>
 <string name="SearchHint">Search Na\'vi words</string>
 <string name="CancelSearch">Words containing $F$</string>
-<string name="BetaInfo">Beta Information</string>
+<string name="AppInfo">App Support</string>
+<string name="UpdateNow">Update Now</string>
+<string name="UpdateNowSummary">Download the latest wordlist now</string>
+<string name="MenuPreferences">Preferences</string>
+<string name="NoAutoDownloadOn">Ask Before Downloading</string>
+<string name="NoAutoDownload">Ask Before Updating</string>
+<string name="NoAutoDownloadOff">Download new word lists whenever available</string>
 </resources>

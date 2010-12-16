@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -14,14 +15,16 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 
 public class DownloadUpdate extends AsyncTask<URL, Integer, File> implements OnClickListener {
-	private Kelutral mContext;
+	private Activity mContext;
+	private DbDownloadWatcher mWatcher;
 	private String mError;
 	private int mTotalProgress;
 	ProgressDialog mProgress;
 	
-	public DownloadUpdate(Kelutral context)
+	public DownloadUpdate(Activity context, DbDownloadWatcher watcher)
 	{
 		mContext = context;
+		mWatcher = watcher;
 	}
 	
 	// Initialize the progress dialog
@@ -142,22 +145,23 @@ public class DownloadUpdate extends AsyncTask<URL, Integer, File> implements OnC
 						alert.setNeutralButton(android.R.string.ok, null);
 						alert.create().show();
 					}
-					mContext.downloadComplete(false);
 				}
+				if (mWatcher != null)
+					mWatcher.downloadComplete(false);
 			}
 			else
 			{
 				// Copy the file over the live DB
 				result.renameTo(new File("/data/data/org.learnnavi.app/databases/", "database.sqlite"));
-				if (mContext != null)
+				if (mWatcher != null)
 				{
 					// Force the activity to reload the DB and update the version string
-					mContext.downloadComplete(true);
+					mWatcher.downloadComplete(true);
 				}
 			}
 		}
-		else if (mContext != null)
-			mContext.downloadComplete(false);
+		else if (mWatcher != null)
+			mWatcher.downloadComplete(false);
 	}
 	
 	public void unParent()
@@ -165,23 +169,35 @@ public class DownloadUpdate extends AsyncTask<URL, Integer, File> implements OnC
 		if (mProgress != null)
 			mProgress.hide();
 		mContext = null;
+		mWatcher = null;
 	}
 	
-	public void reParent(Kelutral context)
+	public void reParent(Activity context, DbDownloadWatcher watcher)
 	{
+		mWatcher = watcher;
 		mContext = context;
-		if (mProgress != null)
+		if (mProgress != null && !isCancelled())
 		{
-			mProgress.setOwnerActivity(context);
+			int max = mProgress.getMax();
+			int cur = mProgress.getProgress();
+			
+			mProgress = new ProgressDialog(mContext);
+			mProgress.setCancelable(true);
+			mProgress.setMax(max);
+			mProgress.setProgress(cur);
+			mProgress.setTitle(R.string.DownloadingUpdate);
+			mProgress.setButton(ProgressDialog.BUTTON_NEGATIVE, mContext.getText(android.R.string.cancel), this);
+			mProgress.setIndeterminate(false);
+			mProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 			mProgress.show();
 		}
 		else if (mError != null)
 			// This will just show the error
 			onPostExecute(null);
-		else
+		else if (mWatcher != null)
 			// There is an edge case where it wasn't cancelled, no error but no file return
 			// However that shouldn't happen, and the resulting call should be harmless anyway
-			mContext.downloadComplete(!isCancelled());
+			mWatcher.downloadComplete(!isCancelled());
 	}
 
 	// Clicked the cancel button of the progress dialog
