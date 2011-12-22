@@ -35,7 +35,7 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     // Undo ì->j and ä->b substitution for the Na'vi word
     private static final String QUERY_PART_NAVI_WORD = "metaWords.navi";
     // Undo ì->j and ä->b substitution for the Na'vi letter
-    private static final String QUERY_PART_NAVI_LETTER = "replace(replace(metaWords.alpha, 'B', 'Ä'), 'J', 'Ì')";
+    private static final String QUERY_PART_NAVI_LETTER = "replace(replace(metaWords.alpha, 'B', '€'), 'J', 'í')";
     
     // Basic query by Na'vi word
     private static final String QUERY_PART_NAVI_START = "SELECT metaWords.id AS _id, " + QUERY_PART_NAVI_WORD + " AS word, " + QUERY_PART_NAVI_LETTER + " AS letter, localizedWords.localized AS definition FROM localizedWords JOIN metaWords ON (localizedWords.id = metaWords.id) WHERE localizedWords.languageCode = ? ";
