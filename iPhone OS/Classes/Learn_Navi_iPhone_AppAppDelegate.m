@@ -6,7 +6,7 @@
 //  Copyright LearnNa'vi.org Community 2010. All rights reserved.
 //
 
-#import "Root.h"
+//#import "Root.h"
 #import "DictionaryTableViewController.h"
 #import "Learn_Navi_iPhone_AppAppDelegate.h"
 #import "AppViewController.h"
@@ -21,6 +21,8 @@
 	//[[MMTrackingMgr sharedInstance] startDefaultTracking];
 
 }
+
+
 
 void uncaughtExceptionHandler(NSException *exception) {
    
@@ -144,10 +146,24 @@ void uncaughtExceptionHandler(NSException *exception) {
 		pushAlert = @"enabled";
 		pushSound = @"enabled";
 	}
+    
+    //Store database version before update.
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *deviceUuid = [prefs objectForKey:@"UUID"];
+    if(deviceUuid == nil){
+        // UUID not set yet
+        CFUUIDRef newUUID = CFUUIDCreate(NULL);
+        deviceUuid = (NSString *)CFUUIDCreateString(NULL, newUUID);
+        CFRelease(newUUID);
+        [prefs setObject:deviceUuid forKey:@"UUID"];
+        [prefs synchronize];
+        NSLog(@"New UUID: %@",deviceUuid);
+    }
+    
 	
 	// Get the users Device Model, Display Name, Unique ID, Token & Version Number
 	UIDevice *dev = [UIDevice currentDevice];
-	NSString *deviceUuid = dev.uniqueIdentifier;
+	
     NSString *deviceName = dev.name;
 	NSString *deviceModel = dev.model;
 	NSString *deviceSystemVersion = dev.systemVersion;
@@ -172,7 +188,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	// !!! CHANGE "http" TO "https" IF YOU ARE USING HTTPS PROTOCOL
 	NSURL *url = [[NSURL alloc] initWithScheme:@"http" host:host path:urlString];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-	NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+	[NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
 	//returnData;
 	//NSLog(@"Register URL: %@", url);
 	//NSLog(@"Return Data: %@", returnData);
@@ -564,4 +580,5 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 
 @end
+
 

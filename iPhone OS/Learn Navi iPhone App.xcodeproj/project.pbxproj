@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -25,8 +25,6 @@
 		0415E90111A8ECDD00F03229 /* EntryBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0415E90011A8ECDD00F03229 /* EntryBackground.png */; };
 		0415E92C11A9809900F03229 /* AboutBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0415E92A11A9809900F03229 /* AboutBackground.png */; };
 		0415E92D11A9809900F03229 /* DisclaimerBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 0415E92B11A9809900F03229 /* DisclaimerBackground.png */; };
-		041A664910FE988C0009CEC2 /* UIViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A664810FE988C0009CEC2 /* UIViewAdditions.m */; };
-		041A664F10FE9BF00009CEC2 /* Root.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A664E10FE9BF00009CEC2 /* Root.m */; };
 		041A66EF110377380009CEC2 /* dictionaryButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 041A66EE110377380009CEC2 /* dictionaryButton.png */; };
 		041A66F31103795B0009CEC2 /* dictionaryButton_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 041A66F21103795B0009CEC2 /* dictionaryButton_highlighted.png */; };
 		041A674A110384890009CEC2 /* phraseBookButton_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 041A6747110384890009CEC2 /* phraseBookButton_highlighted.png */; };
@@ -65,13 +63,11 @@
 		0443F0BE110E2C2300CEAB58 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F0BD110E2C2300CEAB58 /* CoreLocation.framework */; };
 		0443F0C2110E2C2C00CEAB58 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F0C1110E2C2C00CEAB58 /* SystemConfiguration.framework */; };
 		0443F0C6110E2C3F00CEAB58 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F0C5110E2C3F00CEAB58 /* libsqlite3.0.dylib */; };
-		0443F0C8110E2C5300CEAB58 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443F0C7110E2C5300CEAB58 /* libz.1.2.3.dylib */; };
 		0443F204110E5ED100CEAB58 /* Refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 0443F202110E5ED100CEAB58 /* Refresh.png */; };
 		045EFB9F125DA5860017E9CA /* Refresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 045EFB9E125DA5860017E9CA /* Refresh@2x.png */; };
 		047B445E10FAFA41007B9236 /* HomeScreenBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 047B445D10FAFA41007B9236 /* HomeScreenBackground.png */; };
 		047B448B10FB7B07007B9236 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 047B448A10FB7B07007B9236 /* Default.png */; };
 		047F25841246DDE70096D898 /* database.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 047F25831246DDE70096D898 /* database.sqlite */; };
-		049CF054120B22DB00318952 /* libFlurryWithLocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 049CF053120B22DB00318952 /* libFlurryWithLocation.a */; };
 		04C40DEE10FCF184001251C2 /* dist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04C40DED10FCF184001251C2 /* dist.plist */; };
 		04C40F1210FD0B79001251C2 /* essai1.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C40F1110FD0B79001251C2 /* essai1.png */; };
 		04C40F3710FD2FA6001251C2 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C40F3510FD2FA6001251C2 /* icon.png */; };
@@ -102,6 +98,7 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
+		4CEECF5314A13B7600DBC850 /* UIViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEECF5214A13B7600DBC850 /* UIViewAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,10 +115,6 @@
 		0415E90011A8ECDD00F03229 /* EntryBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EntryBackground.png; sourceTree = "<group>"; };
 		0415E92A11A9809900F03229 /* AboutBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AboutBackground.png; sourceTree = "<group>"; };
 		0415E92B11A9809900F03229 /* DisclaimerBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DisclaimerBackground.png; sourceTree = "<group>"; };
-		041A664710FE988C0009CEC2 /* UIViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIViewAdditions.h; path = Classes/UIViewAdditions.h; sourceTree = "<group>"; };
-		041A664810FE988C0009CEC2 /* UIViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIViewAdditions.m; path = Classes/UIViewAdditions.m; sourceTree = "<group>"; };
-		041A664D10FE9BF00009CEC2 /* Root.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Root.h; path = Classes/Root.h; sourceTree = "<group>"; };
-		041A664E10FE9BF00009CEC2 /* Root.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Root.m; path = Classes/Root.m; sourceTree = "<group>"; };
 		041A66EE110377380009CEC2 /* dictionaryButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dictionaryButton.png; sourceTree = "<group>"; };
 		041A66F21103795B0009CEC2 /* dictionaryButton_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dictionaryButton_highlighted.png; sourceTree = "<group>"; };
 		041A6747110384890009CEC2 /* phraseBookButton_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = phraseBookButton_highlighted.png; sourceTree = "<group>"; };
@@ -167,14 +160,11 @@
 		0443F0BD110E2C2300CEAB58 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0443F0C1110E2C2C00CEAB58 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0443F0C5110E2C3F00CEAB58 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
-		0443F0C7110E2C5300CEAB58 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
-		0443F163110E3D5600CEAB58 /* FlurryAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAPI.h; sourceTree = "<group>"; };
 		0443F202110E5ED100CEAB58 /* Refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Refresh.png; sourceTree = "<group>"; };
 		045EFB9E125DA5860017E9CA /* Refresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Refresh@2x.png"; sourceTree = "<group>"; };
 		047B445D10FAFA41007B9236 /* HomeScreenBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeScreenBackground.png; sourceTree = "<group>"; };
 		047B448A10FB7B07007B9236 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		047F25831246DDE70096D898 /* database.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = database.sqlite; sourceTree = "<group>"; };
-		049CF053120B22DB00318952 /* libFlurryWithLocation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryWithLocation.a; path = FlurryLibWithLocation/libFlurryWithLocation.a; sourceTree = "<group>"; };
 		04C40DED10FCF184001251C2 /* dist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dist.plist; sourceTree = "<group>"; };
 		04C40F1110FD0B79001251C2 /* essai1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = essai1.png; sourceTree = "<group>"; };
 		04C40F3510FD2FA6001251C2 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
@@ -203,12 +193,14 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Learn_Navi_iPhone_AppAppDelegate.h; path = Classes/Learn_Navi_iPhone_AppAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Learn_Navi_iPhone_AppAppDelegate.m; path = Classes/Learn_Navi_iPhone_AppAppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* Learn Navi iPhone App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Learn Navi iPhone App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* LearnNaviiPhoneApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnNaviiPhoneApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AAE50D9B0CCF005BE974 /* Learn_Navi_iPhone_App_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Learn_Navi_iPhone_App_Prefix.pch; sourceTree = "<group>"; };
 		28AD735F0D9D9599002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4CEECF5114A13B7500DBC850 /* UIViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIViewAdditions.h; path = Classes/UIViewAdditions.h; sourceTree = "<group>"; };
+		4CEECF5214A13B7600DBC850 /* UIViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIViewAdditions.m; path = Classes/UIViewAdditions.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Learn_Navi_iPhone_App-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Learn_Navi_iPhone_App-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -223,9 +215,7 @@
 				0443F0BE110E2C2300CEAB58 /* CoreLocation.framework in Frameworks */,
 				0443F0C2110E2C2C00CEAB58 /* SystemConfiguration.framework in Frameworks */,
 				0443F0C6110E2C3F00CEAB58 /* libsqlite3.0.dylib in Frameworks */,
-				0443F0C8110E2C5300CEAB58 /* libz.1.2.3.dylib in Frameworks */,
 				04DE20FA119F750E004093C8 /* QuartzCore.framework in Frameworks */,
-				049CF054120B22DB00318952 /* libFlurryWithLocation.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,25 +251,6 @@
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
-		0443EEC6110CAB6500CEAB58 /* Prototyping Classes */ = {
-			isa = PBXGroup;
-			children = (
-				041A664710FE988C0009CEC2 /* UIViewAdditions.h */,
-				041A664810FE988C0009CEC2 /* UIViewAdditions.m */,
-				041A664E10FE9BF00009CEC2 /* Root.m */,
-				041A664D10FE9BF00009CEC2 /* Root.h */,
-			);
-			name = "Prototyping Classes";
-			sourceTree = "<group>";
-		};
-		0443F162110E3D5600CEAB58 /* FlurryLibWithLocation */ = {
-			isa = PBXGroup;
-			children = (
-				0443F163110E3D5600CEAB58 /* FlurryAPI.h */,
-			);
-			path = FlurryLibWithLocation;
-			sourceTree = "<group>";
-		};
 		080E96DDFE201D6D7F000001 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,7 +264,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* Learn Navi iPhone App.app */,
+				1D6058910D05DD3D006BFB54 /* LearnNaviiPhoneApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -315,10 +286,10 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				4CEECF5114A13B7500DBC850 /* UIViewAdditions.h */,
+				4CEECF5214A13B7600DBC850 /* UIViewAdditions.m */,
 				04DE20B5119F73EA004093C8 /* LoadingView.h */,
 				04DE20B6119F73EA004093C8 /* LoadingView.m */,
-				0443F162110E3D5600CEAB58 /* FlurryLibWithLocation */,
-				0443EEC6110CAB6500CEAB58 /* Prototyping Classes */,
 				28A0AAE50D9B0CCF005BE974 /* Learn_Navi_iPhone_App_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -401,9 +372,7 @@
 				0443F0BD110E2C2300CEAB58 /* CoreLocation.framework */,
 				0443F0C1110E2C2C00CEAB58 /* SystemConfiguration.framework */,
 				0443F0C5110E2C3F00CEAB58 /* libsqlite3.0.dylib */,
-				0443F0C7110E2C5300CEAB58 /* libz.1.2.3.dylib */,
 				04DE20F9119F750E004093C8 /* QuartzCore.framework */,
-				049CF053120B22DB00318952 /* libFlurryWithLocation.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -427,7 +396,7 @@
 			);
 			name = "Learn Navi iPhone App";
 			productName = "Learn Navi iPhone App";
-			productReference = 1D6058910D05DD3D006BFB54 /* Learn Navi iPhone App.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* LearnNaviiPhoneApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -436,10 +405,11 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "LearnNa'vi.org Community";
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Learn Navi iPhone App" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -577,8 +547,6 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m in Sources */,
-				041A664910FE988C0009CEC2 /* UIViewAdditions.m in Sources */,
-				041A664F10FE9BF00009CEC2 /* Root.m in Sources */,
 				0443E7C611069B8000CEAB58 /* DictionaryEntry.m in Sources */,
 				0443E8661107D9D000CEAB58 /* AppViewController.m in Sources */,
 				0443E90F1107EDBB00CEAB58 /* DictionaryTableViewController.m in Sources */,
@@ -587,6 +555,7 @@
 				0427A1D0112FEC9600307E3F /* AboutDisclaimerViewController.m in Sources */,
 				0427A9881134EE1E00307E3F /* languageGuideViewController.m in Sources */,
 				04DE20B7119F73EA004093C8 /* LoadingView.m in Sources */,
+				4CEECF5314A13B7600DBC850 /* UIViewAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,9 +585,8 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PRODUCT_NAME = AdHoc;
-				ZERO_LINK = NO;
+				ZERO_LINK = "iPhone Developer: Michael Gillogly (MFG7NCM739)";
 			};
 			name = Release;
 		};
@@ -639,11 +607,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_OUTPUT_FORMAT = xml;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				PREBINDING = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EA21DC5A-0041-4771-BF6C-EFEC53026EE3";
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = NO;
 			};
 			name = "Beta Build";
@@ -653,6 +619,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Learn_Navi_iPhone_App_Prefix.pch;
@@ -664,6 +631,7 @@
 					"\"$(SRCROOT)/FlurryLibWithLocation\"",
 				);
 				PRODUCT_NAME = "Learn Navi iPhone App";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 			};
 			name = "Beta Build";
 		};
@@ -693,6 +661,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Learn_Navi_iPhone_App_Prefix.pch;
@@ -704,6 +673,7 @@
 					"\"$(SRCROOT)/FlurryLibWithLocation\"",
 				);
 				PRODUCT_NAME = "Learn Navi iPhone App";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 			};
 			name = Release;
 		};
@@ -717,11 +687,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_OUTPUT_FORMAT = xml;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				PREBINDING = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EA21DC5A-0041-4771-BF6C-EFEC53026EE3";
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -734,11 +702,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_OUTPUT_FORMAT = xml;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				PREBINDING = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3895E4A3-1EF1-4E5D-A3B0-A16D25CA02A4";
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};

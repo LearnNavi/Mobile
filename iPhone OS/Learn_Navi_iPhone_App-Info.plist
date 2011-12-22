@@ -5,9 +5,11 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
-	<string>Learn Na&apos;vi</string>
+	<string>Learn Na'vi</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleGetInfoString</key>
+	<string></string>
 	<key>CFBundleIconFile</key>
 	<string>icon.png</string>
 	<key>CFBundleIdentifier</key>
@@ -18,23 +20,21 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.0</string>
-	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleBlackOpaque</string>
-	<key>SVN_Version</key>
-	<string>SVN_VERSION_GOES_HERE</string>
+	<string>1.0.1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSMainNibFile</key>
-	<string>MainWindow</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
 	<key>MMAppID</key>
 	<string>c142bc99fd6aa1eda1a3f17b6d9b09621589dc49</string>
-	<key>CFBundleGetInfoString</key>
-	<string></string>
+	<key>NSMainNibFile</key>
+	<string>MainWindow</string>
+	<key>SVN_Version</key>
+	<string>SVN_VERSION_GOES_HERE</string>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleBlackOpaque</string>
 </dict>
 </plist>

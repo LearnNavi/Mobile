@@ -107,6 +107,8 @@
 	UIBarButtonItem *modalBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:modalViewButton];
 	self.navigationItem.rightBarButtonItem = modalBarButtonItem;
 	[modalBarButtonItem release];
+    
+    //[self.searchDisplayController.searchBar setAlpha:0.0F];
 	
 	//self.navigationItem.rightBarButtonItem = 
 	//[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Refresh.png"] style:UIBarButtonItemStylePlain target:nil action:nil];
@@ -489,13 +491,13 @@
 	
 	UITableViewCell *cell;
 	
-	CGRect CellFrame = CGRectMake(0, 0, 300, 60);
+	//CGRect CellFrame = CGRectMake(0, 0, 300, 60);
 	CGRect Label1Frame = CGRectMake(10, 5, 290, 25);
 	CGRect Label2Frame = CGRectMake(10, 28, 290, 25);
 	CGRect Label3Frame = CGRectMake(300, 0, 300, 60); 
 	UILabel *lblTemp;
 	
-	cell = [[[UITableViewCell alloc] initWithFrame:CellFrame reuseIdentifier:cellIdentifier] autorelease];
+	cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
 	
 	//Initialize Label with tag 1.
 	lblTemp = [[UILabel alloc] initWithFrame:Label1Frame];

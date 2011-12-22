@@ -10,7 +10,6 @@
 #import "DictionaryTableViewController.h"
 #import "languageGuideViewController.h"
 #import "AppViewController.h"
-#import "FlurryAPI.h"
 
 
 @implementation AppViewController
