@@ -10,19 +10,14 @@
 #import "LoadingView.h"
 
 @interface Learn_Navi_iPhone_AppAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate> {
-    
-
 	CGRect theRect;
-
     UIWindow *window;
     AppViewController *appViewController;
 	LoadingView *loadingView;
 }
 
-
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) AppViewController *appViewController;
-
 
 - (void)registerDefaultsFromSettingsBundle;
 - (void) checkAndCreateDatabase;
