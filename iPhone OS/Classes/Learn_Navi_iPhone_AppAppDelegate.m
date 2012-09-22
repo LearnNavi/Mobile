@@ -16,16 +16,14 @@
 
 @synthesize window, appViewController;
 
-+(void)initialize { 
++(void)initialize {
 	
 	//[[MMTrackingMgr sharedInstance] startDefaultTracking];
-
+    
 }
 
-
-
 void uncaughtExceptionHandler(NSException *exception) {
-   
+    
 }
 
 #pragma mark -
@@ -36,14 +34,9 @@ void uncaughtExceptionHandler(NSException *exception) {
 	if(launchOptions != nil){
 		NSLog(@"Update Database");
 		[self startUpdate:self];
-		
 	}
     
-	
-	
-	
-	// Override point for customization after app launch 
-	
+	// Override point for customization after app launch
 	NSString *filter1 = [[NSUserDefaults standardUserDefaults] stringForKey:@"filter1"];
 	
 	// Note: this will not work for boolean values as noted by bpapa below.
@@ -53,21 +46,16 @@ void uncaughtExceptionHandler(NSException *exception) {
 	}
 	[self checkAndCreateDatabase];
 	
-	
 	// Add registration for remote notifications
-	[[UIApplication sharedApplication] 
+	[[UIApplication sharedApplication]
 	 registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
 	
 	// Clear application badge when app launches
 	application.applicationIconBadgeNumber = 0;
-	
-	
-	
 	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
 	//Tracking Code
 	
 	[self launchApp:self];
-	
 	return NO;
 }
 
@@ -81,8 +69,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 	if(appViewController) {
 		[appViewController.navigationController.view removeFromSuperview];
 		[appViewController release];
-		
 	}
+    
 	appViewController = [[AppViewController alloc] initWithNibName:@"AppViewController" bundle:[NSBundle mainBundle]];
 	appViewController.view.frame = theRect;
 	
@@ -94,8 +82,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 	appViewController.navController = thisNavigationController;
 	[window addSubview:appViewController.navigationController.view];
 	[window makeKeyAndVisible];
-	[self performSelectorInBackground:@selector(checkDatabaseVersion:) withObject:nil];
-
+    
+    [self performSelectorInBackground:@selector(checkDatabaseVersion:) withObject:nil];
 }
 
 
@@ -103,7 +91,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 #if !TARGET_IPHONE_SIMULATOR
 	
-	//NSLog(@"%@",devToken); 
+	//NSLog(@"%@",devToken);
 	// Get Bundle Info for Remote Registration (handy if you have more than one app)
 	NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
 	NSString *appVersion = [self versionString];
@@ -117,8 +105,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 	NSString *pushSound = @"disabled";
 	
 	// Check what Registered Types are turned on. This is a bit tricky since if two are enabled, and one is off, it will return a number 2... not telling you which
-	// one is actually disabled. So we are literally checking to see if rnTypes matches what is turned on, instead of by number. The "tricky" part is that the 
-	// single notification types will only match if they are the ONLY one enabled.  Likewise, when we are checking for a pair of notifications, it will only be 
+	// one is actually disabled. So we are literally checking to see if rnTypes matches what is turned on, instead of by number. The "tricky" part is that the
+	// single notification types will only match if they are the ONLY one enabled.  Likewise, when we are checking for a pair of notifications, it will only be
 	// true if those two notifications are on.  This is why the code is written this way ;)
 	if(rntypes == UIRemoteNotificationTypeBadge){
 		pushBadge = @"enabled";
@@ -160,7 +148,6 @@ void uncaughtExceptionHandler(NSException *exception) {
         NSLog(@"New UUID: %@",deviceUuid);
     }
     
-	
 	// Get the users Device Model, Display Name, Unique ID, Token & Version Number
 	UIDevice *dev = [UIDevice currentDevice];
 	
@@ -169,9 +156,9 @@ void uncaughtExceptionHandler(NSException *exception) {
 	NSString *deviceSystemVersion = dev.systemVersion;
 	
 	// Prepare the Device Token for Registration (remove spaces and < >)
-	NSString *deviceToken = [[[[devToken description] 
-							   stringByReplacingOccurrencesOfString:@"<"withString:@""] 
-							  stringByReplacingOccurrencesOfString:@">" withString:@""] 
+	NSString *deviceToken = [[[[devToken description]
+							   stringByReplacingOccurrencesOfString:@"<"withString:@""]
+							  stringByReplacingOccurrencesOfString:@">" withString:@""]
 							 stringByReplacingOccurrencesOfString: @" " withString: @""];
 	
 	// Build URL String for Registration
@@ -179,8 +166,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 	// !!! SAMPLE: "secure.awesomeapp.com"
 	NSString *host = @"www.learnnaviapp.com";
 	
-	// !!! CHANGE "/apns.php?" TO THE PATH TO WHERE apns.php IS INSTALLED 
-	// !!! ( MUST START WITH / AND END WITH ? ). 
+	// !!! CHANGE "/apns.php?" TO THE PATH TO WHERE apns.php IS INSTALLED
+	// !!! ( MUST START WITH / AND END WITH ? ).
 	// !!! SAMPLE: "/path/to/apns.php?"
 	NSString *urlString = [NSString stringWithFormat:@"/apns/apns.php?task=%@&appname=%@&appversion=%@&deviceuid=%@&devicetoken=%@&devicename=%@&devicemodel=%@&deviceversion=%@&pushbadge=%@&pushalert=%@&pushsound=%@", @"register", appName,appVersion, deviceUuid, deviceToken, deviceName, deviceModel, deviceSystemVersion, pushBadge, pushAlert, pushSound];
 	
@@ -232,8 +219,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 #endif
 }
 
-
-
 - (void)registerDefaultsFromSettingsBundle {
 	NSString *settingsBundle = [[NSBundle mainBundle] pathForResource:@"Settings" ofType:@"bundle"];
 	if(!settingsBundle) {
@@ -255,7 +240,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 	[[NSUserDefaults standardUserDefaults] registerDefaults:defaultsToRegister];
 	[defaultsToRegister release];
 }
-
 
 
 /**
@@ -299,31 +283,18 @@ void uncaughtExceptionHandler(NSException *exception) {
 			NSError *err;
 			[fileManager removeItemAtPath:databasePath error:nil];
 			[fileManager copyItemAtPath:databasePathFromApp toPath:databasePath error:&err];
-			
-			
-			
-		} else {
-			//Up to date
-			
 		}
-		
-		
 	} else {
-	
-	// If not then proceed to copy the database from the application to the users filesystem
-	
-	// Get the path to the database in the application package
-	
+        // If not then proceed to copy the database from the application to the users filesystem
+        // Get the path to the database in the application package
+        
 		[fileManager copyItemAtPath:databasePathFromApp toPath:databasePath error:nil];
-		
 	}
 	// Copy the database from the package to the users filesystem
 	
 	[self registerDatabaseInfo:databasePath];
-	
 	[fileManager release];
 	return;
-
 }
 
 - (void) checkDatabaseVersion:(id)sender{
@@ -334,8 +305,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDir = [documentPaths objectAtIndex:0];
 	NSString *databasePath = [documentsDir stringByAppendingPathComponent:databaseName];
-	
-	
+    
 	double databaseVersion = [self getDatabaseVersion:databasePath];
 	
 	// Check the web for updates to the database, if enabled
@@ -345,6 +315,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	NSError *errVersion = [[[NSError alloc] init] autorelease];
 	NSString *versionUrl = [[NSString stringWithFormat:@"http://learnnaviapp.com/database/database.version"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *versionFile = [NSString stringWithContentsOfURL:[NSURL URLWithString:versionUrl] encoding:NSUTF8StringEncoding error:&errVersion];
+    
 	if(errVersion.code != 0) {
 		// HANDLE ERROR HERE
 		NSLog(@"Online Error: %@", [errVersion localizedDescription]);
@@ -354,37 +325,25 @@ void uncaughtExceptionHandler(NSException *exception) {
 		if(databaseVersion < [versionFile doubleValue]){
 			// New database available
 			// Prompt user to download new version
-			
-			
-			
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dictionary Update Ready" message:@"There is a new version of the dictionary available for download.  Would you like to update now?" 
-														   delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes",nil];
-			[alert show];
-			[alert release];
-			
-			
-			
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dictionary Update Ready"
+                                                                message:@"There is a new version of the dictionary available for download.  Would you like to update now?"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"No"
+                                                      otherButtonTitles:@"Yes",nil];
+                [alert show];
+                [alert release];
+            });
 		} else {
 			NSLog(@"Up to date");
-			
 		}
-		
-		
-		
 	}
-	
-	
+    
 	app.networkActivityIndicatorVisible = NO;
-	
-	
-	
-	
-	
-	
+    
 	[self registerDatabaseInfo:databasePath];
 	[pool release];
 	return;
-	
 }
 
 
@@ -406,20 +365,17 @@ void uncaughtExceptionHandler(NSException *exception) {
 	loadingView =
 	[LoadingView loadingViewInView:[self window]];
 	[self performSelectorInBackground:@selector(updateDatabase:) withObject:nil];
-
+    
 }
 
-- (void)updateFinished:(id)sender {
-	
+- (void)updateFinished:(id)sender
+{
 	[loadingView removeView];
 	[self launchApp:self];
 }
 
 - (void)updateDatabase:(id)sender {
-	
-	
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	
 	
 	// Download new version
 	UIApplication* app = [UIApplication sharedApplication];
@@ -458,11 +414,12 @@ void uncaughtExceptionHandler(NSException *exception) {
 		
 		
 		// Show success message
-		
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dictionary Updated" message:@"The dictionary has been successfully updated." 
+		dispatch_async(dispatch_get_main_queue(), ^{
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dictionary Updated" message:@"The dictionary has been successfully updated."
 													   delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
 		[alert show];
 		[alert release];
+        });
 	}
 	//[NSThread sleepForTimeInterval:1.0];
 	[self performSelectorOnMainThread:@selector(updateFinished:) withObject:nil waitUntilDone:YES];
@@ -476,7 +433,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	if(sqlite3_open([aDatabase UTF8String], &dBase) != SQLITE_OK) {
 		NSLog(@"Error read version");
 		return 0;
-	} 
+	}
 	NSString *versionString;
 	const char *sqlStatement = "select MAX(version) from version";
 	sqlite3_stmt *compiledStatement;
@@ -493,8 +450,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 	}
 	// Release the compiled statement from memory
 	sqlite3_finalize(compiledStatement);
-	
-	
 	sqlite3_close(dBase);
 	
 	return [versionString doubleValue];
@@ -506,7 +461,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	if(sqlite3_open([aDatabase UTF8String], &dBase) != SQLITE_OK) {
 		NSLog(@"Error read version");
 		return;
-	} 
+	}
 	NSString *versionString;
 	NSString *dictionaryDateString;
 	NSString *dateString;
