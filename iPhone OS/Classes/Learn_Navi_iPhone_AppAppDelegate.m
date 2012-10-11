@@ -17,9 +17,7 @@
 @synthesize window, appViewController;
 
 +(void)initialize {
-	
 	//[[MMTrackingMgr sharedInstance] startDefaultTracking];
-    
 }
 
 void uncaughtExceptionHandler(NSException *exception) {
@@ -30,7 +28,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	
 	if(launchOptions != nil){
 		NSLog(@"Update Database");
 		[self startUpdate:self];
@@ -38,7 +35,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     
 	// Override point for customization after app launch
 	NSString *filter1 = [[NSUserDefaults standardUserDefaults] stringForKey:@"filter1"];
-	
+	NSString *avc = [[NSString alloc] init];
 	// Note: this will not work for boolean values as noted by bpapa below.
 	// If you use booleans, you should use objectForKey above and check for null
 	if(!filter1) {
@@ -55,15 +52,9 @@ void uncaughtExceptionHandler(NSException *exception) {
 	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
 	//Tracking Code
 	
-	[self launchApp:self];
-	return NO;
-}
-
-
-
-- (void)launchApp:(id)sender {
-	
-	theRect = [[self window] frame];
+	//[self launchApp:self];
+    
+    theRect = [[self window] frame];
 	theRect = CGRectOffset(theRect, 0.0, 20.0);
 	
 	if(appViewController) {
@@ -71,7 +62,20 @@ void uncaughtExceptionHandler(NSException *exception) {
 		[appViewController release];
 	}
     
-	appViewController = [[AppViewController alloc] initWithNibName:@"AppViewController" bundle:[NSBundle mainBundle]];
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGSize result = [[UIScreen mainScreen] bounds].size;
+        if(result.height == 480)
+        {
+            avc=@"AppViewController";
+        }
+        if(result.height == 568)
+        {
+            avc=@"AppViewController-iPhone5";
+        }
+    }
+
+	appViewController = [[AppViewController alloc] initWithNibName:avc bundle:[NSBundle mainBundle]];
 	appViewController.view.frame = theRect;
 	
 	UINavigationController *thisNavigationController = [[UINavigationController alloc] initWithRootViewController:appViewController];
@@ -80,17 +84,25 @@ void uncaughtExceptionHandler(NSException *exception) {
 	//thisNavigationController.navigationBar.autoresizesSubviews = NO;
 	[thisNavigationController setNavigationBarHidden:YES];
 	appViewController.navController = thisNavigationController;
+    if ([window respondsToSelector:@selector(setRootViewController:)]) {
+        window.rootViewController = appViewController.navigationController;
+    } else {
+        [window addSubview:appViewController.navigationController.view];
+    }
 	[window addSubview:appViewController.navigationController.view];
 	[window makeKeyAndVisible];
     
     [self performSelectorInBackground:@selector(checkDatabaseVersion:) withObject:nil];
+	return YES;
+}
+
+- (void)launchApp:(id)sender {
+
 }
 
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
-	
 #if !TARGET_IPHONE_SIMULATOR
-	
 	//NSLog(@"%@",devToken);
 	// Get Bundle Info for Remote Registration (handy if you have more than one app)
 	NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
@@ -187,11 +199,8 @@ void uncaughtExceptionHandler(NSException *exception) {
  * Failed to Register for Remote Notifications
  */
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-	
 #if !TARGET_IPHONE_SIMULATOR
-	
 	NSLog(@"Error in registration. Error: %@", error);
-	
 #endif
 }
 
@@ -201,7 +210,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
 	
 #if !TARGET_IPHONE_SIMULATOR
-    
 	NSLog(@"remote notification: %@",[userInfo description]);
 	NSDictionary *apsInfo = [userInfo objectForKey:@"aps"];
 	
@@ -215,7 +223,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 	NSString *badge = [apsInfo objectForKey:@"badge"];
 	NSLog(@"Received Push Badge: %@", badge);
 	application.applicationIconBadgeNumber = [[apsInfo objectForKey:@"badge"] integerValue];
-	
 #endif
 }
 
@@ -395,15 +402,12 @@ void uncaughtExceptionHandler(NSException *exception) {
 		NSString *documentsDir = [documentPaths objectAtIndex:0];
 		NSString *databasePath = [documentsDir stringByAppendingPathComponent:databaseName];
 		
-		
 		//Store database version before update.
 		NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 		[prefs setObject:[prefs stringForKey:@"database_version"] forKey:@"database_pre-update_version"];
 		
 		//Delete current database
 		NSFileManager *fileManager = [NSFileManager defaultManager];
-		
-		
 		
 		[fileManager removeItemAtPath:databasePath error:nil];
 		[fileManager createFileAtPath:databasePath contents:newDatabase attributes:nil];
@@ -483,8 +487,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 	}
 	// Release the compiled statement from memory
 	sqlite3_finalize(compiledStatement);
-	
-	
 	sqlite3_close(dBase);
 	
 	//Register settings
@@ -495,11 +497,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 	 setObject:versionString forKey:@"database_version"];
 	[[NSUserDefaults standardUserDefaults]
 	 setObject:dateString forKey:@"dictionary_date"];
-	
-	
-	
+
 	return ;
-	
 }
 
 - (NSString *)bundleVersionNumber {
@@ -528,7 +527,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 #pragma mark Memory management
 
 - (void)dealloc {
-    
 	[window release];
 	[super dealloc];
 }
