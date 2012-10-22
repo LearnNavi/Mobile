@@ -65,7 +65,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Default-568h@2x.png</string>
+									<string key="NSResourceName">HomeScreenBackground-iPhone5.png</string>
 								</object>
 							</object>
 							<object class="IBUILabel" id="951363760">
@@ -557,7 +557,7 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>Default-568h@2x.png</string>
+				<string>HomeScreenBackground-iPhone5.png</string>
 				<string>dictionaryButton.png</string>
 				<string>dictionaryButton_highlighted.png</string>
 				<string>naviLanguage.png</string>

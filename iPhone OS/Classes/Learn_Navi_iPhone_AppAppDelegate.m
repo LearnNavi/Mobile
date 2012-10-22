@@ -360,7 +360,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 	{
 		NSLog(@"Yes");
 		[self startUpdate:self];
-		
 	}
 	else
 	{
@@ -369,8 +368,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)startUpdate:(id)sender {
-	loadingView =
-	[LoadingView loadingViewInView:[self window]];
+	loadingView = [LoadingView loadingViewInView:[self window]];
 	[self performSelectorInBackground:@selector(updateDatabase:) withObject:nil];
     
 }

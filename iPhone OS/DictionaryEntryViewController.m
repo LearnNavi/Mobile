@@ -22,10 +22,8 @@
     return self;
 }
 
-
 - (IBAction)playAudioFile:(id)sender {
 	NSLog(@"Play File");
-	
 }
 
 - (void)viewDidAppear:(BOOL)animated {

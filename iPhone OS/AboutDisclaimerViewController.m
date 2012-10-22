@@ -24,16 +24,27 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [UIView beginAnimations:@"AboutDisclaimer" context:nil];
+    NSString *avc;
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGSize result = [[UIScreen mainScreen] bounds].size;
+        if(result.height == 480)
+        {
+            avc=@"AboutDisclaimer";
+        }
+        if(result.height == 568)
+        {
+            avc=@"AboutDisclaimer-iPhone5";
+        }
+    }
+    
+    [UIView beginAnimations:avc context:nil];
 	[UIView setAnimationDuration:0.5];
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
 	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.navigationController.view cache:YES];
 	[super viewWillAppear:animated];
 	[UIView commitAnimations];
 }
-
-
-
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
@@ -47,7 +58,6 @@
 		[[self versionText] setHidden:YES];
 	}
 }
-
 
 /*
 // Override to allow orientations other than the default portrait orientation.
@@ -80,8 +90,20 @@
 }
 
 - (void)setupAbout {
-	
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"AboutBackground" ofType:@"png"];
+    NSString *path;
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGSize result = [[UIScreen mainScreen] bounds].size;
+        if(result.height == 480)
+        {
+            path = [[NSBundle mainBundle] pathForResource:@"AboutBackground" ofType:@"png"];
+        }
+        if(result.height == 568)
+        {
+            path = [[NSBundle mainBundle] pathForResource:@"AboutBackground-iPhone5" ofType:@"png"];
+        }
+    }
+    
 	[bg_image setImage:[UIImage imageWithContentsOfFile:path]];
 	NSLog(@"Path: %@",path);
 	[contentText setText:@"Learn Na'vi was created by Seze Ngrr from the Learn Na'vi online community.  It was created for the online community as a reference and learning tool.  Special thanks goes to Taronyu and Tuiq for providing the dictionary content and all the members from the Learn Na'vi online community that helped with the development process..."];
@@ -89,8 +111,20 @@
 }
 
 - (void)setupDisclaimer {
+    NSString *path;
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGSize result = [[UIScreen mainScreen] bounds].size;
+        if(result.height == 480)
+        {
+            path = [[NSBundle mainBundle] pathForResource:@"DisclaimerBackground" ofType:@"png"];
+        }
+        if(result.height == 568)
+        {
+            path = [[NSBundle mainBundle] pathForResource:@"DisclaimerBackground-iPhone5" ofType:@"png"];
+        }
+    }
 
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"DisclaimerBackground" ofType:@"png"];
 	[bg_image setImage:[UIImage imageWithContentsOfFile:path]];
 	NSLog(@"Path: %@",path);
 	[contentText setText:@"The Na'vi language was created by Paul Frommer. Much of the information displayed in this App was written by Prof. Frommer and is presented here for educational purposes only. Learn Na'vi is not affiliated with the official Avatar website, James Cameron, or the Twentieth Century-Fox Film Corporation. All trademarks and servicemarks are the properties of their respective owners."];
