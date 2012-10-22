@@ -74,7 +74,6 @@
 
 - (void)dealloc {
 	[navController release];
-	
     [super dealloc];
 }
 
@@ -82,7 +81,9 @@
 	
 	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 	NSString *mode = [prefs stringForKey:@"dictionary_language"];
-	BOOL currentMode;
+    NSString *avc;
+	
+    BOOL currentMode;
 	if([mode compare:@"navi"] == 0){
 		currentMode = YES;
 	} else if([mode compare:@"english"] == 0){
@@ -91,8 +92,23 @@
 		NSLog(@"Unknown mode: %@", mode);
 		currentMode = YES;
 	}
+    
+
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGSize result = [[UIScreen mainScreen] bounds].size;
+        if(result.height == 480)
+        {
+            avc=@"DictionaryTable";
+        }
+        if(result.height == 568)
+        {
+            avc=@"DictionaryTable-iPhone5";
+        }
+    }
+    
 	if([self dictionaryTableViewController] == nil) {
-		dictionaryTableViewController = [[DictionaryTableViewController alloc] initWithNibName:@"DictionaryTable" bundle:[NSBundle mainBundle]];
+		dictionaryTableViewController = [[DictionaryTableViewController alloc] initWithNibName:avc bundle:[NSBundle mainBundle]];
 		if(currentMode){
 			self.navigationItem.backBarButtonItem =
 			[[UIBarButtonItem alloc] initWithTitle:@"Kelutral"
@@ -109,32 +125,34 @@
 		}
 	}	
 	
-	
-	
 	[[self navController] pushViewController:dictionaryTableViewController animated:YES];
-	
 }
 
 - (IBAction) launchPhraseBook:(id)sender {
-	
-	
 	NSLog(@"Start the Phrase Book");
-	
 }
 
 - (IBAction) launchPractice:(id)sender {
-	
-	
 	NSLog(@"Start the Practice");
-	
 }
 
 - (IBAction) launchNaviLanguage:(id)sender {
-	
-	
+    NSString *avc;
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGSize result = [[UIScreen mainScreen] bounds].size;
+        if(result.height == 480)
+        {
+            avc=@"languageGuideViewController";
+        }
+        if(result.height == 568)
+        {
+            avc=@"languageGuideViewController-iPhone5";
+        }
+    }
+    
 	if([self languageGuideController] == nil) {
-		languageGuideController = [[languageGuideViewController alloc] initWithNibName:@"languageGuideViewController" bundle:[NSBundle mainBundle]];
-		
+		languageGuideController = [[languageGuideViewController alloc] initWithNibName:avc bundle:[NSBundle mainBundle]];
 	}
 	
 	[[self navController] pushViewController:languageGuideController animated:YES];
@@ -142,15 +160,26 @@
 }
 
 - (IBAction) launchResources:(id)sender {
-	
+    NSString *avc;
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGSize result = [[UIScreen mainScreen] bounds].size;
+        if(result.height == 480)
+        {
+            avc=@"ResourcesViewController";
+        }
+        if(result.height == 568)
+        {
+            avc=@"ResourcesViewController-iPhone5";
+        }
+    }
 	
 	if([self resources] == nil) {
-		resources = [[ResourcesViewController alloc] initWithNibName:@"ResourcesViewController" bundle:[NSBundle mainBundle]];
+		resources = [[ResourcesViewController alloc] initWithNibName:avc bundle:[NSBundle mainBundle]];
 		
 	}
 	
 	[[self navController] pushViewController:resources animated:YES];
 }
-
-
 @end

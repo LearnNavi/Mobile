@@ -531,7 +531,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DictionaryEntryViewController *detailsViewController = [[DictionaryEntryViewController alloc] initWithNibName:@"DictionaryEntryViewController" bundle:[NSBundle mainBundle]];
+    NSString *avc;
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGSize result = [[UIScreen mainScreen] bounds].size;
+        if(result.height == 480)
+        {
+            avc=@"DictionaryEntryViewController";
+        }
+        if(result.height == 568)
+        {
+            avc=@"DictionaryEntryViewController-iPhone5";
+        }
+    }
+    
+    DictionaryEntryViewController *detailsViewController = [[DictionaryEntryViewController alloc] initWithNibName:avc bundle:[NSBundle mainBundle]];
 
     
 	/*
@@ -889,7 +903,6 @@
 	// Release the compiled statement from memory
 	sqlite3_finalize(compiledStatement);
 		
-	
 	//NSLog(@"Query: %@", queryString);
 	return entry;
 	
@@ -987,10 +1000,7 @@
 	// Release the compiled statement from memory
 	sqlite3_finalize(compiledStatement);
 	
-	
-	
 	return entry;
-	
 }
 
 -(void) readEntriesFromDatabase {
@@ -1002,10 +1012,8 @@
 	
 	// Init the animals Array
 	indexCounts = [[NSMutableDictionary alloc] init];
-	// Open the database from the users filessytem
 	
-		
-		
+    // Open the database from the users filessytem
 	NSMutableArray *contentIndex = [[NSMutableArray alloc] init];
 	NSMutableArray *contentIndexMod = [[NSMutableArray alloc] init]; 
 	
@@ -1043,10 +1051,6 @@
 	
 	dictionaryContentIndex = contentIndex;
 	dictionaryContentIndexMod = contentIndexMod;
-	
-	
-	
-	
 }
 
 -(void) readSearchEntriesFromDatabase {
@@ -1099,10 +1103,6 @@
 	
 	dictionarySearchContentIndex = contentIndex;
 	dictionarySearchContentIndexMod = contentIndexMod;
-	
-	
-	
-	
 }
 
 

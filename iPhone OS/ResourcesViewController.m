@@ -89,17 +89,43 @@
 }
 
 - (IBAction)disclaimer:(id)sender {
-	
+    NSString *avc;
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGSize result = [[UIScreen mainScreen] bounds].size;
+        if(result.height == 480)
+        {
+            avc=@"AboutDisclaimerViewController";
+        }
+        if(result.height == 568)
+        {
+            avc=@"AboutDisclaimerViewController-iPhone5";
+        }
+    }
+    
 	if([self disclaimer] == nil) {
-		disclaimer = [[AboutDisclaimerViewController alloc] initWithNibName:@"AboutDisclaimerViewController" bundle:[NSBundle mainBundle] type:NO];
+		disclaimer = [[AboutDisclaimerViewController alloc] initWithNibName:avc bundle:[NSBundle mainBundle] type:NO];
 	}
 	shouldAnimate = YES;
 	[[self navigationController] pushViewController:disclaimer animated:NO];
 }
 
 - (IBAction)about:(id)sender {
+    NSString *avc;
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGSize result = [[UIScreen mainScreen] bounds].size;
+        if(result.height == 480)
+        {
+            avc=@"AboutDisclaimerViewController";
+        }
+        if(result.height == 568)
+        {
+            avc=@"AboutDisclaimerViewController-iPhone5";
+        }
+    }
 	if([self about] == nil) {
-		about = [[AboutDisclaimerViewController alloc] initWithNibName:@"AboutDisclaimerViewController" bundle:[NSBundle mainBundle] type:YES];
+		about = [[AboutDisclaimerViewController alloc] initWithNibName:avc bundle:[NSBundle mainBundle] type:YES];
 	}
 	shouldAnimate = YES;
 	[[self navigationController] pushViewController:about animated:NO];
