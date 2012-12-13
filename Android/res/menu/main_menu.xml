@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
-  xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:icon="@android:drawable/ic_menu_info_details" android:id="@+id/AppInfo" android:title="@string/AppInfo"/>
-<item android:id="@+id/Preferences" android:icon="@android:drawable/ic_menu_preferences" android:title="@string/MenuPreferences"></item>
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<item
+		android:id="@+id/Search"
+		android:title="@string/MenuSearch"
+		android:icon="@android:drawable/ic_menu_search"/>
+	<item
+		android:icon="@android:drawable/ic_menu_info_details"
+		android:id="@+id/AppInfo"
+		android:title="@string/AppInfo"/>
+	<item
+		android:id="@+id/Preferences"
+		android:icon="@android:drawable/ic_menu_preferences" 
+		android:title="@string/MenuPreferences"/>
 </menu>
