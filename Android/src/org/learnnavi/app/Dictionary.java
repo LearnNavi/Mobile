@@ -24,11 +24,19 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.net.Uri;
+/*import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.content.pm.ActivityInfo;
+import android.content.Context;
+import android.content.res.Configuration;*/
 
 public class Dictionary extends ListActivity implements OnClickListener, OnItemSelectedListener {
 	private final int ENTRY_DIALOG = 100; 
 	
 	static private Button mToNaviButton;
+	//static private Button mSearchButton;
 	static private String mCurSearch;
 	static private String mCurSearchNavi;
 	
@@ -57,9 +65,16 @@ public class Dictionary extends ListActivity implements OnClickListener, OnItemS
         // Setup the handler for clicking the dictionary direction button
         mToNaviButton = (Button)findViewById(R.id.DictionaryType);
         mToNaviButton.setOnClickListener(this);
+		
+		/*// Setup handler for clicking the search button
+		mSearchButton = (Button)findViewById(R.id.SearchButton);
+		mSearchButton.setOnClickListener(this);*/
         
         // Callback to reload the list on part of speech filter change - this will be called before the activity is done loading
     	Spinner s = (Spinner)findViewById(R.id.Spinner01);
+		ArrayAdapter <CharSequence> mySpinnerArrayAdapter = ArrayAdapter.createFromResource(this, R.array.partsOfSpeech, R.layout.spinnerrow);
+		mySpinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		s.setAdapter(mySpinnerArrayAdapter);
     	s.setOnItemSelectedListener(this);
 
         // Check if this was created as the result of a search (Shouldn't happen currently)
@@ -68,6 +83,19 @@ public class Dictionary extends ListActivity implements OnClickListener, OnItemS
         // Open the DB
 	    EntryDBAdapter.getInstance(this).openDataBase();
 	    mDbIsOpen = true;
+		
+		/*//Auto Rotate Locky thingy
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		if(prefs.getBoolean("auto_rotate", false)){
+			//this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			//this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+			if(! isTablet(this))
+				this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			else
+				this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);	
+		}//else{
+			//this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+		//}*/
 	    
 	    // Check if there is saved state and restore it if so
 	    if (savedInstanceState != null)
@@ -126,8 +154,24 @@ public class Dictionary extends ListActivity implements OnClickListener, OnItemS
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
+		/*case android.R.id.home:
+			// app icon in action bar clicked; go home 
+			Intent intent = new Intent(this, Kelutral.class); 
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+			startActivity(intent); 
+			return true;*/		
 	    case R.id.Search:
 	    	return onSearchRequested();
+		case R.id.AppInfo:
+			// Place holder menu item
+			Intent newIntent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("http://forum.learnnavi.org/mobile-apps/"));
+			startActivity(newIntent);
+			return true;
+		case R.id.Preferences:
+			newIntent = new Intent(getBaseContext(), Preferences.class);
+			startActivity(newIntent);
+			return true;	
 	    }
 	    return false;
 	}	
@@ -223,6 +267,21 @@ public class Dictionary extends ListActivity implements OnClickListener, OnItemS
     	case 5:
     		partOfSpeech = EntryDBAdapter.FILTER_ADV;
     		break;
+		case 6:
+			partOfSpeech = EntryDBAdapter.FILTER_ADP;
+			break;
+		case 7:
+			partOfSpeech = EntryDBAdapter.FILTER_CONJ;
+			break;
+		case 8:
+			partOfSpeech = EntryDBAdapter.FILTER_PART;
+			break;
+		case 9:
+			partOfSpeech = EntryDBAdapter.FILTER_INTJ;
+			break;
+		case 10:
+			partOfSpeech = EntryDBAdapter.FILTER_INTER;
+			break;
     	}
     	
 		Button cancel = (Button)findViewById(R.id.CancelSearch);
@@ -419,6 +478,11 @@ public class Dictionary extends ListActivity implements OnClickListener, OnItemS
 			this.dismissDialog(ENTRY_DIALOG);
 			return;
 		}
+		/*else if (v.getId() == R.id.SearchButton)
+		{
+			onSearchRequested();
+			return;
+		}*/
 		else if (v.getId() == R.id.CancelSearch)
 		{
 			setCurSearch(null);
@@ -452,4 +516,11 @@ public class Dictionary extends ListActivity implements OnClickListener, OnItemS
 	public void onNothingSelected(AdapterView<?> arg0) {
 		// Do nothing
 	}
+	
+/*	public boolean isTablet(Context context){
+		boolean xlarge = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4); 
+		boolean large = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE); 
+		return (xlarge || large); 
+	}*/
+
 }
