@@ -32,10 +32,10 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     public static final String KEY_LETTER = "letter";
     public static final String KEY_PART = "part_of_speech";
 
-    // Undo Ï->j and ‰->b substitution for the Na'vi word
+    // Undo Ã->j and â€°->b substitution for the Na'vi word
     private static final String QUERY_PART_NAVI_WORD = "metaWords.navi";
-    // Undo Ï->j and ‰->b substitution for the Na'vi letter
-    private static final String QUERY_PART_NAVI_LETTER = "replace(replace(metaWords.alpha, 'B', 'Ä'), 'J', 'Ì')";
+    // Undo Ã->j and â€°->b substitution for the Na'vi letter
+    private static final String QUERY_PART_NAVI_LETTER = "replace(replace(metaWords.alpha, 'B', 'Ã„'), 'J', 'ÃŒ')";
     
     // Basic query by Na'vi word
     private static final String QUERY_PART_NAVI_START = "SELECT metaWords.id AS _id, " + QUERY_PART_NAVI_WORD + " AS word, " + QUERY_PART_NAVI_LETTER + " AS letter, localizedWords.localized AS definition FROM localizedWords JOIN metaWords ON (localizedWords.id = metaWords.id) WHERE localizedWords.languageCode = ? ";
@@ -76,7 +76,12 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     public static final String FILTER_VERB = "(metaWords.partOfSpeech LIKE '%^sv%' OR metaWords.partOfSpeech LIKE '%^v%') ";
     public static final String FILTER_ADJ = "(metaWords.partOfSpeech LIKE '%^adj.^%') ";
     public static final String FILTER_ADV = "(metaWords.partOfSpeech LIKE '%^adv.^%') ";
-    
+	public static final String FILTER_ADP = "(metaWords.partOfSpeech LIKE '%^adp.^%') ";
+    public static final String FILTER_CONJ = "(metaWords.partOfSpeech LIKE '%^conj.^%') ";
+	public static final String FILTER_PART = "(metaWords.partOfSpeech LIKE '%^part.^%') ";
+	public static final String FILTER_INTJ = "(metaWords.partOfSpeech LIKE '%^intj.^%')";
+	public static final String FILTER_INTER = "(metaWords.partOfSpeech LIKE '%^inter.^%')";
+	
     // Construct a query from the parts for the desired result
     private static String createQuery(boolean queryNavi, boolean queryLetter, boolean queryFilter, String queryPOS)
     {
@@ -268,7 +273,7 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     // Change passed in text into an appropriate DB filter string
     private String fixFilterString(String filter)
     {
-    	return "%" + filter.toLowerCase().replace('‰', 'b').replace('Ï', 'j') + "%";
+    	return "%" + filter.toLowerCase().replace('â€°', 'b').replace('Ã', 'j') + "%";
     }
 
     // Perform full or filtered query, null filter returns full query
