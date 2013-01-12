@@ -138,7 +138,7 @@
 
 - (NSString *)bundleShortVersionString {
 	return [[[NSBundle mainBundle] infoDictionary]
-			valueForKey:@"SVN_Version"];
+			valueForKey:@"CFBundleShortVersionString"];
 }
 
 - (NSString *)versionString {
