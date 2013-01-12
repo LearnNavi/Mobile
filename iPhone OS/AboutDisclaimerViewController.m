@@ -133,12 +133,12 @@
 
 - (NSString *)bundleVersionNumber {
 	return [[[NSBundle mainBundle] infoDictionary]
-			valueForKey:@"CFBundleVersion"];
+			valueForKey:@"CFBundleShortVersionString"];
 }
 
 - (NSString *)bundleShortVersionString {
 	return [[[NSBundle mainBundle] infoDictionary]
-			valueForKey:@"CFBundleShortVersionString"];
+			valueForKey:@"CFBundleVersion"];
 }
 
 - (NSString *)versionString {
