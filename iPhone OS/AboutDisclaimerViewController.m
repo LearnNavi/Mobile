@@ -133,12 +133,12 @@
 
 - (NSString *)bundleVersionNumber {
 	return [[[NSBundle mainBundle] infoDictionary]
-			valueForKey:@"CFBundleShortVersionString"];
+			valueForKey:@"CFBundleVersion"];
 }
 
 - (NSString *)bundleShortVersionString {
-	return [[[NSBundle mainBundle] infoDictionary]
-			valueForKey:@"CFBundleVersion"];
+	return [[[[NSBundle mainBundle] infoDictionary]
+			valueForKey:@"SVN_Version"] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
 }
 
 - (NSString *)versionString {
@@ -150,6 +150,7 @@
 	//	[prefs setObject:@"0" forKey:@"database_pre-update_version"];
 	//}
 	//return [NSString stringWithFormat:@"Version %@ (%@-%@-%@)",[self bundleVersionNumber], [self bundleShortVersionString], dictionary_version, dictionary_preupdate_version];
+    NSLog(@"VersionString: [%@]",[self bundleShortVersionString]);
 	return [NSString stringWithFormat:@"Version %@ (%@)",[self bundleVersionNumber], [self bundleShortVersionString]];//, [self bundleShortVersionString], dictionary_version, dictionary_preupdate_version];
 	
 }
