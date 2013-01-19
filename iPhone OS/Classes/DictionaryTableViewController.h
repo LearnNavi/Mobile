@@ -44,27 +44,30 @@
 @property (nonatomic, retain) UIViewController *viewController;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
 @property (nonatomic, retain) NSString *query, *queryIndex, *querySearch, *querySearchIndex, *databasePath, *search_term;
-
 @property (nonatomic, copy) NSString *savedSearchTerm;
 @property (nonatomic) NSInteger savedScopeButtonIndex;
 @property (nonatomic) BOOL searchWasActive;
 @property (nonatomic) BOOL currentMode;
+@property (nonatomic,retain) IBOutlet UISearchBar *searchBar;
 
 - (void) loadData;
-
 - (void) addViewController:(UIViewController *)controller;
 - (UITableViewCell *) getCellContentView:(NSString *)cellIdentifier;
-
 - (IBAction) swapDictionaryMode:(id)sender;
-
 - (IBAction) filterDictionary:(id)sender;
-
 -(void) readEntriesFromDatabase;
-
 - (DictionaryEntry *) readEntryFromDatabase:(NSString *)alpha row:(int)row;
 - (DictionaryEntry *) searchEntryFromDatabase:(NSString *)search row:(int)row;
 - (DictionaryEntry *) readSearchEntryFromDatabase:(NSString *)alpha row:(int)row;
 - (void) readSearchEntriesFromDatabase;
 - (NSString *)convertStringFromDatabase:(NSString *)string;
 - (NSString *)convertStringToDatabase:(NSString *)string;
+
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar;
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar;
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar;
+- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller;
+- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller;
+- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller;
+- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller;
 @end

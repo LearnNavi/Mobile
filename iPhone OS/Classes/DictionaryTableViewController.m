@@ -55,9 +55,6 @@
 	[self loadData];
 	[self readEntriesFromDatabase];
 	
-	//self.title = @"Products";
-	
-	
 	// create a filtered list that will contain products for the search results table.
 	//self.filteredDictionaryContent = [NSMutableArray arrayWithCapacity:10];
 	
@@ -107,11 +104,6 @@
 	UIBarButtonItem *modalBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:modalViewButton];
 	self.navigationItem.rightBarButtonItem = modalBarButtonItem;
 	[modalBarButtonItem release];
-    
-    //[self.searchDisplayController.searchBar setAlpha:0.0F];
-	
-	//self.navigationItem.rightBarButtonItem = 
-	//[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Refresh.png"] style:UIBarButtonItemStylePlain target:nil action:nil];
 }
 
 - (IBAction) filterDictionary:(id)sender {
@@ -430,26 +422,17 @@
 	{
 		//---get the letter in the current section---
 		NSString *alphabet = [dictionarySearchContentIndex objectAtIndex:[indexPath section]];
-		
-		
 		entry = [self readSearchEntryFromDatabase:alphabet row:indexPath.row];
     }
 	else
 	{
-        
-		
 		//---get the letter in the current section---
 		NSString *alphabet = [dictionaryContentIndex objectAtIndex:[indexPath section]];
-		
-		
-		
 		entry = [self readEntryFromDatabase:alphabet row:indexPath.row];
-		
     }
+    
 	UILabel *lblTemp1 = (UILabel *)[cell viewWithTag:1];
-	
 	UILabel *lblTemp2 = (UILabel *)[cell viewWithTag:2];
-	
 	UILabel *lblTemp3 = (UILabel *)[cell viewWithTag:3];
 
 	if(currentMode){
@@ -547,7 +530,6 @@
     
     DictionaryEntryViewController *detailsViewController = [[DictionaryEntryViewController alloc] initWithNibName:avc bundle:[NSBundle mainBundle]];
 
-    
 	/*
 	 If the requesting table view is the search display controller's table view, configure the next view controller using the filtered content, otherwise use the main list.
 	 */
@@ -556,22 +538,15 @@
 	{
         //---get the letter in the current section---
 		NSString *alphabet = [dictionarySearchContentIndex objectAtIndex:[indexPath section]];
-		
 		entry = [self readSearchEntryFromDatabase:alphabet row:indexPath.row];
     }
 	else
 	{
 		//DictionarySection *dictSection = ;
 		//entry = [dictSection.entries objectAtIndex:indexPath.row];
-		
 		//---get the letter in the current section---
 		NSString *alphabet = [dictionaryContentIndex objectAtIndex:[indexPath section]];
-		
-		
-	
 		entry = [self readEntryFromDatabase:alphabet row:indexPath.row];
-		
-		
     }
 	//detailsViewController.title = entry.entryName;
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -607,11 +582,8 @@
 	 Search the main list for products whose type matches the scope (if selected) and whose name matches searchText; add items that match to the filtered array.
 	 */
 	self.searchDisplayController.searchResultsTableView.rowHeight = 60;
-
 	[self setSearch_term:searchText];
-	
 	[self readSearchEntriesFromDatabase];
-	
 }
 
 //---set the index for the table---
@@ -804,10 +776,7 @@
 	}
 	// Release the compiled statement from memory
 	sqlite3_finalize(compiledStatement);
-	
-	
 	return entry;
-	
 }
 
 - (DictionaryEntry *) readEntryFromDatabase:(NSString *)alpha row:(int)row {
@@ -1091,6 +1060,9 @@
 			//NSLog(@"Query: %@", queryIndex);
 			//NSLog(@"Alpha: %@ Num: %@",aAlpha, aNumber);
 			
+           // DictionaryEntry *entry = [self readSearchEntryFromDatabase]
+            
+            //[content addObject:alpha];
 			[contentIndex addObject:alpha];
 			[contentIndexMod addObject:aAlpha];
 			
@@ -1103,6 +1075,7 @@
 	
 	dictionarySearchContentIndex = contentIndex;
 	dictionarySearchContentIndexMod = contentIndexMod;
+    //dictionarySearchContent =
 }
 
 
@@ -1133,6 +1106,34 @@
 	[dictionaryContent dealloc];
 	 
     [super dealloc];
+}
+
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    NSLog(@"search bar editing begins");
+}
+
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    NSLog(@"search bar editing ends");
+}
+
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    NSLog(@"search bar editing cancelled");
+}
+
+- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+    NSLog(@"search begins");
+}
+
+- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
+    NSLog(@"search ends");
+}
+
+- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
+    NSLog(@"search began");
+}
+
+- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller {
+    NSLog(@"search ended");
 }
 
 
