@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewAnimator 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ViewAnimator01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <!-- Main Page -->
+
+    <RelativeLayout
+        android:id="@+id/MainView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/home_screen_background_landscape"
+        android:orientation="vertical" >
+        <Button
+            android:id="@+id/DictionaryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="2.5dip"
+            android:background="@drawable/dictionary_button_image"
+            android:clickable="true" >
+        </Button>
+        <Button
+            android:id="@+id/ResourcesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/DictionaryButton"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="2.5dip"
+            android:background="@drawable/resources_button_image"
+            android:clickable="true" >
+        </Button>
+        <TextView
+            android:id="@+id/FullVersionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="36dp"
+            android:text="@string/VersionStringBeta"
+            android:textColor="#ff6200" >
+		</TextView>
+    </RelativeLayout> 
+
+    <!-- Resources Page -->
+
+    <LinearLayout
+        android:id="@+id/ResourcesView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/resources_background_landscape"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5">
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5" >
+	        <Button
+	            android:id="@+id/LearnNaviOrgButton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+				android:layout_centerInParent="true"
+	            android:layout_marginBottom="2.5dp"
+	            android:layout_marginTop="2.5dp"
+	            android:background="@drawable/learn_navi_button_image">
+	        </Button>
+	        <Button
+	            android:id="@+id/AboutButton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+				android:layout_above="@id/LearnNaviOrgButton"
+				android:layout_centerHorizontal="true"
+	            android:layout_marginBottom="2.5dp"
+	            android:background="@drawable/about_button_image" >
+	        </Button>
+	        <Button
+	            android:id="@+id/DisclaimerButton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+				android:layout_below="@id/LearnNaviOrgButton"
+				android:layout_centerHorizontal="true"
+	            android:layout_marginBottom="2.5dp"
+	            android:layout_marginTop="2.5dp"
+	            android:background="@drawable/disclaimer_button_image">
+	        </Button>
+	        <Button
+	            android:id="@+id/ReturnFromResourcesButton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/DisclaimerButton"
+	            android:layout_centerHorizontal="true"
+	            android:background="@drawable/return_home_button_image" >
+	        </Button>
+    	</RelativeLayout>
+    </LinearLayout> 
+
+    <!-- About Page -->
+
+    <LinearLayout
+        android:id="@+id/AboutView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/about_background_landscape"
+        android:orientation="horizontal" 
+        android:baselineAligned="false">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/AboutTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+				android:layout_centerInParent="true"
+				android:layout_marginLeft="80dp"
+				android:paddingBottom="2.5dp"
+                android:scrollbars="vertical"
+                android:text="@string/About"
+                android:textColor="#fff"
+                android:textSize="16sp" >
+            </TextView>  
+            <TextView
+                android:id="@+id/DBVersionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:shadowColor="#000"
+                android:shadowDx="1.0"
+                android:shadowDy="1.0"
+                android:shadowRadius="3.0"
+                android:text="@string/DBVersionString"
+                android:textColor="#ffd080"
+                android:textSize="12sp" >
+            </TextView>
+            <TextView
+                android:id="@+id/VersionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@id/DBVersionTextView"
+                android:shadowColor="#000"
+                android:shadowDx="2.0"
+                android:shadowDy="2.0"
+                android:shadowRadius="5.0"
+                android:text="@string/VersionString"
+                android:textColor="#ff6200"
+                android:textSize="22sp"
+                android:textStyle="bold">
+            </TextView>
+            <Button
+                android:id="@+id/ReturnFromAboutButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@id/VersionTextView"
+                android:background="@drawable/return_home_button_image" >
+            </Button>
+        </RelativeLayout>
+        <LinearLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5">          
+        </LinearLayout>       
+    </LinearLayout> 
+
+    <!-- Disclaimer Page -->
+
+    <LinearLayout
+        android:id="@+id/DisclaimerView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/disclaimer_background_landscape"
+        android:orientation="horizontal" 
+        android:baselineAligned="false">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/DisclaimerTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingBottom="2.5dp"
+                android:layout_marginLeft="80dp"
+                android:scrollbars="vertical"
+                android:shadowColor="#000"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="2.0"
+                android:text="@string/Disclaimer"
+                android:textColor="#fff"
+                android:textSize="16sp" >
+            </TextView>
+	        <Button
+	            android:id="@+id/ReturnFromDisclaimerButton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerHorizontal="true"
+	            android:layout_alignParentBottom="true"
+				android:layout_marginBottom="48dp"
+	            android:background="@drawable/return_home_button_image" >
+	        </Button>  
+        </RelativeLayout> 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5">
+        </LinearLayout>
+    </LinearLayout>
+
+</ViewAnimator>

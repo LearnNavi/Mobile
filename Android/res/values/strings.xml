@@ -1,30 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="SkipUpdateCheck">Do not check for an updated word list</string>
-    <string name="DoUpdateCheck">Check for an updated word list every launch</string>
-    <string name="CheckForUpdates">Check for new wordlists</string>
-    <string name="MenuSearch">Search</string>
+
+<string name="MenuSearch">Search</string>
+<string name="MenuPreferences">Preferences</string>
+<string name="AppInfo">App Support</string>	
     
-    <string name="app_name">&quot;Learn Na'vi&quot;</string>
+<string name="app_name">&quot;Learn Na'vi&quot;</string>
+
 <string name="ButtonKelutral">Kelutral</string>
 <string name="no_entries">No entries found.</string>
 <string name="VersionStringBeta">Version $V$ ($S$-$D$)</string>
-<string name="About">Learn Na\'vi was created by Steven Lang aka \&quot;Omängum Fra\'uti\&quot; and Michael Gillogly aka \&quot;Seze\&quot; from the Learn Na\'vi online community.  It was created for the online community as a reference and learning tool.  Special thanks goes to Richard Littauer aka \&quot;Taronyu\&quot; for providing the dictionary content and all the members from the Learn Na\'vi online community that helped with the development process.</string>
+
+<string name="About">Learn Na\'vi Mobile was created by Omängum Fra\'uti and Seze from the Learn Na\'vi online community. Further edits on this Android app by Tirea Aean and Palulukan Maktoyu Ta\'lengean. This app was created as a reference and learning tool for the Na\'vi Language community. Special Thanks to Taronyu and Tuiq for the dictionary and database components and to all members of the community who helped with development.</string>
 <string name="Disclaimer">The Na\'vi language was created by Paul Frommer. Much of the information displayed in this App was written by Prof. Frommer and is presented here for educational purposes only. Learn Na\'vi is not affiliated with the official Avatar website, James Cameron, or the Twentieth Century-Fox Film Corporation. All trademarks and servicemarks are the properties of their respective owners.</string>
+
 <string name="VersionString">Version $V$</string>
 <string name="DBVersionString">Word List Version $D$</string>
+
 <string name="Done">Done</string>
+
 <string name="ToNavi">English / Na\'vi</string>
 <string name="FromNavi">Na\'vi / \'Ìnglìsì</string>
+
 <string name="UpdateAvailable">An updated word list is available, download it now?</string>
 <string name="DownloadingUpdate">Downloading new word list</string>
+
 <string name="SearchHint">Search Na\'vi words</string>
 <string name="CancelSearch">Words containing $F$</string>
-<string name="AppInfo">App Support</string>
+<string name="Search">Search</string>
+
 <string name="UpdateNow">Update Now</string>
 <string name="UpdateNowSummary">Download the latest wordlist now</string>
-<string name="MenuPreferences">Preferences</string>
+<string name="SkipUpdateCheck">Do not check for an updated word list</string>
+<string name="DoUpdateCheck">Check for an updated word list every launch</string>
+<string name="CheckForUpdates">Check for New Wordlists</string>
+
 <string name="NoAutoDownloadOn">Ask Before Downloading</string>
 <string name="NoAutoDownload">Ask Before Updating</string>
 <string name="NoAutoDownloadOff">Download new word lists whenever available</string>
+
+<string name="RotateLockOn">Disable Rotation Lock</string>
+<string name="RotateLockOff">Enable Rotation Lock</string>
+<string name="RotateLock">Lock Screen Rotation in App (Use if experiencing crashes)</string>
+
 </resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+<CheckBoxPreference android:summaryOff="@string/SkipUpdateCheck" android:key="check_update" android:title="@string/CheckForUpdates" android:summaryOn="@string/DoUpdateCheck" android:defaultValue="true" android:disableDependentsState="false"></CheckBoxPreference>
+<CheckBoxPreference android:key="update_ask" android:title="@string/NoAutoDownload" android:summaryOn="@string/NoAutoDownloadOn" android:summaryOff="@string/NoAutoDownloadOff" android:dependency="check_update" android:defaultValue="true"></CheckBoxPreference><Preference android:key="force_update" android:title="@string/UpdateNow" android:persistent="false" android:summary="@string/UpdateNowSummary"></Preference>
+
+
+</PreferenceScreen>
