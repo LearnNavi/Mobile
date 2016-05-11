@@ -32,10 +32,10 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     public static final String KEY_LETTER = "letter";
     public static final String KEY_PART = "part_of_speech";
 
-    // Undo Ã->j and â€°->b substitution for the Na'vi word
+    // Undo ì->j and ä->b substitution for the Na'vi word
     private static final String QUERY_PART_NAVI_WORD = "metaWords.navi";
-    // Undo Ã->j and â€°->b substitution for the Na'vi letter
-    private static final String QUERY_PART_NAVI_LETTER = "replace(replace(metaWords.alpha, 'B', 'Ã„'), 'J', 'ÃŒ')";
+    // Undo ì->j and ä->b substitution for the Na'vi letter
+    private static final String QUERY_PART_NAVI_LETTER = "replace(replace(metaWords.alpha, 'B', 'Ä'), 'J', 'Ì')";
     
     // Basic query by Na'vi word
     private static final String QUERY_PART_NAVI_START = "SELECT metaWords.id AS _id, " + QUERY_PART_NAVI_WORD + " AS word, " + QUERY_PART_NAVI_LETTER + " AS letter, localizedWords.localized AS definition FROM localizedWords JOIN metaWords ON (localizedWords.id = metaWords.id) WHERE localizedWords.languageCode = ? ";
@@ -73,7 +73,12 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     public static final String FILTER_ALL = null;
     public static final String FILTER_NOUN = "(metaWords.partOfSpeech LIKE '%^prop.n.^%' OR metaWords.partOfSpeech LIKE '%^n.^%') ";
     public static final String FILTER_PNOUN = "(metaWords.partOfSpeech LIKE '%^pn.^%') ";
-    public static final String FILTER_VERB = "(metaWords.partOfSpeech LIKE '%^sv%' OR metaWords.partOfSpeech LIKE '%^v%') ";
+    public static final String FILTER_VERB = "(metaWords.partOfSpeech LIKE '%^v.^%') ";
+    public static final String FILTER_VIN = "(metaWords.partOfSpeech LIKE '%^vin.^%') ";
+    public static final String FILTER_VTR = "(metaWords.partOfSpeech LIKE '%^vtr.^%') ";
+    public static final String FILTER_MODAL = "(metaWords.partOfSpeech LIKE '%^vtrm.^%' OR metaWords.partOfSpeech LIKE '%^vim.^%') ";
+    public static final String FILTER_SVIN = "(metaWords.partOfSpeech LIKE '%^svin.^%') ";
+    public static final String FILTER_VERB_SI = "(metaWords.navi LIKE '%si' AND metaWords.partOfSpeech LIKE '%^vin.^%') ";
     public static final String FILTER_ADJ = "(metaWords.partOfSpeech LIKE '%^adj.^%') ";
     public static final String FILTER_ADV = "(metaWords.partOfSpeech LIKE '%^adv.^%') ";
 	public static final String FILTER_ADP = "(metaWords.partOfSpeech LIKE '%^adp.^%') ";
@@ -273,7 +278,7 @@ public class EntryDBAdapter extends SQLiteOpenHelper {
     // Change passed in text into an appropriate DB filter string
     private String fixFilterString(String filter)
     {
-    	return "%" + filter.toLowerCase().replace('â€°', 'b').replace('Ã', 'j') + "%";
+    	return "%" + filter.toLowerCase().replace('�', 'b').replace('�', 'j') + "%";
     }
 
     // Perform full or filtered query, null filter returns full query

@@ -5,6 +5,11 @@
 		<item>Noun</item>
 		<item>Pronoun</item>
 		<item>Verb</item>
+		<item>Transitive Verb</item>
+		<item>Intransitive Verb</item>
+		<item>Stative Verb</item>
+		<item>Modal Verb</item>
+		<item>Si Verb</item>
 		<item>Adjective</item>
 		<item>Adverb</item>
 		<item>Adposition</item>

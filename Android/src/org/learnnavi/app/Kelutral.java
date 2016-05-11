@@ -31,12 +31,19 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
+//import android.content.SharedPreferences;
+//import android.preference.PreferenceManager;
+import android.content.pm.ActivityInfo;
+import android.content.Context;
+import android.content.res.Configuration;
 
-public class Kelutral extends Activity implements OnClickListener, DialogInterface.OnClickListener, DbDownloadWatcher {
-	static public final int UPDATEREQ_DLG = 101;
+public class Kelutral extends Activity implements OnClickListener, 
+	DialogInterface.OnClickListener, DbDownloadWatcher {
+	
+	public static final int UPDATEREQ_DLG = 101;
 	// Really half the duration of the flip
-	static public final int FLIPANIM_SPEED = 500;
-	static public final float FLIPANIM_DEPTH = 0.4f;
+	public static final int FLIPANIM_SPEED = 500;
+	public static final float FLIPANIM_DEPTH = 0.4f;
 	// For detecting fling gestures between screens
     private static final int SWIPE_MIN_DISTANCE = 120;
     private static final int SWIPE_MAX_OFF_PATH = 250;
@@ -71,6 +78,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
         mAnimator = (ViewAnimator)findViewById(R.id.ViewAnimator01);
         mAnimator.setOnTouchListener(mMyGestureDetector);
         mAnimator.setLongClickable(true);
+		
 
         int showindex;
         if (savedInstanceState != null && savedInstanceState.containsKey("CurrentView"))
@@ -115,11 +123,27 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
         mDownloadUpdate = (DownloadUpdate)getLastNonConfigurationInstance();
         if (mDownloadUpdate != null)
         	mDownloadUpdate.reParent(this, this);
+			
+		//Auto Rotate Locky thingy
+		//SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		//if(prefs.getBoolean("auto_rotate", false)){
+			//this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			//this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+			if(! isTablet(this))
+				this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			//else
+				//this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+		//}else{
+			//this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+		//}		
+			
     }
     
     private boolean canCheckForUpdate(Bundle savedInstanceState)
     {
-    	if (savedInstanceState != null && savedInstanceState.containsKey("SkipDBCheck") && savedInstanceState.getBoolean("SkipDBCheck"))
+    	if (savedInstanceState != null 
+			&& savedInstanceState.containsKey("SkipDBCheck") 
+			&& savedInstanceState.getBoolean("SkipDBCheck"))
     		return false;
     	
     	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -220,6 +244,12 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Nothing earth shattering here
 	    switch (item.getItemId()) {
+		case android.R.id.home:
+			// app icon in action bar clicked; go home 
+			Intent intent = new Intent(this, Kelutral.class); 
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+			startActivity(intent); 
+			return true; 	
 	    case R.id.AppInfo:
 	    	// Place holder menu item
 			Intent newIntent = new Intent(Intent.ACTION_VIEW,
@@ -306,6 +336,7 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
         // Set the callback and alpha for the buttons
         setupButton(R.id.ResourcesButton);
         setupButton(R.id.DictionaryButton);
+		//setupButton(R.id.HorenButton);
     }
     
     private void loadResourcesPage()
@@ -474,6 +505,15 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
 			newIntent.setClass(this, Dictionary.class);
 			startActivity(newIntent);
 			break;
+		/*case R.id.HorenButton:
+			if (mAnimator.getDisplayedChild() != mMainIndex)
+				break;
+			// Launch new activity of PDF Viewer
+			Intent newIntentprime = new Intent();
+			newIntentprime.setClass(this, HorenBrowse.class);
+			startActivity(newIntentprime);
+			break;	*/
+		
 		//
 		// Resource view
 		// Presses from any other view is ignored
@@ -667,5 +707,15 @@ public class Kelutral extends Activity implements OnClickListener, DialogInterfa
     			return;
     		}
     	}
+	}
+	
+	public boolean isTablet(Context context){
+		//display is at least 720x960 dp units
+		boolean xlarge = ((context.getResources().getConfiguration().screenLayout 
+			& Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE); //4
+		//display is at least 480x640 dp units
+		boolean large = ((context.getResources().getConfiguration().screenLayout 
+			& Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE); //3
+		return (xlarge || large); 
 	}
 }
