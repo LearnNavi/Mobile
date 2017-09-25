@@ -15,7 +15,7 @@
 
 
 @synthesize dictionaryContent, dictionarySearchContent, dictionaryContentIndex, dictionaryContentIndexMod, dictionarySearchContentIndex, dictionarySearchContentIndexMod, indexCounts, query, queryIndex; 
-@synthesize querySearch, querySearchIndex, search_term, savedSearchTerm, savedScopeButtonIndex, searchWasActive, viewController, segmentedControl, currentMode, databasePath, indexSearchCounts, dictionaryUpdates;
+@synthesize querySearch, querySearchIndex, searchController, search_term, savedSearchTerm, savedScopeButtonIndex, searchWasActive, viewController, segmentedControl, currentMode, databasePath, indexSearchCounts, dictionaryUpdates;
 
 /*
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -35,7 +35,17 @@
 - (void)viewDidLoad {
     
 	//listOfItems = [[NSMutableArray alloc] init];
-	
+    self.searchController = [[UISearchController alloc]     initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.delegate = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    
+    self.searchController.searchBar.delegate = self;
+    
+    self.searchController.searchBar.barTintColor = [UIColor orangeColor];
+    [self.tableView setTableHeaderView:self.searchController.searchBar];
+    self.definesPresentationContext = YES;
+
 	[super viewDidLoad];
 	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 	NSString *mode = [prefs stringForKey:@"dictionary_language"];
@@ -61,9 +71,9 @@
 	// restore search settings if they were saved in didReceiveMemoryWarning.
     if (self.savedSearchTerm)
 	{
-        [self.searchDisplayController setActive:self.searchWasActive];
-        [self.searchDisplayController.searchBar setSelectedScopeButtonIndex:self.savedScopeButtonIndex];
-        [self.searchDisplayController.searchBar setText:savedSearchTerm];
+        [self.searchController setActive:self.searchWasActive];
+        [self.searchController.searchBar setSelectedScopeButtonIndex:self.savedScopeButtonIndex];
+        [self.searchController.searchBar setText:savedSearchTerm];
         
         self.savedSearchTerm = nil;
     }
@@ -229,10 +239,10 @@
 		}
 		
 	}
-	if (self.searchDisplayController.active)
+	if (self.searchController.isActive)
 	{
 		[self readSearchEntriesFromDatabase];
-		[self.searchDisplayController.searchResultsTableView reloadData];
+		[self.tableView reloadData];
 	} else {
 		
 		[self readEntriesFromDatabase];
@@ -256,7 +266,7 @@
 				
 		NSArray *vcs = [[self navigationController] viewControllers];
 		[[[vcs objectAtIndex:0] navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Home"
-																									   style: UIBarButtonItemStyleBordered
+																									   style: UIBarButtonItemStylePlain
 																									  target:nil
 																									  action:nil]];
 		[[self navigationController] setViewControllers:vcs];
@@ -265,7 +275,7 @@
 		[[self navigationItem] setTitle:@"Na'vi > 'ìnglìsì"];
 		NSArray *vcs = [[self navigationController] viewControllers];
 		[[[vcs objectAtIndex:0] navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Kelutral"
-																									  style: UIBarButtonItemStyleBordered
+																									  style: UIBarButtonItemStylePlain
 																									 target:nil
 																									 action:nil]];
 		[[self navigationController] setViewControllers:vcs];
@@ -422,13 +432,13 @@
 	{
 		//---get the letter in the current section---
 		NSString *alphabet = [dictionarySearchContentIndex objectAtIndex:[indexPath section]];
-		entry = [self readSearchEntryFromDatabase:alphabet row:indexPath.row];
+		entry = [self readSearchEntryFromDatabase:alphabet row:(int)indexPath.row];
     }
 	else
 	{
 		//---get the letter in the current section---
 		NSString *alphabet = [dictionaryContentIndex objectAtIndex:[indexPath section]];
-		entry = [self readEntryFromDatabase:alphabet row:indexPath.row];
+		entry = [self readEntryFromDatabase:alphabet row:(int)indexPath.row];
     }
     
 	UILabel *lblTemp1 = (UILabel *)[cell viewWithTag:1];
@@ -443,8 +453,14 @@
 		lblTemp1.text = entry.english_definition;
 	}
 
-	CGSize expectedSize = [[lblTemp1 text] sizeWithFont:[lblTemp1 font] constrainedToSize:CGSizeMake(290, 25) lineBreakMode:[lblTemp1 lineBreakMode]];
-	
+    //CGSize expectedSize = [[lblTemp1 text] sizeWithFont:[lblTemp1 font] constrainedToSize:CGSizeMake(290, 25) lineBreakMode:[lblTemp1 lineBreakMode]];
+    CGRect textRect = [[lblTemp1 text] boundingRectWithSize:CGSizeMake(290, 25)
+                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                      attributes:@{NSFontAttributeName:[lblTemp1 font]}
+                                         context:nil];
+    
+    CGSize expectedSize = textRect.size;
+    
 
 	[lblTemp1 setFrame:CGRectMake(10, 5, expectedSize.width, 25)];
 	[lblTemp3 setFrame:CGRectMake(20 + expectedSize.width, 5, 290, 25)];
@@ -515,17 +531,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *avc;
-    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    
+    CGSize result = [[UIScreen mainScreen] bounds].size;
+    if(result.height == 480)
     {
-        CGSize result = [[UIScreen mainScreen] bounds].size;
-        if(result.height == 480)
-        {
-            avc=@"DictionaryEntryViewController";
-        }
-        if(result.height == 568)
-        {
-            avc=@"DictionaryEntryViewController-iPhone5";
-        }
+        avc=@"DictionaryEntryViewController";
+    }
+    if(result.height == 568)
+    {
+        avc=@"DictionaryEntryViewController-iPhone5";
     }
     
     DictionaryEntryViewController *detailsViewController = [[DictionaryEntryViewController alloc] initWithNibName:avc bundle:[NSBundle mainBundle]];
@@ -538,7 +552,7 @@
 	{
         //---get the letter in the current section---
 		NSString *alphabet = [dictionarySearchContentIndex objectAtIndex:[indexPath section]];
-		entry = [self readSearchEntryFromDatabase:alphabet row:indexPath.row];
+		entry = [self readSearchEntryFromDatabase:alphabet row:(int)indexPath.row];
     }
 	else
 	{
@@ -546,7 +560,7 @@
 		//entry = [dictSection.entries objectAtIndex:indexPath.row];
 		//---get the letter in the current section---
 		NSString *alphabet = [dictionaryContentIndex objectAtIndex:[indexPath section]];
-		entry = [self readEntryFromDatabase:alphabet row:indexPath.row];
+		entry = [self readEntryFromDatabase:alphabet row:(int)indexPath.row];
     }
 	//detailsViewController.title = entry.entryName;
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -554,7 +568,7 @@
 	//[(DictionaryViewController *)[self viewController] dictionaryEntrySelected:entry];
 	self.navigationItem.backBarButtonItem =
 	[[UIBarButtonItem alloc] initWithTitle:@"Dictionary"
-									 style: UIBarButtonItemStyleBordered
+									 style: UIBarButtonItemStylePlain
 									target:nil
 									action:nil];
 	
@@ -601,7 +615,7 @@
 #pragma mark -
 #pragma mark UISearchDisplayController Delegate Methods
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+- (BOOL)searchDisplayController:(UISearchController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
     [self filterContentForSearchText:searchString scope:
 	 [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
@@ -611,7 +625,7 @@
 }
 
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
+- (BOOL)searchDisplayController:(UISearchController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
 {
     [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:
 	 [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
@@ -1120,19 +1134,19 @@
     NSLog(@"search bar editing cancelled");
 }
 
-- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+- (void)searchDisplayControllerWillBeginSearch:(UISearchController *)controller {
     NSLog(@"search begins");
 }
 
-- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
+- (void)searchDisplayControllerWillEndSearch:(UISearchController *)controller {
     NSLog(@"search ends");
 }
 
-- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
+- (void)searchDisplayControllerDidBeginSearch:(UISearchController *)controller {
     NSLog(@"search began");
 }
 
-- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller {
+- (void)searchDisplayControllerDidEndSearch:(UISearchController *)controller {
     NSLog(@"search ended");
 }
 

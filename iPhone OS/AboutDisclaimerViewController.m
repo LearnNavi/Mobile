@@ -25,17 +25,15 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     NSString *avc;
-    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    
+    CGSize result = [[UIScreen mainScreen] bounds].size;
+    if(result.height == 480)
     {
-        CGSize result = [[UIScreen mainScreen] bounds].size;
-        if(result.height == 480)
-        {
-            avc=@"AboutDisclaimer";
-        }
-        if(result.height == 568)
-        {
-            avc=@"AboutDisclaimer-iPhone5";
-        }
+        avc=@"AboutDisclaimer";
+    }
+    if(result.height == 568)
+    {
+        avc=@"AboutDisclaimer-iPhone5";
     }
     
     [UIView beginAnimations:avc context:nil];
@@ -91,17 +89,15 @@
 
 - (void)setupAbout {
     NSString *path;
-    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    
+    CGSize result = [[UIScreen mainScreen] bounds].size;
+    if(result.height == 480)
     {
-        CGSize result = [[UIScreen mainScreen] bounds].size;
-        if(result.height == 480)
-        {
-            path = [[NSBundle mainBundle] pathForResource:@"AboutBackground" ofType:@"png"];
-        }
-        if(result.height == 568)
-        {
-            path = [[NSBundle mainBundle] pathForResource:@"AboutBackground-iPhone5" ofType:@"png"];
-        }
+        path = [[NSBundle mainBundle] pathForResource:@"AboutBackground" ofType:@"png"];
+    }
+    if(result.height == 568)
+    {
+        path = [[NSBundle mainBundle] pathForResource:@"AboutBackground-iPhone5" ofType:@"png"];
     }
     
 	[bg_image setImage:[UIImage imageWithContentsOfFile:path]];
@@ -112,18 +108,17 @@
 
 - (void)setupDisclaimer {
     NSString *path;
-    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    
+    CGSize result = [[UIScreen mainScreen] bounds].size;
+    if(result.height == 480)
     {
-        CGSize result = [[UIScreen mainScreen] bounds].size;
-        if(result.height == 480)
-        {
-            path = [[NSBundle mainBundle] pathForResource:@"DisclaimerBackground" ofType:@"png"];
-        }
-        if(result.height == 568)
-        {
-            path = [[NSBundle mainBundle] pathForResource:@"DisclaimerBackground-iPhone5" ofType:@"png"];
-        }
+        path = [[NSBundle mainBundle] pathForResource:@"DisclaimerBackground" ofType:@"png"];
     }
+    if(result.height == 568)
+    {
+        path = [[NSBundle mainBundle] pathForResource:@"DisclaimerBackground-iPhone5" ofType:@"png"];
+    }
+    
 
 	[bg_image setImage:[UIImage imageWithContentsOfFile:path]];
 	NSLog(@"Path: %@",path);

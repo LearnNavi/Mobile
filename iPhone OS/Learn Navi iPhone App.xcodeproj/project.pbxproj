@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -326,80 +326,80 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7B094E0A1634D0880031A7F6 /* DisclaimerBackground-iPhone5.png */,
 				7B094E041634B87A0031A7F6 /* AboutBackground-iPhone5.png */,
-				7B094E051634B87A0031A7F6 /* AboutDisclaimerBackground-iPhone5.png */,
-				7B094E061634B87A0031A7F6 /* ResourcesBackground-iPhone5.png */,
-				7B02DD7C163454F5008B7E31 /* icon-retina.png */,
-				7B02DD7A16345395008B7E31 /* Icon.png */,
-				7B0C5CEA160C8A36004A34B0 /* Default-568h@2x.png */,
-				7B094DF71634B1710031A7F6 /* HomeScreenBackground-iPhone5.png */,
-				7B2DAE2116264BE3006F5C6D /* AppViewController-iPhone5.xib */,
-				7B094DFA1634B3860031A7F6 /* AboutDisclaimerViewController-iPhone5.xib */,
-				7B094DFB1634B3860031A7F6 /* DictionaryEntryViewController-iPhone5.xib */,
-				7B094DFC1634B3860031A7F6 /* DictionaryTable-iPhone5.xib */,
-				7B094DFD1634B3870031A7F6 /* languageGuideViewController-iPhone5.xib */,
-				7B094DFE1634B3870031A7F6 /* ResourcesViewController-iPhone5.xib */,
-				045EFB9E125DA5860017E9CA /* Refresh@2x.png */,
-				04DA7CD4125DA3F000256384 /* aboutButton_highlighted@2x.png */,
-				04DA7CD5125DA3F000256384 /* aboutButton@2x.png */,
-				04DA7CD6125DA3F000256384 /* Default@2x.png */,
-				04DA7CD7125DA3F000256384 /* dictionaryButton_highlighted@2x.png */,
-				04DA7CD8125DA3F000256384 /* dictionaryButton@2x.png */,
-				04DA7CD9125DA3F000256384 /* disclaimerButton_highlighted@2x.png */,
-				04DA7CDA125DA3F000256384 /* disclaimerButton@2x.png */,
-				04DA7CDB125DA3F000256384 /* learnNaviButton_highlighted@2x.png */,
-				04DA7CDC125DA3F000256384 /* learnNaviButton@2x.png */,
-				04DA7CDD125DA3F000256384 /* resourcesButton_highlighted@2x.png */,
-				04DA7CDE125DA3F000256384 /* resourcesButton@2x.png */,
-				04DA7CDF125DA3F000256384 /* returnHomeButton_highlighted@2x.png */,
-				04DA7CE0125DA3F000256384 /* returnHomeButton@2x.png */,
-				04DA7CC6125D983300256384 /* AboutBackground@2x.png */,
-				04DA7CC7125D983300256384 /* DisclaimerBackground@2x.png */,
-				04DA7CC8125D983300256384 /* HomeScreenBackground@2x.png */,
-				04DA7CC9125D983300256384 /* ResourcesBackground@2x.png */,
-				047F25831246DDE70096D898 /* database.sqlite */,
 				0415E92A11A9809900F03229 /* AboutBackground.png */,
-				0415E92B11A9809900F03229 /* DisclaimerBackground.png */,
-				0415E90011A8ECDD00F03229 /* EntryBackground.png */,
-				04DE2046119F5329004093C8 /* updateDictionaryButton_highlighted.png */,
-				04DE2047119F5329004093C8 /* updateDictionaryButton.png */,
-				0430438B118CE99E00267527 /* Settings.bundle */,
+				04DA7CC6125D983300256384 /* AboutBackground@2x.png */,
+				0427A1FA112FF0A500307E3F /* aboutButton_highlighted.png */,
+				04DA7CD4125DA3F000256384 /* aboutButton_highlighted@2x.png */,
+				0427A1FB112FF0A500307E3F /* aboutButton.png */,
+				04DA7CD5125DA3F000256384 /* aboutButton@2x.png */,
+				7B094E051634B87A0031A7F6 /* AboutDisclaimerBackground-iPhone5.png */,
+				0427A1D8112FECF600307E3F /* AboutDisclaimerBackground.png */,
+				7B094DFA1634B3860031A7F6 /* AboutDisclaimerViewController-iPhone5.xib */,
+				0427A1CF112FEC9600307E3F /* AboutDisclaimerViewController.xib */,
+				7B2DAE2116264BE3006F5C6D /* AppViewController-iPhone5.xib */,
+				0443E8651107D9D000CEAB58 /* AppViewController.xib */,
+				047F25831246DDE70096D898 /* database.sqlite */,
+				7B0C5CEA160C8A36004A34B0 /* Default-568h@2x.png */,
+				047B448A10FB7B07007B9236 /* Default.png */,
+				04DA7CD6125DA3F000256384 /* Default@2x.png */,
 				04304144118C5AC900267527 /* dictionary.sqlite */,
+				041A66F21103795B0009CEC2 /* dictionaryButton_highlighted.png */,
+				04DA7CD7125DA3F000256384 /* dictionaryButton_highlighted@2x.png */,
+				041A66EE110377380009CEC2 /* dictionaryButton.png */,
+				04DA7CD8125DA3F000256384 /* dictionaryButton@2x.png */,
+				7B094DFB1634B3860031A7F6 /* DictionaryEntryViewController-iPhone5.xib */,
+				0443EFBB110D11B600CEAB58 /* DictionaryEntryViewController.xib */,
+				7B094DFC1634B3860031A7F6 /* DictionaryTable-iPhone5.xib */,
+				0443E9A61107F9A700CEAB58 /* DictionaryTable.xib */,
+				7B094E0A1634D0880031A7F6 /* DisclaimerBackground-iPhone5.png */,
+				0415E92B11A9809900F03229 /* DisclaimerBackground.png */,
+				04DA7CC7125D983300256384 /* DisclaimerBackground@2x.png */,
+				0427A1FD112FF0A500307E3F /* disclaimerButton_highlighted.png */,
+				04DA7CD9125DA3F000256384 /* disclaimerButton_highlighted@2x.png */,
+				0427A1FE112FF0A500307E3F /* disclaimerButton.png */,
+				04DA7CDA125DA3F000256384 /* disclaimerButton@2x.png */,
+				04C40DED10FCF184001251C2 /* dist.plist */,
+				0415E90011A8ECDD00F03229 /* EntryBackground.png */,
+				04C40F1110FD0B79001251C2 /* essai1.png */,
+				7B094DF71634B1710031A7F6 /* HomeScreenBackground-iPhone5.png */,
+				047B445D10FAFA41007B9236 /* HomeScreenBackground.png */,
+				04DA7CC8125D983300256384 /* HomeScreenBackground@2x.png */,
+				7B02DD7C163454F5008B7E31 /* icon-retina.png */,
+				04C40F3510FD2FA6001251C2 /* icon.png */,
+				7B02DD7A16345395008B7E31 /* Icon.png */,
+				7B094DFD1634B3870031A7F6 /* languageGuideViewController-iPhone5.xib */,
 				0427A9871134EE1E00307E3F /* languageGuideViewController.xib */,
+				8D1107310486CEB800E47090 /* Learn_Navi_iPhone_App-Info.plist */,
+				0427A196112FE62B00307E3F /* learnNaviButton_highlighted.png */,
+				04DA7CDB125DA3F000256384 /* learnNaviButton_highlighted@2x.png */,
+				0427A197112FE62B00307E3F /* learnNaviButton.png */,
+				04DA7CDC125DA3F000256384 /* learnNaviButton@2x.png */,
+				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
 				0427A97C1134ED1A00307E3F /* naviLanguage_highlighted.png */,
 				0427A97D1134ED1A00307E3F /* naviLanguage.png */,
-				0427A1FA112FF0A500307E3F /* aboutButton_highlighted.png */,
-				0427A1FB112FF0A500307E3F /* aboutButton.png */,
-				0427A1FD112FF0A500307E3F /* disclaimerButton_highlighted.png */,
-				0427A1FE112FF0A500307E3F /* disclaimerButton.png */,
-				0427A1D8112FECF600307E3F /* AboutDisclaimerBackground.png */,
-				0427A1CF112FEC9600307E3F /* AboutDisclaimerViewController.xib */,
-				0427A1A9112FE85D00307E3F /* returnHomeButton_highlighted.png */,
-				0427A1A2112FE7F700307E3F /* returnHomeButton.png */,
-				0427A196112FE62B00307E3F /* learnNaviButton_highlighted.png */,
-				0427A197112FE62B00307E3F /* learnNaviButton.png */,
-				0427A190112FE4CC00307E3F /* ResourcesBackground.png */,
-				0427A16A112FE06500307E3F /* ResourcesViewController.xib */,
-				0427A15B112FDF2000307E3F /* resourcesButton_highlighted.png */,
-				0427A15C112FDF2000307E3F /* resourcesButton.png */,
-				8D1107310486CEB800E47090 /* Learn_Navi_iPhone_App-Info.plist */,
-				0443F202110E5ED100CEAB58 /* Refresh.png */,
-				0443EFBB110D11B600CEAB58 /* DictionaryEntryViewController.xib */,
-				04C40DED10FCF184001251C2 /* dist.plist */,
-				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
-				0443E8651107D9D000CEAB58 /* AppViewController.xib */,
-				0443E9A61107F9A700CEAB58 /* DictionaryTable.xib */,
-				041A674D1103855B0009CEC2 /* practiceButton_highlighted.png */,
-				041A674E1103855B0009CEC2 /* practiceButton.png */,
 				041A6747110384890009CEC2 /* phraseBookButton_highlighted.png */,
 				041A6748110384890009CEC2 /* phraseBookButton.png */,
-				041A66F21103795B0009CEC2 /* dictionaryButton_highlighted.png */,
-				041A66EE110377380009CEC2 /* dictionaryButton.png */,
-				04C40F3510FD2FA6001251C2 /* icon.png */,
-				04C40F1110FD0B79001251C2 /* essai1.png */,
-				047B448A10FB7B07007B9236 /* Default.png */,
-				047B445D10FAFA41007B9236 /* HomeScreenBackground.png */,
+				041A674D1103855B0009CEC2 /* practiceButton_highlighted.png */,
+				041A674E1103855B0009CEC2 /* practiceButton.png */,
+				0443F202110E5ED100CEAB58 /* Refresh.png */,
+				045EFB9E125DA5860017E9CA /* Refresh@2x.png */,
+				7B094E061634B87A0031A7F6 /* ResourcesBackground-iPhone5.png */,
+				0427A190112FE4CC00307E3F /* ResourcesBackground.png */,
+				04DA7CC9125D983300256384 /* ResourcesBackground@2x.png */,
+				0427A15B112FDF2000307E3F /* resourcesButton_highlighted.png */,
+				04DA7CDD125DA3F000256384 /* resourcesButton_highlighted@2x.png */,
+				0427A15C112FDF2000307E3F /* resourcesButton.png */,
+				04DA7CDE125DA3F000256384 /* resourcesButton@2x.png */,
+				7B094DFE1634B3870031A7F6 /* ResourcesViewController-iPhone5.xib */,
+				0427A16A112FE06500307E3F /* ResourcesViewController.xib */,
+				0427A1A9112FE85D00307E3F /* returnHomeButton_highlighted.png */,
+				04DA7CDF125DA3F000256384 /* returnHomeButton_highlighted@2x.png */,
+				0427A1A2112FE7F700307E3F /* returnHomeButton.png */,
+				04DA7CE0125DA3F000256384 /* returnHomeButton@2x.png */,
+				0430438B118CE99E00267527 /* Settings.bundle */,
+				04DE2046119F5329004093C8 /* updateDictionaryButton_highlighted.png */,
+				04DE2047119F5329004093C8 /* updateDictionaryButton.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -446,11 +446,16 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "LearnNa'vi.org Community";
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = 5X7KP44M4V;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Learn Navi iPhone App" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -654,14 +659,35 @@
 		04C40DF710FCF243001251C2 /* Beta Build */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Gillogly (MFG7NCM739)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_OUTPUT_FORMAT = xml;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = NO;
@@ -673,19 +699,23 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = 5X7KP44M4V;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Learn_Navi_iPhone_App_Prefix.pch;
 				INFOPLIST_FILE = "Learn_Navi_iPhone_App-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/FlurryLib\"",
-					"\"$(SRCROOT)/FlurryLibWithLocation\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.learnnavi.languageleaningtool;
 				PRODUCT_NAME = "Learn Navi iPhone App";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = "Beta Build";
 		};
@@ -696,20 +726,22 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 5X7KP44M4V;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Learn_Navi_iPhone_App_Prefix.pch;
 				INFOPLIST_FILE = "Learn_Navi_iPhone_App-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/FlurryLib\"",
-					"\"$(SRCROOT)/FlurryLibWithLocation\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.learnnavi.languageleaningtool;
 				PRODUCT_NAME = LearnNaviiPhoneApp;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -717,33 +749,60 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = 5X7KP44M4V;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Learn_Navi_iPhone_App_Prefix.pch;
 				INFOPLIST_FILE = "Learn_Navi_iPhone_App-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/FlurryLib\"",
-					"\"$(SRCROOT)/FlurryLibWithLocation\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.learnnavi.languageleaningtool;
 				PRODUCT_NAME = "Learn Navi iPhone App";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Gillogly (MFG7NCM739)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_OUTPUT_FORMAT = xml;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "";
 				SDKROOT = iphoneos;
 			};
@@ -752,13 +811,34 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Michael Gillogly";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_OUTPUT_FORMAT = xml;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "";
 				SDKROOT = iphoneos;
 			};

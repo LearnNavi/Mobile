@@ -112,13 +112,13 @@
 		if(currentMode){
 			self.navigationItem.backBarButtonItem =
 			[[UIBarButtonItem alloc] initWithTitle:@"Kelutral"
-											 style: UIBarButtonItemStyleBordered
+											 style: UIBarButtonItemStylePlain
 											target:nil
 											action:nil];
 		} else {
 			self.navigationItem.backBarButtonItem =
 			[[UIBarButtonItem alloc] initWithTitle:@"Home"
-											 style: UIBarButtonItemStyleBordered
+											 style: UIBarButtonItemStylePlain
 											target:nil
 											action:nil];
 			

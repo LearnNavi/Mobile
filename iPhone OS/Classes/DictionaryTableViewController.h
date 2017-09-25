@@ -10,7 +10,7 @@
 #import <sqlite3.h>
 #import "DictionaryEntry.h"
 
-@interface DictionaryTableViewController : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate> {
+@interface DictionaryTableViewController : UITableViewController <UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate> {
 	NSMutableArray *dictionaryContent;
 	NSMutableArray *dictionaryContentIndex;
 	NSMutableArray *dictionaryContentIndexMod;
@@ -38,6 +38,7 @@
 	NSString *search_term;
 }
 
+@property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic, retain) NSMutableArray *dictionaryContent, *dictionarySearchContent;
 @property (nonatomic, retain) NSMutableArray *dictionaryContentIndex, *dictionaryContentIndexMod, *dictionarySearchContentIndex, *dictionarySearchContentIndexMod;
 @property (nonatomic, retain) NSMutableDictionary *indexCounts, *indexSearchCounts, *dictionaryUpdates;
@@ -66,8 +67,8 @@
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar;
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar;
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar;
-- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller;
-- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller;
-- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller;
-- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller;
+- (void)searchDisplayControllerWillBeginSearch:(UISearchController *)controller;
+- (void)searchDisplayControllerWillEndSearch:(UISearchController *)controller;
+- (void)searchDisplayControllerDidBeginSearch:(UISearchController *)controller;
+- (void)searchDisplayControllerDidEndSearch:(UISearchController *)controller;
 @end

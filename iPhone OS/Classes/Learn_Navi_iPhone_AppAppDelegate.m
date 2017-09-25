@@ -43,10 +43,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 	}
 	[self checkAndCreateDatabase];
 	
-	// Add registration for remote notifications
-	[[UIApplication sharedApplication]
-	 registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
-	
 	// Clear application badge when app launches
 	application.applicationIconBadgeNumber = 0;
 	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
@@ -100,100 +96,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 }
 
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
-#if !TARGET_IPHONE_SIMULATOR
-	//NSLog(@"%@",devToken);
-	// Get Bundle Info for Remote Registration (handy if you have more than one app)
-	NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
-	NSString *appVersion = [self versionString];
-	
-	// Check what Notifications the user has turned on.  We registered for all three, but they may have manually disabled some or all of them.
-	NSUInteger rntypes = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-	
-	// Set the defaults to disabled unless we find otherwise...
-	NSString *pushBadge = @"disabled";
-	NSString *pushAlert = @"disabled";
-	NSString *pushSound = @"disabled";
-	
-	// Check what Registered Types are turned on. This is a bit tricky since if two are enabled, and one is off, it will return a number 2... not telling you which
-	// one is actually disabled. So we are literally checking to see if rnTypes matches what is turned on, instead of by number. The "tricky" part is that the
-	// single notification types will only match if they are the ONLY one enabled.  Likewise, when we are checking for a pair of notifications, it will only be
-	// true if those two notifications are on.  This is why the code is written this way ;)
-	if(rntypes == UIRemoteNotificationTypeBadge){
-		pushBadge = @"enabled";
-	}
-	else if(rntypes == UIRemoteNotificationTypeAlert){
-		pushAlert = @"enabled";
-	}
-	else if(rntypes == UIRemoteNotificationTypeSound){
-		pushSound = @"enabled";
-	}
-	else if(rntypes == ( UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert)){
-		pushBadge = @"enabled";
-		pushAlert = @"enabled";
-	}
-	else if(rntypes == ( UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)){
-		pushBadge = @"enabled";
-		pushSound = @"enabled";
-	}
-	else if(rntypes == ( UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)){
-		pushAlert = @"enabled";
-		pushSound = @"enabled";
-	}
-	else if(rntypes == ( UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)){
-		pushBadge = @"enabled";
-		pushAlert = @"enabled";
-		pushSound = @"enabled";
-	}
-    
-    //Store database version before update.
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSString *deviceUuid = [prefs objectForKey:@"UUID"];
-    if(deviceUuid == nil){
-        // UUID not set yet
-        CFUUIDRef newUUID = CFUUIDCreate(NULL);
-        deviceUuid = (NSString *)CFUUIDCreateString(NULL, newUUID);
-        CFRelease(newUUID);
-        [prefs setObject:deviceUuid forKey:@"UUID"];
-        [prefs synchronize];
-        NSLog(@"New UUID: %@",deviceUuid);
-    }
-    
-	// Get the users Device Model, Display Name, Unique ID, Token & Version Number
-	UIDevice *dev = [UIDevice currentDevice];
-	
-    NSString *deviceName = dev.name;
-	NSString *deviceModel = dev.model;
-	NSString *deviceSystemVersion = dev.systemVersion;
-	
-	// Prepare the Device Token for Registration (remove spaces and < >)
-	NSString *deviceToken = [[[[devToken description]
-							   stringByReplacingOccurrencesOfString:@"<"withString:@""]
-							  stringByReplacingOccurrencesOfString:@">" withString:@""]
-							 stringByReplacingOccurrencesOfString: @" " withString: @""];
-	
-	// Build URL String for Registration
-	// !!! CHANGE "www.mywebsite.com" TO YOUR WEBSITE. Leave out the http://
-	// !!! SAMPLE: "secure.awesomeapp.com"
-	NSString *host = @"www.learnnaviapp.com";
-	
-	// !!! CHANGE "/apns.php?" TO THE PATH TO WHERE apns.php IS INSTALLED
-	// !!! ( MUST START WITH / AND END WITH ? ).
-	// !!! SAMPLE: "/path/to/apns.php?"
-	NSString *urlString = [NSString stringWithFormat:@"/apns/apns.php?task=%@&appname=%@&appversion=%@&deviceuid=%@&devicetoken=%@&devicename=%@&devicemodel=%@&deviceversion=%@&pushbadge=%@&pushalert=%@&pushsound=%@", @"register", appName,appVersion, deviceUuid, deviceToken, deviceName, deviceModel, deviceSystemVersion, pushBadge, pushAlert, pushSound];
-	
-	// Register the Device Data
-	// !!! CHANGE "http" TO "https" IF YOU ARE USING HTTPS PROTOCOL
-	NSURL *url = [[NSURL alloc] initWithScheme:@"http" host:host path:urlString];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-	[NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-	//returnData;
-	//NSLog(@"Register URL: %@", url);
-	//NSLog(@"Return Data: %@", returnData);
-	
-#endif
-}
 
 /**
  * Failed to Register for Remote Notifications
@@ -317,10 +219,14 @@ void uncaughtExceptionHandler(NSException *exception) {
 	
 	// Check the web for updates to the database, if enabled
 	UIApplication* app = [UIApplication sharedApplication];
-	app.networkActivityIndicatorVisible = YES; // to stop it, set this to NO
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        app.networkActivityIndicatorVisible = YES; // to stop it, set this to NO
+    });
+	
 	
 	NSError *errVersion = [[[NSError alloc] init] autorelease];
-	NSString *versionUrl = [[NSString stringWithFormat:@"http://learnnaviapp.com/database/database.version"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *versionUrl = [[NSString stringWithFormat:@"https://files.learnnavi.org/mobile/database.version"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *versionFile = [NSString stringWithContentsOfURL:[NSURL URLWithString:versionUrl] encoding:NSUTF8StringEncoding error:&errVersion];
     
 	if(errVersion.code != 0) {
@@ -346,7 +252,9 @@ void uncaughtExceptionHandler(NSException *exception) {
 		}
 	}
     
-	app.networkActivityIndicatorVisible = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        app.networkActivityIndicatorVisible = NO; // to stop it, set this to NO
+    });
     
 	[self registerDatabaseInfo:databasePath];
 	[pool release];
@@ -386,7 +294,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 	UIApplication* app = [UIApplication sharedApplication];
 	app.networkActivityIndicatorVisible = YES; // to stop it, set this to NO
 	
-	NSString *databaseUrl = [[NSString stringWithFormat:@"http://learnnaviapp.com/database/database.sqlite"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *databaseUrl = [[NSString stringWithFormat:@"https://files.learnnavi.org/mobile/database.sqlite"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSData *newDatabase = [NSData dataWithContentsOfURL:[NSURL URLWithString:databaseUrl]];
 	
 	if(newDatabase == nil){
