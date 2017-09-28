@@ -91,6 +91,7 @@
 		04DE2049119F5329004093C8 /* updateDictionaryButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DE2047119F5329004093C8 /* updateDictionaryButton.png */; };
 		04DE20B7119F73EA004093C8 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DE20B6119F73EA004093C8 /* LoadingView.m */; };
 		04DE20FA119F750E004093C8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DE20F9119F750E004093C8 /* QuartzCore.framework */; };
+		091CB2151F7C748C00C353EA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 091CB2141F7C748C00C353EA /* Images.xcassets */; };
 		1D3623260D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -203,6 +204,13 @@
 		04DE20B5119F73EA004093C8 /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingView.h; sourceTree = "<group>"; };
 		04DE20B6119F73EA004093C8 /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingView.m; sourceTree = "<group>"; };
 		04DE20F9119F750E004093C8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		091CB2141F7C748C00C353EA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Learn Navi iPhone App/Images.xcassets"; sourceTree = "<group>"; };
+		091CB2171F7C761B00C353EA /* Learn_Navi3-1-150x150-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Learn_Navi3-1-150x150-1.png"; sourceTree = "<group>"; };
+		091CB2181F7C770400C353EA /* Icon_120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_120.png; sourceTree = "<group>"; };
+		091CB2191F7C770400C353EA /* Icon_87.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_87.png; sourceTree = "<group>"; };
+		091CB21A1F7C770400C353EA /* Icon_58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_58.png; sourceTree = "<group>"; };
+		091CB21B1F7C770400C353EA /* Icon_60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_60.png; sourceTree = "<group>"; };
+		091CB21C1F7C770400C353EA /* Icon_40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_40.png; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Learn_Navi_iPhone_AppAppDelegate.h; path = Classes/Learn_Navi_iPhone_AppAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Learn_Navi_iPhone_AppAppDelegate.m; path = Classes/Learn_Navi_iPhone_AppAppDelegate.m; sourceTree = "<group>"; };
@@ -249,14 +257,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		04063A00118DAB7100B96AEF /* PSD Images */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			comments = "This folder should not be included in the actual build of the App";
-			path = "PSD Images";
-			sourceTree = "<group>";
-		};
 		0443EEC5110CAB2700CEAB58 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -302,7 +302,6 @@
 				0443EEC5110CAB2700CEAB58 /* View Controllers */,
 				080E96DDFE201D6D7F000001 /* Models */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
-				04063A00118DAB7100B96AEF /* PSD Images */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -326,6 +325,13 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				091CB21C1F7C770400C353EA /* Icon_40.png */,
+				091CB21A1F7C770400C353EA /* Icon_58.png */,
+				091CB21B1F7C770400C353EA /* Icon_60.png */,
+				091CB2191F7C770400C353EA /* Icon_87.png */,
+				091CB2181F7C770400C353EA /* Icon_120.png */,
+				091CB2171F7C761B00C353EA /* Learn_Navi3-1-150x150-1.png */,
+				091CB2141F7C748C00C353EA /* Images.xcassets */,
 				7B094E041634B87A0031A7F6 /* AboutBackground-iPhone5.png */,
 				0415E92A11A9809900F03229 /* AboutBackground.png */,
 				04DA7CC6125D983300256384 /* AboutBackground@2x.png */,
@@ -481,6 +487,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */,
+				091CB2151F7C748C00C353EA /* Images.xcassets in Resources */,
 				047B445E10FAFA41007B9236 /* HomeScreenBackground.png in Resources */,
 				047B448B10FB7B07007B9236 /* Default.png in Resources */,
 				04C40DEE10FCF184001251C2 /* dist.plist in Resources */,
@@ -698,6 +705,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -723,6 +731,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -749,6 +758,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
