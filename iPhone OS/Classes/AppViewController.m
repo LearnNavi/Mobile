@@ -2,7 +2,7 @@
 //  AppViewController.m
 //  Learn Navi iPhone App
 //
-//  Created by Michael Gillogly on 1/20/10.
+//  Created by Zoë Snow on 1/20/10.
 //  Copyright 2010 LearnNa'vi.org Community. All rights reserved.
 //
 

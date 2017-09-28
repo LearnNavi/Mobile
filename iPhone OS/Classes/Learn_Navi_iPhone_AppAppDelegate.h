@@ -2,7 +2,7 @@
 //  Learn_Navi_iPhone_AppAppDelegate.h
 //  Learn Navi iPhone App
 //
-//  Created by Michael Gillogly on 1/8/10.
+//  Created by Zoë Snow on 1/8/10.
 //  Copyright LearnNa'vi.org Community. 2010. All rights reserved.
 //
 
