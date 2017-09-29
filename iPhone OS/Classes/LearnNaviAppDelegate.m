@@ -1,5 +1,5 @@
 //
-//  Learn_Navi_iPhone_AppAppDelegate.m
+//  LearnNaviAppDelegate.m
 //  Learn Navi iPhone App
 //
 //  Created by Zoë Snow on 1/8/10.
@@ -8,16 +8,16 @@
 
 //#import "Root.h"
 #import "DictionaryTableViewController.h"
-#import "Learn_Navi_iPhone_AppAppDelegate.h"
+#import "LearnNaviAppDelegate.h"
 #import "AppViewController.h"
 #import "LoadingView.h"
 
-@implementation Learn_Navi_iPhone_AppAppDelegate
+@implementation LearnNaviAppDelegate
 
 @synthesize window, appViewController;
 
 +(void)initialize {
-	//[[MMTrackingMgr sharedInstance] startDefaultTracking];
+
 }
 
 void uncaughtExceptionHandler(NSException *exception) {
@@ -35,7 +35,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     
 	// Override point for customization after app launch
 	NSString *filter1 = [[NSUserDefaults standardUserDefaults] stringForKey:@"filter1"];
-	NSString *avc = [[NSString alloc] init];
 	// Note: this will not work for boolean values as noted by bpapa below.
 	// If you use booleans, you should use objectForKey above and check for null
 	if(!filter1) {
@@ -46,47 +45,22 @@ void uncaughtExceptionHandler(NSException *exception) {
 	// Clear application badge when app launches
 	application.applicationIconBadgeNumber = 0;
 	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
-	//Tracking Code
-	
-	//[self launchApp:self];
     
-    theRect = [[self window] frame];
-	theRect = CGRectOffset(theRect, 0.0, 20.0);
+    UINavigationController *rootNavigationController = (UINavigationController *)self.window.rootViewController;
+    AppViewController *appViewController = (AppViewController *)[rootNavigationController topViewController];
 	
-	if(appViewController) {
-		[appViewController.navigationController.view removeFromSuperview];
-		[appViewController release];
-	}
-    
-    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    {
-        CGSize result = [[UIScreen mainScreen] bounds].size;
-        if(result.height == 480)
-        {
-            avc=@"AppViewController";
-        }
-        if(result.height == 568)
-        {
-            avc=@"AppViewController-iPhone5";
-        }
-    }
-
-	appViewController = [[AppViewController alloc] initWithNibName:avc bundle:[NSBundle mainBundle]];
-	appViewController.view.frame = theRect;
-	
-	UINavigationController *thisNavigationController = [[UINavigationController alloc] initWithRootViewController:appViewController];
-	thisNavigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
-	thisNavigationController.toolbar.barStyle = UIBarStyleBlackOpaque;
-	//thisNavigationController.navigationBar.autoresizesSubviews = NO;
-	[thisNavigationController setNavigationBarHidden:YES];
-	appViewController.navController = thisNavigationController;
+	rootNavigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
+	rootNavigationController.toolbar.barStyle = UIBarStyleBlackOpaque;
+	//rootNavigationController.navigationBar.autoresizesSubviews = NO;
+	[rootNavigationController setNavigationBarHidden:YES];
+	appViewController.navController = rootNavigationController;
     if ([window respondsToSelector:@selector(setRootViewController:)]) {
         window.rootViewController = appViewController.navigationController;
     } else {
         [window addSubview:appViewController.navigationController.view];
     }
 	[window addSubview:appViewController.navigationController.view];
-	[window makeKeyAndVisible];
+	//[window makeKeyAndVisible];
     
     [self performSelectorInBackground:@selector(checkDatabaseVersion:) withObject:nil];
 	return YES;

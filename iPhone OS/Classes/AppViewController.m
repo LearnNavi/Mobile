@@ -8,7 +8,6 @@
 
 #import "ResourcesViewController.h"
 #import "DictionaryTableViewController.h"
-#import "languageGuideViewController.h"
 #import "AppViewController.h"
 
 
@@ -16,7 +15,7 @@
 
 @synthesize navController;
 @synthesize betaText;
-@synthesize dictionaryTableViewController, resources, languageGuideController;
+@synthesize dictionaryTableViewController, resources;
 
 - (NSString *)bundleVersionNumber {
 	return [[[NSBundle mainBundle] infoDictionary]
@@ -48,7 +47,7 @@
 	//Update the App version string
 	NSLog(@"%@", [self versionString]);
 	[betaText setText:[self versionString]];
-	[betaText setHidden:YES];
+	[betaText setHidden:NO];
 }
 
 
@@ -134,29 +133,6 @@
 
 - (IBAction) launchPractice:(id)sender {
 	NSLog(@"Start the Practice");
-}
-
-- (IBAction) launchNaviLanguage:(id)sender {
-    NSString *avc;
-    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    {
-        CGSize result = [[UIScreen mainScreen] bounds].size;
-        if(result.height == 480)
-        {
-            avc=@"languageGuideViewController";
-        }
-        if(result.height == 568)
-        {
-            avc=@"languageGuideViewController-iPhone5";
-        }
-    }
-    
-	if([self languageGuideController] == nil) {
-		languageGuideController = [[languageGuideViewController alloc] initWithNibName:avc bundle:[NSBundle mainBundle]];
-	}
-	
-	[[self navController] pushViewController:languageGuideController animated:YES];
-	
 }
 
 - (IBAction) launchResources:(id)sender {

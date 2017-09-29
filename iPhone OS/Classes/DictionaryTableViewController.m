@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
     
 	//listOfItems = [[NSMutableArray alloc] init];
-    self.searchController = [[UISearchController alloc]     initWithSearchResultsController:nil];
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.searchController.delegate = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
@@ -45,6 +45,7 @@
     self.searchController.searchBar.barTintColor = [UIColor orangeColor];
     [self.tableView setTableHeaderView:self.searchController.searchBar];
     self.definesPresentationContext = YES;
+    [self.searchController.searchBar sizeToFit];
 
 	[super viewDidLoad];
 	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -1150,6 +1151,54 @@
     NSLog(@"search ended");
 }
 
+
+- (void)updateSearchResultsForSearchController:(nonnull UISearchController *)searchController { 
+    
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)aCoder { 
+    
+}
+
+- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection { 
+    
+}
+
+- (void)preferredContentSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container { 
+    
+}
+
+- (CGSize)sizeForChildContentContainer:(nonnull id<UIContentContainer>)container withParentContainerSize:(CGSize)parentSize { 
+    
+}
+
+- (void)systemLayoutFittingSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container { 
+    
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator { 
+    
+}
+
+- (void)willTransitionToTraitCollection:(nonnull UITraitCollection *)newCollection withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator { 
+    
+}
+
+- (void)didUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context withAnimationCoordinator:(nonnull UIFocusAnimationCoordinator *)coordinator { 
+    
+}
+
+- (void)setNeedsFocusUpdate { 
+    
+}
+
+- (BOOL)shouldUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context { 
+    
+}
+
+- (void)updateFocusIfNeeded { 
+    
+}
 
 @end
 

@@ -9,7 +9,7 @@
 #import "AppViewController.h"
 #import "LoadingView.h"
 
-@interface Learn_Navi_iPhone_AppAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate> {
+@interface LearnNaviAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate> {
 	CGRect theRect;
     UIWindow *window;
     AppViewController *appViewController;

@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ResourcesViewController.h"
-#import "languageGuideViewController.h"
-
+#import "DictionaryTableViewController.h"
 
 @interface AppViewController : UIViewController {
 	
@@ -17,13 +16,12 @@
 	UILabel *betaText;
 	UINavigationController *navController;
 	DictionaryTableViewController *dictionaryTableViewController;
-	languageGuideViewController *languageGuideController;
 }
 
 @property (nonatomic, retain) IBOutlet UINavigationController *navController;
 @property (nonatomic, retain) IBOutlet UILabel *betaText;
 @property (nonatomic, retain) IBOutlet UIViewController *dictionaryTableViewController;
-@property (nonatomic, retain) IBOutlet UIViewController *resources, *languageGuideController;
+@property (nonatomic, retain) IBOutlet UIViewController *resources;
 
 - (NSString *)versionString;
 - (NSString *)bundleShortVersionString;
@@ -33,6 +31,5 @@
 - (IBAction) launchPhraseBook:(id)sender;
 - (IBAction) launchPractice:(id)sender;
 - (IBAction) launchResources:(id)sender;
-- (IBAction) launchNaviLanguage:(id)sender;
 
 @end

@@ -49,8 +49,6 @@
 		0427A204112FF0A500307E3F /* disclaimerButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0427A1FE112FF0A500307E3F /* disclaimerButton.png */; };
 		0427A97F1134ED1A00307E3F /* naviLanguage_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0427A97C1134ED1A00307E3F /* naviLanguage_highlighted.png */; };
 		0427A9801134ED1A00307E3F /* naviLanguage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0427A97D1134ED1A00307E3F /* naviLanguage.png */; };
-		0427A9881134EE1E00307E3F /* languageGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427A9861134EE1E00307E3F /* languageGuideViewController.m */; };
-		0427A9891134EE1E00307E3F /* languageGuideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0427A9871134EE1E00307E3F /* languageGuideViewController.xib */; };
 		04304145118C5AC900267527 /* dictionary.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 04304144118C5AC900267527 /* dictionary.sqlite */; };
 		0430438C118CE99E00267527 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0430438B118CE99E00267527 /* Settings.bundle */; };
 		0443E7C611069B8000CEAB58 /* DictionaryEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 0443E7C511069B8000CEAB58 /* DictionaryEntry.m */; };
@@ -92,12 +90,12 @@
 		04DE20B7119F73EA004093C8 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DE20B6119F73EA004093C8 /* LoadingView.m */; };
 		04DE20FA119F750E004093C8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DE20F9119F750E004093C8 /* QuartzCore.framework */; };
 		091CB2151F7C748C00C353EA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 091CB2141F7C748C00C353EA /* Images.xcassets */; };
-		1D3623260D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m */; };
+		09F3929A1F7C80510020AFF8 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09F392991F7C80510020AFF8 /* MainStoryboard.storyboard */; };
+		1D3623260D0F684500981E51 /* LearnNaviAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* LearnNaviAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
-		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		4CEECF5314A13B7600DBC850 /* UIViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEECF5214A13B7600DBC850 /* UIViewAdditions.m */; };
 		7B02DD7B16345395008B7E31 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B02DD7A16345395008B7E31 /* Icon.png */; };
 		7B02DD7D163454F5008B7E31 /* icon-retina.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B02DD7C163454F5008B7E31 /* icon-retina.png */; };
@@ -105,7 +103,6 @@
 		7B094DFF1634B3870031A7F6 /* AboutDisclaimerViewController-iPhone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B094DFA1634B3860031A7F6 /* AboutDisclaimerViewController-iPhone5.xib */; };
 		7B094E001634B3870031A7F6 /* DictionaryEntryViewController-iPhone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B094DFB1634B3860031A7F6 /* DictionaryEntryViewController-iPhone5.xib */; };
 		7B094E011634B3870031A7F6 /* DictionaryTable-iPhone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B094DFC1634B3860031A7F6 /* DictionaryTable-iPhone5.xib */; };
-		7B094E021634B3870031A7F6 /* languageGuideViewController-iPhone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B094DFD1634B3870031A7F6 /* languageGuideViewController-iPhone5.xib */; };
 		7B094E031634B3870031A7F6 /* ResourcesViewController-iPhone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B094DFE1634B3870031A7F6 /* ResourcesViewController-iPhone5.xib */; };
 		7B094E071634B87A0031A7F6 /* AboutBackground-iPhone5.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B094E041634B87A0031A7F6 /* AboutBackground-iPhone5.png */; };
 		7B094E081634B87A0031A7F6 /* AboutDisclaimerBackground-iPhone5.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B094E051634B87A0031A7F6 /* AboutDisclaimerBackground-iPhone5.png */; };
@@ -155,9 +152,6 @@
 		0427A1FE112FF0A500307E3F /* disclaimerButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disclaimerButton.png; sourceTree = "<group>"; };
 		0427A97C1134ED1A00307E3F /* naviLanguage_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = naviLanguage_highlighted.png; sourceTree = "<group>"; };
 		0427A97D1134ED1A00307E3F /* naviLanguage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = naviLanguage.png; sourceTree = "<group>"; };
-		0427A9851134EE1E00307E3F /* languageGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = languageGuideViewController.h; sourceTree = "<group>"; };
-		0427A9861134EE1E00307E3F /* languageGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = languageGuideViewController.m; sourceTree = "<group>"; };
-		0427A9871134EE1E00307E3F /* languageGuideViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = languageGuideViewController.xib; sourceTree = "<group>"; };
 		04304144118C5AC900267527 /* dictionary.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = dictionary.sqlite; sourceTree = "<group>"; };
 		0430438B118CE99E00267527 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		0443E7C411069B8000CEAB58 /* DictionaryEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryEntry.h; sourceTree = "<group>"; };
@@ -211,14 +205,14 @@
 		091CB21A1F7C770400C353EA /* Icon_58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_58.png; sourceTree = "<group>"; };
 		091CB21B1F7C770400C353EA /* Icon_60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_60.png; sourceTree = "<group>"; };
 		091CB21C1F7C770400C353EA /* Icon_40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_40.png; sourceTree = "<group>"; };
+		09F392991F7C80510020AFF8 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D3623240D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Learn_Navi_iPhone_AppAppDelegate.h; path = Classes/Learn_Navi_iPhone_AppAppDelegate.h; sourceTree = "<group>"; };
-		1D3623250D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Learn_Navi_iPhone_AppAppDelegate.m; path = Classes/Learn_Navi_iPhone_AppAppDelegate.m; sourceTree = "<group>"; };
+		1D3623240D0F684500981E51 /* LearnNaviAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LearnNaviAppDelegate.h; path = Classes/LearnNaviAppDelegate.h; sourceTree = "<group>"; };
+		1D3623250D0F684500981E51 /* LearnNaviAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LearnNaviAppDelegate.m; path = Classes/LearnNaviAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* LearnNaviiPhoneApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnNaviiPhoneApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		28A0AAE50D9B0CCF005BE974 /* Learn_Navi_iPhone_App_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Learn_Navi_iPhone_App_Prefix.pch; sourceTree = "<group>"; };
-		28AD735F0D9D9599002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		28A0AAE50D9B0CCF005BE974 /* LearnNaviPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LearnNaviPrefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4CEECF5114A13B7500DBC850 /* UIViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIViewAdditions.h; path = Classes/UIViewAdditions.h; sourceTree = "<group>"; };
 		4CEECF5214A13B7600DBC850 /* UIViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIViewAdditions.m; path = Classes/UIViewAdditions.m; sourceTree = "<group>"; };
@@ -228,7 +222,6 @@
 		7B094DFA1634B3860031A7F6 /* AboutDisclaimerViewController-iPhone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "AboutDisclaimerViewController-iPhone5.xib"; sourceTree = "<group>"; };
 		7B094DFB1634B3860031A7F6 /* DictionaryEntryViewController-iPhone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "DictionaryEntryViewController-iPhone5.xib"; sourceTree = "<group>"; };
 		7B094DFC1634B3860031A7F6 /* DictionaryTable-iPhone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "DictionaryTable-iPhone5.xib"; sourceTree = "<group>"; };
-		7B094DFD1634B3870031A7F6 /* languageGuideViewController-iPhone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "languageGuideViewController-iPhone5.xib"; sourceTree = "<group>"; };
 		7B094DFE1634B3870031A7F6 /* ResourcesViewController-iPhone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ResourcesViewController-iPhone5.xib"; sourceTree = "<group>"; };
 		7B094E041634B87A0031A7F6 /* AboutBackground-iPhone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AboutBackground-iPhone5.png"; sourceTree = "<group>"; };
 		7B094E051634B87A0031A7F6 /* AboutDisclaimerBackground-iPhone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AboutDisclaimerBackground-iPhone5.png"; sourceTree = "<group>"; };
@@ -236,7 +229,7 @@
 		7B094E0A1634D0880031A7F6 /* DisclaimerBackground-iPhone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DisclaimerBackground-iPhone5.png"; sourceTree = "<group>"; };
 		7B0C5CEA160C8A36004A34B0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		7B2DAE2116264BE3006F5C6D /* AppViewController-iPhone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "AppViewController-iPhone5.xib"; path = "Classes/AppViewController-iPhone5.xib"; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* Learn_Navi_iPhone_App-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Learn_Navi_iPhone_App-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* LearnNavi-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "LearnNavi-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -264,16 +257,14 @@
 				0443E8641107D9D000CEAB58 /* AppViewController.m */,
 				0443E90D1107EDBB00CEAB58 /* DictionaryTableViewController.h */,
 				0443E90E1107EDBB00CEAB58 /* DictionaryTableViewController.m */,
-				1D3623240D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.h */,
-				1D3623250D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m */,
+				1D3623240D0F684500981E51 /* LearnNaviAppDelegate.h */,
+				1D3623250D0F684500981E51 /* LearnNaviAppDelegate.m */,
 				0443EFBA110D11B600CEAB58 /* DictionaryEntryViewController.m */,
 				0443EFB9110D11B600CEAB58 /* DictionaryEntryViewController.h */,
 				0427A168112FE06500307E3F /* ResourcesViewController.h */,
 				0427A169112FE06500307E3F /* ResourcesViewController.m */,
 				0427A1CD112FEC9600307E3F /* AboutDisclaimerViewController.h */,
 				0427A1CE112FEC9600307E3F /* AboutDisclaimerViewController.m */,
-				0427A9851134EE1E00307E3F /* languageGuideViewController.h */,
-				0427A9861134EE1E00307E3F /* languageGuideViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -299,6 +290,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				09F392991F7C80510020AFF8 /* MainStoryboard.storyboard */,
 				0443EEC5110CAB2700CEAB58 /* View Controllers */,
 				080E96DDFE201D6D7F000001 /* Models */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -316,7 +308,7 @@
 				4CEECF5214A13B7600DBC850 /* UIViewAdditions.m */,
 				04DE20B5119F73EA004093C8 /* LoadingView.h */,
 				04DE20B6119F73EA004093C8 /* LoadingView.m */,
-				28A0AAE50D9B0CCF005BE974 /* Learn_Navi_iPhone_App_Prefix.pch */,
+				28A0AAE50D9B0CCF005BE974 /* LearnNaviPrefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -374,14 +366,11 @@
 				7B02DD7C163454F5008B7E31 /* icon-retina.png */,
 				04C40F3510FD2FA6001251C2 /* icon.png */,
 				7B02DD7A16345395008B7E31 /* Icon.png */,
-				7B094DFD1634B3870031A7F6 /* languageGuideViewController-iPhone5.xib */,
-				0427A9871134EE1E00307E3F /* languageGuideViewController.xib */,
-				8D1107310486CEB800E47090 /* Learn_Navi_iPhone_App-Info.plist */,
+				8D1107310486CEB800E47090 /* LearnNavi-Info.plist */,
 				0427A196112FE62B00307E3F /* learnNaviButton_highlighted.png */,
 				04DA7CDB125DA3F000256384 /* learnNaviButton_highlighted@2x.png */,
 				0427A197112FE62B00307E3F /* learnNaviButton.png */,
 				04DA7CDC125DA3F000256384 /* learnNaviButton@2x.png */,
-				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
 				0427A97C1134ED1A00307E3F /* naviLanguage_highlighted.png */,
 				0427A97D1134ED1A00307E3F /* naviLanguage.png */,
 				041A6747110384890009CEC2 /* phraseBookButton_highlighted.png */,
@@ -486,7 +475,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */,
 				091CB2151F7C748C00C353EA /* Images.xcassets in Resources */,
 				047B445E10FAFA41007B9236 /* HomeScreenBackground.png in Resources */,
 				047B448B10FB7B07007B9236 /* Default.png in Resources */,
@@ -518,7 +506,6 @@
 				0427A204112FF0A500307E3F /* disclaimerButton.png in Resources */,
 				0427A97F1134ED1A00307E3F /* naviLanguage_highlighted.png in Resources */,
 				0427A9801134ED1A00307E3F /* naviLanguage.png in Resources */,
-				0427A9891134EE1E00307E3F /* languageGuideViewController.xib in Resources */,
 				04304145118C5AC900267527 /* dictionary.sqlite in Resources */,
 				0430438C118CE99E00267527 /* Settings.bundle in Resources */,
 				04DE2048119F5329004093C8 /* updateDictionaryButton_highlighted.png in Resources */,
@@ -553,7 +540,7 @@
 				7B094DFF1634B3870031A7F6 /* AboutDisclaimerViewController-iPhone5.xib in Resources */,
 				7B094E001634B3870031A7F6 /* DictionaryEntryViewController-iPhone5.xib in Resources */,
 				7B094E011634B3870031A7F6 /* DictionaryTable-iPhone5.xib in Resources */,
-				7B094E021634B3870031A7F6 /* languageGuideViewController-iPhone5.xib in Resources */,
+				09F3929A1F7C80510020AFF8 /* MainStoryboard.storyboard in Resources */,
 				7B094E031634B3870031A7F6 /* ResourcesViewController-iPhone5.xib in Resources */,
 				7B094E071634B87A0031A7F6 /* AboutBackground-iPhone5.png in Resources */,
 				7B094E081634B87A0031A7F6 /* AboutDisclaimerBackground-iPhone5.png in Resources */,
@@ -612,14 +599,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
-				1D3623260D0F684500981E51 /* Learn_Navi_iPhone_AppAppDelegate.m in Sources */,
+				1D3623260D0F684500981E51 /* LearnNaviAppDelegate.m in Sources */,
 				0443E7C611069B8000CEAB58 /* DictionaryEntry.m in Sources */,
 				0443E8661107D9D000CEAB58 /* AppViewController.m in Sources */,
 				0443E90F1107EDBB00CEAB58 /* DictionaryTableViewController.m in Sources */,
 				0443EFBC110D11B600CEAB58 /* DictionaryEntryViewController.m in Sources */,
 				0427A16B112FE06500307E3F /* ResourcesViewController.m in Sources */,
 				0427A1D0112FEC9600307E3F /* AboutDisclaimerViewController.m in Sources */,
-				0427A9881134EE1E00307E3F /* languageGuideViewController.m in Sources */,
 				04DE20B7119F73EA004093C8 /* LoadingView.m in Sources */,
 				4CEECF5314A13B7600DBC850 /* UIViewAdditions.m in Sources */,
 			);
@@ -712,8 +698,8 @@
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 5X7KP44M4V;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Learn_Navi_iPhone_App_Prefix.pch;
-				INFOPLIST_FILE = "Learn_Navi_iPhone_App-Info.plist";
+				GCC_PREFIX_HEADER = LearnNaviPrefix.pch;
+				INFOPLIST_FILE = "LearnNavi-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -739,8 +725,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Learn_Navi_iPhone_App_Prefix.pch;
-				INFOPLIST_FILE = "Learn_Navi_iPhone_App-Info.plist";
+				GCC_PREFIX_HEADER = LearnNaviPrefix.pch;
+				INFOPLIST_FILE = "LearnNavi-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -764,8 +750,8 @@
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 5X7KP44M4V;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Learn_Navi_iPhone_App_Prefix.pch;
-				INFOPLIST_FILE = "Learn_Navi_iPhone_App-Info.plist";
+				GCC_PREFIX_HEADER = LearnNaviPrefix.pch;
+				INFOPLIST_FILE = "LearnNavi-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
